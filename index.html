@@ -155,8 +155,12 @@
         .welcome-banner { background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); padding: 18px 22px; border-radius: 10px; margin-bottom: 25px; border-left: 6px solid #7c3aed; color: #5b21b6; font-weight: 600; }
         .captain-panel { background: #fef9c3; border: 3px dashed #ca8a04; padding: 25px; border-radius: 14px; margin-top: 30px; }
         
+        /* VISIBILITY UTILITIES FOR SEAMLESS DASHBOARD RENDERING */
         .page-view { display: none; }
-        .page-view.active-page { display: block; }
+        .active-page { display: block !important; }
+        .hidden-box { display: none !important; }
+        .visible-box { display: block !important; }
+
         footer { text-align: center; padding: 45px 10px; color: #ffffff; background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); margin-top: 60px; border-top: 5px solid #f59e0b; font-weight: 800; letter-spacing: 1px; line-height: 1.6; }
     </style>
 </head>
@@ -336,7 +340,7 @@
     <div id="page-portal" class="page-view">
         <div class="card card-portal">
             
-            <div id="login-box" style="display: block;">
+            <div id="login-box" class="visible-box">
                 <h2>Student Portal Secure Access</h2>
                 <form onsubmit="handleLogin(event)">
                     <label>Full Name</label><input type="text" id="student-name" required placeholder="e.g. SANCHIT GUPTA">
@@ -366,7 +370,7 @@
                 </form>
             </div>
 
-            <div id="dashboard-box" style="display: none;">
+            <div id="dashboard-box" class="hidden-box">
                 <div class="welcome-banner">
                     <span style="font-weight:900; font-size:1.3rem; letter-spacing: 0.5px;">OPERATIONAL WORKSPACE ACTIVE</span><br>
                     User: <span id="display-name" style="text-decoration: underline;">Student</span> | Role: <span id="display-role" style="font-weight: bold; color: #6d28d9;">Member</span><br>
@@ -554,6 +558,9 @@
         { name: "SANA KAKKAR", class: "9", section: "B", position: "PREFECT", pass: "Sana@Prefect" },
         { name: "VANSH", class: "9", section: "C", position: "PREFECT", pass: "Vansh@Prefect" },
         { name: "TANISHKA", class: "9", section: "C", position: "PREFECT", pass: "Tanishka@Prefect" },
+        { name: "BHAVIK", class: "8", section: "B", position: "PREFECT", pass: "Bhavik@Prefect" },
+        { name: "JASMAIRA", class: "7", section: "B", position: "PREFECT", pass: "Jasmaira@Prefect" },
+        { name: "MANRAJ", class: "7", section: "B", position: "PREFECT", pass: "Manraj@Prefect" },
         { name: "SANCHIT GUPTA", class: "9", section: "A", position: "HOUSE CAPTAIN", pass: "Sanchit#Aravali" },
         { name: "HREHAAN ARORA", class: "9", section: "A", position: "VICE HOUSE CAPTAIN", pass: "Hrehaan#Aravali" },
         { name: "PAAVNI BHALLA", class: "9", section: "C", position: "HOUSE CULTURAL CAPTAIN", pass: "Paavni#Aravali" },
@@ -567,6 +574,8 @@
     let allocatedDutiesMap = {}; 
     let allocatedResponsibilitiesMap = {};
     let activeHouseMeetingBroadcast = "No house meetings scheduled currently.";
+
+    let currentSessionUser = null;
 
     function getStatusClass(statusText) {
         if (!statusText) return "";
@@ -807,7 +816,7 @@
         document.getElementById('comments').value = '';
     }
 
-    // STABLE STANDARD CROSS-BROWSER INTERFACE TOGGLE LOGIC
+    // NATIVE-ENGINE COMPATIBLE DISPLAY ROUTINES
     function handleLogin(event) {
         event.preventDefault();
         const nameInput = document.getElementById('student-name').value.trim().toUpperCase();
@@ -857,9 +866,9 @@
             
             if(isCouncil) populateStudentSelectors();
 
-            // SOLID CSS VISIBILITY STATES VIA COMPATIBILITY ARRAYS
-            document.getElementById('login-box').style.cssText = "display: none !important;";
-            document.getElementById('dashboard-box').style.cssText = "display: block !important;";
+            // FIXED COMPATIBILITY STATE TOGGLES
+            document.getElementById('login-box').className = "hidden-box";
+            document.getElementById('dashboard-box').className = "visible-box";
         } else {
             errorBox.style.display = 'block';
         }
@@ -867,8 +876,8 @@
 
     function handleLogout() {
         currentSessionUser = null;
-        document.getElementById('login-box').style.cssText = "display: block !important;";
-        document.getElementById('dashboard-box').style.cssText = "display: none !important;";
+        document.getElementById('login-box').className = "visible-box";
+        document.getElementById('dashboard-box').className = "hidden-box";
         renderActivitiesTable();
         renderAchieversTable();
     }
