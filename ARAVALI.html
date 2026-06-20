@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Aravali Hub | Official Platform</title>
+    <style>
+        /* Extreme High-Vibrancy School House Color Palette Layout */
+        body { 
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; 
+            margin: 0; 
+            background: linear-gradient(135deg, #ffefdb 0%, #ffdfd5 50%, #e0f2fe 100%); 
+            color: #0f172a; 
+            line-height: 1.7;
+        }
+
+        /* 1. CONTINUOUSLY MOVING TEXT TICKER BANNER (NO EMPTY SPACE BETWEEN LINES) */
+        .marquee-wrapper {
+            background: linear-gradient(90deg, #dc2626 0%, #f59e0b 25%, #10b981 50%, #3b82f6 75%, #dc2626 100%);
+            color: #ffffff;
+            overflow: hidden;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            height: 45px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border-bottom: 3px solid #ffffff;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: continuousMarquee 20s linear infinite;
+            font-weight: 900;
+            font-size: 1rem;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.4);
+        }
+        .marquee-content span {
+            padding-right: 60px;
+        }
+        @keyframes continuousMarquee {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); }
+        }
+
+        /* DYNAMIC TINT OVERLAY WITH LIVE CAMPUS WEB BACKUP LINK */
+        header { 
+            background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(30, 58, 138, 0.75)), 
+                        url('apee-jay-school-model-town-jalandhar-schools-giz7xaz8pw.avif'),
+                        url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #ffffff; 
+            padding: 6rem 1rem; 
+            text-align: center; 
+            border-bottom: 6px solid #f59e0b; 
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.25);
+        }
+        header h1 { margin: 0; font-size: 3.2rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase; color: #ffffff; text-shadow: 3px 3px 8px rgba(0,0,0,0.7); }
+        header p { margin: 15px 0 0 0; font-size: 12.2rem; color: #fcd34d; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
+        header p { margin: 15px 0 0 0; font-size: 1.2rem; color: #fcd34d; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
+        
+        nav { background: #0f172a; padding: 5px 0; text-align: center; position: sticky; top: 0; z-index: 100; border-bottom: 4px solid #f59e0b; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
+        nav .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
+        nav button { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); border: 2px solid #475569; color: #f1f5f9; padding: 14px 24px; font-weight: 800; font-size: 0.95rem; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; border-radius: 8px; transition: all 0.3s ease; }
+        nav button:hover, nav button.active { color: #ffffff; background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%); border-color: #ffffff; box-shadow: 0 0 15px #f59e0b; }
+
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; box-sizing: border-box; }
+        
+        /* Maximum Limits of Being Colourful Cards styling */
+        .card { background: #ffffff; padding: 35px; margin-bottom: 30px; border-radius: 16px; box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.1); border: 3px solid #cbd5e1; transition: all 0.3s ease; }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 20px 35px rgba(0,0,0,0.15); }
+        
+        .card-goal { border-color: #3b82f6; background: #eff6ff; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.15); }
+        .card-achievers { border-color: #ec4899; background: #fdf2f8; box-shadow: 0 10px 20px rgba(236, 72, 153, 0.15); }
+        .card-council { border-color: #10b981; background: #f0fdf4; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.15); }
+        .card-portal { border-color: #8b5cf6; background: #faf5ff; box-shadow: 0 10px 20px rgba(139, 92, 246, 0.15); }
+        
+        h2 { color: #0f172a; margin-top: 0; font-size: 1.8rem; text-transform: uppercase; border-bottom: 3px dashed #cbd5e1; padding-bottom: 12px; margin-bottom: 20px; font-weight: 900; display: flex; align-items: center; gap: 10px; }
+        .card-goal h2 { color: #1e40af; border-bottom-color: #bfdbfe; }
+        .card-achievers h2 { color: #9d174d; border-bottom-color: #fbcfe8; }
+        .card-council h2 { color: #065f46; border-bottom-color: #a7f3d0; }
+
+        label { display: block; margin-top: 15px; font-weight: 800; font-size: 0.9rem; color: #0f172a; text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-row { display: flex; gap: 15px; margin-bottom: 10px; flex-wrap: wrap; }
+        .form-group { flex: 1; min-width: 150px; }
+        input, select, textarea { padding: 14px; margin-top: 6px; width: 100%; box-sizing: border-box; border: 3px solid #cbd5e1; border-radius: 10px; font-size: 1rem; background-color: #ffffff; color: #0f172a; font-weight: 600; transition: all 0.2s; }
+        input:focus, select:focus, textarea:focus { border-color: #f59e0b; box-shadow: 0 0 10px rgba(245, 158, 11, 0.5); outline: none; }
+        
+        /* High-Vibrancy Buttons */
+        .action-button { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: #ffffff; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: 800; font-size: 1rem; text-transform: uppercase; cursor: pointer; margin-top: 20px; letter-spacing: 1px; transition: all 0.2s; box-shadow: 0 4px 10px rgba(29, 78, 216, 0.3); }
+        .action-button:hover { background: #1d4ed8; transform: scale(1.01); box-shadow: 0 6px 15px rgba(29, 78, 216, 0.4); }
+        .btn-accent { background: linear-gradient(135deg, #10b981 0%, #047857 100%); box-shadow: 0 4px 10px rgba(4, 120, 87, 0.3); }
+        .btn-accent:hover { background: #047857; box-shadow: 0 6px 15px rgba(4, 120, 87, 0.4); }
+        .btn-delete { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important; color: white !important; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; box-shadow: 0 2px 5px rgba(220, 38, 38, 0.3); }
+        .btn-delete:hover { background: #b91c1c !important; }
+
+        /* WhatsApp Hyperlink Styling inside Dashboard Banner */
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            background: #25d366;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .whatsapp-btn:hover {
+            background: #128c7e;
+            transform: translateY(-1px);
+        }
+
+        /* Highly Colourful Tables styling */
+        .table-responsive { width: 100%; overflow-x: auto; margin-top: 15px; border: 3px solid #0f172a; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
+        table { width: 100%; border-collapse: collapse; font-size: 0.92rem; text-align: center; background-color: #ffffff; font-weight: 500; }
+        th, td { border: 2px solid #cbd5e1; padding: 14px 16px; }
+        th { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #ffffff; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; font-weight: 900; }
+        .nested-header { background: #334155; color: #ffffff; font-size: 0.8rem; }
+        tr:nth-child(even) td { background-color: #f8fafc; }
+        .left-align { text-align: left; }
+
+        /* Row Highlighting Color Schemes */
+        .status-present { background-color: #dcfce7 !important; color: #15803d !important; font-weight: bold; border: 2px solid #bbf7d0 !important; }
+        .status-absent { background-color: #fee2e2 !important; color: #b91c1c !important; font-weight: bold; border: 2px solid #fecaca !important; }
+        .status-neutral { background-color: #f1f5f9 !important; color: #475569 !important; }
+
+        /* HOUSE MISTRESS BOX DISPLAY BANNER */
+        .mistress-box {
+            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
+            border: 3px solid #0284c7;
+            padding: 22px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            color: #0369a1;
+            font-weight: 800;
+            font-size: 1.05rem;
+            box-shadow: 0 5px 15px rgba(2, 132, 199, 0.15);
+            text-align: center;
+        }
+
+        .welcome-banner { background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); padding: 18px 22px; border-radius: 10px; margin-bottom: 25px; border-left: 6px solid #7c3aed; color: #5b21b6; font-weight: 600; }
+        .captain-panel { background: #fef9c3; border: 3px dashed #ca8a04; padding: 25px; border-radius: 14px; margin-top: 30px; }
+        
+        .page-view { display: none; }
+        .page-view.active-page { display: block; }
+        footer { text-align: center; padding: 45px 10px; color: #ffffff; background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%); margin-top: 60px; border-top: 5px solid #f59e0b; font-weight: 800; letter-spacing: 1px; line-height: 1.6; }
+    </style>
+</head>
+<body>
+
+<div class="marquee-wrapper">
+    <div class="marquee-content">
+        <span>🌟 WELCOME TO ARAVALI HOUSE OFFICIAL HUBSITE! 🌟</span>
+        <span>🔥 MOTTO: SOARING HIGH IS MY NATURE! 🔥</span>
+        <span>⚡ DEMONSTRATE EXCELLENCE, LEAD WITH INTEGRITY, UNITY IS OUR STRENGTH! ⚡</span>
+        <span>🌟 WELCOME TO ARAVALI HOUSE OFFICIAL HUBSITE! 🌟</span>
+        <span>🔥 MOTTO: SOARING HIGH IS MY NATURE! 🔥</span>
+        <span>⚡ DEMONSTRATE EXCELLENCE, LEAD WITH INTEGRITY, UNITY IS OUR STRENGTH! ⚡</span>
+    </div>
+</div>
+
+<header>
+    <h1>THE ARAVALI HUB</h1>
+    <p>DIGITAL WORKSTATION & OPERATIONS PORTAL</p>
+</header>
+
+<nav>
+    <div class="nav-container">
+        <button id="nav-home" class="active" onclick="switchPage('home')">Our Goal</button>
+        <button id="nav-achievers" onclick="switchPage('achievers')">Our Achievers</button>
+        <button id="nav-council" onclick="switchPage('council')">Our House Council</button>
+        <button id="nav-portal" onclick="switchPage('portal')">Student Portal</button>
+    </div>
+</nav>
+
+<div class="container">
+    
+    <div id="page-home" class="page-view active-page">
+        <div class="card card-goal">
+            <h2>Our Main Goal</h2>
+            <p>This is a shared online space where Aravali house members can use their personal skills and share their knowledge. It is a modern, easy way for students to talk about new ideas, support their friends, and make sure every single member's hard work is noticed and valued.</p>
+            <p>This website helps our house work smoothly together. It gives everyone a clear space to see house achievements, find helpful study resources, and lead our main house projects.</p>
+            <button type="button" class="action-button" onclick="switchPage('portal')">Access Student Portal Entrance &rarr;</button>
+        </div>
+
+        <div class="card" style="border-left: 8px solid #0284c7; background: #f0f9ff;">
+            <h2>Upcoming House Activities & Events</h2>
+            <p style="font-size:0.95rem; color:#0369a1; font-weight: 500;">Live schedules matching event indices. Council members retain full editing capabilities.</p>
+            <div class="table-responsive">
+                <table id="activities-table">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Type of Event</th>
+                            <th>Eligibility Criteria</th>
+                            <th>Name of the Event</th>
+                            <th class="council-actions" style="display:none;">Administrative Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card" style="border-left: 8px solid #f59e0b; background: #fffbeb;">
+            <h2>Duty Reviews & Suggestions</h2>
+            <form onsubmit="handleSuggestionSubmit(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Your Name (Optional)</label>
+                        <input type="text" id="suggest-name" placeholder="Anonymous Entry Log">
+                    </div>
+                    <div class="form-group">
+                        <label>Category Topic</label>
+                        <select>
+                            <option>Review a Duty System Assignment</option>
+                            <option>Suggest a New House Activity</option>
+                        </select>
+                    </div>
+                </div>
+                <label>Feedback Message Notes</label>
+                <textarea id="comments" rows="4" placeholder="Type structural notes here..." required></textarea>
+                <button type="submit" class="action-button btn-accent">Submit To Operations Node</button>
+            </form>
+        </div>
+
+        <div class="mistress-box">
+            🏛 *OFFICIAL HOUSEMISTRESS DIRECTORY PANEL*<br>
+            <span style="font-size: 1.4rem; color: #0369a1; font-weight: 900;">Ms. Manmeet Kaur</span><br> 📞 Contact Phone Number: <span style="font-size: 1.2rem; color: #0284c7; font-weight: 800; letter-spacing:0.5px;">+91 98723 34419</span>
+        </div>
+
+        <div class="card" style="border-left: 8px solid #dc2626; background: #fef2f2; text-align: center; border-radius: 16px;">
+            <h2 style="justify-content: center; color: #991b1b;">Aravali Leadership Council Address</h2>
+            <p style="font-style: italic; font-size: 1.2rem; color: #7f1d1d; font-weight: 600; padding: 10px 0;">
+                "Aravali House members, remember that soaring high is truly our nature. Excellence is not a singular act, but a habit we compile through discipline every single day at our duty posts. Let us stand unified, lead with honor, and drive our house toward ultimate victory!"
+            </p>
+            <span style="font-weight: 800; font-size: 0.95rem; color: #b91c1c; text-transform: uppercase; letter-spacing: 1.5px; display: block; border-top: 2px dashed #fee2e2; padding-top: 15px;">— Signed: The House Captain & Full Executive House Council</span>
+        </div>
+    </div>
+
+    <div id="page-achievers" class="page-view">
+        <div class="card card-achievers">
+            <h2>Aravali House Roll of Achievers</h2>
+            <p style="color: #9d174d; font-weight: 500;">Public ledger celebrating exceptional performances by house members across distinct categories.</p>
+            <div class="table-responsive">
+                <table id="achievers-table">
+                    <thead>
+                        <tr>
+                            <th>S. No.</th>
+                            <th>Name</th>
+                            <th>Position in the House</th>
+                            <th>Type of Competition</th>
+                            <th>Position Won in Competition</th>
+                            <th>Class</th>
+                            <th>Section</th>
+                            <th class="council-actions" style="display:none;">Administrative Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-council" class="page-view">
+        <div class="card card-council">
+            <h2>Official House Council Registry Directory</h2>
+            <p style="color: #065f46; font-weight: 500;">Active core executive framework managing Aravali operational tracking matrices.</p>
+            <div class="table-responsive" style="border-color: #10b981;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Name Description</th>
+                            <th>Class</th>
+                            <th>Section</th>
+                            <th>Position in the House</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="background-color: #ecfdf5;"><td style="font-weight: 800;">1</td><td><strong>SANCHIT GUPTA</strong></td><td style="font-weight: bold;">9</td><td style="font-weight: bold;">A</td><td><span style="color:#059669; font-weight:900; font-size: 1.05rem;">HOUSE CAPTAIN</span></td></tr>
+                        <tr><td style="font-weight: 800;">2</td><td><strong>HREHAAN ARORA</strong></td><td style="font-weight: bold;">9</td><td style="font-weight: bold;">A</td><td style="font-weight: 700; color: #047857;">VICE HOUSE CAPTAIN</td></tr>
+                        <tr style="background-color: #ecfdf5;"><td style="font-weight: 800;">3</td><td><strong>PAAVNI BHALLA</strong></td><td style="font-weight: bold;">9</td><td style="font-weight: bold;">C</td><td style="font-weight: 600;">HOUSE CULTURAL CAPTAIN</td></tr>
+                        <tr><td style="font-weight: 800;">4</td><td><strong>DIVAS ARORA</strong></td><td style="font-weight: bold;">10</td><td style="font-weight: bold;">B</td><td style="font-weight: 600;">HOUSE SPORTS CAPTAIN</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="welcome-banner" style="margin-top: 35px; border-left: 6px solid #10b981; background: #e6fdf0; color: #047857; font-size: 1.05rem;">
+                📞 <strong>Administrative Contact Node:</strong> For structural queries, schedule submissions, or operational conflicts, contact the **House Captain** directly at <span style="font-size: 1.2rem; color:#065f46; font-weight:900; background: #ffffff; padding: 2px 8px; border-radius: 6px; border: 1px solid #a7f3d0;">+91 9103741440</span>.
+            </div>
+        </div>
+    </div>
+
+    <div id="page-portal" class="page-view">
+        <div class="card card-portal">
+            <h2>Student Portal Secure Access</h2>
+            <div id="login-box">
+                <form onsubmit="handleLogin(event)">
+                    <label>Full Name</label><input type="text" id="student-name" required>
+                    <div class="form-row">
+                        <div class="form-group"><label>Class</label><input type="text" id="student-class" required></div>
+                        <div class="form-group"><label>Section</label><input type="text" id="student-section"></div>
+                    </div>
+                    <label>Your Assigned House Position</label>
+                    <select id="student-position">
+                        <option value="MEMBER">House Member</option>
+                        <option value="PREFECT">Prefect</option>
+                        <option value="HOUSE CAPTAIN">House Captain</option>
+                        <option value="VICE HOUSE CAPTAIN">Vice House Captain</option>
+                        <option value="HOUSE CULTURAL CAPTAIN">House Cultural Captain</option>
+                        <option value="HOUSE SPORTS CAPTAIN">House Sports Captain</option>
+                    </select>
+                    <label>Security Access Password</label><input type="password" id="student-password" required>
+                    <button type="submit" class="action-button">Verify Identity Node</button>
+                </form>
+            </div>
+
+            <div id="dashboard-box" style="display:none;">
+                <div class="welcome-banner">
+                    <span style="font-weight:900; font-size:1.3rem; letter-spacing: 0.5px;">OPERATIONAL WORKSPACE ACTIVE</span><br>
+                    User: <span id="display-name" style="text-decoration: underline;">Student</span> | Role: <span id="display-role" style="font-weight: bold; color: #6d28d9;">Member</span><br>
+                    
+                    <a href="https://chat.whatsapp.com/FPZSXd3M3bKDctZ947ktMl" target="_blank" class="whatsapp-btn">
+                        💬 Join Official Aravali House WhatsApp Group
+                    </a>
+                </div>
+
+                <button type="button" class="action-button btn-accent" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); box-shadow: 0 4px 10px rgba(109,40,217,0.3);" onclick="requestAttendance()">Forward Attendance Request</button>
+
+                <h3 style="margin-top:40px; color: #4c1d95;">Duty Attendance Status Grid</h3>
+                <div class="table-responsive" style="border-color: #8b5cf6;">
+                    <table id="attendance-table">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">S. No.</th>
+                                <th rowspan="2">Name</th>
+                                <th rowspan="2">Position</th>
+                                <th rowspan="2">Location</th>
+                                <th colspan="3" class="date-header" id="d1">4/5/2026</th>
+                                <th colspan="3" class="date-header" id="d2">5/5/2026</th>
+                                <th colspan="3" class="date-header" id="d3">6/5/2026</th>
+                                <th colspan="3" class="date-header" id="d4">7/5/2026</th>
+                                <th colspan="3" class="date-header" id="d5">8/5/2026</th>
+                                <th rowspan="2">Punctuality</th>
+                                <th rowspan="2" id="th-remarks" style="display:none;">Remarks Log</th>
+                                <th rowspan="2" class="council-actions" style="display:none;">Administrative Actions</th>
+                            </tr>
+                            <tr>
+                                <th class="nested-header">1st</th><th class="nested-header">2nd</th><th class="nested-header">Disp</th>
+                                <th class="nested-header">1st</th><th class="nested-header">2nd</th><th class="nested-header">Disp</th>
+                                <th class="nested-header">1st</th><th class="nested-header">2nd</th><th class="nested-header">Disp</th>
+                                <th class="nested-header">1st</th><th class="nested-header">2nd</th><th class="nested-header">Disp</th>
+                                <th class="nested-header">1st</th><th class="nested-header">2nd</th><th class="nested-header">Disp</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+
+                <div id="council-panel" class="captain-panel" style="display:none;">
+                    <h2 style="color:#b45309; border-bottom: 3px dashed #f59e0b; padding-bottom: 8px;">House Council Global Data Engine</h2>
+                    
+                    <h3 style="color: #b45309;">1. Edit Attendance Register Logs</h3>
+                    <form onsubmit="directEditAttendance(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a; margin-bottom:25px;">
+                        <div class="form-row">
+                            <div class="form-group"><label>Name</label><input type="text" id="att-name" required></div>
+                            <div class="form-group"><label>Position</label><input type="text" id="att-pos" required></div>
+                            <div class="form-group"><label>Location</label><input type="text" id="att-loc" required></div>
+                            <div class="form-group"><label>Punctuality</label><input type="text" id="att-punct" required></div>
+                        </div>
+                        <div class="form-group"><label>Remarks</label><input type="text" id="att-remark"></div>
+                        <button type="submit" class="action-button" style="background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%); box-shadow: 0 4px 10px rgba(202,138,4,0.3);">Save/Update Attendance Entry Row</button>
+                    </form>
+
+                    <h3 style="color: #b45309;">2. Manage Upcoming Events Data</h3>
+                    <form onsubmit="directAddActivity(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a; margin-bottom:25px;">
+                        <div class="form-row">
+                            <div class="form-group"><label>Type of Event</label><input type="text" id="form-evt-type" required></div>
+                            <div class="form-group"><label>Eligibility Criteria</label><input type="text" id="form-evt-elig" required></div>
+                            <div class="form-group"><label>Name of the Event</label><input type="text" id="form-evt-name" required></div>
+                        </div>
+                        <button type="submit" class="action-button" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); box-shadow: 0 4px 10px rgba(3,105,161,0.3);">Add / Push Event Entry</button>
+                    </form>
+
+                    <h3 style="color: #b45309;">3. Manage Achievers Roll Entry Logs</h3>
+                    <form onsubmit="directAddAchiever(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a;">
+                        <div class="form-row">
+                            <div class="form-group"><label>Achiever Name</label><input type="text" id="form-ach-name" required></div>
+                            <div class="form-group"><label>House Position</label><input type="text" id="form-ach-pos" required></div>
+                            <div class="form-group"><label>Competition Type</label><input type="text" id="form-ach-type" required></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Position Won</label><input type="text" id="form-ach-won" required></div>
+                            <div class="form-group"><label>Class</label><input type="text" id="form-ach-class" required></div>
+                            <div class="form-group"><label>Section</label><input type="text" id="form-ach-sec" required></div>
+                        </div>
+                        <button type="submit" class="action-button" style="background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); box-shadow: 0 4px 10px rgba(190,24,93,0.3);">Upload / Commit Achiever Profile</button>
+                    </form>
+                </div>
+
+                <button type="button" class="action-button" style="background:#475569; margin-top:25px;" onclick="handleLogout()">Exit Portal Node</button>
+            </div>
+        </div>
+
+        <div class="card" id="public-members-card" style="border-color: #94a3b8; background: #f8fafc;">
+            <h2>Authorized Batchholder Reference Key Index</h2>
+            <div class="table-responsive" style="border-color: #475569;">
+                <table id="public-members-table">
+                    <thead><tr><th>S.No</th><th>Name</th><th>Class</th><th>Section</th><th>Position</th></tr></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    THE ARAVALI HUB &copy; 2026<br>
+    <span style="font-size: 0.85rem; font-weight: 500; opacity: 0.9;">An initiative of the house council of Aravali house of the academic session 2026 - 2027</span>
+</footer>
+
+<script>
+    // Master authentication arrays
+    let authorizedStudents = [
+        { name: "ALIYA", class: "10", section: "C", position: "PREFECT", pass: "Aliya@Prefect" },
+        { name: "NAVYA KOHLI", class: "10", section: "A", position: "PREFECT", pass: "Navya@Prefect" },
+        { name: "RAADHIYA", class: "9", section: "A", position: "PREFECT", pass: "Raadhiya@Prefect" },
+        { name: "AKSHITA", class: "9", section: "A", position: "PREFECT", pass: "Akshita@Prefect" },
+        { name: "SANA KAKKAR", class: "9", section: "B", position: "PREFECT", pass: "Sana@Prefect" },
+        { name: "VANSH", class: "9", section: "C", position: "PREFECT", pass: "Vansh@Prefect" },
+        { name: "TANISHKA", class: "9", section: "C", position: "PREFECT", pass: "Tanishka@Prefect" },
+        { name: "SANCHIT GUPTA", class: "9", section: "A", position: "HOUSE CAPTAIN", pass: "Sanchit#Aravali" },
+        { name: "HREHAAN ARORA", class: "9", section: "A", position: "VICE HOUSE CAPTAIN", pass: "Hrehaan#Aravali" },
+        { name: "PAAVNI BHALLA", class: "9", section: "C", position: "HOUSE CULTURAL CAPTAIN", pass: "Paavni#Aravali" },
+        { name: "DIVAS ARORA", class: "10", section: "B", position: "HOUSE SPORTS CAPTAIN", pass: "Divas#Aravali" }
+    ];
+
+    // Attendance data schema derived directly from your sheet source report logs
+    let attendanceDatabase = [
+        { name: "Sanchit", pos: "Captain", loc: "Overall", d1: ["Present","Present","Present"], d2: ["Present","Present","Present"], d3: ["Present","Present","Present"], d4: ["Present","Present","Present"], d5: ["Present","Didn't happen","Present"], punct: "9/10", remark: "Takes time in eating food", status: "APPROVED" },
+        { name: "Hrehaan", pos: "Vice Captain", loc: "Overall", d1: ["Present","Present","Present"], d2: ["Present","Present","Present"], d3: ["Present","Present","Present"], d4: ["Present","Present","Present"], d5: ["Present","Didn't happen","Present"], punct: "10/10", remark: "bold and helps maintain discipline in the house", status: "APPROVED" },
+        { name: "Ryan", pos: "Member", loc: "Canteen", d1: ["Absent","Absent","N/A"], d2: ["Absent","Absent","N/A"], d3: ["Absent","Absent","N/A"], d4: ["Absent","Absent","N/A"], d5: ["Absent","Didn't happen","Absent"], punct: "Didn't Come", remark: "DIDN'T COME to do the duty", status: "APPROVED" },
+        { name: "Sana", pos: "Prefect", loc: "Canteen", d1: ["Present","Present","Absent"], d2: ["Present","Present","Absent"], d3: ["Present","Present","Present"], d4: ["Absent","",""], d5: ["Present","Didn't happen","Present"], punct: "8/10", remark: "Initially argued to do the duty but later on did well", status: "APPROVED" },
+        { name: "Akshita", pos: "Prefect", loc: "Physics Lab Stairs", d1: ["Present","Present","N/A"], d2: ["Present","Present","N/A"], d3: ["Present","Present","N/A"], d4: ["Present","Present","N/A"], d5: ["Present","Didn't happen","Present"], punct: "9/10", remark: "Regular and reliable", status: "APPROVED" },
+        { name: "Vansh", pos: "Prefect", loc: "Grass Ground", d1: ["Present","Present","Present"], d2: ["Present","Present","Present"], d3: ["Present","Present","Present"], d4: ["Present","Present","Present"], d5: ["Present","Didn't happen","Present"], punct: "10/10", remark: "Does his duty very well, deserves appreciation", status: "APPROVED" }
+    ];
+
+    let houseActivities = [
+        { type: "Literary", elig: "Classes 9 - 12", name: "Inter-House Hindi Debate" },
+        { type: "Sports", elig: "All House Members", name: "House Athletics Tracking Meet" },
+        { type: "Art & Design", elig: "Classes 9 & 10", name: "Creative Board Chart Project" }
+    ];
+
+    let achieversDatabase = [
+        { name: "SANCHIT GUPTA", housePos: "HOUSE CAPTAIN", compType: "Literary competition", wonPos: "1st Position", class: "9", sec: "A" },
+        { name: "ALIYA", housePos: "PREFECT", compType: "Inter-School Math Olympiad", wonPos: "Gold Medalist", class: "10", sec: "C" }
+    ];
+
+    let currentSessionUser = null;
+
+    function getStatusClass(statusText) {
+        if (!statusText) return "";
+        let cleanText = statusText.trim().toUpperCase();
+        if (cleanText === "PRESENT") return "status-present";
+        if (cleanText === "ABSENT" || cleanText === "DIDN'T COME") return "status-absent";
+        if (cleanText === "N/A" || cleanText === "DIDN'T HAPPEN" || cleanText === "") return "status-neutral";
+        return "";
+    }
+
+    function renderPublicRegistry() {
+        const tbody = document.querySelector("#public-members-table tbody");
+        if(!tbody) return; tbody.innerHTML = "";
+        authorizedStudents.forEach((student, idx) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `<td>${idx + 1}</td><td><strong>${student.name}</strong></td><td>${student.class}</td><td>${student.section || '-'}</td><td>${student.position}</td>`;
+            tbody.appendChild(row);
+        });
+    }
+
+    function renderAttendanceTable() {
+        const tbody = document.querySelector("#attendance-table tbody");
+        const thRemarks = document.getElementById("th-remarks");
+        if (!tbody) return; tbody.innerHTML = "";
+
+        const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position);
+        thRemarks.style.display = isCouncil ? "table-cell" : "none";
+
+        const actionThs = document.querySelectorAll(".council-actions");
+        actionThs.forEach(th => th.style.display = isCouncil ? "table-cell" : "none");
+
+        attendanceDatabase.forEach((record, idx) => {
+            const row = document.createElement("tr");
+            let rowHtml = `
+                <td>${idx + 1}</td>
+                <td class="left-align"><strong>${record.name}</strong></td>
+                <td>${record.pos}</td>
+                <td>${record.loc}</td>
+                <td class="${getStatusClass(record.d1[0])}">${record.d1[0]}</td><td class="${getStatusClass(record.d1[1])}">${record.d1[1]}</td><td class="${getStatusClass(record.d1[2])}">${record.d1[2]}</td>
+                <td class="${getStatusClass(record.d2[0])}">${record.d2[0]}</td><td class="${getStatusClass(record.d2[1])}">${record.d2[1]}</td><td class="${getStatusClass(record.d2[2])}">${record.d2[2]}</td>
+                <td class="${getStatusClass(record.d3[0])}">${record.d3[0]}</td><td class="${getStatusClass(record.d3[1])}">${record.d3[1]}</td><td class="${getStatusClass(record.d3[2])}">${record.d3[2]}</td>
+                <td class="${getStatusClass(record.d4[0])}">${record.d4[0]}</td><td class="${getStatusClass(record.d4[1])}">${record.d4[1]}</td><td class="${getStatusClass(record.d4[2])}">${record.d4[2]}</td>
+                <td class="${getStatusClass(record.d5[0])}">${record.d5[0]}</td><td class="${getStatusClass(record.d5[1])}">${record.d5[1]}</td><td class="${getStatusClass(record.d5[2])}">${record.d5[2]}</td>
+                <td><strong>${record.punct}</strong></td>
+            `;
+            if (isCouncil) {
+                rowHtml += `<td class="left-align" style="color:#b45309; font-weight:600;">${record.remark || '-'}</td>`;
+                rowHtml += `<td><button class="btn-delete" onclick="deleteAttendanceRow(${idx})">Delete</button></td>`;
+            }
+            row.innerHTML = rowHtml;
+            tbody.appendChild(row);
+        });
+    }
+
+    function renderActivitiesTable() {
+        const tbody = document.querySelector("#activities-table tbody");
+        if(!tbody) return; tbody.innerHTML = "";
+        const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position);
+        
+        document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none");
+
+        houseActivities.forEach((act, idx) => {
+            const row = document.createElement("tr");
+            let html = `<td>${idx + 1}</td><td><strong>${act.type}</strong></td><td>${act.elig}</td><td>${act.name}</td>`;
+            if(isCouncil) {
+                html += `<td><button class="btn-delete" onclick="deleteActivityRow(${idx})">Delete</button></td>`;
+            }
+            row.innerHTML = html;
+            tbody.appendChild(row);
+        });
+    }
+
+    function renderAchieversTable() {
+        const tbody = document.querySelector("#achievers-table tbody");
+        if(!tbody) return; tbody.innerHTML = "";
+        const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position);
+
+        document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none");
+
+        achieversDatabase.forEach((ach, idx) => {
+            const row = document.createElement("tr");
+            let html = `
+                <td>${idx + 1}</td>
+                <td class="left-align"><strong>${ach.name}</strong></td>
+                <td>${ach.housePos}</td>
+                <td>${ach.compType}</td>
+                <td><span style="color:#c2185b; font-weight:900;">${ach.wonPos}</span></td>
+                <td>${ach.class}</td>
+                <td>${ach.sec}</td>
+            `;
+            if(isCouncil) {
+                html += `<td><button class="btn-delete" onclick="deleteAchieverRow(${idx})">Delete</button></td>`;
+            }
+            row.innerHTML = html;
+            tbody.appendChild(row);
+        });
+    }
+
+    function deleteAttendanceRow(idx) { attendanceDatabase.splice(idx, 1); renderAttendanceTable(); }
+    function deleteActivityRow(idx) { houseActivities.splice(idx, 1); renderActivitiesTable(); }
+    function deleteAchieverRow(idx) { achieversDatabase.splice(idx, 1); renderAchieversTable(); }
+
+    function directEditAttendance(e) {
+        e.preventDefault();
+        const name = document.getElementById("att-name").value.trim();
+        const pos = document.getElementById("att-pos").value.trim();
+        const loc = document.getElementById("att-loc").value.trim();
+        const punct = document.getElementById("att-punct").value.trim();
+        const remark = document.getElementById("att-remark").value.trim();
+
+        let row = attendanceDatabase.find(r => r.name.toLowerCase() === name.toLowerCase());
+        if(row) {
+            row.pos = pos; row.loc = loc; row.punct = punct; row.remark = remark;
+        } else {
+            attendanceDatabase.push({ name, pos, loc, d1:["-","-","-"], d2:["-","-","-"], d3:["-","-","-"], d4:["-","-","-"], d5:["-","-","-"], punct, remark, status:"APPROVED" });
+        }
+        renderAttendanceTable();
+        document.getElementById("att-name").value = "";
+    }
+
+    function directAddActivity(e) {
+        e.preventDefault();
+        houseActivities.push({
+            type: document.getElementById("form-evt-type").value.trim(),
+            elig: document.getElementById("form-evt-elig").value.trim(),
+            name: document.getElementById("form-evt-name").value.trim()
+        });
+        renderActivitiesTable();
+        document.getElementById("form-evt-type").value=""; document.getElementById("form-evt-elig").value=""; document.getElementById("form-evt-name").value="";
+    }
+
+    function directAddAchiever(e) {
+        e.preventDefault();
+        achieversDatabase.push({
+            name: document.getElementById("form-ach-name").value.trim().toUpperCase(),
+            housePos: document.getElementById("form-ach-pos").value.trim(),
+            compType: document.getElementById("form-ach-type").value.trim(),
+            wonPos: document.getElementById("form-ach-won").value.trim(),
+            class: document.getElementById("form-ach-class").value.trim(),
+            sec: document.getElementById("form-ach-sec").value.trim().toUpperCase()
+        });
+        renderAchieversTable();
+        document.getElementById("form-ach-name").value=""; document.getElementById("form-ach-pos").value=""; document.getElementById("form-ach-type").value=""; document.getElementById("form-ach-won").value=""; document.getElementById("form-ach-class").value=""; document.getElementById("form-ach-sec").value="";
+    }
+
+    function requestAttendance() {
+        if (!currentSessionUser) return;
+        const shortName = currentSessionUser.name.split(" ")[0];
+        if (attendanceDatabase.find(r => r.name.toUpperCase() === shortName.toUpperCase())) {
+            alert("A daily operations tracking entry already exists.");
+            return;
+        }
+        attendanceDatabase.push({
+            name: shortName, pos: currentSessionUser.position, loc: "Assigned Post",
+            d1: ["-","-","-"], d2: ["-","-","-"], d3: ["-","-","-"], d4: ["-","-","-"], d5: ["-","-","-"],
+            punct: "Pending", remark: "", status: "PENDING"
+        });
+        alert("Verification request forwarded successfully!");
+    }
+
+    function handleSuggestionSubmit(event) {
+        event.preventDefault();
+        alert('Thank you! Structural suggestion logged successfully.');
+        document.getElementById('suggest-name').value = '';
+        document.getElementById('comments').value = '';
+    }
+
+    function handleLogin(event) {
+        event.preventDefault();
+        const nameInput = document.getElementById('student-name').value.trim().toUpperCase();
+        let classInput = document.getElementById('student-class').value.trim().toUpperCase();
+        const posInput = document.getElementById('student-position').value.toUpperCase();
+        const passInput = document.getElementById('student-password').value.trim();
+        const errorBox = document.getElementById('error-box');
+
+        if (classInput === "X" || classInput === "10TH") classInput = "10";
+        if (classInput === "IX" || classInput === "9TH") classInput = "9";
+
+        const verified = authorizedStudents.find(s => s.name === nameInput && s.position === posInput && s.class === classInput && s.pass === passInput);
+
+        if (verified) {
+            currentSessionUser = verified;
+            errorBox.style.display = 'none';
+            document.getElementById('student-password').value = '';
+            document.getElementById('display-name').innerText = verified.name;
+            document.getElementById('display-class').innerText = verified.class;
+            document.getElementById('display-section-dash').innerText = verified.section ? "-" + verified.section : "";
+            document.getElementById('display-role').innerText = verified.position;
+
+            renderAttendanceTable();
+            renderActivitiesTable();
+            renderAchieversTable();
+
+            const isCouncil = ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(verified.position);
+            document.getElementById('council-panel').style.display = isCouncil ? "block" : "none";
+
+            document.getElementById('login-box').style.display = 'none';
+            document.getElementById('public-members-card').style.display = 'none';
+            document.getElementById('dashboard-box').style.display = 'block';
+        } else {
+            errorBox.style.display = 'block';
+        }
+    }
+
+    function handleLogout() {
+        currentSessionUser = null;
+        document.getElementById('login-box').style.display = 'block';
+        document.getElementById('public-members-card').style.display = 'block';
+        document.getElementById('dashboard-box').style.display = 'none';
+        renderActivitiesTable();
+        renderAchieversTable();
+    }
+
+    function switchPage(p) {
+        document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active-page'));
+        document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
+        
+        document.getElementById('page-' + p).classList.add('active-page');
+        document.getElementById('nav-' + p).classList.add('active');
+        if (p === 'portal') renderPublicRegistry();
+    }
+
+    window.onload = function() {
+        renderActivitiesTable();
+        renderPublicRegistry();
+    };
+</script>
+</body>
+</html>
