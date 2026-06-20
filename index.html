@@ -131,6 +131,24 @@
         .status-absent { background-color: #fee2e2 !important; color: #b91c1c !important; font-weight: bold; border: 2px solid #fecaca !important; }
         .status-neutral { background-color: #f1f5f9 !important; color: #475569 !important; }
 
+        /* CUSTOM ALLOCATED DUAL CONTAINERS FOR DELEGATIONS */
+        .duty-box-widget {
+            background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%);
+            border: 3px solid #d97706;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            color: #92400e;
+        }
+        .responsibility-matrix-widget {
+            background: linear-gradient(135deg, #fae8ff 0%, #fdf4ff 100%);
+            border: 3px solid #d946ef;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            color: #86198f;
+        }
+
         /* HOUSE MISTRESS BOX DISPLAY BANNER */
         .mistress-box {
             background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
@@ -240,7 +258,7 @@
         </div>
 
         <div class="card" style="border-left: 8px solid #dc2626; background: #fef2f2; text-align: center; border-radius: 16px;">
-            <h2 style="justify-content: center; color: #991b1b;">Aravali Leadership Council Address</h2>
+            <h2>Aravali Leadership Council Address</h2>
             <p style="font-style: italic; font-size: 1.2rem; color: #7f1d1d; font-weight: 600; padding: 10px 0;">
                 "Aravali House members, remember that soaring high is truly our nature. Excellence is not a singular act, but a habit we compile through discipline every single day at our duty posts. Let us stand unified, lead with honor, and drive our house toward ultimate victory!"
             </p>
@@ -317,6 +335,9 @@
                     <select id="student-position">
                         <option value="MEMBER">House Member</option>
                         <option value="PREFECT">Prefect</option>
+                        <option value="PROCTOR - BOYS">Proctor - Boys</option>
+                        <option value="CULTURAL SECRETARY - GIRLS">Cultural Secretary - Girls</option>
+                        <option value="ENVIRONMENT SECRETARY - GIRLS">Environment Secretary - Girls</option>
                         <option value="HOUSE CAPTAIN">House Captain</option>
                         <option value="VICE HOUSE CAPTAIN">Vice House Captain</option>
                         <option value="HOUSE CULTURAL CAPTAIN">House Cultural Captain</option>
@@ -342,7 +363,20 @@
                     </a>
                 </div>
 
-                <button type="button" class="action-button btn-accent" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); box-shadow: 0 4px 10px rgba(109,40,217,0.3);" onclick="requestAttendance()">Forward Attendance Request</button>
+                <div id="student-live-duty-box" class="duty-box-widget" style="display: none;">
+                    <h3 style="margin: 0 0 5px 0; font-weight: 900; color: #b45309; text-transform: uppercase;">📍 WHERE IS YOUR DUTY?</h3>
+                    <div id="live-duty-text" style="font-size: 1.1rem; font-weight: 700;">No duty assigned yet. Check back later.</div>
+                </div>
+
+                <div id="student-live-responsibility-box" class="responsibility-matrix-widget" style="display: none;">
+                    <h3 style="margin: 0 0 5px 0; font-weight: 900; color: #9d174d; text-transform: uppercase;">🏆 COMPETITION ALLOCATION & CO-ORDINATION</h3>
+                    <div style="font-size: 1rem; font-weight: 600;">
+                        🔹 <strong>Assigned Responsibility:</strong> <span id="live-resp-task" style="font-weight: 800;">None</span><br>
+                        🔹 <strong>Co-ordinating Teachers:</strong> <span id="live-resp-teachers" style="font-weight: 800;">None</span>
+                    </div>
+                </div>
+
+                <button type="button" class="action-button btn-accent" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); box-shadow: 0 4px 10px rgba(109,40,217,0.3); margin-top: 25px;" onclick="requestAttendance()">Forward Attendance Request</button>
 
                 <h3 style="margin-top:40px; color: #4c1d95;">Duty Attendance Status Grid</h3>
                 <div class="table-responsive" style="border-color: #8b5cf6;">
@@ -377,6 +411,44 @@
                 <div id="council-panel" class="captain-panel" style="display:none;">
                     <h2 style="color:#b45309; border-bottom: 3px dashed #f59e0b; padding-bottom: 8px;">House Council Global Data Engine</h2>
                     
+                    <div id="captain-exclusive-section" style="display: none; background: #fffdf5; padding: 15px; border-radius: 8px; border: 2px solid #ca8a04; margin-bottom: 25px;">
+                        <h3 style="color: #ca8a04; margin-top: 0;">⚡ House Captain Exclusive Deployment Station</h3>
+                        <form onsubmit="allocateCaptainDuty(event)">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Target Student Name</label>
+                                    <select id="captain-target-student"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Assign Duty Location (Where is your duty?)</label>
+                                    <input type="text" id="captain-duty-text" placeholder="e.g. Science Block Stairs - Break 1" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="action-button" style="background: #ca8a04; margin-top: 10px;">Deploy Duty Assignment</button>
+                        </form>
+                    </div>
+
+                    <div style="background: #fdf4ff; padding: 15px; border-radius: 8px; border: 2px solid #d946ef; margin-bottom: 25px;">
+                        <h3 style="color: #c026d3; margin-top: 0;">🎨 Council Competition & Teacher Co-ordination Assigner</h3>
+                        <form onsubmit="allocateCompetitionResponsibility(event)">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Target Student</label>
+                                    <select id="council-target-student"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Competition & Assigned Task</label>
+                                    <input type="text" id="council-resp-task" placeholder="e.g. Prepare Hindi Declamation team profiles" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>Co-ordinating Teachers</label>
+                                    <input type="text" id="council-resp-teachers" placeholder="e.g. Ms. Manmeet Kaur & Mrs. Sharma" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="action-button" style="background: #c026d3; margin-top: 10px;">Commit Responsibility Parameters</button>
+                        </form>
+                    </div>
+
                     <h3 style="color: #b45309;">1. Edit Attendance Register Logs</h3>
                     <form onsubmit="directEditAttendance(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a; margin-bottom:25px;">
                         <div class="form-row">
@@ -449,8 +521,11 @@
 </footer>
 
 <script>
-    // Master authentication arrays
+    // Master updated credentials index
     let authorizedStudents = [
+        { name: "AARUSH", class: "10", section: "A", position: "PROCTOR - BOYS", pass: "Aarush#Proctor" },
+        { name: "JAPUNJAN", class: "10", section: "B", position: "CULTURAL SECRETARY - GIRLS", pass: "Japunjan#Cultural" },
+        { name: "NAVYA CHADDHA", class: "10", section: "B", position: "ENVIRONMENT SECRETARY - GIRLS", pass: "Navya#Environment" },
         { name: "ALIYA", class: "10", section: "C", position: "PREFECT", pass: "Aliya@Prefect" },
         { name: "NAVYA KOHLI", class: "10", section: "A", position: "PREFECT", pass: "Navya@Prefect" },
         { name: "RAADHIYA", class: "9", section: "A", position: "PREFECT", pass: "Raadhiya@Prefect" },
@@ -464,28 +539,14 @@
         { name: "DIVAS ARORA", class: "10", section: "B", position: "HOUSE SPORTS CAPTAIN", pass: "Divas#Aravali" }
     ];
 
-    // Attendance data schema derived directly from your sheet source report logs
-    let attendanceDatabase = [
-        { name: "Sanchit", pos: "Captain", loc: "Overall", d1: ["Present","Present","Present"], d2: ["Present","Present","Present"], d3: ["Present","Present","Present"], d4: ["Present","Present","Present"], d5: ["Present","Didn't happen","Present"], punct: "9/10", remark: "Takes time in eating food", status: "APPROVED" },
-        { name: "Hrehaan", pos: "Vice Captain", loc: "Overall", d1: ["Present","Present","Present"], d2: ["Present","Present","Present"], d3: ["Present","Present","Present"], d4: ["Present","Present","Present"], d5: ["Present","Didn't happen","Present"], punct: "10/10", remark: "bold and helps maintain discipline in the house", status: "APPROVED" },
-        { name: "Ryan", pos: "Member", loc: "Canteen", d1: ["Absent","Absent","N/A"], d2: ["Absent","Absent","N/A"], d3: ["Absent","Absent","N/A"], d4: ["Absent","Absent","N/A"], d5: ["Absent","Didn't happen","Absent"], punct: "Didn't Come", remark: "DIDN'T COME to do the duty", status: "APPROVED" },
-        { name: "Sana", pos: "Prefect", loc: "Canteen", d1: ["Present","Present","Absent"], d2: ["Present","Present","Absent"], d3: ["Present","Present","Present"], d4: ["Absent","",""], d5: ["Present","Didn't happen","Present"], punct: "8/10", remark: "Initially argued to do the duty but later on did well", status: "APPROVED" },
-        { name: "Akshita", pos: "Prefect", loc: "Physics Lab Stairs", d1: ["Present","Present","N/A"], d2: ["Present","Present","N/A"], d3: ["Present","Present","N/A"], d4: ["Present","Present","N/A"], d5: ["Present","Didn't happen","Present"], punct: "9/10", remark: "Regular and reliable", status: "APPROVED" },
-        { name: "Vansh", pos: "Prefect", loc: "Grass Ground", d1: ["Present","Present","Present"], d2: ["Present","Present","Present"], d3: ["Present","Present","Present"], d4: ["Present","Present","Present"], d5: ["Present","Didn't happen","Present"], punct: "10/10", remark: "Does his duty very well, deserves appreciation", status: "APPROVED" }
-    ];
+    // Clean databases with sample indicators deleted per instruction
+    let attendanceDatabase = [];
+    let houseActivities = [];
+    let achieversDatabase = [];
 
-    let houseActivities = [
-        { type: "Literary", elig: "Classes 9 - 12", name: "Inter-House Hindi Debate", won: "WON", remarks: "Sanchit scored highest points!" },
-        { type: "Sports", elig: "All House Members", name: "House Athletics Tracking Meet", won: "TBD", remarks: "Scheduled for next Friday" },
-        { type: "Art & Design", elig: "Classes 9 & 10", name: "Creative Board Chart Project", won: "LOST", remarks: "Fought hard, missed by 1 point" }
-    ];
-
-    let achieversDatabase = [
-        { name: "SANCHIT GUPTA", housePos: "HOUSE CAPTAIN", compType: "Literary competition", wonPos: "1st Position", class: "9", sec: "A" },
-        { name: "ALIYA", housePos: "PREFECT", compType: "Inter-School Math Olympiad", wonPos: "Gold Medalist", class: "10", sec: "C" }
-    ];
-
-    let currentSessionUser = null;
+    // Global variable assignments holding cross-session states
+    let allocatedDutiesMap = {}; 
+    let allocatedResponsibilitiesMap = {};
 
     function getStatusClass(statusText) {
         if (!statusText) return "";
@@ -493,6 +554,25 @@
         if (cleanText === "PRESENT" || cleanText === "WON") return "status-won";
         if (cleanText === "ABSENT" || cleanText === "DIDN'T COME" || cleanText === "LOST") return "status-lost";
         return "status-neutral";
+    }
+
+    function populateStudentSelectors() {
+        const captainSelect = document.getElementById("captain-target-student");
+        const councilSelect = document.getElementById("council-target-student");
+        if(!captainSelect || !councilSelect) return;
+        
+        captainSelect.innerHTML = "";
+        councilSelect.innerHTML = "";
+
+        authorizedStudents.forEach(s => {
+            if(s.position !== "HOUSE CAPTAIN") {
+                let opt1 = document.createElement("option");
+                opt1.value = s.name; opt1.innerText = `${s.name} (${s.position})`;
+                let opt2 = opt1.cloneNode(true);
+                captainSelect.appendChild(opt1);
+                councilSelect.appendChild(opt2);
+            }
+        });
     }
 
     function renderPublicRegistry() {
@@ -511,10 +591,14 @@
         if (!tbody) return; tbody.innerHTML = "";
 
         const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position);
-        thRemarks.style.display = isCouncil ? "table-cell" : "none";
+        if(thRemarks) thRemarks.style.display = isCouncil ? "table-cell" : "none";
 
-        const actionThs = document.querySelectorAll(".council-actions");
-        actionThs.forEach(th => th.style.display = isCouncil ? "table-cell" : "none");
+        document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none");
+
+        if(attendanceDatabase.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="18" style="padding: 20px; color: #64748b; font-weight: 600;">No active attendance logs loaded. Council members can append profiles below.</td></tr>`;
+            return;
+        }
 
         attendanceDatabase.forEach((record, idx) => {
             const row = document.createElement("tr");
@@ -546,6 +630,11 @@
         
         document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none");
 
+        if(houseActivities.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="7" style="padding: 20px; color: #0369a1; font-weight: 600;">No scheduled tracking metrics found. Council can assign schedules inside dashboard.</td></tr>`;
+            return;
+        }
+
         houseActivities.forEach((act, idx) => {
             const row = document.createElement("tr");
             let html = `
@@ -569,7 +658,10 @@
         if(!tbody) return; tbody.innerHTML = "";
         const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position);
 
-        document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none");
+        if(achieversDatabase.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="8" style="padding: 20px; color: #9d174d; font-weight: 600;">Roll matrix empty. Achievements populate live following executive submission logs.</td></tr>`;
+            return;
+        }
 
         achieversDatabase.forEach((ach, idx) => {
             const row = document.createElement("tr");
@@ -594,6 +686,27 @@
     function deleteActivityRow(idx) { houseActivities.splice(idx, 1); renderActivitiesTable(); }
     function deleteAchieverRow(idx) { achieversDatabase.splice(idx, 1); renderAchieversTable(); }
 
+    function allocateCaptainDuty(e) {
+        e.preventDefault();
+        const student = document.getElementById("captain-target-student").value;
+        const assignment = document.getElementById("captain-duty-text").value.trim();
+        allocatedDutiesMap[student] = assignment;
+        alert(`Duty posted securely for ${student}!`);
+        document.getElementById("captain-duty-text").value = "";
+    }
+
+    function allocateCompetitionResponsibility(e) {
+        e.preventDefault();
+        const student = document.getElementById("council-target-student").value;
+        const task = document.getElementById("council-resp-task").value.trim();
+        const teachers = document.getElementById("council-resp-teachers").value.trim();
+        
+        allocatedResponsibilitiesMap[student] = { task, teachers };
+        alert(`Responsibility matrix pinned for ${student}!`);
+        document.getElementById("council-resp-task").value = "";
+        document.getElementById("council-resp-teachers").value = "";
+    }
+
     function directEditAttendance(e) {
         e.preventDefault();
         const name = document.getElementById("att-name").value.trim();
@@ -610,6 +723,10 @@
         }
         renderAttendanceTable();
         document.getElementById("att-name").value = "";
+        document.getElementById("att-pos").value = "";
+        document.getElementById("att-loc").value = "";
+        document.getElementById("att-punct").value = "";
+        document.getElementById("att-remark").value = "";
     }
 
     function directAddActivity(e) {
@@ -629,7 +746,7 @@
         
         renderActivitiesTable();
         document.getElementById("form-evt-type").value=""; document.getElementById("form-evt-elig").value=""; document.getElementById("form-evt-name").value=""; document.getElementById("form-evt-remarks").value="";
-        alert("Events board synchronised!");
+        alert("Events board synchronized!");
     }
 
     function directAddAchiever(e) {
@@ -659,6 +776,7 @@
             punct: "Pending", remark: "", status: "PENDING"
         });
         alert("Verification request forwarded successfully!");
+        renderAttendanceTable();
     }
 
     function handleSuggestionSubmit(event) {
@@ -668,7 +786,6 @@
         document.getElementById('comments').value = '';
     }
 
-    // BULLETPROOFED LOGIN VALIDATION ENGINE
     function handleLogin(event) {
         event.preventDefault();
         const nameInput = document.getElementById('student-name').value.trim().toUpperCase();
@@ -695,12 +812,33 @@
             document.getElementById('display-name').innerText = verified.name;
             document.getElementById('display-role').innerText = verified.position;
 
+            // Render trackers
             renderAttendanceTable();
             renderActivitiesTable();
             renderAchieversTable();
 
+            // Toggle live duty widget boxes dynamically based on entries mapping
+            const assignedDuty = allocatedDutiesMap[verified.name];
+            document.getElementById("student-live-duty-box").style.display = "block";
+            document.getElementById("live-duty-text").innerText = assignedDuty ? assignedDuty : "No specific duty station pinned by House Captain yet.";
+
+            const assignedResp = allocatedResponsibilitiesMap[verified.name];
+            document.getElementById("student-live-responsibility-box").style.display = "block";
+            if(assignedResp) {
+                document.getElementById("live-resp-task").innerText = assignedResp.task;
+                document.getElementById("live-resp-teachers").innerText = assignedResp.teachers;
+            } else {
+                document.getElementById("live-resp-task").innerText = "No specific competition task delegated yet.";
+                document.getElementById("live-resp-teachers").innerText = "None Assigned";
+            }
+
+            // Display council configuration layouts
             const isCouncil = ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(verified.position);
             document.getElementById('council-panel').style.display = isCouncil ? "block" : "none";
+            
+            // Unveil House Captain Exclusive elements explicitly
+            document.getElementById('captain-exclusive-section').style.display = (verified.position === "HOUSE CAPTAIN") ? "block" : "none";
+            if(isCouncil) populateStudentSelectors();
 
             document.getElementById('login-box').style.display = 'none';
             document.getElementById('public-members-card').style.display = 'none';
