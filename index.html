@@ -336,7 +336,7 @@
     <div id="page-portal" class="page-view">
         <div class="card card-portal">
             
-            <div id="login-box" style="display: block !important;">
+            <div id="login-box" style="display: block;">
                 <h2>Student Portal Secure Access</h2>
                 <form onsubmit="handleLogin(event)">
                     <label>Full Name</label><input type="text" id="student-name" required placeholder="e.g. SANCHIT GUPTA">
@@ -366,7 +366,7 @@
                 </form>
             </div>
 
-            <div id="dashboard-box" style="display: none !important;">
+            <div id="dashboard-box" style="display: none;">
                 <div class="welcome-banner">
                     <span style="font-weight:900; font-size:1.3rem; letter-spacing: 0.5px;">OPERATIONAL WORKSPACE ACTIVE</span><br>
                     User: <span id="display-name" style="text-decoration: underline;">Student</span> | Role: <span id="display-role" style="font-weight: bold; color: #6d28d9;">Member</span><br>
@@ -394,7 +394,7 @@
                     </div>
                 </div>
 
-                <button type="button" class="action-button btn-accent" style="background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%); box-shadow: 0 4px 10px rgba(109,40,217,0.3); margin-top: 25px;" onclick="requestAttendance()">Forward Attendance Request</button>
+                <button type="button" class="action-button btn-accent" onclick="requestAttendance()">Forward Attendance Request</button>
 
                 <h3 style="margin-top:40px; color: #4c1d95;">Duty Attendance Status Grid</h3>
                 <div class="table-responsive" style="border-color: #8b5cf6;">
@@ -536,8 +536,13 @@
 
 </div>
 
+<footer>
+    THE ARAVALI HUB &copy; 2026<br>
+    <span style="font-size: 0.85rem; font-weight: 500; opacity: 0.9;">An initiative of the house council of Aravali house of the academic session 2026 - 2027</span>
+</footer>
+
 <script>
-    // Master data index ledger
+    // Master updated credentials index
     let authorizedStudents = [
         { name: "AARUSH", class: "10", section: "A", position: "PROCTOR - BOYS", pass: "Aarush#Proctor" },
         { name: "JAPUNJAN", class: "10", section: "B", position: "CULTURAL SECRETARY - GIRLS", pass: "Japunjan#Cultural" },
@@ -562,8 +567,6 @@
     let allocatedDutiesMap = {}; 
     let allocatedResponsibilitiesMap = {};
     let activeHouseMeetingBroadcast = "No house meetings scheduled currently.";
-
-    let currentSessionUser = null;
 
     function getStatusClass(statusText) {
         if (!statusText) return "";
@@ -804,7 +807,7 @@
         document.getElementById('comments').value = '';
     }
 
-    // FIXED OVERRIDE TOGGLE ROUTINES
+    // STABLE STANDARD CROSS-BROWSER INTERFACE TOGGLE LOGIC
     function handleLogin(event) {
         event.preventDefault();
         const nameInput = document.getElementById('student-name').value.trim().toUpperCase();
@@ -854,9 +857,9 @@
             
             if(isCouncil) populateStudentSelectors();
 
-            // HARD SWITCH INTERFACE DISPLAY STATE STYLES
-            document.getElementById('login-box').style.setAttribute('style', 'display: none !important;');
-            document.getElementById('dashboard-box').style.setAttribute('style', 'display: block !important;');
+            // SOLID CSS VISIBILITY STATES VIA COMPATIBILITY ARRAYS
+            document.getElementById('login-box').style.cssText = "display: none !important;";
+            document.getElementById('dashboard-box').style.cssText = "display: block !important;";
         } else {
             errorBox.style.display = 'block';
         }
@@ -864,8 +867,8 @@
 
     function handleLogout() {
         currentSessionUser = null;
-        document.getElementById('login-box').style.setAttribute('style', 'display: block !important;');
-        document.getElementById('dashboard-box').style.setAttribute('style', 'display: none !important;');
+        document.getElementById('login-box').style.cssText = "display: block !important;";
+        document.getElementById('dashboard-box').style.cssText = "display: none !important;";
         renderActivitiesTable();
         renderAchieversTable();
     }
