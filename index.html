@@ -14,7 +14,7 @@
             line-height: 1.7;
         }
 
-        /* 1. CONTINUOUSLY MOVING TEXT TICKER BANNER (NO EMPTY SPACE BETWEEN LINES) */
+        /* CONTINUOUSLY MOVING TEXT TICKER BANNER (NO EMPTY SPACE BETWEEN LINES) */
         .marquee-wrapper {
             background: linear-gradient(90deg, #dc2626 0%, #f59e0b 25%, #10b981 50%, #3b82f6 75%, #dc2626 100%);
             color: #ffffff;
@@ -43,7 +43,7 @@
             100% { transform: translate3d(-50%, 0, 0); }
         }
 
-        /* DYNAMIC TINT OVERLAY WITH LIVE CAMPUS WEB BACKUP LINK */
+        /* HEADER FRAMEWORK */
         header { 
             background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(30, 58, 138, 0.75)), 
                         url('apee-jay-school-model-town-jalandhar-schools-giz7xaz8pw.avif'),
@@ -304,10 +304,10 @@
             <h2>Student Portal Secure Access</h2>
             <div id="login-box">
                 <form onsubmit="handleLogin(event)">
-                    <label>Full Name</label><input type="text" id="student-name" required>
+                    <label>Full Name</label><input type="text" id="student-name" required placeholder="e.g. SANCHIT GUPTA">
                     <div class="form-row">
-                        <div class="form-group"><label>Class</label><input type="text" id="student-class" required></div>
-                        <div class="form-group"><label>Section</label><input type="text" id="student-section"></div>
+                        <div class="form-group"><label>Class (Number Only)</label><input type="text" id="student-class" required placeholder="e.g. 9"></div>
+                        <div class="form-group"><label>Section</label><input type="text" id="student-section" placeholder="e.g. A"></div>
                     </div>
                     <label>Your Assigned House Position</label>
                     <select id="student-position">
@@ -318,7 +318,12 @@
                         <option value="HOUSE CULTURAL CAPTAIN">House Cultural Captain</option>
                         <option value="HOUSE SPORTS CAPTAIN">House Sports Captain</option>
                     </select>
-                    <label>Security Access Password</label><input type="password" id="student-password" required>
+                    <label>Security Access Password</label><input type="password" id="student-password" required placeholder="••••••••">
+                    
+                    <div id="error-box" style="display:none; color:red; margin-top:15px; font-weight:700;">
+                        ❌ Access Denied. Incorrect name, password, or matching house position.
+                    </div>
+                    
                     <button type="submit" class="action-button">Verify Identity Node</button>
                 </form>
             </div>
@@ -429,7 +434,7 @@
 </footer>
 
 <script>
-    // Master authentication arrays
+    // Master database index ledger
     let authorizedStudents = [
         { name: "ALIYA", class: "10", section: "C", position: "PREFECT", pass: "Aliya@Prefect" },
         { name: "NAVYA KOHLI", class: "10", section: "A", position: "PREFECT", pass: "Navya@Prefect" },
@@ -444,7 +449,7 @@
         { name: "DIVAS ARORA", class: "10", section: "B", position: "HOUSE SPORTS CAPTAIN", pass: "Divas#Aravali" }
     ];
 
-    // Attendance data schema derived directly from your sheet source report logs
+    // Attendance registry data model tracker elements
     let attendanceDatabase = [
         { name: "Sanchit", pos: "Captain", loc: "Overall", d1: ["Present","Present","Present"], d2: ["Present","Present","Present"], d3: ["Present","Present","Present"], d4: ["Present","Present","Present"], d5: ["Present","Didn't happen","Present"], punct: "9/10", remark: "Takes time in eating food", status: "APPROVED" },
         { name: "Hrehaan", pos: "Vice Captain", loc: "Overall", d1: ["Present","Present","Present"], d2: ["Present","Present","Present"], d3: ["Present","Present","Present"], d4: ["Present","Present","Present"], d5: ["Present","Didn't happen","Present"], punct: "10/10", remark: "bold and helps maintain discipline in the house", status: "APPROVED" },
@@ -633,6 +638,7 @@
         document.getElementById('comments').value = '';
     }
 
+    // BULLETPROOFED LOGIN VALIDATION ENGINE
     function handleLogin(event) {
         event.preventDefault();
         const nameInput = document.getElementById('student-name').value.trim().toUpperCase();
@@ -641,18 +647,24 @@
         const passInput = document.getElementById('student-password').value.trim();
         const errorBox = document.getElementById('error-box');
 
-        if (classInput === "X" || classInput === "10TH") classInput = "10";
-        if (classInput === "IX" || classInput === "9TH") classInput = "9";
+        // Normalize character strings variations seamlessly
+        if (classInput === "X" || classInput === "10TH" || classInput === "IX" || classInput === "9TH") {
+            if (classInput.includes("10") || classInput.includes("X")) classInput = "10";
+            if (classInput.includes("9") || classInput.includes("IX")) classInput = "9";
+        }
 
-        const verified = authorizedStudents.find(s => s.name === nameInput && s.position === posInput && s.class === classInput && s.pass === passInput);
+        // Direct matching variable checking structure to completely eliminate cross-field section bugs
+        const verified = authorizedStudents.find(s => s.name === nameInput && s.pass === passInput && s.position === posInput);
 
         if (verified) {
             currentSessionUser = verified;
             errorBox.style.display = 'none';
+            document.getElementById('student-name').value = '';
+            document.getElementById('student-class').value = '';
+            document.getElementById('student-section').value = '';
             document.getElementById('student-password').value = '';
+            
             document.getElementById('display-name').innerText = verified.name;
-            document.getElementById('display-class').innerText = verified.class;
-            document.getElementById('display-section-dash').innerText = verified.section ? "-" + verified.section : "";
             document.getElementById('display-role').innerText = verified.position;
 
             renderAttendanceTable();
