@@ -43,7 +43,7 @@
             100% { transform: translate3d(-50%, 0, 0); }
         }
 
-        /* HEADER FRAMEWORK - FULLY CLEANED AND FIXED */
+        /* HEADER FRAMEWORK */
         header { 
             background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(30, 58, 138, 0.75)), 
                         url('apee-jay-school-model-town-jalandhar-schools-giz7xaz8pw.avif'),
@@ -335,8 +335,9 @@
 
     <div id="page-portal" class="page-view">
         <div class="card card-portal">
-            <h2>Student Portal Secure Access</h2>
-            <div id="login-box">
+            
+            <div id="login-box" style="display: block !important;">
+                <h2>Student Portal Secure Access</h2>
                 <form onsubmit="handleLogin(event)">
                     <label>Full Name</label><input type="text" id="student-name" required placeholder="e.g. SANCHIT GUPTA">
                     <div class="form-row">
@@ -365,7 +366,7 @@
                 </form>
             </div>
 
-            <div id="dashboard-box" style="display:none;">
+            <div id="dashboard-box" style="display: none !important;">
                 <div class="welcome-banner">
                     <span style="font-weight:900; font-size:1.3rem; letter-spacing: 0.5px;">OPERATIONAL WORKSPACE ACTIVE</span><br>
                     User: <span id="display-name" style="text-decoration: underline;">Student</span> | Role: <span id="display-role" style="font-weight: bold; color: #6d28d9;">Member</span><br>
@@ -536,7 +537,7 @@
 </div>
 
 <script>
-    // Master database index ledger
+    // Master data index ledger
     let authorizedStudents = [
         { name: "AARUSH", class: "10", section: "A", position: "PROCTOR - BOYS", pass: "Aarush#Proctor" },
         { name: "JAPUNJAN", class: "10", section: "B", position: "CULTURAL SECRETARY - GIRLS", pass: "Japunjan#Cultural" },
@@ -561,6 +562,8 @@
     let allocatedDutiesMap = {}; 
     let allocatedResponsibilitiesMap = {};
     let activeHouseMeetingBroadcast = "No house meetings scheduled currently.";
+
+    let currentSessionUser = null;
 
     function getStatusClass(statusText) {
         if (!statusText) return "";
@@ -801,6 +804,7 @@
         document.getElementById('comments').value = '';
     }
 
+    // FIXED OVERRIDE TOGGLE ROUTINES
     function handleLogin(event) {
         event.preventDefault();
         const nameInput = document.getElementById('student-name').value.trim().toUpperCase();
@@ -850,8 +854,9 @@
             
             if(isCouncil) populateStudentSelectors();
 
-            document.getElementById('login-box').style.display = 'none';
-            document.getElementById('dashboard-box').style.display = 'block';
+            // HARD SWITCH INTERFACE DISPLAY STATE STYLES
+            document.getElementById('login-box').style.setAttribute('style', 'display: none !important;');
+            document.getElementById('dashboard-box').style.setAttribute('style', 'display: block !important;');
         } else {
             errorBox.style.display = 'block';
         }
@@ -859,8 +864,8 @@
 
     function handleLogout() {
         currentSessionUser = null;
-        document.getElementById('login-box').style.display = 'block';
-        document.getElementById('dashboard-box').style.display = 'none';
+        document.getElementById('login-box').style.setAttribute('style', 'display: block !important;');
+        document.getElementById('dashboard-box').style.setAttribute('style', 'display: none !important;');
         renderActivitiesTable();
         renderAchieversTable();
     }
