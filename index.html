@@ -94,10 +94,16 @@
         .action-button:hover { background: #1d4ed8; transform: scale(1.01); box-shadow: 0 6px 15px rgba(29, 78, 216, 0.4); }
         .btn-accent { background: linear-gradient(135deg, #10b981 0%, #047857 100%); box-shadow: 0 4px 10px rgba(4, 120, 87, 0.3); }
         .btn-accent:hover { background: #047857; box-shadow: 0 6px 15px rgba(4, 120, 87, 0.4); }
+        
+        /* MINI LOGIC DISPATCHER DECISION CONTROL BUTTONS */
+        .btn-inline-approve { background: #10b981; color: white; border: none; padding: 4px 8px; font-size: 0.75rem; font-weight: 900; border-radius: 4px; cursor: pointer; margin: 2px; }
+        .btn-inline-reject { background: #ef4444; color: white; border: none; padding: 4px 8px; font-size: 0.75rem; font-weight: 900; border-radius: 4px; cursor: pointer; margin: 2px; }
+        .btn-inline-approve:hover { background: #059669; }
+        .btn-inline-reject:hover { background: #dc2626; }
+        
         .btn-delete { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important; color: white !important; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; box-shadow: 0 2px 5px rgba(220, 38, 38, 0.3); }
         .btn-delete:hover { background: #b91c1c !important; }
 
-        /* WhatsApp Hyperlink Styling inside Dashboard Banner */
         .whatsapp-btn {
             display: inline-flex;
             align-items: center;
@@ -112,26 +118,23 @@
             transition: all 0.2s ease;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .whatsapp-btn:hover {
-            background: #128c7e;
-            transform: translateY(-1px);
-        }
+        .whatsapp-btn:hover { background: #128c7e; transform: translateY(-1px); }
 
         /* Highly Colourful Tables styling */
         .table-responsive { width: 100%; overflow-x: auto; margin-top: 15px; border: 3px solid #0f172a; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
         table { width: 100%; border-collapse: collapse; font-size: 0.92rem; text-align: center; background-color: #ffffff; font-weight: 500; }
-        th, td { border: 2px solid #cbd5e1; padding: 14px 16px; }
+        th, td { border: 2px solid #cbd5e1; padding: 14px 16px; min-width: 65px; }
         th { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #ffffff; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; font-weight: 900; }
-        .nested-header { background: #334155; color: #ffffff; font-size: 0.8rem; }
+        .nested-header { background: #334155; color: #ffffff; font-size: 0.8rem; padding: 6px; }
         tr:nth-child(even) td { background-color: #f8fafc; }
         .left-align { text-align: left; }
 
         /* Row Highlighting Color Schemes */
+        .status-approved-cell { background-color: #dcfce7 !important; color: #15803d !important; font-weight: bold; }
+        .status-rejected-cell { background-color: #fee2e2 !important; color: #b91c1c !important; font-weight: bold; }
+        .status-pending-cell { background-color: #ffedd5 !important; color: #b45309 !important; font-weight: bold; }
         .status-won { background-color: #bbf7d0 !important; color: #15803d !important; font-weight: bold; }
         .status-lost { background-color: #fecaca !important; color: #b91c1c !important; font-weight: bold; }
-        .status-present { background-color: #dcfce7 !important; color: #15803d !important; font-weight: bold; border: 2px solid #bbf7d0 !important; }
-        .status-absent { background-color: #fee2e2 !important; color: #b91c1c !important; font-weight: bold; border: 2px solid #fecaca !important; }
-        .status-neutral { background-color: #f1f5f9 !important; color: #475569 !important; }
 
         /* CUSTOM ALLOCATED CONTAINERS */
         .duty-box-widget { background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%); border: 3px solid #d97706; padding: 20px; border-radius: 12px; margin-top: 20px; color: #92400e; }
@@ -155,7 +158,6 @@
         .welcome-banner { background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); padding: 18px 22px; border-radius: 10px; margin-bottom: 25px; border-left: 6px solid #7c3aed; color: #5b21b6; font-weight: 600; }
         .captain-panel { background: #fef9c3; border: 3px dashed #ca8a04; padding: 25px; border-radius: 14px; margin-top: 30px; }
         
-        /* VISIBILITY UTILITIES FOR SEAMLESS DASHBOARD RENDERING */
         .page-view { display: none; }
         .active-page { display: block !important; }
         .hidden-box { display: none !important; }
@@ -168,9 +170,6 @@
 
 <div class="marquee-wrapper">
     <div class="marquee-content">
-        <span>🌟 WELCOME TO ARAVALI HOUSE OFFICIAL HUBSITE! 🌟</span>
-        <span>🔥 MOTTO: SOARING HIGH IS MY NATURE! 🔥</span>
-        <span>⚡ DEMONSTRATE EXCELLENCE, LEAD WITH INTEGRITY, UNITY IS OUR STRENGTH! ⚡</span>
         <span>🌟 WELCOME TO ARAVALI HOUSE OFFICIAL HUBSITE! 🌟</span>
         <span>🔥 MOTTO: SOARING HIGH IS MY NATURE! 🔥</span>
         <span>⚡ DEMONSTRATE EXCELLENCE, LEAD WITH INTEGRITY, UNITY IS OUR STRENGTH! ⚡</span>
@@ -198,88 +197,48 @@
         <div class="card card-goal">
             <h2>Our Main Goal</h2>
             <p>This is a shared online space where Aravali house members can use their personal skills and share their knowledge. It is a modern, easy way for students to talk about new ideas, support their friends, and make sure every single member's hard work is noticed and valued.</p>
-            <p>This website helps our house work smoothly together. It gives everyone a clear space to see house achievements, find helpful study resources, and lead our main house projects.</p>
             <button type="button" class="action-button" onclick="switchPage('portal')">Access Student Portal Entrance &rarr;</button>
         </div>
 
         <div class="card" style="border-left: 8px solid #0284c7; background: #f0f9ff;">
             <h2>Upcoming House Activities & Events</h2>
-            <p style="font-size:0.95rem; color:#0369a1; font-weight: 500;">Live schedules matching event indices. Outcomes can be modified exclusively by the Council.</p>
             <div class="table-responsive">
                 <table id="activities-table">
                     <thead>
                         <tr>
                             <th>S.No</th>
                             <th>Type of Event</th>
-                            <th>Eligibility Criteria</th>
+                            <th>Eligibility</th>
                             <th>Name of the Event</th>
                             <th>Won or Not</th>
-                            <th>Performance Remarks</th>
-                            <th class="council-actions" style="display:none;">Administrative Actions</th>
+                            <th>Remarks</th>
+                            <th class="council-actions" style="display:none;">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
-        </div>
-
-        <div class="card" style="border-left: 8px solid #f59e0b; background: #fffbeb;">
-            <h2>Duty Reviews & Suggestions</h2>
-            <form onsubmit="handleSuggestionSubmit(event)">
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Your Name (Optional)</label>
-                        <input type="text" id="suggest-name" placeholder="Anonymous Entry Log">
-                    </div>
-                    <div class="form-group">
-                        <label>Category Topic</label>
-                        <select>
-                            <option>Review a Duty System Assignment</option>
-                            <option>Suggest a New House Activity</option>
-                        </select>
-                    </div>
-                </div>
-                <label>Feedback Message Notes</label>
-                <textarea id="comments" rows="4" placeholder="Type structural notes here..." required></textarea>
-                <button type="submit" class="action-button btn-accent">Submit To Operations Node</button>
-            </form>
-        </div>
-
-        <div class="mistress-box">
-            🏛 OFFICIAL HOUSEMISTRESS DIRECTORY PANEL<br>
-            <span style="font-size: 1.4rem; color: #0369a1; font-weight: 900;">Ms. Manmeet Kaur</span><br> 📞 Contact Phone Number: <span style="font-size: 1.2rem; color: #0284c7; font-weight: 800; letter-spacing:0.5px;">+91 98723 34419</span>
-        </div>
-
-        <div class="card" style="border-left: 8px solid #dc2626; background: #fef2f2; text-align: center; border-radius: 16px;">
-            <h2>Aravali Leadership Council Address</h2>
-            <p style="font-style: italic; font-size: 1.2rem; color: #7f1d1d; font-weight: 600; padding: 10px 0;">
-                "Aravali House members, remember that soaring high is truly our nature. Excellence is not a singular act, but a habit we compile through discipline every single day at our duty posts. Let us stand unified, lead with honor, and drive our house toward ultimate victory!"
-            </p>
-            <span style="font-weight: 800; font-size: 0.95rem; color: #b91c1c; text-transform: uppercase; letter-spacing: 1.5px; display: block; border-top: 2px dashed #fee2e2; padding-top: 15px;">— Signed: The House Captain & Full Executive House Council</span>
         </div>
     </div>
 
     <div id="page-achievers" class="page-view">
         <div class="card card-achievers">
             <h2>Aravali House Roll of Achievers</h2>
-            <p style="color: #9d174d; font-weight: 500;">Public ledger celebrating exceptional performances by house members across distinct categories.</p>
             <div class="table-responsive">
                 <table id="achievers-table">
                     <thead>
                         <tr>
                             <th>S. No.</th>
                             <th>Name</th>
-                            <th>Position in the House</th>
-                            <th>Type of Competition</th>
-                            <th>Position Won in Competition</th>
+                            <th>Position</th>
+                            <th>Competition</th>
+                            <th>Rank Won</th>
                             <th>Class</th>
-                            <th>Section</th>
-                            <th class="council-actions" style="display:none;">Administrative Actions</th>
+                            <th>Sec</th>
+                            <th class="council-actions" style="display:none;">Actions</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
@@ -288,29 +247,18 @@
     <div id="page-council" class="page-view">
         <div class="card card-council">
             <h2>Official House Council Registry Directory</h2>
-            <p style="color: #065f46; font-weight: 500;">Active core executive framework managing Aravali operational tracking matrices.</p>
             <div class="table-responsive" style="border-color: #10b981;">
                 <table>
                     <thead>
-                        <tr>
-                            <th>S.No</th>
-                            <th>Name Description</th>
-                            <th>Class</th>
-                            <th>Section</th>
-                            <th>Position in the House</th>
-                        </tr>
+                        <tr><th>S.No</th><th>Name Description</th><th>Class</th><th>Section</th><th>Position</th></tr>
                     </thead>
                     <tbody>
-                        <tr style="background-color: #ecfdf5;"><td style="font-weight: 800;">1</td><td><strong>SANCHIT GUPTA</strong></td><td style="font-weight: bold;">9</td><td style="font-weight: bold;">A</td><td><span style="color:#059669; font-weight:900; font-size: 1.05rem;">HOUSE CAPTAIN</span></td></tr>
-                        <tr><td style="font-weight: 800;">2</td><td><strong>HREHAAN ARORA</strong></td><td style="font-weight: bold;">9</td><td style="font-weight: bold;">A</td><td style="font-weight: 700; color: #047857;">VICE HOUSE CAPTAIN</td></tr>
-                        <tr style="background-color: #ecfdf5;"><td style="font-weight: 800;">3</td><td><strong>PAAVNI BHALLA</strong></td><td style="font-weight: bold;">9</td><td style="font-weight: bold;">C</td><td style="font-weight: 600;">HOUSE CULTURAL CAPTAIN</td></tr>
-                        <tr><td style="font-weight: 800;">4</td><td><strong>DIVAS ARORA</strong></td><td style="font-weight: bold;">10</td><td style="font-weight: bold;">B</td><td style="font-weight: 600;">HOUSE SPORTS CAPTAIN</td></tr>
+                        <tr style="background-color: #ecfdf5;"><td>1</td><td><strong>SANCHIT GUPTA</strong></td><td>9</td><td>A</td><td><strong>HOUSE CAPTAIN</strong></td></tr>
+                        <tr><td>2</td><td><strong>HREHAAN ARORA</strong></td><td>9</td><td>A</td><td><strong>VICE HOUSE CAPTAIN</strong></td></tr>
+                        <tr style="background-color: #ecfdf5;"><td>3</td><td><strong>PAAVNI BHALLA</strong></td><td>9</td><td>C</td><td><strong>HOUSE CULTURAL CAPTAIN</strong></td></tr>
+                        <tr><td>4</td><td><strong>DIVAS ARORA</strong></td><td>10</td><td>B</td><td><strong>HOUSE SPORTS CAPTAIN</strong></td></tr>
                     </tbody>
                 </table>
-            </div>
-            
-            <div class="welcome-banner" style="margin-top: 35px; border-left: 6px solid #10b981; background: #e6fdf0; color: #047857; font-size: 1.05rem;">
-                📞 <strong>Administrative Contact Node:</strong> For structural queries, schedule submissions, or operational conflicts, contact the **House Captain** directly at <span style="font-size: 1.2rem; color:#065f46; font-weight:900; background: #ffffff; padding: 2px 8px; border-radius: 6px; border: 1px solid #a7f3d0;">+91 9103741440</span>.
             </div>
         </div>
     </div>
@@ -318,20 +266,12 @@
     <div id="page-batchholders" class="page-view">
         <div class="card card-batchholders">
             <h2>Official Batchholder Reference Directory</h2>
-            <p style="color: #854d0e; font-weight: 500;">Complete active batch reference indexes across the Aravali executive operational framework.</p>
             <div class="table-responsive" style="border-color: #eab308;">
                 <table id="public-members-table">
                     <thead>
-                        <tr>
-                            <th>S.No</th>
-                            <th>Name Description</th>
-                            <th>Class</th>
-                            <th>Section</th>
-                            <th>Position in the House</th>
-                        </tr>
+                        <tr><th>S.No</th><th>Name Description</th><th>Class</th><th>Section</th><th>Position in the House</th></tr>
                     </thead>
-                    <tbody>
-                        </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
@@ -345,7 +285,7 @@
                 <form onsubmit="handleLogin(event)">
                     <label>Full Name</label><input type="text" id="student-name" required placeholder="e.g. SANCHIT GUPTA">
                     <div class="form-row">
-                        <div class="form-group"><label>Class (Number Only)</label><input type="text" id="student-class" required placeholder="e.g. 9"></div>
+                        <div class="form-group"><label>Class</label><input type="text" id="student-class" required placeholder="e.g. 9"></div>
                         <div class="form-group"><label>Section</label><input type="text" id="student-section" placeholder="e.g. A"></div>
                     </div>
                     <label>Your Assigned House Position</label>
@@ -361,88 +301,77 @@
                         <option value="HOUSE SPORTS CAPTAIN">House Sports Captain</option>
                     </select>
                     <label>Security Access Password</label><input type="password" id="student-password" required placeholder="••••••••">
-                    
-                    <div id="error-box" style="display:none; color:red; margin-top:15px; font-weight:700;">
-                        ❌ Access Denied. Incorrect name, password, or matching house position.
-                    </div>
-                    
+                    <div id="error-box" style="display:none; color:red; margin-top:15px; font-weight:700;">❌ Access Denied.</div>
                     <button type="submit" class="action-button">Verify Identity Node</button>
                 </form>
             </div>
 
             <div id="dashboard-box" class="hidden-box">
                 <div class="welcome-banner">
-                    <span style="font-weight:900; font-size:1.3rem; letter-spacing: 0.5px;">OPERATIONAL WORKSPACE ACTIVE</span><br>
-                    User: <span id="display-name" style="text-decoration: underline;">Student</span> | Role: <span id="display-role" style="font-weight: bold; color: #6d28d9;">Member</span><br>
-                    
-                    <a href="https://chat.whatsapp.com/FPZSXd3M3bKDctZ947ktMl" target="_blank" class="whatsapp-btn">
-                        💬 Join Official Aravali House WhatsApp Group
-                    </a>
+                    <span style="font-weight:900; font-size:1.3rem;">OPERATIONAL WORKSPACE ACTIVE</span><br>
+                    User: <span id="display-name">Student</span> | Role: <span id="display-role">Member</span>
                 </div>
 
                 <div id="student-house-meeting-box" class="meeting-widget-card">
-                    <h3 style="margin: 0 0 5px 0; font-weight: 900; color: #0f766e; text-transform: uppercase;">📢 UPCOMING HOUSE MEETINGS</h3>
-                    <div id="live-meeting-text" style="font-size: 1.1rem; font-weight: 700;">No house meetings scheduled currently.</div>
+                    <h3>📢 UPCOMING HOUSE MEETINGS</h3>
+                    <div id="live-meeting-text">No house meetings scheduled currently.</div>
                 </div>
 
-                <div id="student-live-duty-box" class="duty-box-widget" style="display: none;">
-                    <h3 style="margin: 0 0 5px 0; font-weight: 900; color: #b45309; text-transform: uppercase;">📍 WHERE IS YOUR DUTY?</h3>
-                    <div id="live-duty-text" style="font-size: 1.1rem; font-weight: 700;">No duty assigned yet. Check back later.</div>
-                </div>
-
-                <div id="student-live-responsibility-box" class="responsibility-matrix-widget" style="display: none;">
-                    <h3 style="margin: 0 0 5px 0; font-weight: 900; color: #9d174d; text-transform: uppercase;">🏆 COMPETITION ALLOCATION & CO-ORDINATION</h3>
-                    <div style="font-size: 1rem; font-weight: 600;">
-                        🔹 <strong>Assigned Responsibility:</strong> <span id="live-resp-task" style="font-weight: 800;">None</span><br>
-                        🔹 <strong>Co-ordinating Teachers:</strong> <span id="live-resp-teachers" style="font-weight: 800;">None</span>
+                <div id="student-live-duty-box" class="duty-box-widget">
+                    <h3>📍 WHERE IS YOUR DUTY MAP</h3>
+                    <div style="font-size: 1.1rem; font-weight: 700;">
+                        🗺️ Location: <span id="live-duty-loc">Unassigned</span><br>
+                        🗓️ When (Dates/Week): <span id="live-duty-when">Unassigned</span><br>
+                        ⏰ Which Break: <span id="live-duty-break">Unassigned</span>
+                    </div>
+                    
+                    <div id="conditional-attendance-dispatcher" style="margin-top:15px; display:none;">
+                        <button type="button" class="action-button btn-accent" onclick="requestAttendance()">Forward Attendance Request for Current Break</button>
                     </div>
                 </div>
 
-                <button type="button" class="action-button btn-accent" onclick="requestAttendance()">Forward Attendance Request</button>
+                <div id="student-live-responsibility-box" class="responsibility-matrix-widget">
+                    <h3>🏆 COMPETITION ALLOCATION & CO-ORDINATION</h3>
+                    <div style="font-size: 1rem; font-weight: 600;">
+                        Task: <span id="live-resp-task">None</span> | Teachers: <span id="live-resp-teachers">None</span>
+                    </div>
+                </div>
 
                 <h3 style="margin-top:40px; color: #4c1d95;">Duty Attendance Status Grid</h3>
                 <div class="table-responsive" style="border-color: #8b5cf6;">
                     <table id="attendance-table">
                         <thead>
-                            <tr>
+                            <tr id="main-header-row">
                                 <th rowspan="2">S. No.</th>
                                 <th rowspan="2">Name</th>
                                 <th rowspan="2">Position</th>
                                 <th rowspan="2">Location</th>
-                                <th colspan="3" class="date-header" id="d1">4/5/2026</th>
-                                <th colspan="3" class="date-header" id="d2">5/5/2026</th>
-                                <th colspan="3" class="date-header" id="d3">6/5/2026</th>
-                                <th colspan="3" class="date-header" id="d4">7/5/2026</th>
-                                <th colspan="3" class="date-header" id="d5">8/5/2026</th>
-                                <th rowspan="2">Punctuality</th>
-                                <th rowspan="2" id="th-remarks" style="display:none;">Remarks Log</th>
-                                <th rowspan="2" class="council-actions" style="display:none;">Administrative Actions</th>
-                            </tr>
-                            <tr>
-                                <th class="nested-header">1st</th><th class="nested-header">2nd</th><th class="nested-header">Disp</th>
-                                <th class="nested-header">1st</th><th class="nested-header">2nd</th><th class="nested-header">Disp</th>
-                                <th class="nested-header">1st</th><th class="nested-header">2nd</th><th class="nested-header">Disp</th>
-                                <th class="nested-header">1st</th><th class="nested-header">2nd</th><th class="nested-header">Disp</th>
-                                <th class="nested-header">1st</th><th class="nested-header">2nd</th><th class="nested-header">Disp</th>
-                            </tr>
+                                <th rowspan="2">Active Timeline</th>
+                                </tr>
+                            <tr id="sub-header-row">
+                                </tr>
                         </thead>
                         <tbody></tbody>
                     </table>
                 </div>
 
                 <div id="council-panel" class="captain-panel" style="display:none;">
-                    <h2 style="color:#b45309; border-bottom: 3px dashed #f59e0b; padding-bottom: 8px;">House Council Global Data Engine</h2>
+                    <h2>House Council Global Data Engine</h2>
                     
+                    <div style="background: #f0fdfa; padding: 15px; border-radius: 8px; border: 2px solid #0d9488; margin-bottom: 25px;">
+                        <h3 style="color: #0d9488; margin-top: 0;">📅 Add New Date Columns to Register</h3>
+                        <form onsubmit="addNewAttendanceDate(event)">
+                            <label>Specify Target Date String</label>
+                            <input type="text" id="form-new-date-string" placeholder="e.g. 15/5/2026" required>
+                            <button type="submit" class="action-button" style="background: #0d9488;">Push Active Date Node</button>
+                        </form>
+                    </div>
+
                     <div style="background: #f0fdfa; padding: 15px; border-radius: 8px; border: 2px solid #0d9488; margin-bottom: 25px;">
                         <h3 style="color: #0d9488; margin-top: 0;">📅 House Council Meeting Scheduler Panel</h3>
                         <form onsubmit="allocateHouseMeeting(event)">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Meeting Date & Time Description</label>
-                                    <input type="text" id="form-meeting-desc" placeholder="e.g., Tuesday, 23rd June at 2nd Break in Room 14" required>
-                                </div>
-                            </div>
-                            <button type="submit" class="action-button" style="background: #0d9488; margin-top: 10px;">Broadcast Scheduled Meeting</button>
+                            <input type="text" id="form-meeting-desc" placeholder="e.g., Tuesday, 23rd June at 2nd Break in Room 14" required>
+                            <button type="submit" class="action-button" style="background: #0d9488; margin-top:10px;">Broadcast Scheduled Meeting</button>
                         </form>
                     </div>
 
@@ -450,16 +379,21 @@
                         <h3 style="color: #ca8a04; margin-top: 0;">⚡ House Captain Exclusive Deployment Station</h3>
                         <form onsubmit="allocateCaptainDuty(event)">
                             <div class="form-row">
+                                <div class="form-group"><label>Target Student</label><select id="captain-target-student"></select></div>
+                                <div class="form-group"><label>Where (Location Post)</label><input type="text" id="cap-duty-loc" required></div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group"><label>When (Dates/Week Duration)</label><input type="text" id="cap-duty-when" placeholder="e.g. 4/5/2026 - 8/5/2026" required></div>
                                 <div class="form-group">
-                                    <label>Target Student Name</label>
-                                    <select id="captain-target-student"></select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Assign Duty Location (Where is your duty?)</label>
-                                    <input type="text" id="captain-duty-text" placeholder="e.g. Science Block Stairs - Break 1" required>
+                                    <label>Which Break</label>
+                                    <select id="cap-duty-break">
+                                        <option value="1st">1st Break</option>
+                                        <option value="2nd">2nd Break</option>
+                                        <option value="Disp">Dismissal</option>
+                                    </select>
                                 </div>
                             </div>
-                            <button type="submit" class="action-button" style="background: #ca8a04; margin-top: 10px;">Deploy Duty Assignment</button>
+                            <button type="submit" class="action-button" style="background: #ca8a04;">Deploy Duty Assignment</button>
                         </form>
                     </div>
 
@@ -467,54 +401,42 @@
                         <h3 style="color: #c026d3; margin-top: 0;">🎨 Council Competition & Teacher Co-ordination Assigner</h3>
                         <form onsubmit="allocateCompetitionResponsibility(event)">
                             <div class="form-row">
-                                <div class="form-group">
-                                    <label>Target Student</label>
-                                    <select id="council-target-student"></select>
-                                </div>
-                                <div class="form-group">
-                                    <label>Competition & Assigned Task</label>
-                                    <input type="text" id="council-resp-task" placeholder="e.g. Prepare Hindi Declamation team profiles" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Co-ordinating Teachers</label>
-                                    <input type="text" id="council-resp-teachers" placeholder="e.g. Ms. Manmeet Kaur & Mrs. Sharma" required>
-                                </div>
+                                <div class="form-group"><label>Target Student</label><select id="council-target-student"></select></div>
+                                <div class="form-group"><label>Competition Task</label><input type="text" id="council-resp-task" required></div>
+                                <div class="form-group"><label>Teachers</label><input type="text" id="council-resp-teachers" required></div>
                             </div>
-                            <button type="submit" class="action-button" style="background: #c026d3; margin-top: 10px;">Commit Responsibility Parameters</button>
+                            <button type="submit" class="action-button" style="background: #c026d3; margin-top:10px;">Commit Responsibility Parameters</button>
                         </form>
                     </div>
 
-                    <h3 style="color: #b45309;">1. Edit Attendance Register Logs</h3>
-                    <form onsubmit="directEditAttendance(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a; margin-bottom:25px;">
+                    <h3 style="color: #b45309;">1. Add Row to Attendance Register</h3>
+                    <form onsubmit="manualAddAttendanceRow(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a; margin-bottom:25px;">
                         <div class="form-row">
-                            <div class="form-group"><label>Name</label><input type="text" id="att-name" required></div>
-                            <div class="form-group"><label>Position</label><input type="text" id="att-pos" required></div>
-                            <div class="form-group"><label>Location</label><input type="text" id="att-loc" required></div>
-                            <div class="form-group"><label>Punctuality</label><input type="text" id="att-punct" required></div>
+                            <div class="form-group"><label>Name</label><input type="text" id="add-manual-name" required></div>
+                            <div class="form-group"><label>Position</label><input type="text" id="add-manual-pos" required></div>
                         </div>
-                        <div class="form-group"><label>Remarks</label><input type="text" id="att-remark"></div>
-                        <button type="submit" class="action-button" style="background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%); box-shadow: 0 4px 10px rgba(202,138,4,0.3);">Save/Update Attendance Entry Row</button>
+                        <button type="submit" class="action-button" style="background: #ca8a04;">Append Student Row</button>
                     </form>
 
                     <h3 style="color: #b45309;">2. Manage Upcoming Events Data & Outcomes</h3>
                     <form onsubmit="directAddActivity(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a; margin-bottom:25px;">
                         <div class="form-row">
-                            <div class="form-group"><label>Type of Event</label><input type="text" id="form-evt-type" required placeholder="e.g. Sports"></div>
-                            <div class="form-group"><label>Eligibility Criteria</label><input type="text" id="form-evt-elig" required placeholder="e.g. Classes 9-10"></div>
-                            <div class="form-group"><label>Name of the Event</label><input type="text" id="form-evt-name" required placeholder="e.g. Football Match"></div>
+                            <div class="form-group"><label>Type of Event</label><input type="text" id="form-evt-type" required></div>
+                            <div class="form-group"><label>Eligibility</label><input type="text" id="form-evt-elig" required></div>
+                            <div class="form-group"><label>Name of the Event</label><input type="text" id="form-evt-name" required></div>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label>Won or Not Status</label>
                                 <select id="form-evt-won">
-                                    <option value="TBD">TBD / Pending Outcome</option>
+                                    <option value="TBD">TBD</option>
                                     <option value="WON">WON 🏆</option>
                                     <option value="LOST">LOST</option>
                                 </select>
                             </div>
-                            <div class="form-group"><label>Performance Remarks</label><input type="text" id="form-evt-remarks" placeholder="e.g. Won by 2 goals!"></div>
+                            <div class="form-group"><label>Performance Remarks</label><input type="text" id="form-evt-remarks"></div>
                         </div>
-                        <button type="submit" class="action-button" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); box-shadow: 0 4px 10px rgba(3,105,161,0.3);">Add / Update Event Outcome Entry</button>
+                        <button type="submit" class="action-button" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">Add Event Outcome Entry</button>
                     </form>
 
                     <h3 style="color: #b45309;">3. Manage Achievers Roll Entry Logs</h3>
@@ -529,7 +451,7 @@
                             <div class="form-group"><label>Class</label><input type="text" id="form-ach-class" required></div>
                             <div class="form-group"><label>Section</label><input type="text" id="form-ach-sec" required></div>
                         </div>
-                        <button type="submit" class="action-button" style="background: linear-gradient(135deg, #ec4899 0%, #be185d 100%); box-shadow: 0 4px 10px rgba(190,24,93,0.3);">Upload / Commit Achiever Profile</button>
+                        <button type="submit" class="action-button" style="background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);">Upload Achiever Profile</button>
                     </form>
                 </div>
 
@@ -567,6 +489,8 @@
         { name: "DIVAS ARORA", class: "10", section: "B", position: "HOUSE SPORTS CAPTAIN", pass: "Divas#Aravali" }
     ];
 
+    // Master timelines mapping registry structures
+    let activeDatesList = ["4/5/2026", "5/5/2026", "6/5/2026", "7/5/2026", "8/5/2026"];
     let attendanceDatabase = [];
     let houseActivities = [];
     let achieversDatabase = [];
@@ -574,32 +498,17 @@
     let allocatedDutiesMap = {}; 
     let allocatedResponsibilitiesMap = {};
     let activeHouseMeetingBroadcast = "No house meetings scheduled currently.";
-
     let currentSessionUser = null;
-
-    function getStatusClass(statusText) {
-        if (!statusText) return "";
-        let cleanText = statusText.trim().toUpperCase();
-        if (cleanText === "PRESENT" || cleanText === "WON") return "status-won";
-        if (cleanText === "ABSENT" || cleanText === "DIDN'T COME" || cleanText === "LOST") return "status-lost";
-        return "status-neutral";
-    }
 
     function populateStudentSelectors() {
         const captainSelect = document.getElementById("captain-target-student");
         const councilSelect = document.getElementById("council-target-student");
         if(!captainSelect || !councilSelect) return;
-        
-        captainSelect.innerHTML = "";
-        councilSelect.innerHTML = "";
-
+        captainSelect.innerHTML = ""; councilSelect.innerHTML = "";
         authorizedStudents.forEach(s => {
             if(s.position !== "HOUSE CAPTAIN") {
-                let opt1 = document.createElement("option");
-                opt1.value = s.name; opt1.innerText = `${s.name} (${s.position})`;
-                let opt2 = opt1.cloneNode(true);
-                captainSelect.appendChild(opt1);
-                councilSelect.appendChild(opt2);
+                let opt1 = document.createElement("option"); opt1.value = s.name; opt1.innerText = `${s.name} (${s.position})`;
+                let opt2 = opt1.cloneNode(true); captainSelect.appendChild(opt1); councilSelect.appendChild(opt2);
             }
         });
     }
@@ -614,71 +523,156 @@
         });
     }
 
+    // NEW UPGRADE: SEPARATE REJECT OR APPROVAL INGESTION ROW COMPILER
     function renderAttendanceTable() {
+        const mainHeader = document.getElementById("main-header-row");
+        const subHeader = document.getElementById("sub-header-row");
         const tbody = document.querySelector("#attendance-table tbody");
-        const thRemarks = document.getElementById("th-remarks");
-        if (!tbody) return; tbody.innerHTML = "";
+        if(!mainHeader || !subHeader || !tbody) return;
 
-        const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position);
-        if(thRemarks) thRemarks.style.display = isCouncil ? "table-cell" : "none";
+        // Reset tracking column headers mapping cleanly
+        mainHeader.innerHTML = '<th rowspan="2">S. No.</th><th rowspan="2">Name</th><th rowspan="2">Position</th><th rowspan="2">Location</th><th rowspan="2">Active Timeline</th>';
+        subHeader.innerHTML = '';
 
-        document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none");
+        activeDatesList.forEach(date => {
+            let th = document.createElement("th"); th.setAttribute("colspan", "3"); th.className = "date-header"; th.innerText = date;
+            mainHeader.appendChild(th);
 
+            let b1 = document.createElement("th"); b1.className = "nested-header"; b1.innerText = "1st";
+            let b2 = document.createElement("th"); b2.className = "nested-header"; b2.innerText = "2nd";
+            let b3 = document.createElement("th"); b3.className = "nested-header"; b3.innerText = "Disp";
+            subHeader.appendChild(b1); subHeader.appendChild(b2); subHeader.appendChild(b3);
+        });
+
+        tbody.innerHTML = "";
         if(attendanceDatabase.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="18" style="padding: 20px; color: #64748b; font-weight: 600;">No active attendance logs loaded. Council members can append profiles below.</td></tr>`;
+            let slotsCount = 5 + (activeDatesList.length * 3);
+            tbody.innerHTML = `<tr><td colspan="${slotsCount}" style="padding: 20px; color:#64748b;">No verification records currently active. Council can manually append profiles below.</td></tr>`;
             return;
         }
 
-        attendanceDatabase.forEach((record, idx) => {
-            const row = document.createElement("tr");
-            let rowHtml = `
-                <td>${idx + 1}</td>
-                <td class="left-align"><strong>${record.name}</strong></td>
-                <td>${record.pos}</td>
-                <td>${record.loc}</td>
-                <td class="${getStatusClass(record.d1[0])}">${record.d1[0]}</td><td class="${getStatusClass(record.d1[1])}">${record.d1[1]}</td><td class="${getStatusClass(record.d1[2])}">${record.d1[2]}</td>
-                <td class="${getStatusClass(record.d2[0])}">${record.d2[0]}</td><td class="${getStatusClass(record.d2[1])}">${record.d2[1]}</td><td class="${getStatusClass(record.d2[2])}">${record.d2[2]}</td>
-                <td class="${getStatusClass(record.d3[0])}">${record.d3[0]}</td><td class="${getStatusClass(record.d3[1])}">${record.d3[1]}</td><td class="${getStatusClass(record.d3[2])}">${record.d3[2]}</td>
-                <td class="${getStatusClass(record.d4[0])}">${record.d4[0]}</td><td class="${getStatusClass(record.d4[1])}">${record.d4[1]}</td><td class="${getStatusClass(record.d4[2])}">${record.d4[2]}</td>
-                <td class="${getStatusClass(record.d5[0])}">${record.d5[0]}</td><td class="${getStatusClass(record.d5[1])}">${record.d5[1]}</td><td class="${getStatusClass(record.d5[2])}">${record.d5[2]}</td>
-                <td><strong>${record.punct}</strong></td>
-            `;
-            if (isCouncil) {
-                rowHtml += `<td class="left-align" style="color:#b45309; font-weight:600;">${record.remark || '-'}</td>`;
-                rowHtml += `<td><button class="btn-delete" onclick="deleteAttendanceRow(${idx})">Delete</button></td>`;
-            }
+        const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position);
+
+        attendanceDatabase.forEach((record, studentIdx) => {
+            let row = document.createElement("tr");
+            let rowHtml = `<td>${studentIdx + 1}</td><td><strong>${record.name}</strong></td><td>${record.pos}</td><td>${record.loc}</td><td>${record.timeline}</td>`;
+
+            activeDatesList.forEach(date => {
+                ["1st", "2nd", "Disp"].forEach(breakName => {
+                    let cellKey = `${date}_${breakName}`;
+                    let currentStatus = record.breaksData[cellKey] || "Pending";
+                    let cellClass = `status-${currentStatus.toLowerCase()}-cell`;
+
+                    rowHtml += `<td class="${cellClass}">`;
+                    if(isCouncil) {
+                        rowHtml += `
+                            <div style="font-size:0.8rem; margin-bottom:4px;">${currentStatus}</div>
+                            <button class="btn-inline-approve" onclick="updateCellStatus(${studentIdx}, '${cellKey}', 'Approved')">✓</button>
+                            <button class="btn-inline-reject" onclick="updateCellStatus(${studentIdx}, '${cellKey}', 'Rejected')">✗</button>
+                        `;
+                    } else {
+                        rowHtml += `<span>${currentStatus}</span>`;
+                    }
+                    rowHtml += `</td>`;
+                });
+            });
+
             row.innerHTML = rowHtml;
             tbody.appendChild(row);
         });
+    }
+
+    function updateCellStatus(studentIdx, cellKey, status) {
+        if(attendanceDatabase[studentIdx]) {
+            attendanceDatabase[studentIdx].breaksData[cellKey] = status;
+            renderAttendanceTable();
+        }
+    }
+
+    function addNewAttendanceDate(e) {
+        e.preventDefault();
+        let newDate = document.getElementById("form-new-date-string").value.trim();
+        if(newDate && !activeDatesList.includes(newDate)) {
+            activeDatesList.push(newDate);
+            renderAttendanceTable();
+            alert(`Date block ${newDate} integrated across database matrices!`);
+            document.getElementById("form-new-date-string").value = "";
+        }
+    }
+
+    function manualAddAttendanceRow(e) {
+        e.preventDefault();
+        let name = document.getElementById("add-manual-name").value.trim();
+        let pos = document.getElementById("add-manual-pos").value.trim();
+        attendanceDatabase.push({ name, pos, loc: "Assigned Station", timeline: "Active Session", breaksData: {} });
+        renderAttendanceTable();
+        document.getElementById("add-manual-name").value = ""; document.getElementById("add-manual-pos").value = "";
+    }
+
+    function allocateCaptainDuty(e) {
+        e.preventDefault();
+        let target = document.getElementById("captain-target-student").value;
+        let loc = document.getElementById("cap-duty-loc").value.trim();
+        let when = document.getElementById("cap-duty-when").value.trim();
+        let breakName = document.getElementById("cap-duty-break").value;
+
+        allocatedDutiesMap[target] = { loc, when, breakName };
+        alert(`Duty assignment completely routed for ${target}!`);
+        
+        // Auto-add profile to tracking register if missing
+        if(!attendanceDatabase.find(r => r.name.toUpperCase() === target.toUpperCase())) {
+            attendanceDatabase.push({ name: target, pos: "Batchholder", loc, timeline: when, breaksData: {} });
+        }
+        renderAttendanceTable();
+        document.getElementById("cap-duty-loc").value = ""; document.getElementById("cap-duty-when").value = "";
+    }
+
+    function allocateCompetitionResponsibility(e) {
+        e.preventDefault();
+        let student = document.getElementById("council-target-student").value;
+        let task = document.getElementById("council-resp-task").value.trim();
+        let teachers = document.getElementById("council-resp-teachers").value.trim();
+        allocatedResponsibilitiesMap[student] = { task, teachers };
+        alert("Responsibility mapped!");
+        document.getElementById("council-resp-task").value = ""; document.getElementById("council-resp-teachers").value = "";
+    }
+
+    function requestAttendance() {
+        if (!currentSessionUser) return;
+        let duty = allocatedDutiesMap[currentSessionUser.name];
+        if(!duty) return;
+
+        let matchedRow = attendanceDatabase.find(r => r.name.toUpperCase() === currentSessionUser.name.toUpperCase());
+        if(!matchedRow) {
+            matchedRow = { name: currentSessionUser.name, pos: currentSessionUser.position, loc: duty.loc, timeline: duty.when, breaksData: {} };
+            attendanceDatabase.push(matchedRow);
+        }
+
+        // Auto-detect matching active date parameters seamlessly
+        let todayStr = activeDatesList[activeDatesList.length - 1]; // Fallback to current column indices
+        let targetKey = `${todayStr}_${duty.breakName}`;
+        matchedRow.breaksData[targetKey] = "Pending";
+        
+        alert(`Attendance verification node pinned for ${todayStr} [${duty.breakName} Break]!`);
+        renderAttendanceTable();
     }
 
     function renderActivitiesTable() {
         const tbody = document.querySelector("#activities-table tbody");
         if(!tbody) return; tbody.innerHTML = "";
         const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position);
-        
         document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none");
 
         if(houseActivities.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="7" style="padding: 20px; color: #0369a1; font-weight: 600;">No scheduled tracking metrics found. Council can assign schedules inside dashboard.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="7" style="padding: 20px; color: #0369a1;">No activities initialized.</td></tr>`;
             return;
         }
 
         houseActivities.forEach((act, idx) => {
-            const row = document.createElement("tr");
-            let html = `
-                <td>${idx + 1}</td>
-                <td><strong>${act.type}</strong></td>
-                <td>${act.elig}</td>
-                <td class="left-align">${act.name}</td>
-                <td class="${getStatusClass(act.won)}">${act.won || 'TBD'}</td>
-                <td class="left-align" style="font-size: 0.85rem; color:#555;">${act.remarks || '-'}</td>
-            `;
-            if(isCouncil) {
-                html += `<td><button class="btn-delete" onclick="deleteActivityRow(${idx})">Delete</button></td>`;
-            }
-            row.innerHTML = html;
-            tbody.appendChild(row);
+            let row = document.createElement("tr");
+            let html = `<td>${idx + 1}</td><td><strong>${act.type}</strong></td><td>${act.elig}</td><td>${act.name}</td><td class="${getStatusClass(act.won)}">${act.won || 'TBD'}</td><td>${act.remarks || '-'}</td>`;
+            if(isCouncil) html += `<td><button class="btn-delete" onclick="deleteActivityRow(${idx})">Delete</button></td>`;
+            row.innerHTML = html; tbody.appendChild(row);
         });
     }
 
@@ -686,137 +680,28 @@
         const tbody = document.querySelector("#achievers-table tbody");
         if(!tbody) return; tbody.innerHTML = "";
         const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position);
+        document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none");
 
         if(achieversDatabase.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="8" style="padding: 20px; color: #9d174d; font-weight: 600;">Roll matrix empty. Achievements populate live following executive submission logs.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="8" style="padding: 20px; color: #9d174d;">Roll matrix empty.</td></tr>`;
             return;
         }
 
         achieversDatabase.forEach((ach, idx) => {
-            const row = document.createElement("tr");
-            let html = `
-                <td>${idx + 1}</td>
-                <td class="left-align"><strong>${ach.name}</strong></td>
-                <td>${ach.housePos}</td>
-                <td>${ach.compType}</td>
-                <td><span style="color:#c2185b; font-weight:900;">${ach.wonPos}</span></td>
-                <td>${ach.class}</td>
-                <td>${ach.sec}</td>
-            `;
-            if(isCouncil) {
-                html += `<td><button class="btn-delete" onclick="deleteAchieverRow(${idx})">Delete</button></td>`;
-            }
-            row.innerHTML = html;
-            tbody.appendChild(row);
+            let row = document.createElement("tr");
+            let html = `<td>${idx + 1}</td><td><strong>${ach.name}</strong></td><td>${ach.housePos}</td><td>${ach.compType}</td><td><span style="color:#c2185b; font-weight:900;">${ach.wonPos}</span></td><td>${ach.class}</td><td>${ach.sec}</td>`;
+            if(isCouncil) html += `<td><button class="btn-delete" onclick="deleteAchieverRow(${idx})">Delete</button></td>`;
+            row.innerHTML = html; tbody.appendChild(row);
         });
     }
 
-    function allocateHouseMeeting(e) {
-        e.preventDefault();
-        const desc = document.getElementById("form-meeting-desc").value.trim();
-        activeHouseMeetingBroadcast = desc;
-        document.getElementById("live-meeting-text").innerText = desc;
-        alert("Meeting broadcast notice dispatched safely to student portals!");
-        document.getElementById("form-meeting-desc").value = "";
-    }
+    function deleteActivityRow(idx) { houseActivities.splice(idx, 1); renderActivitiesTable(); }
+    function deleteAchieverRow(idx) { achieversDatabase.splice(idx, 1); renderAchieversTable(); }
+    function allocateHouseMeeting(e) { e.preventDefault(); activeHouseMeetingBroadcast = document.getElementById("form-meeting-desc").value.trim(); document.getElementById("live-meeting-text").innerText = activeHouseMeetingBroadcast; alert("Notice posted!"); document.getElementById("form-meeting-desc").value = ""; }
+    function directAddActivity(e) { e.preventDefault(); houseActivities.push({ type: document.getElementById("form-evt-type").value.trim(), elig: document.getElementById("form-evt-elig").value.trim(), name: document.getElementById("form-evt-name").value.trim(), won: document.getElementById("form-evt-won").value, remarks: document.getElementById("form-evt-remarks").value.trim() }); renderActivitiesTable(); document.getElementById("form-evt-type").value=""; document.getElementById("form-evt-elig").value=""; document.getElementById("form-evt-name").value=""; document.getElementById("form-evt-remarks").value=""; }
+    function directAddAchiever(e) { e.preventDefault(); achieversDatabase.push({ name: document.getElementById("form-ach-name").value.trim().toUpperCase(), housePos: document.getElementById("form-ach-pos").value.trim(), compType: document.getElementById("form-ach-type").value.trim(), wonPos: document.getElementById("form-ach-won").value.trim(), class: document.getElementById("form-ach-class").value.trim(), sec: document.getElementById("form-ach-sec").value.trim().toUpperCase() }); renderAchieversTable(); document.getElementById("form-ach-name").value=""; document.getElementById("form-ach-pos").value=""; document.getElementById("form-ach-type").value=""; document.getElementById("form-ach-won").value=""; document.getElementById("form-ach-class").value=""; document.getElementById("form-ach-sec").value=""; }
+    function handleSuggestionSubmit(event) { event.preventDefault(); alert('Logged!'); document.getElementById('suggest-name').value = ''; document.getElementById('comments').value = ''; }
 
-    function allocateCaptainDuty(e) {
-        e.preventDefault();
-        const student = document.getElementById("captain-target-student").value;
-        const assignment = document.getElementById("captain-duty-text").value.trim();
-        allocatedDutiesMap[student] = assignment;
-        alert(`Duty posted securely for ${student}!`);
-        document.getElementById("captain-duty-text").value = "";
-    }
-
-    function allocateCompetitionResponsibility(e) {
-        e.preventDefault();
-        const student = document.getElementById("council-target-student").value;
-        const task = document.getElementById("council-resp-task").value.trim();
-        const teachers = document.getElementById("council-resp-teachers").value.trim();
-        
-        allocatedResponsibilitiesMap[student] = { task, teachers };
-        alert(`Responsibility matrix pinned for ${student}!`);
-        document.getElementById("council-resp-task").value = "";
-        document.getElementById("council-resp-teachers").value = "";
-    }
-
-    function directEditAttendance(e) {
-        e.preventDefault();
-        const name = document.getElementById("att-name").value.trim();
-        const pos = document.getElementById("att-pos").value.trim();
-        const loc = document.getElementById("att-loc").value.trim();
-        const punct = document.getElementById("att-punct").value.trim();
-        const remark = document.getElementById("att-remark").value.trim();
-
-        let row = attendanceDatabase.find(r => r.name.toLowerCase() === name.toLowerCase());
-        if(row) {
-            row.pos = pos; row.loc = loc; row.punct = punct; row.remark = remark;
-        } else {
-            attendanceDatabase.push({ name, pos, loc, d1:["-","-","-"], d2:["-","-","-"], d3:["-","-","-"], d4:["-","-","-"], d5:["-","-","-"], punct, remark, status:"APPROVED" });
-        }
-        renderAttendanceTable();
-        document.getElementById("att-name").value = ""; document.getElementById("att-pos").value = ""; document.getElementById("att-loc").value = ""; document.getElementById("att-punct").value = ""; document.getElementById("att-remark").value = "";
-    }
-
-    function directAddActivity(e) {
-        e.preventDefault();
-        const name = document.getElementById("form-evt-name").value.trim();
-        const type = document.getElementById("form-evt-type").value.trim();
-        const elig = document.getElementById("form-evt-elig").value.trim();
-        const won = document.getElementById("form-evt-won").value;
-        const remarks = document.getElementById("form-evt-remarks").value.trim();
-
-        let existing = houseActivities.find(a => a.name.toLowerCase() === name.toLowerCase());
-        if(existing) {
-            existing.type = type; existing.elig = elig; existing.won = won; existing.remarks = remarks;
-        } else {
-            houseActivities.push({ type, elig, name, won, remarks });
-        }
-        
-        renderActivitiesTable();
-        document.getElementById("form-evt-type").value=""; document.getElementById("form-evt-elig").value=""; document.getElementById("form-evt-name").value=""; document.getElementById("form-evt-remarks").value="";
-        alert("Events board synchronized!");
-    }
-
-    function directAddAchiever(e) {
-        e.preventDefault();
-        achieversDatabase.push({
-            name: document.getElementById("form-ach-name").value.trim().toUpperCase(),
-            housePos: document.getElementById("form-ach-pos").value.trim(),
-            compType: document.getElementById("form-ach-type").value.trim(),
-            wonPos: document.getElementById("form-ach-won").value.trim(),
-            class: document.getElementById("form-ach-class").value.trim(),
-            sec: document.getElementById("form-ach-sec").value.trim().toUpperCase()
-        });
-        renderAchieversTable();
-        document.getElementById("form-ach-name").value=""; document.getElementById("form-ach-pos").value=""; document.getElementById("form-ach-type").value=""; document.getElementById("form-ach-won").value=""; document.getElementById("form-ach-class").value=""; document.getElementById("form-ach-sec").value="";
-    }
-
-    function requestAttendance() {
-        if (!currentSessionUser) return;
-        const shortName = currentSessionUser.name.split(" ")[0];
-        if (attendanceDatabase.find(r => r.name.toUpperCase() === shortName.toUpperCase())) {
-            alert("A daily operations tracking entry already exists.");
-            return;
-        }
-        attendanceDatabase.push({
-            name: shortName, pos: currentSessionUser.position, loc: "Assigned Post",
-            d1: ["-","-","-"], d2: ["-","-","-"], d3: ["-","-","-"], d4: ["-","-","-"], d5: ["-","-","-"],
-            punct: "Pending", remark: "", status: "PENDING"
-        });
-        alert("Verification request forwarded successfully!");
-        renderAttendanceTable();
-    }
-
-    function handleSuggestionSubmit(event) {
-        event.preventDefault();
-        alert('Thank you! Structural suggestion logged successfully.');
-        document.getElementById('suggest-name').value = '';
-        document.getElementById('comments').value = '';
-    }
-
-    // NATIVE-ENGINE COMPATIBLE DISPLAY ROUTINES
     function handleLogin(event) {
         event.preventDefault();
         const nameInput = document.getElementById('student-name').value.trim().toUpperCase();
@@ -840,24 +725,33 @@
             document.getElementById('display-name').innerText = verified.name;
             document.getElementById('display-role').innerText = verified.position;
 
-            renderAttendanceTable();
-            renderActivitiesTable();
-            renderAchieversTable();
-
+            renderAttendanceTable(); renderActivitiesTable(); renderAchieversTable();
             document.getElementById("live-meeting-text").innerText = activeHouseMeetingBroadcast;
 
-            const assignedDuty = allocatedDutiesMap[verified.name];
-            document.getElementById("student-live-duty-box").style.display = "block";
-            document.getElementById("live-duty-text").innerText = assignedDuty ? assignedDuty : "No specific duty station pinned by House Captain yet.";
+            // TRACKING DISPLAY MODULES FOR ASSIGNED CHECKS
+            const duty = allocatedDutiesMap[verified.name];
+            const dispatcherWidget = document.getElementById("conditional-attendance-dispatcher");
+            
+            if(duty) {
+                document.getElementById("live-duty-loc").innerText = duty.loc;
+                document.getElementById("live-duty-when").innerText = duty.when;
+                document.getElementById("live-duty-break").innerText = `${duty.breakName} Break`;
+                
+                // CRITICAL ALIGNMENT: Button ONLY triggers if an active assigned duty profile is found mapping matching indices
+                dispatcherWidget.style.display = "block";
+            } else {
+                document.getElementById("live-duty-loc").innerText = "Unassigned";
+                document.getElementById("live-duty-when").innerText = "Unassigned";
+                document.getElementById("live-duty-break").innerText = "Unassigned";
+                dispatcherWidget.style.display = "none";
+            }
 
             const assignedResp = allocatedResponsibilitiesMap[verified.name];
-            document.getElementById("student-live-responsibility-box").style.display = "block";
             if(assignedResp) {
                 document.getElementById("live-resp-task").innerText = assignedResp.task;
                 document.getElementById("live-resp-teachers").innerText = assignedResp.teachers;
             } else {
-                document.getElementById("live-resp-task").innerText = "No specific competition task delegated yet.";
-                document.getElementById("live-resp-teachers").innerText = "None Assigned";
+                document.getElementById("live-resp-task").innerText = "None"; document.getElementById("live-resp-teachers").innerText = "None";
             }
 
             const isCouncil = ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(verified.position);
@@ -866,7 +760,6 @@
             
             if(isCouncil) populateStudentSelectors();
 
-            // FIXED COMPATIBILITY STATE TOGGLES
             document.getElementById('login-box').className = "hidden-box";
             document.getElementById('dashboard-box').className = "visible-box";
         } else {
@@ -878,23 +771,18 @@
         currentSessionUser = null;
         document.getElementById('login-box').className = "visible-box";
         document.getElementById('dashboard-box').className = "hidden-box";
-        renderActivitiesTable();
-        renderAchieversTable();
+        renderActivitiesTable(); renderAchieversTable();
     }
 
     function switchPage(p) {
         document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active-page'));
         document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
-        
         document.getElementById('page-' + p).classList.add('active-page');
         document.getElementById('nav-' + p).classList.add('active');
         if (p === 'portal' || p === 'batchholders') renderPublicRegistry();
     }
 
-    window.onload = function() {
-        renderActivitiesTable();
-        renderPublicRegistry();
-    };
+    window.onload = function() { renderActivitiesTable(); renderPublicRegistry(); };
 </script>
 </body>
 </html>
