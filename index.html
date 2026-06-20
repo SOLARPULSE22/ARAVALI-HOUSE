@@ -74,12 +74,14 @@
         .card-goal { border-color: #3b82f6; background: #eff6ff; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.15); }
         .card-achievers { border-color: #ec4899; background: #fdf2f8; box-shadow: 0 10px 20px rgba(236, 72, 153, 0.15); }
         .card-council { border-color: #10b981; background: #f0fdf4; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.15); }
+        .card-batchholders { border-color: #eab308; background: #fefce8; box-shadow: 0 10px 20px rgba(234, 179, 8, 0.15); }
         .card-portal { border-color: #8b5cf6; background: #faf5ff; box-shadow: 0 10px 20px rgba(139, 92, 246, 0.15); }
         
         h2 { color: #0f172a; margin-top: 0; font-size: 1.8rem; text-transform: uppercase; border-bottom: 3px dashed #cbd5e1; padding-bottom: 12px; margin-bottom: 20px; font-weight: 900; display: flex; align-items: center; gap: 10px; }
         .card-goal h2 { color: #1e40af; border-bottom-color: #bfdbfe; }
         .card-achievers h2 { color: #9d174d; border-bottom-color: #fbcfe8; }
         .card-council h2 { color: #065f46; border-bottom-color: #a7f3d0; }
+        .card-batchholders h2 { color: #854d0e; border-bottom-color: #fef08a; }
 
         label { display: block; margin-top: 15px; font-weight: 800; font-size: 0.9rem; color: #0f172a; text-transform: uppercase; letter-spacing: 0.5px; }
         .form-row { display: flex; gap: 15px; margin-bottom: 10px; flex-wrap: wrap; }
@@ -131,23 +133,10 @@
         .status-absent { background-color: #fee2e2 !important; color: #b91c1c !important; font-weight: bold; border: 2px solid #fecaca !important; }
         .status-neutral { background-color: #f1f5f9 !important; color: #475569 !important; }
 
-        /* CUSTOM ALLOCATED DUAL CONTAINERS FOR DELEGATIONS */
-        .duty-box-widget {
-            background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%);
-            border: 3px solid #d97706;
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 20px;
-            color: #92400e;
-        }
-        .responsibility-matrix-widget {
-            background: linear-gradient(135deg, #fae8ff 0%, #fdf4ff 100%);
-            border: 3px solid #d946ef;
-            padding: 20px;
-            border-radius: 12px;
-            margin-top: 20px;
-            color: #86198f;
-        }
+        /* CUSTOM ALLOCATED CONTAINERS */
+        .duty-box-widget { background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%); border: 3px solid #d97706; padding: 20px; border-radius: 12px; margin-top: 20px; color: #92400e; }
+        .responsibility-matrix-widget { background: linear-gradient(135deg, #fae8ff 0%, #fdf4ff 100%); border: 3px solid #d946ef; padding: 20px; border-radius: 12px; margin-top: 20px; color: #86198f; }
+        .meeting-widget-card { background: linear-gradient(135deg, #ccfbf1 0%, #f0fdfa 100%); border: 3px solid #0d9488; padding: 20px; border-radius: 12px; margin-top: 20px; color: #115e59; }
 
         /* HOUSE MISTRESS BOX DISPLAY BANNER */
         .mistress-box {
@@ -194,6 +183,7 @@
         <button id="nav-home" class="active" onclick="switchPage('home')">Our Goal</button>
         <button id="nav-achievers" onclick="switchPage('achievers')">Our Achievers</button>
         <button id="nav-council" onclick="switchPage('council')">Our House Council</button>
+        <button id="nav-batchholders" onclick="switchPage('batchholders')">Our Batchholders</button>
         <button id="nav-portal" onclick="switchPage('portal')">Student Portal</button>
     </div>
 </nav>
@@ -321,6 +311,28 @@
         </div>
     </div>
 
+    <div id="page-batchholders" class="page-view">
+        <div class="card card-batchholders">
+            <h2>Official Batchholder Reference Directory</h2>
+            <p style="color: #854d0e; font-weight: 500;">Complete active batch reference indexes across the Aravali executive operational framework.</p>
+            <div class="table-responsive" style="border-color: #eab308;">
+                <table id="public-members-table">
+                    <thead>
+                        <tr>
+                            <th>S.No</th>
+                            <th>Name Description</th>
+                            <th>Class</th>
+                            <th>Section</th>
+                            <th>Position in the House</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <div id="page-portal" class="page-view">
         <div class="card card-portal">
             <h2>Student Portal Secure Access</h2>
@@ -361,6 +373,11 @@
                     <a href="https://chat.whatsapp.com/FPZSXd3M3bKDctZ947ktMl" target="_blank" class="whatsapp-btn">
                         💬 Join Official Aravali House WhatsApp Group
                     </a>
+                </div>
+
+                <div id="student-house-meeting-box" class="meeting-widget-card">
+                    <h3 style="margin: 0 0 5px 0; font-weight: 900; color: #0f766e; text-transform: uppercase;">📢 UPCOMING HOUSE MEETINGS</h3>
+                    <div id="live-meeting-text" style="font-size: 1.1rem; font-weight: 700;">No house meetings scheduled currently.</div>
                 </div>
 
                 <div id="student-live-duty-box" class="duty-box-widget" style="display: none;">
@@ -411,6 +428,19 @@
                 <div id="council-panel" class="captain-panel" style="display:none;">
                     <h2 style="color:#b45309; border-bottom: 3px dashed #f59e0b; padding-bottom: 8px;">House Council Global Data Engine</h2>
                     
+                    <div style="background: #f0fdfa; padding: 15px; border-radius: 8px; border: 2px solid #0d9488; margin-bottom: 25px;">
+                        <h3 style="color: #0d9488; margin-top: 0;">📅 House Council Meeting Scheduler Panel</h3>
+                        <form onsubmit="allocateHouseMeeting(event)">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Meeting Date & Time Description</label>
+                                    <input type="text" id="form-meeting-desc" placeholder="e.g., Tuesday, 23rd June at 2nd Break in Room 14" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="action-button" style="background: #0d9488; margin-top: 10px;">Broadcast Scheduled Meeting</button>
+                        </form>
+                    </div>
+
                     <div id="captain-exclusive-section" style="display: none; background: #fffdf5; padding: 15px; border-radius: 8px; border: 2px solid #ca8a04; margin-bottom: 25px;">
                         <h3 style="color: #ca8a04; margin-top: 0;">⚡ House Captain Exclusive Deployment Station</h3>
                         <form onsubmit="allocateCaptainDuty(event)">
@@ -502,15 +532,6 @@
             </div>
         </div>
 
-        <div class="card" id="public-members-card" style="border-color: #94a3b8; background: #f8fafc;">
-            <h2>Authorized Batchholder Reference Key Index</h2>
-            <div class="table-responsive" style="border-color: #475569;">
-                <table id="public-members-table">
-                    <thead><tr><th>S.No</th><th>Name</th><th>Class</th><th>Section</th><th>Position</th></tr></thead>
-                    <tbody></tbody>
-                </table>
-            </div>
-        </div>
     </div>
 
 </div>
@@ -539,14 +560,15 @@
         { name: "DIVAS ARORA", class: "10", section: "B", position: "HOUSE SPORTS CAPTAIN", pass: "Divas#Aravali" }
     ];
 
-    // Clean databases with sample indicators deleted per instruction
+    // Cleaned databases ready for direct production entry logs
     let attendanceDatabase = [];
     let houseActivities = [];
     let achieversDatabase = [];
 
-    // Global variable assignments holding cross-session states
+    // State mapping arrays tracking custom assignments allocations
     let allocatedDutiesMap = {}; 
     let allocatedResponsibilitiesMap = {};
+    let activeHouseMeetingBroadcast = "No house meetings scheduled currently.";
 
     function getStatusClass(statusText) {
         if (!statusText) return "";
@@ -580,7 +602,7 @@
         if(!tbody) return; tbody.innerHTML = "";
         authorizedStudents.forEach((student, idx) => {
             const row = document.createElement("tr");
-            row.innerHTML = `<td>${idx + 1}</td><td><strong>${student.name}</strong></td><td>${student.class}</td><td>${student.section || '-'}</td><td>${student.position}</td>`;
+            row.innerHTML = `<td>${idx + 1}</td><td><strong>${student.name}</strong></td><td>${student.class}</td><td>${student.section || '-'}</td><td><span style="font-weight:700; color:#1e3a8a;">${student.position}</span></td>`;
             tbody.appendChild(row);
         });
     }
@@ -682,9 +704,14 @@
         });
     }
 
-    function deleteAttendanceRow(idx) { attendanceDatabase.splice(idx, 1); renderAttendanceTable(); }
-    function deleteActivityRow(idx) { houseActivities.splice(idx, 1); renderActivitiesTable(); }
-    function deleteAchieverRow(idx) { achieversDatabase.splice(idx, 1); renderAchieversTable(); }
+    function allocateHouseMeeting(e) {
+        e.preventDefault();
+        const desc = document.getElementById("form-meeting-desc").value.trim();
+        activeHouseMeetingBroadcast = desc;
+        document.getElementById("live-meeting-text").innerText = desc;
+        alert("Meeting broadcast notice dispatched safely to student portals!");
+        document.getElementById("form-meeting-desc").value = "";
+    }
 
     function allocateCaptainDuty(e) {
         e.preventDefault();
@@ -722,11 +749,7 @@
             attendanceDatabase.push({ name, pos, loc, d1:["-","-","-"], d2:["-","-","-"], d3:["-","-","-"], d4:["-","-","-"], d5:["-","-","-"], punct, remark, status:"APPROVED" });
         }
         renderAttendanceTable();
-        document.getElementById("att-name").value = "";
-        document.getElementById("att-pos").value = "";
-        document.getElementById("att-loc").value = "";
-        document.getElementById("att-punct").value = "";
-        document.getElementById("att-remark").value = "";
+        document.getElementById("att-name").value = ""; document.getElementById("att-pos").value = ""; document.getElementById("att-loc").value = ""; document.getElementById("att-punct").value = ""; document.getElementById("att-remark").value = "";
     }
 
     function directAddActivity(e) {
@@ -804,20 +827,19 @@
         if (verified) {
             currentSessionUser = verified;
             errorBox.style.display = 'none';
-            document.getElementById('student-name').value = '';
-            document.getElementById('student-class').value = '';
-            document.getElementById('student-section').value = '';
-            document.getElementById('student-password').value = '';
+            document.getElementById('student-name').value = ''; document.getElementById('student-class').value = ''; document.getElementById('student-section').value = ''; document.getElementById('student-password').value = '';
             
             document.getElementById('display-name').innerText = verified.name;
             document.getElementById('display-role').innerText = verified.position;
 
-            // Render trackers
             renderAttendanceTable();
             renderActivitiesTable();
             renderAchieversTable();
 
-            // Toggle live duty widget boxes dynamically based on entries mapping
+            // Set default meeting text
+            document.getElementById("live-meeting-text").innerText = activeHouseMeetingBroadcast;
+
+            // Load student mapping profiles metrics
             const assignedDuty = allocatedDutiesMap[verified.name];
             document.getElementById("student-live-duty-box").style.display = "block";
             document.getElementById("live-duty-text").innerText = assignedDuty ? assignedDuty : "No specific duty station pinned by House Captain yet.";
@@ -832,12 +854,10 @@
                 document.getElementById("live-resp-teachers").innerText = "None Assigned";
             }
 
-            // Display council configuration layouts
             const isCouncil = ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(verified.position);
             document.getElementById('council-panel').style.display = isCouncil ? "block" : "none";
-            
-            // Unveil House Captain Exclusive elements explicitly
             document.getElementById('captain-exclusive-section').style.display = (verified.position === "HOUSE CAPTAIN") ? "block" : "none";
+            
             if(isCouncil) populateStudentSelectors();
 
             document.getElementById('login-box').style.display = 'none';
@@ -863,7 +883,7 @@
         
         document.getElementById('page-' + p).classList.add('active-page');
         document.getElementById('nav-' + p).classList.add('active');
-        if (p === 'portal') renderPublicRegistry();
+        if (p === 'portal' || p === 'batchholders') renderPublicRegistry();
     }
 
     window.onload = function() {
