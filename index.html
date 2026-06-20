@@ -43,7 +43,7 @@
             100% { transform: translate3d(-50%, 0, 0); }
         }
 
-        /* HEADER FRAMEWORK */
+        /* HEADER FRAMEWORK - FULLY CLEANED AND FIXED */
         header { 
             background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(30, 58, 138, 0.75)), 
                         url('apee-jay-school-model-town-jalandhar-schools-giz7xaz8pw.avif'),
@@ -531,18 +531,12 @@
                 <button type="button" class="action-button" style="background:#475569; margin-top:25px;" onclick="handleLogout()">Exit Portal Node</button>
             </div>
         </div>
-
     </div>
 
 </div>
 
-<footer>
-    THE ARAVALI HUB &copy; 2026<br>
-    <span style="font-size: 0.85rem; font-weight: 500; opacity: 0.9;">An initiative of the house council of Aravali house of the academic session 2026 - 2027</span>
-</footer>
-
 <script>
-    // Master updated credentials index
+    // Master database index ledger
     let authorizedStudents = [
         { name: "AARUSH", class: "10", section: "A", position: "PROCTOR - BOYS", pass: "Aarush#Proctor" },
         { name: "JAPUNJAN", class: "10", section: "B", position: "CULTURAL SECRETARY - GIRLS", pass: "Japunjan#Cultural" },
@@ -560,12 +554,10 @@
         { name: "DIVAS ARORA", class: "10", section: "B", position: "HOUSE SPORTS CAPTAIN", pass: "Divas#Aravali" }
     ];
 
-    // Cleaned databases ready for direct production entry logs
     let attendanceDatabase = [];
     let houseActivities = [];
     let achieversDatabase = [];
 
-    // State mapping arrays tracking custom assignments allocations
     let allocatedDutiesMap = {}; 
     let allocatedResponsibilitiesMap = {};
     let activeHouseMeetingBroadcast = "No house meetings scheduled currently.";
@@ -836,10 +828,8 @@
             renderActivitiesTable();
             renderAchieversTable();
 
-            // Set default meeting text
             document.getElementById("live-meeting-text").innerText = activeHouseMeetingBroadcast;
 
-            // Load student mapping profiles metrics
             const assignedDuty = allocatedDutiesMap[verified.name];
             document.getElementById("student-live-duty-box").style.display = "block";
             document.getElementById("live-duty-text").innerText = assignedDuty ? assignedDuty : "No specific duty station pinned by House Captain yet.";
@@ -861,7 +851,6 @@
             if(isCouncil) populateStudentSelectors();
 
             document.getElementById('login-box').style.display = 'none';
-            document.getElementById('public-members-card').style.display = 'none';
             document.getElementById('dashboard-box').style.display = 'block';
         } else {
             errorBox.style.display = 'block';
@@ -871,7 +860,6 @@
     function handleLogout() {
         currentSessionUser = null;
         document.getElementById('login-box').style.display = 'block';
-        document.getElementById('public-members-card').style.display = 'block';
         document.getElementById('dashboard-box').style.display = 'none';
         renderActivitiesTable();
         renderAchieversTable();
