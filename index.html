@@ -60,10 +60,54 @@
         header h1 { margin: 0; font-size: 3.2rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase; color: #ffffff; text-shadow: 3px 3px 8px rgba(0,0,0,0.7); }
         header p { margin: 15px 0 0 0; font-size: 1.2rem; color: #fcd34d; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
         
-        nav { background: #0f172a; padding: 5px 0; text-align: center; position: sticky; top: 0; z-index: 100; border-bottom: 4px solid #f59e0b; box-shadow: 0 5px 20px rgba(0,0,0,0.2); }
-        nav .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
-        nav button { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); border: 2px solid #475569; color: #f1f5f9; padding: 14px 24px; font-weight: 800; font-size: 0.95rem; text-transform: uppercase; cursor: pointer; letter-spacing: 1px; border-radius: 8px; transition: all 0.3s ease; }
-        nav button:hover, nav button.active { color: #ffffff; background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%); border-color: #ffffff; box-shadow: 0 0 15px #f59e0b; }
+        /* FIX: FORCE NAV MENU TO STICK IN ONE SINGLE LINE WITH FLEX COMPRESSION & NO ROW WRAPPING */
+        nav { 
+            background: #0f172a; 
+            padding: 8px 10px; 
+            position: sticky; 
+            top: 0; 
+            z-index: 100; 
+            border-bottom: 4px solid #f59e0b; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2); 
+        }
+        nav .nav-container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            display: flex; 
+            flex-direction: row;
+            flex-wrap: nowrap !important; 
+            justify-content: space-between; 
+            align-items: center;
+            gap: 6px; 
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        /* Hide scrollbar visuals entirely while preserving touch swipe tracking on mobile screen widths */
+        nav .nav-container::-webkit-scrollbar { display: none; }
+        nav .nav-container { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        nav button { 
+            flex: 1 1 auto;
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%); 
+            border: 2px solid #475569; 
+            color: #f1f5f9; 
+            padding: 12px 10px; 
+            font-weight: 800; 
+            font-size: clamp(0.7rem, 1.15vw, 0.9rem); 
+            text-transform: uppercase; 
+            cursor: pointer; 
+            letter-spacing: 0.5px; 
+            border-radius: 6px; 
+            transition: all 0.2s ease;
+            white-space: nowrap !important;
+            text-align: center;
+        }
+        nav button:hover, nav button.active { 
+            color: #ffffff; 
+            background: linear-gradient(135deg, #d97706 0%, #f59e0b 100%); 
+            border-color: #ffffff; 
+            box-shadow: 0 0 10px #f59e0b; 
+        }
 
         .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; box-sizing: border-box; }
         
@@ -74,6 +118,7 @@
         .card-goal { border-color: #3b82f6; background: #eff6ff; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.15); }
         .card-achievers { border-color: #ec4899; background: #fdf2f8; box-shadow: 0 10px 20px rgba(236, 72, 153, 0.15); }
         .card-council { border-color: #10b981; background: #f0fdf4; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.15); }
+        .card-teachers { border-color: #f59e0b; background: #fffbeb; box-shadow: 0 10px 20px rgba(245, 158, 11, 0.15); }
         .card-batchholders { border-color: #eab308; background: #fefce8; box-shadow: 0 10px 20px rgba(234, 179, 8, 0.15); }
         .card-blogs { border-color: #06b6d4; background: #f0fdfa; box-shadow: 0 10px 20px rgba(6, 182, 212, 0.15); }
         .card-portal { border-color: #8b5cf6; background: #faf5ff; box-shadow: 0 10px 20px rgba(139, 92, 246, 0.15); }
@@ -82,6 +127,7 @@
         .card-goal h2 { color: #1e40af; border-bottom-color: #bfdbfe; }
         .card-achievers h2 { color: #9d174d; border-bottom-color: #fbcfe8; }
         .card-council h2 { color: #065f46; border-bottom-color: #a7f3d0; }
+        .card-teachers h2 { color: #b45309; border-bottom-color: #fde68a; }
         .card-batchholders h2 { color: #854d0e; border-bottom-color: #fef08a; }
         .card-blogs h2 { color: #0891b2; border-bottom-color: #c5f2f7; }
 
@@ -129,42 +175,29 @@
         th { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: #ffffff; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; font-weight: 900; }
         .nested-header { background: #334155; color: #ffffff; font-size: 0.8rem; padding: 6px; }
         tr:nth-child(even) td { background-color: #f8fafc; }
-        .left-align { text-align: left; }
+        .left-align { text-align: left !important; }
 
-        /* Row Color Status Matrices */
+        /* FIX: DUAL SPLIT INTERFACE PACK FOR THE RIGHT SIDE FILTERS MATRIX */
+        .blog-split-container { display: flex; gap: 25px; flex-wrap: wrap; }
+        .blog-main-stream { flex: 3; min-width: 300px; }
+        .blog-filter-sidebar { flex: 1; min-width: 250px; background: #ffffff; border: 3px solid #06b6d4; border-radius: 14px; padding: 20px; box-sizing: border-box; height: fit-content; }
+
+        /* Color Schemes */
         .status-approved-cell { background-color: #dcfce7 !important; color: #15803d !important; font-weight: bold; }
         .status-rejected-cell { background-color: #fee2e2 !important; color: #b91c1c !important; font-weight: bold; }
         .status-pending-cell { background-color: #ffedd5 !important; color: #b45309 !important; font-weight: bold; }
         .status-won { background-color: #bbf7d0 !important; color: #15803d !important; font-weight: bold; }
         .status-lost { background-color: #fecaca !important; color: #b91c1c !important; font-weight: bold; }
 
-        /* Custom Widgets */
+        /* Widgets */
         .duty-box-widget { background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%); border: 3px solid #d97706; padding: 20px; border-radius: 12px; margin-top: 20px; color: #92400e; }
         .responsibility-matrix-widget { background: linear-gradient(135deg, #fae8ff 0%, #fdf4ff 100%); border: 3px solid #d946ef; padding: 20px; border-radius: 12px; margin-top: 20px; color: #86198f; }
         .meeting-widget-card { background: linear-gradient(135deg, #ccfbf1 0%, #f0fdfa 100%); border: 3px solid #0d9488; padding: 20px; border-radius: 12px; margin-top: 20px; color: #115e59; }
 
-        /* Blog Element layout rules */
+        /* Blog Item Styles */
         .blog-post { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .blog-meta { font-size: 0.85rem; color: #64748b; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; border-bottom: 2px solid #f1f5f9; padding-bottom: 5px; }
 
-        /* House Mistress Direct Box */
-        .mistress-box {
-            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-            border: 3px solid #0284c7;
-            padding: 22px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            color: #0369a1;
-            font-weight: 800;
-            font-size: 1.05rem;
-            box-shadow: 0 5px 15px rgba(2, 132, 199, 0.15);
-            text-align: center;
-        }
-
-        .welcome-banner { background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); padding: 18px 22px; border-radius: 10px; margin-bottom: 25px; border-left: 6px solid #7c3aed; color: #5b21b6; font-weight: 600; }
-        .captain-panel { background: #fef9c3; border: 3px dashed #ca8a04; padding: 25px; border-radius: 14px; margin-top: 30px; }
-        
-        /* SECURE VISIBILITY ENGINE UTILITIES */
         .page-view { display: none; }
         .active-page { display: block !important; }
         .hidden-box { display: none !important; }
@@ -192,7 +225,8 @@
     <div class="nav-container">
         <button id="nav-home" class="active" onclick="switchPage('home')">Our Goal</button>
         <button id="nav-achievers" onclick="switchPage('achievers')">Our Achievers</button>
-        <button id="nav-council" onclick="switchPage('council')">Our House Council</button>
+        <button id="nav-council" onclick="switchPage('council')">Our Council</button>
+        <button id="nav-teachers" onclick="switchPage('teachers')">Our Teachers</button>
         <button id="nav-batchholders" onclick="switchPage('batchholders')">Our Batchholders</button>
         <button id="nav-blogs" onclick="switchPage('blogs')">Our Blogs</button>
         <button id="nav-portal" onclick="switchPage('portal')">Student Portal</button>
@@ -271,7 +305,6 @@
                 </table>
             </div>
         </div>
-
     </div>
 
     <div id="page-council" class="page-view">
@@ -293,6 +326,33 @@
         </div>
     </div>
 
+    <div id="page-teachers" class="page-view">
+        <div class="card card-teachers">
+            <h2>Official Aravali House Faculty Directory (Academic session 2026-2027)</h2>
+            
+            <div style="background: #fffbeb; border: 2px dashed #d97706; padding: 20px; border-radius: 12px; margin-bottom: 25px; color: #b45309;">
+                <strong>💡 HOUSE MENTORS INTRODUCTORY OVERVIEW:</strong>
+                <p id="live-teachers-intro-statement" style="margin: 5px 0 0 0; font-weight: 600; font-style: italic;">
+                    The teachers of Aravali House bring years of specialized classroom experience, strategic coaching, and non-proliferation of academic values across general sciences and arts. Their steadfast dedication provides leadership and strategic insights, allowing our active batchholders to fulfill their duty posts efficiently.
+                </p>
+            </div>
+
+            <div class="table-responsive" style="border-color: #f59e0b;">
+                <table id="teachers-registry-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 50px !important;">S.No</th>
+                            <th style="text-align: left; padding-left: 20px;">Name of Teacher</th>
+                            <th>Subject Taught</th>
+                            <th class="council-actions" style="display:none;">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
     <div id="page-batchholders" class="page-view">
         <div class="card card-batchholders">
             <h2>Official Batchholder Reference Directory (Academic session 2026-2027)</h2>
@@ -300,7 +360,14 @@
             <div class="table-responsive" style="border-color: #eab308;">
                 <table id="public-members-table">
                     <thead>
-                        <tr><th>S.No</th><th>Name Description</th><th>Class</th><th>Section</th><th>Position in the House</th></tr>
+                        <tr>
+                            <th style="width: 50px !important;">S.No</th>
+                            <th style="text-align: left !important; padding-left: 20px;">Name Description</th>
+                            <th>Class</th>
+                            <th>Section</th>
+                            <th>Position in the House</th>
+                            <th>Batch Badge Awarded</th>
+                        </tr>
                     </thead>
                     <tbody></tbody>
                 </table>
@@ -312,16 +379,26 @@
         <div class="card card-blogs">
             <h2>Official House Thought Stream Hub (Academic session 2026-2027)</h2>
             
-            <div style="background: #e0f2fe; padding: 20px; border-radius: 10px; border: 2px dashed #0284c7; color: #0369a1; margin-bottom:30px; font-size:0.95rem;">
-                <strong>📋 PROCEDURE TO UPLOAD AN OFFICIAL BLOG ARTICLE:</strong><br>
-                1. Navigate to the <strong>Student Portal</strong> tab and log in with your secure Council/Batchholder pair.<br>
-                2. Scroll below your live status widgets to the yellow <strong>House Council Global Data Engine</strong> space.<br>
-                3. Locate form panel number 4 titled: <em>"Compose & Launch Official Blog Posts"</em>.<br>
-                4. Write your Article Title heading, confirm your Author Signature, write your text body content narrative, and click <strong>"Publish Blog Stream Node"</strong>.<br>
-                5. The post will push into this public section for all house members to view instantly!
-            </div>
+            <div class="blog-split-container">
+                
+                <div class="blog-main-stream" id="blogs-stream-target-container"></div>
+                
+                <div class="blog-filter-sidebar">
+                    <h3 style="margin-top: 0; color: #0891b2; font-size: 1.1rem; border-bottom: 2px solid #c5f2f7; padding-bottom: 8px; text-transform: uppercase;">🔍 Filter Stream</h3>
+                    
+                    <label style="margin-top: 10px;">By Author</label>
+                    <select id="filter-author-select" onchange="applyBlogFiltersMatrix()"></select>
+                    
+                    <label>By Topic</label>
+                    <select id="filter-topic-select" onchange="applyBlogFiltersMatrix()"></select>
+                    
+                    <label>By Month</label>
+                    <select id="filter-month-select" onchange="applyBlogFiltersMatrix()"></select>
+                    
+                    <button type="button" class="action-button btn-accent" style="margin-top: 15px; padding: 10px; font-size: 0.85rem;" onclick="resetBlogFiltersMatrix()">Clear Filters</button>
+                </div>
 
-            <div id="blogs-stream-target-container"></div>
+            </div>
         </div>
     </div>
 
@@ -405,6 +482,23 @@
                 <div id="council-panel" class="captain-panel" style="display:none;">
                     <h2>House Council Global Data Engine</h2>
                     
+                    <div style="background: #fffbeb; padding: 15px; border-radius: 8px; border: 2px solid #f59e0b; margin-bottom: 25px;">
+                        <h3 style="color: #b45309; margin-top: 0;">👩‍🏫 6. Manage Faculty Directory Data & Experiences Statements</h3>
+                        <form onsubmit="directUpdateTeachersIntroStatementLog(event)" style="margin-bottom: 15px;">
+                            <label>Modify Public Faculty Intro Summary Text</label>
+                            <textarea id="form-teacher-intro-text" rows="2" required></textarea>
+                            <button type="submit" class="action-button" style="background: #f59e0b; padding: 10px; margin-top: 5px; font-size: 0.85rem;">Update Introduction Summary</button>
+                        </form>
+                        
+                        <form onsubmit="directAddTeacherProfile(event)">
+                            <div class="form-row">
+                                <div class="form-group"><label>Teacher Name</label><input type="text" id="form-add-teach-name" placeholder="e.g. Gurpreet Mam" required></div>
+                                <div class="form-group"><label>Subject Taught</label><input type="text" id="form-add-teach-sub" placeholder="e.g. Chemistry" required></div>
+                            </div>
+                            <button type="submit" class="action-button btn-accent" style="margin-top: 5px; padding: 10px; font-size: 0.85rem;">Add Faculty Member Row</button>
+                        </form>
+                    </div>
+
                     <div style="background: #f5f3ff; padding: 15px; border-radius: 8px; border: 2px solid #8b5cf6; margin-bottom: 25px;">
                         <h3 style="color: #6d28d9; margin-top: 0;">🎖️ 5. Distribute Digital Appreciation Badges</h3>
                         <form onsubmit="directAwardDigitalBadge(event)">
@@ -419,36 +513,22 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td>
-                                                <input type="text" id="badge-receiver-name" placeholder="Type Student Name..." required style="margin: 0;">
-                                            </td>
+                                            <td><input type="text" id="badge-receiver-name" placeholder="Type Student Name..." required style="margin: 0;"></td>
                                             <td>
                                                 <select id="badge-appreciation-type" required style="margin: 0;">
                                                     <option value="Discipline Guard | 🛡️">🛡️ Discipline Guard (Exemplary Conduct)</option>
                                                     <option value="Punctuality Master | ⏱️">⏱️ Punctuality Master (Flawless Timing)</option>
                                                     <option value="Academic Titan | 🎓">🎓 Academic Titan (Classroom Brilliance)</option>
                                                     <option value="Assembly Leader | 📢">📢 Assembly Leader (Speech & Eloquence)</option>
-                                                    <option value="Literary Champion | ✍️">✍️ Literary Champion (Debate & Writing Victory)</option>
+                                                    <option value="Literary Champion | ✍️">✍️ Literary Champion (Debate Victory)</option>
                                                     <option value="Sports MVP | ⚽">⚽ Sports MVP (Athletic Supremacy)</option>
                                                     <option value="Cultural Maestro | 🎨">🎨 Cultural Maestro (Art & Dance Distinction)</option>
                                                     <option value="Unified Strength Award | 🤝">🤝 Unified Strength Award (House Teamwork)</option>
                                                     <option value="House Loyalty Star | ❤️">❤️ House Loyalty Star (Pure House Dedication)</option>
                                                     <option value="Duty Post Champion | 👮">👮 Duty Post Champion (Reliable Safeguarding)</option>
-                                                    <option value="Creative Visionary | 💡">💡 Creative Visionary (Chart & Board Layout Innovator)</option>
-                                                    <option value="Rapid Responder | ⚡">⚡ Rapid Responder (Instant Task Execution)</option>
-                                                    <option value="Socio-Economic Impact | 🌍">🌍 Socio-Economic Impact (Sincere Awareness)</option>
-                                                    <option value="Database Commander | 💻">💻 Database Commander (Technical Portals Support)</option>
-                                                    <option value="Motto Ambassador | 🦅">🦅 Motto Ambassador (Soaring High Alignment)</option>
-                                                    <option value="House Integrity Badge | ⚖️">⚖️ House Integrity Badge (Honest Leadership)</option>
-                                                    <option value="Resilience Token | ✊">✊ Resilience Token (Fought Hard & Didn't Quit)</option>
-                                                    <option value="Kindness Badge | 🌱">🌱 Kindness Badge (Supporting Fellow Members)</option>
-                                                    <option value="Gold Medalist Elite | 🥇">🥇 Gold Medalist Elite (Inter-School Conquest)</option>
-                                                    <option value="Silver Standout | 🥈">🥈 Silver Standout (High Ranking Achievement)</option>
                                                 </select>
                                             </td>
-                                            <td>
-                                                <button type="submit" class="action-button btn-accent" style="margin: 0; padding: 10px; width: 100%;">Send Badge</button>
-                                            </td>
+                                            <td><button type="submit" class="action-button btn-accent" style="margin: 0; padding: 10px; width: 100%;">Send Badge</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -461,9 +541,10 @@
                         <form onsubmit="directPublishNewBlog(event)">
                             <div class="form-row">
                                 <div class="form-group"><label>Blog Title Heading</label><input type="text" id="form-blog-title" required placeholder="e.g. Integrity in Actions"></div>
+                                <div class="form-group"><label>Blog Category Topic Option</label><input type="text" id="form-blog-topic" required placeholder="e.g. Systems & Discipline"></div>
                                 <div class="form-group"><label>Signature Author Label</label><input type="text" id="form-blog-author" required readonly></div>
                             </div>
-                            <label>Article Body Text Content Content</label>
+                            <label>Article Body Text Content</label>
                             <textarea id="form-blog-content" rows="5" required placeholder="Type the complete blog narrative parameters here..."></textarea>
                             <button type="submit" class="action-button" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); margin-top:15px;">Publish Blog Stream Node</button>
                         </form>
@@ -583,31 +664,39 @@
 
 </div>
 
-<footer>
-    THE ARAVALI HUB &copy; 2026<br>
-    <span style="font-size: 0.85rem; font-weight: 500; opacity: 0.9;">An initiative of the house council of Aravali house of the academic session 2026 - 2027</span>
-</footer>
-
 <script>
-    // Master updated credentials index
+    // Master updated credentials array
     let authorizedStudents = [
-        { name: "AARUSH", class: "10", section: "A", position: "PROCTOR - BOYS", pass: "Aarush#Proctor" },
-        { name: "JAPUNJAN", class: "10", section: "B", position: "CULTURAL SECRETARY - GIRLS", pass: "Japunjan#Cultural" },
-        { name: "NAVYA CHADDHA", class: "10", section: "B", position: "ENVIRONMENT SECRETARY - GIRLS", pass: "Navya#Environment" },
-        { name: "ALIYA", class: "10", section: "C", position: "PREFECT", pass: "Aliya@Prefect" },
-        { name: "NAVYA KOHLI", class: "10", section: "A", position: "PREFECT", pass: "Navya@Prefect" },
-        { name: "RAADHIYA", class: "9", section: "A", position: "PREFECT", pass: "Raadhiya@Prefect" },
-        { name: "AKSHITA", class: "9", section: "A", position: "PREFECT", pass: "Akshita@Prefect" },
-        { name: "SANA KAKKAR", class: "9", section: "B", position: "PREFECT", pass: "Sana@Prefect" },
-        { name: "VANSH", class: "9", section: "C", position: "PREFECT", pass: "Vansh@Prefect" },
-        { name: "TANISHKA", class: "9", section: "C", position: "PREFECT", pass: "Tanishka@Prefect" },
-        { name: "BHAVIK", class: "8", section: "B", position: "PREFECT", pass: "Bhavik@Prefect" },
-        { name: "JASMAIRA", class: "7", section: "B", position: "PREFECT", pass: "Jasmaira@Prefect" },
-        { name: "MANRAJ", class: "7", section: "B", position: "PREFECT", pass: "Manraj@Prefect" },
-        { name: "SANCHIT GUPTA", class: "9", section: "A", position: "HOUSE CAPTAIN", pass: "Sanchit#Aravali" },
-        { name: "HREHAAN ARORA", class: "9", section: "A", position: "VICE HOUSE CAPTAIN", pass: "Hrehaan#Aravali" },
-        { name: "PAAVNI BHALLA", class: "9", section: "C", position: "HOUSE CULTURAL CAPTAIN", pass: "Paavni#Aravali" },
-        { name: "DIVAS ARORA", class: "10", section: "B", position: "HOUSE SPORTS CAPTAIN", pass: "Divas#Aravali" }
+        { name: "AARUSH", class: "10", section: "A", position: "PROCTOR - BOYS", pass: "Aarush#Proctor", batchBadge: "Proctor Badge | 🛡️" },
+        { name: "JAPUNJAN", class: "10", section: "B", position: "CULTURAL SECRETARY - GIRLS", pass: "Japunjan#Cultural", batchBadge: "Secretary Badge | 🎭" },
+        { name: "NAVYA CHADDHA", class: "10", section: "B", position: "ENVIRONMENT SECRETARY - GIRLS", pass: "Navya#Environment", batchBadge: "Secretary Badge | 🌱" },
+        { name: "ALIYA", class: "10", section: "C", position: "PREFECT", pass: "Aliya@Prefect", batchBadge: "Prefect Badge | ⭐" },
+        { name: "NAVYA KOHLI", class: "10", section: "A", position: "PREFECT", pass: "Navya@Prefect", batchBadge: "Prefect Badge | ⭐" },
+        { name: "RAADHIYA", class: "9", section: "A", position: "PREFECT", pass: "Raadhiya@Prefect", batchBadge: "Prefect Badge | ⭐" },
+        { name: "AKSHITA", class: "9", section: "A", position: "PREFECT", pass: "Akshita@Prefect", batchBadge: "Prefect Badge | ⭐" },
+        { name: "SANA KAKKAR", class: "9", section: "B", position: "PREFECT", pass: "Sana@Prefect", batchBadge: "Prefect Badge | ⭐" },
+        { name: "VANSH", class: "9", section: "C", position: "PREFECT", pass: "Vansh@Prefect", batchBadge: "Prefect Badge | ⭐" },
+        { name: "TANISHKA", class: "9", section: "C", position: "PREFECT", pass: "Tanishka@Prefect", batchBadge: "Prefect Badge | ⭐" },
+        { name: "BHAVIK", class: "8", section: "B", position: "PREFECT", pass: "Bhavik@Prefect", batchBadge: "Prefect Badge | ⭐" },
+        { name: "JASMAIRA", class: "7", section: "B", position: "PREFECT", pass: "Jasmaira@Prefect", batchBadge: "Prefect Badge | ⭐" },
+        { name: "MANRAJ", class: "7", section: "B", position: "PREFECT", pass: "Manraj@Prefect", batchBadge: "Prefect Badge | ⭐" },
+        { name: "SANCHIT GUPTA", class: "9", section: "A", position: "HOUSE CAPTAIN", pass: "Sanchit#Aravali", batchBadge: "Captain Crest | 👑" },
+        { name: "HREHAAN ARORA", class: "9", section: "A", position: "VICE HOUSE CAPTAIN", pass: "Hrehaan#Aravali", batchBadge: "Vice Captain Crest | ⚡" },
+        { name: "PAAVNI BHALLA", class: "9", section: "C", position: "HOUSE CULTURAL CAPTAIN", pass: "Paavni#Aravali", batchBadge: "Cultural Captain Crest | 🎨" },
+        { name: "DIVAS ARORA", class: "10", section: "B", position: "HOUSE SPORTS CAPTAIN", pass: "Divas#Aravali", batchBadge: "Sports Captain Crest | ⚽" }
+    ];
+
+    // Master base array for teacher index table entries
+    let teachersDatabase = [
+        { name: "Ms. Manmeet Kaur", subject: "Science" },
+        { name: "Ms. Alka", subject: "Punjabi" },
+        { name: "Mr. Baljit Singh", subject: "History and Civics" },
+        { name: "Ms. Joginder", subject: "Punjabi" },
+        { name: "Ms. Jyoti Khanna", subject: "Maths" },
+        { name: "Ms. Meenakshi", subject: "English" },
+        { name: "Ms. Nidhi Mehta", subject: "Maths" },
+        { name: "Ms. Sonali", subject: "Computer Science and Artificial Intelligence" },
+        { name: "Ms. Saloni", subject: "General Operations Mentorship" }
     ];
 
     let activeDatesList = ["4/5/2026", "5/5/2026", "6/5/2026", "7/5/2026", "8/5/2026"];
@@ -615,14 +704,16 @@
     let houseActivities = [];
     let achieversDatabase = [];
     
-    // Memory layer array to preserve dynamic badge distribution logs
     let badgesDatabase = [
-        { name: "SANCHIT GUPTA", text: "Duty Post Champion", emoji: "👮" }
+        { name: "SANCHIT GUPTA", text: "Duty Post Champion", emoji: "👮" },
+        { name: "HREHAAN ARORA", text: "Punctuality Master", emoji: "⏱️" }
     ];
 
+    // Updated pre-loaded captain blog post matching properties
     let blogsDatabase = [
         {
             title: "SOARING HIGH: OUR MANDATE FOR THE INTENSIFIED SESSION",
+            topic: "System Integrity & Discipline",
             author: "SANCHIT GUPTA (HOUSE CAPTAIN)",
             date: "20/06/2026",
             content: "Welcome Aravali House members to our decentralized workstation engine! As your House Captain, my mandate for this academic cycle is absolute accountability across every duty post. Excellence isn't an accident—it's something we compile block by block, break by break. Let's maintain discipline at our tracking matrices, lead our forthcoming competitions with ultimate integrity, and keep pushing our house values forward. Remember, soaring high is our true nature!"
@@ -633,14 +724,7 @@
     let allocatedResponsibilitiesMap = {};
     let activeHouseMeetingBroadcast = "No house meetings scheduled currently.";
     let currentSessionUser = null;
-
-    function getStatusClass(statusText) {
-        if (!statusText) return "";
-        let cleanText = statusText.trim().toUpperCase();
-        if (cleanText === "APPROVED" || cleanText === "WON") return "status-won";
-        if (cleanText === "REJECTED" || cleanText === "LOST") return "status-lost";
-        return "status-neutral";
-    }
+    let teachersIntroStatementMemoryLog = "The educators of Aravali House bring seasoned scholastic mentorship, strategic guidance, and deep commitment across distinct sciences and cultural fields. Their experience empowers our batchholders to maintain house discipline and perform exceptionally in all intra-school leagues.";
 
     function populateStudentSelectors() {
         const captainSelect = document.getElementById("captain-target-student");
@@ -655,28 +739,122 @@
         });
     }
 
+    // TEACHER LIST POPULATION CONSOLE ROUTINES
+    function renderTeachersRegistryTable() {
+        const tbody = document.querySelector("#teachers-registry-table tbody");
+        if(!tbody) return; tbody.innerHTML = "";
+        const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position);
+        
+        document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none");
+
+        teachersDatabase.forEach((teacher, idx) => {
+            let row = document.createElement("tr");
+            let html = `
+                <td style="font-weight:800; width: 50px !important;">${idx + 1}</td>
+                <td class="left-align" style="padding-left: 20px;"><strong>${teacher.name.toUpperCase()}</strong></td>
+                <td><span style="font-weight:700; color:#b45309;">${teacher.subject}</span></td>
+            `;
+            if(isCouncil) {
+                html += `<td><button class="btn-delete" onclick="deleteTeacherRowNode(${idx})">Remove</button></td>`;
+            }
+            row.innerHTML = html;
+            tbody.appendChild(row);
+        });
+    }
+
+    function directAddTeacherProfile(e) {
+        e.preventDefault();
+        let name = document.getElementById("form-add-teach-name").value.trim();
+        let subject = document.getElementById("form-add-teach-sub").value.trim();
+        teachersDatabase.push({ name, subject });
+        alert(`${name} integrated into your house workstation faculty ledger!`);
+        document.getElementById("form-add-teach-name").value = "";
+        document.getElementById("form-add-teach-sub").value = "";
+        renderTeachersRegistryTable();
+    }
+
+    function deleteTeacherRowNode(idx) {
+        teachersDatabase.splice(idx, 1);
+        renderTeachersRegistryTable();
+    }
+
+    function directUpdateTeachersIntroStatementLog(e) {
+        e.preventDefault();
+        let text = document.getElementById("form-teacher-intro-text").value.trim();
+        teachersIntroStatementMemoryLog = text;
+        document.getElementById("live-teachers-intro-statement").innerText = text;
+        alert("Public introduction statement updated successfully!");
+    }
+
+    // BATCHHOLDERS TABLE ADJUSTMENTS SPECIFIED IN TASK DESCRIPTION
     function renderPublicRegistry() {
         const tbody = document.querySelector("#public-members-table tbody");
         if(!tbody) return; tbody.innerHTML = "";
         authorizedStudents.forEach((student, idx) => {
             const row = document.createElement("tr");
-            row.innerHTML = `<td>${idx + 1}</td><td><strong>${student.name}</strong></td><td>${student.class}</td><td>${student.section || '-'}</td><td><span style="font-weight:700; color:#1e3a8a;">${student.position}</span></td>`;
+            let parts = (student.batchBadge || "Member | -").split(" | ");
+            row.innerHTML = `
+                <td style="width: 50px !important; font-weight:800;">${idx + 1}</td>
+                <td class="left-align" style="padding-left: 20px;"><strong>${student.name}</strong></td>
+                <td>${student.class}</td>
+                <td>${student.section || '-'}</td>
+                <td><span style="font-weight:700; color:#1e3a8a;">${student.position}</span></td>
+                <td><span style="font-weight:bold; background:#fff; border:1px solid #fde047; padding:2px 6px; border-radius:4px;">${parts[1]} ${parts[0]}</span></td>
+            `;
             tbody.appendChild(row);
         });
     }
 
-    function renderBlogsStreamFeed() {
+    // MULTI-FILTER COMPILER ENGINE LOGIC FOR BLOG STACK SIDEBAR
+    function populateBlogFilterSelectorsMatrix() {
+        const authSelect = document.getElementById("filter-author-select");
+        const topicSelect = document.getElementById("filter-topic-select");
+        const monthSelect = document.getElementById("filter-month-select");
+        if(!authSelect || !topicSelect || !monthSelect) return;
+
+        let authors = ["ALL"]; let topics = ["ALL"]; let months = ["ALL"];
+        
+        blogsDatabase.forEach(b => {
+            if(!authors.includes(b.author)) authors.push(b.author);
+            if(!topics.includes(b.topic)) topics.push(b.topic);
+            let m = b.date.split("/")[1] || "06";
+            let name = (m === "5" || m === "05") ? "MAY" : "JUNE";
+            if(!months.includes(name)) months.push(name);
+        });
+
+        authSelect.innerHTML = ""; topicSelect.innerHTML = ""; monthSelect.innerHTML = "";
+        authors.forEach(a => { let o = document.createElement("option"); o.value = a; o.innerText = a; authSelect.appendChild(o); });
+        topics.forEach(t => { let o = document.createElement("option"); o.value = t; o.innerText = t; topicSelect.appendChild(o); });
+        months.forEach(m => { let o = document.createElement("option"); o.value = m; o.innerText = m; monthSelect.appendChild(o); });
+    }
+
+    function renderBlogsStreamFeed(filterObj = null) {
         const target = document.getElementById("blogs-stream-target-container");
         if(!target) return; target.innerHTML = "";
-        if(blogsDatabase.length === 0) {
-            target.innerHTML = `<div style="text-align:center; padding:30px; color:#64748b;">No articles found.</div>`;
+        
+        let targetDataset = [...blogsDatabase];
+        if(filterObj) {
+            if(filterObj.author && filterObj.author !== "ALL") targetDataset = targetDataset.filter(b => b.author === filterObj.author);
+            if(filterObj.topic && filterObj.topic !== "ALL") targetDataset = targetDataset.filter(b => b.topic === filterObj.topic);
+            if(filterObj.month && filterObj.month !== "ALL") {
+                targetDataset = targetDataset.filter(b => {
+                    let m = b.date.split("/")[1];
+                    let name = (m === "5" || m === "05") ? "MAY" : "JUNE";
+                    return name === filterObj.month;
+                });
+            }
+        }
+
+        if(targetDataset.length === 0) {
+            target.innerHTML = `<div style="text-align:center; padding:30px; color:#64748b; font-weight:600;">No articles match the selected filter parameters.</div>`;
             return;
         }
-        blogsDatabase.forEach(blog => {
+
+        targetDataset.forEach(blog => {
             let article = document.createElement("div");
             article.className = "blog-post";
             article.innerHTML = `
-                <div class="blog-meta">✍️ Published by ${blog.author} on ${blog.date}</div>
+                <div class="blog-meta">✍️ Published by ${blog.author} on ${blog.date} | Topic: <span style="color:#0891b2;">${blog.topic}</span></div>
                 <h3 style="margin: 0 0 15px 0; color:#0891b2; font-size:1.4rem; font-weight:900; text-transform:uppercase;">${blog.title}</h3>
                 <p style="margin:0; font-size:1.05rem; color:#334155; line-height:1.8; text-align:justify; white-space:pre-wrap;">${blog.content}</p>
             `;
@@ -684,23 +862,20 @@
         });
     }
 
-    function directPublishNewBlog(e) {
-        e.preventDefault();
-        let title = document.getElementById("form-blog-title").value.trim().toUpperCase();
-        let author = document.getElementById("form-blog-author").value.trim().toUpperCase();
-        let content = document.getElementById("form-blog-content").value.trim();
-        let today = new Date();
-        let dateStr = `${today.getDate()}/${today.getMonth()+1}/${today.getFullYear()}`;
-
-        blogsDatabase.unshift({ title, author, content, date: dateStr });
-        renderBlogsStreamFeed();
-        document.getElementById("form-blog-title").value = "";
-        document.getElementById("form-blog-content").value = "";
-        alert("Blog published!");
-        switchPage('blogs');
+    function applyBlogFiltersMatrix() {
+        let author = document.getElementById("filter-author-select").value;
+        let topic = document.getElementById("filter-topic-select").value;
+        let month = document.getElementById("filter-month-select").value;
+        renderBlogsStreamFeed({ author, topic, month });
     }
 
-    // NEW UPGRADE: DIGITAL BADGES GRID LOG MATRIX RENDERER
+    function resetBlogFiltersMatrix() {
+        document.getElementById("filter-author-select").value = "ALL";
+        document.getElementById("filter-topic-select").value = "ALL";
+        document.getElementById("filter-month-select").value = "ALL";
+        renderBlogsStreamFeed(null);
+    }
+
     function renderBadgesLogLedgerTable() {
         const tbody = document.querySelector("#badges-table tbody");
         if(!tbody) return; tbody.innerHTML = "";
@@ -735,7 +910,6 @@
         
         badgesDatabase.push({ name, text: parts[0], emoji: parts[1] });
         alert(`Digital badge (${parts[1]}) successfully dispatched to ${name}!`);
-        
         document.getElementById("badge-receiver-name").value = "";
         renderBadgesLogLedgerTable();
     }
@@ -960,8 +1134,9 @@
             document.getElementById('display-name').innerText = verified.name;
             document.getElementById('display-role').innerText = verified.position;
 
-            renderAttendanceTable(); renderActivitiesTable(); renderAchieversTable(); renderBadgesLogLedgerTable();
+            renderAttendanceTable(); renderActivitiesTable(); renderAchieversTable(); renderBadgesLogLedgerTable(); renderTeachersRegistryTable();
             document.getElementById("live-meeting-text").innerText = activeHouseMeetingBroadcast;
+            document.getElementById("form-teacher-intro-text").value = teachersIntroStatementMemoryLog;
 
             const duty = allocatedDutiesMap[verified.name];
             const dispatcherWidget = document.getElementById("conditional-attendance-dispatcher");
@@ -1006,7 +1181,7 @@
         currentSessionUser = null;
         document.getElementById('login-box').className = "visible-box";
         document.getElementById('dashboard-box').className = "hidden-box";
-        renderActivitiesTable(); renderAchieversTable(); renderBadgesLogLedgerTable();
+        renderActivitiesTable(); renderAchieversTable(); renderBadgesLogLedgerTable(); renderTeachersRegistryTable();
     }
 
     function switchPage(p) {
@@ -1016,15 +1191,18 @@
         document.getElementById('nav-' + p).classList.add('active');
         
         if (p === 'portal' || p === 'batchholders') renderPublicRegistry();
-        if (p === 'blogs') renderBlogsStreamFeed();
+        if (p === 'blogs') { populateBlogFilterSelectorsMatrix(); resetBlogFiltersMatrix(); }
         if (p === 'achievers') { renderAchieversTable(); renderBadgesLogLedgerTable(); }
+        if (p === 'teachers') { renderTeachersRegistryTable(); document.getElementById("live-teachers-intro-statement").innerText = teachersIntroStatementMemoryLog; }
     }
 
     window.onload = function() { 
         renderActivitiesTable(); 
         renderPublicRegistry(); 
-        renderBlogsStreamFeed();
+        renderTeachersRegistryTable();
+        populateBlogFilterSelectorsMatrix();
+        resetBlogFiltersMatrix();
     };
 </script>
 </body>
-</html>
+            </html>
