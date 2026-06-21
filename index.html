@@ -142,28 +142,12 @@
         .duty-box-widget { background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%); border: 3px solid #d97706; padding: 20px; border-radius: 12px; margin-top: 20px; color: #92400e; }
         .responsibility-matrix-widget { background: linear-gradient(135deg, #fae8ff 0%, #fdf4ff 100%); border: 3px solid #d946ef; padding: 20px; border-radius: 12px; margin-top: 20px; color: #86198f; }
         .meeting-widget-card { background: linear-gradient(135deg, #ccfbf1 0%, #f0fdfa 100%); border: 3px solid #0d9488; padding: 20px; border-radius: 12px; margin-top: 20px; color: #115e59; }
+        .badge-widget-card { background: linear-gradient(135deg, #fef2f2 0%, #fff1f2 100%); border: 3px solid #f43f5e; padding: 20px; border-radius: 12px; margin-top: 20px; color: #9f1239; }
 
         /* Blog Element layout rules */
         .blog-post { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .blog-meta { font-size: 0.85rem; color: #64748b; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; border-bottom: 2px solid #f1f5f9; padding-bottom: 5px; }
 
-        /* House Mistress Direct Box */
-        .mistress-box {
-            background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 100%);
-            border: 3px solid #0284c7;
-            padding: 22px;
-            border-radius: 12px;
-            margin-bottom: 25px;
-            color: #0369a1;
-            font-weight: 800;
-            font-size: 1.05rem;
-            box-shadow: 0 5px 15px rgba(2, 132, 199, 0.15);
-            text-align: center;
-        }
-
-        .welcome-banner { background: linear-gradient(135deg, #f3e8ff 0%, #e9d5ff 100%); padding: 18px 22px; border-radius: 10px; margin-bottom: 25px; border-left: 6px solid #7c3aed; color: #5b21b6; font-weight: 600; }
-        .captain-panel { background: #fef9c3; border: 3px dashed #ca8a04; padding: 25px; border-radius: 14px; margin-top: 30px; }
-        
         /* SECURE VISIBILITY ENGINE UTILITIES */
         .page-view { display: none; }
         .active-page { display: block !important; }
@@ -343,6 +327,25 @@
                     <div id="live-meeting-text">No house meetings scheduled currently.</div>
                 </div>
 
+                <div id="student-live-badges-box" class="badge-widget-card">
+                    <h3>🎖️ HOUSE ROLL OF HONOUR: APPRECIATION BADGES</h3>
+                    <div class="table-responsive" style="border-color: #f43f5e; background-color: #ffffff;">
+                        <table id="badges-log-table">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Receiver Name</th>
+                                    <th>Type of Appreciation</th>
+                                    <th>Digital Badge Awarded</th>
+                                    <th class="council-actions" style="display:none;">Administrative Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                </tbody>
+                        </table>
+                    </div>
+                </div>
+
                 <div id="student-live-duty-box" class="duty-box-widget">
                     <h3>📍 WHERE IS YOUR DUTY MAP</h3>
                     <div style="font-size: 1.1rem; font-weight: 700;">
@@ -383,6 +386,44 @@
                 <div id="council-panel" class="captain-panel" style="display:none;">
                     <h2>House Council Global Data Engine</h2>
                     
+                    <div style="background: #fff1f2; padding: 15px; border-radius: 8px; border: 2px solid #f43f5e; margin-bottom: 25px;">
+                        <h3 style="color: #e11d48; margin-top: 0;">🎖️ Digital Badges and Recognition Dispatcher Station</h3>
+                        <form onsubmit="directAwardAppreciationBadge(event)">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Select Receiver Batchholder</label>
+                                    <select id="badge-target-student"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Type of Appreciation & Badge Emoji Category</label>
+                                    <select id="badge-appreciation-type">
+                                        <option value="🥇 Outstanding Discipline | 🥇">🥇 Outstanding Discipline | 🥇</option>
+                                        <option value="⏰ Perfect Duty Punctuality | ⏰">⏰ Perfect Duty Punctuality | ⏰</option>
+                                        <option value="🏆 Inter-House Competition Victory | 🏆">🏆 Inter-House Competition Victory | 🏆</option>
+                                        <option value="🤝 Exceptional House Teamwork | 🤝">🤝 Exceptional House Teamwork | 🤝</option>
+                                        <option value="⭐ High-Performance Leadership | ⭐">⭐ High-Performance Leadership | ⭐</option>
+                                        <option value="📚 Academic Excellence Champion | 📚">📚 Academic Excellence Champion | 📚</option>
+                                        <option value="🎤 Literary Debate Master | 🎤">🎤 Literary Debate Master | 🎤</option>
+                                        <option value="🎨 Creative Chart Project Board Hero | 🎨">🎨 Creative Chart Project Board Hero | 🎨</option>
+                                        <option value="🏃 Sports Tracking Captain | 🏃">🏃 Sports Tracking Captain | 🏃</option>
+                                        <option value="🛡️ Unwavering integrity Log | 🛡️">🛡️ Unwavering integrity Log | 🛡️</option>
+                                        <option value="💎 Diamond Standard Batchholder | 💎">💎 Diamond Standard Batchholder | 💎</option>
+                                        <option value="🔥 High Vibe House Energy | 🔥">🔥 High Vibe House Energy | 🔥</option>
+                                        <option value="🙌 Outstanding Service Deployment | 🤝">🙌 Outstanding Service Deployment | 🙌</option>
+                                        <option value="🚀 Ultimate Operations Innovator | 🚀">🚀 Ultimate Operations Innovator | 🚀</option>
+                                        <option value="📢 Perfect Assembly Presentation | 📢">📢 Perfect Assembly Presentation | 📢</option>
+                                        <option value="🧩 Brilliant Strategic Advisor | 🧩">🧩 Brilliant Strategic Advisor | 🧩</option>
+                                        <option value="🎨 House Aesthetic Designer | 🎨">🎨 House Aesthetic Designer | 🎨</option>
+                                        <option value="⚡ Lightning Fast Problem Solver | ⚡">⚡ Lightning Fast Problem Solver | ⚡</option>
+                                        <option value="👑 Absolute Model House Member | 👑">👑 Absolute Model House Member | 👑</option>
+                                        <option value="🎯 Bullseye Accuracy at Duty Post | 🎯">🎯 Bullseye Accuracy at Duty Post | 🎯</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="action-button" style="background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); margin-top: 15px;">Send Badge Record Node</button>
+                        </form>
+                    </div>
+
                     <div style="background: #ecfdf5; padding: 15px; border-radius: 8px; border: 2px solid #10b981; margin-bottom: 25px;">
                         <h3 style="color: #059669; margin-top: 0;">✍️ 4. Compose & Launch Official Blog Posts</h3>
                         <form onsubmit="directPublishNewBlog(event)">
@@ -516,7 +557,7 @@
 </footer>
 
 <script>
-    // Master updating index tracking matrix elements 
+    // Master updated credentials index
     let authorizedStudents = [
         { name: "AARUSH", class: "10", section: "A", position: "PROCTOR - BOYS", pass: "Aarush#Proctor" },
         { name: "JAPUNJAN", class: "10", section: "B", position: "CULTURAL SECRETARY - GIRLS", pass: "Japunjan#Cultural" },
@@ -541,8 +582,9 @@
     let attendanceDatabase = [];
     let houseActivities = [];
     let achieversDatabase = [];
+    let dynamicBadgesDatabase = []; // Dynamic Badges awarded tracking data structure
 
-    // Pre-loaded original post written on behalf of House Captain Sanchit Gupta [cite: 4, 5]
+    // Pre-loaded original post written on behalf of House Captain Sanchit Gupta
     let blogsDatabase = [
         {
             title: "SOARING HIGH: OUR MANDATE FOR THE INTENSIFIED SESSION",
@@ -568,12 +610,15 @@
     function populateStudentSelectors() {
         const captainSelect = document.getElementById("captain-target-student");
         const councilSelect = document.getElementById("council-target-student");
-        if(!captainSelect || !councilSelect) return;
-        captainSelect.innerHTML = ""; councilSelect.innerHTML = "";
+        const badgeSelect = document.getElementById("badge-target-student");
+        if(!captainSelect || !councilSelect || !badgeSelect) return;
+        
+        captainSelect.innerHTML = ""; councilSelect.innerHTML = ""; badgeSelect.innerHTML = "";
         authorizedStudents.forEach(s => {
             if(s.position !== "HOUSE CAPTAIN") {
                 let opt1 = document.createElement("option"); opt1.value = s.name; opt1.innerText = `${s.name} (${s.position})`;
-                let opt2 = opt1.cloneNode(true); captainSelect.appendChild(opt1); councilSelect.appendChild(opt2);
+                let opt2 = opt1.cloneNode(true); let opt3 = opt1.cloneNode(true);
+                captainSelect.appendChild(opt1); councilSelect.appendChild(opt2); badgeSelect.appendChild(opt3);
             }
         });
     }
@@ -617,11 +662,59 @@
 
         blogsDatabase.unshift({ title, author, content, date: dateStr });
         renderBlogsStreamFeed();
-        
         document.getElementById("form-blog-title").value = "";
         document.getElementById("form-blog-content").value = "";
         alert("Blog published!");
         switchPage('blogs');
+    }
+
+    // NEW UTILITY RENDERING ENGINE: RECOGNITION EMOJI REGISTRY TABLE
+    function renderAppreciationBadgesTable() {
+        const tbody = document.querySelector("#badges-log-table tbody");
+        if(!tbody) return; tbody.innerHTML = "";
+
+        const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position);
+        document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none");
+
+        if(dynamicBadgesDatabase.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" style="padding:15px; color:#9f1239; font-weight:600; text-align:center;">No appreciation tokens issued yet. Council parameters load entries below.</td></tr>`;
+            return;
+        }
+
+        dynamicBadgesDatabase.forEach((badge, idx) => {
+            let row = document.createElement("tr");
+            let rowHtml = `
+                <td>${idx + 1}</td>
+                <td><strong>${badge.receiver}</strong></td>
+                <td style="font-weight:600; color:#4c0519;">${badge.typeText}</td>
+                <td style="font-size:1.6rem; line-height:1;">${badge.emojiIcon}</td>
+            `;
+            if(isCouncil) {
+                rowHtml += `<td><button class="btn-delete" onclick="deleteBadgeRecord(${idx})">Revoke</button></td>`;
+            }
+            row.innerHTML = rowHtml;
+            tbody.appendChild(row);
+        });
+    }
+
+    function directAwardAppreciationBadge(e) {
+        e.preventDefault();
+        let receiver = document.getElementById("badge-target-student").value;
+        let selectValue = document.getElementById("badge-appreciation-type").value;
+        
+        // Dissect value indices elements out from custom string maps seamlessly
+        let components = selectValue.split(" | ");
+        let typeText = components[0];
+        let emojiIcon = components[1];
+
+        dynamicBadgesDatabase.push({ receiver, typeText, emojiIcon });
+        renderAppreciationBadgesTable();
+        alert(`Appreciation badge successfully dispatched to ${receiver}!`);
+    }
+
+    function deleteBadgeRecord(idx) {
+        dynamicBadgesDatabase.splice(idx, 1);
+        renderAppreciationBadgesTable();
     }
 
     function renderAttendanceTable() {
@@ -793,7 +886,7 @@
         });
     }
 
-    function renderAchieversTable() {
+    function renderAuthoritarianAchievers() {
         const tbody = document.querySelector("#achievers-table tbody");
         if(!tbody) return; tbody.innerHTML = "";
         const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position);
@@ -813,10 +906,10 @@
     }
 
     function deleteActivityRow(idx) { houseActivities.splice(idx, 1); renderActivitiesTable(); }
-    function deleteAchieverRow(idx) { achieversDatabase.splice(idx, 1); renderAchieversTable(); }
+    function deleteAchieverRow(idx) { achieversDatabase.splice(idx, 1); renderAuthoritarianAchievers(); }
     function allocateHouseMeeting(e) { e.preventDefault(); activeHouseMeetingBroadcast = document.getElementById("form-meeting-desc").value.trim(); document.getElementById("live-meeting-text").innerText = activeHouseMeetingBroadcast; alert("Notice posted!"); document.getElementById("form-meeting-desc").value = ""; }
     function directAddActivity(e) { e.preventDefault(); houseActivities.push({ type: document.getElementById("form-evt-type").value.trim(), elig: document.getElementById("form-evt-elig").value.trim(), name: document.getElementById("form-evt-name").value.trim(), won: document.getElementById("form-evt-won").value, remarks: document.getElementById("form-evt-remarks").value.trim() }); renderActivitiesTable(); document.getElementById("form-evt-type").value=""; document.getElementById("form-evt-elig").value=""; document.getElementById("form-evt-name").value=""; document.getElementById("form-evt-remarks").value=""; }
-    function directAddAchiever(e) { e.preventDefault(); achieversDatabase.push({ name: document.getElementById("form-ach-name").value.trim().toUpperCase(), housePos: document.getElementById("form-ach-pos").value.trim(), compType: document.getElementById("form-ach-type").value.trim(), wonPos: document.getElementById("form-ach-won").value.trim(), class: document.getElementById("form-ach-class").value.trim(), sec: document.getElementById("form-ach-sec").value.trim().toUpperCase() }); renderAchieversTable(); document.getElementById("form-ach-name").value=""; document.getElementById("form-ach-pos").value=""; document.getElementById("form-ach-type").value=""; document.getElementById("form-ach-won").value=""; document.getElementById("form-ach-class").value=""; document.getElementById("form-ach-sec").value=""; }
+    function directAddAchiever(e) { e.preventDefault(); achieversDatabase.push({ name: document.getElementById("form-ach-name").value.trim().toUpperCase(), housePos: document.getElementById("form-ach-pos").value.trim(), compType: document.getElementById("form-ach-type").value.trim(), wonPos: document.getElementById("form-ach-won").value.trim(), class: document.getElementById("form-ach-class").value.trim(), sec: document.getElementById("form-ach-sec").value.trim().toUpperCase() }); renderAuthoritarianAchievers(); document.getElementById("form-ach-name").value=""; document.getElementById("form-ach-pos").value=""; document.getElementById("form-ach-type").value=""; document.getElementById("form-ach-won").value=""; document.getElementById("form-ach-class").value=""; document.getElementById("form-ach-sec").value=""; }
     function handleSuggestionSubmit(event) { event.preventDefault(); alert('Logged!'); document.getElementById('suggest-name').value = ''; document.getElementById('comments').value = ''; }
 
     function handleLogin(event) {
@@ -842,7 +935,7 @@
             document.getElementById('display-name').innerText = verified.name;
             document.getElementById('display-role').innerText = verified.position;
 
-            renderAttendanceTable(); renderActivitiesTable(); renderAchieversTable();
+            renderAttendanceTable(); renderActivitiesTable(); renderAuthoritarianAchievers(); renderAppreciationBadgesTable();
             document.getElementById("live-meeting-text").innerText = activeHouseMeetingBroadcast;
 
             const duty = allocatedDutiesMap[verified.name];
@@ -888,7 +981,7 @@
         currentSessionUser = null;
         document.getElementById('login-box').className = "visible-box";
         document.getElementById('dashboard-box').className = "hidden-box";
-        renderActivitiesTable(); renderAchieversTable();
+        renderActivitiesTable(); renderAuthoritarianAchievers();
     }
 
     function switchPage(p) {
