@@ -176,7 +176,7 @@
         tr:nth-child(even) td { background-color: #f8fafc; }
         .left-align { text-align: left !important; }
 
-        /* Blog Filtering Layout System */
+        /* Split Workspace for Blog Filtering System Layout */
         .blog-split-container { display: flex; gap: 25px; flex-wrap: wrap; }
         .blog-main-stream { flex: 3; min-width: 300px; }
         .blog-filter-sidebar { flex: 1; min-width: 250px; background: #ffffff; border: 3px solid #06b6d4; border-radius: 14px; padding: 20px; box-sizing: border-box; height: fit-content; }
@@ -296,7 +296,7 @@
                             <th>Name of Receiver</th>
                             <th>Type of Appreciation Badge</th>
                             <th>Digital Badge Token</th>
-                            <th class="council-actions" style="display:none;">Actions</th>
+                            <th class="badge-captain-actions" style="display:none;">Actions</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -364,7 +364,7 @@
                             <th>Class</th>
                             <th>Section</th>
                             <th>Position in the House</th>
-                            <th>Batch Badge Awarded</th>
+                            <th>Badge Awarded</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -666,7 +666,7 @@
 </footer>
 
 <script>
-    // Master updated credentials array
+    // Master synchronized dataset ledger
     let authorizedStudents = [
         { name: "AARUSH", class: "10", section: "A", position: "PROCTOR - BOYS", pass: "Aarush#Proctor", batchBadge: "Proctor Badge | 🛡️" },
         { name: "JAPUNJAN", class: "10", section: "B", position: "CULTURAL SECRETARY - GIRLS", pass: "Japunjan#Cultural", batchBadge: "Secretary Badge | 🎭" },
@@ -872,10 +872,13 @@
         renderBlogsStreamFeed(null);
     }
 
+    /* FIX: ALLOW ONLY HOUSE CAPTAIN SIGNATURES TO REMOVE DIGITAL BADGE ELEMENT CELLS */
     function renderBadgesLogLedgerTable() {
         const tbody = document.querySelector("#badges-table tbody");
         if(!tbody) return; tbody.innerHTML = "";
-        const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position);
+        
+        const isCaptain = currentSessionUser && currentSessionUser.position === "HOUSE CAPTAIN";
+        document.querySelectorAll(".badge-captain-actions").forEach(th => th.style.display = isCaptain ? "table-cell" : "none");
 
         if(badgesDatabase.length === 0) {
             tbody.innerHTML = `<tr><td colspan="5" style="padding:20px; color:#6b7280; font-weight:600;">No appreciation badges distributed yet.</td></tr>`;
@@ -886,12 +889,12 @@
             let row = document.createElement("tr");
             let rowHtml = `
                 <td>${idx + 1}</td>
-                <td class="left-align"><strong>${badge.name}</strong></td>
+                <td class="left-align" style="padding-left: 20px;"><strong>${badge.name}</strong></td>
                 <td><span style="font-weight:700; color:#6d28d9;">${badge.text}</span></td>
                 <td style="font-size:1.8rem; line-height:1;">${badge.emoji}</td>
             `;
-            if(isCouncil) {
-                rowHtml += `<td><button class="btn-delete" onclick="deleteBadgeTokenRow(${idx})">Revoke</button></td>`;
+            if(isCaptain) {
+                rowHtml += `<td><button class="btn-delete" onclick="deleteBadgeTokenRow(${idx})">Remove</button></td>`;
             }
             row.innerHTML = rowHtml;
             tbody.appendChild(row);
