@@ -60,7 +60,7 @@
         header h1 { margin: 0; font-size: 3.2rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase; color: #ffffff; text-shadow: 3px 3px 8px rgba(0,0,0,0.7); }
         header p { margin: 15px 0 0 0; font-size: 1.2rem; color: #fcd34d; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
         
-        /* FIX: FORCE NAV MENU TO STICK IN ONE SINGLE LINE WITH FLEX COMPRESSION & NO ROW WRAPPING */
+        /* RESPONSIVE NAV SYSTEM TO KEEP ALL BUTTONS IN ONE ROW ON LAPTOPS AND MOBILES */
         nav { 
             background: #0f172a; 
             padding: 8px 10px; 
@@ -82,7 +82,6 @@
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
         }
-        /* Hide scrollbar visuals entirely while preserving touch swipe tracking on mobile screen widths */
         nav .nav-container::-webkit-scrollbar { display: none; }
         nav .nav-container { -ms-overflow-style: none; scrollbar-width: none; }
         
@@ -177,7 +176,7 @@
         tr:nth-child(even) td { background-color: #f8fafc; }
         .left-align { text-align: left !important; }
 
-        /* FIX: DUAL SPLIT INTERFACE PACK FOR THE RIGHT SIDE FILTERS MATRIX */
+        /* Blog Filtering Layout System */
         .blog-split-container { display: flex; gap: 25px; flex-wrap: wrap; }
         .blog-main-stream { flex: 3; min-width: 300px; }
         .blog-filter-sidebar { flex: 1; min-width: 250px; background: #ffffff; border: 3px solid #06b6d4; border-radius: 14px; padding: 20px; box-sizing: border-box; height: fit-content; }
@@ -189,7 +188,7 @@
         .status-won { background-color: #bbf7d0 !important; color: #15803d !important; font-weight: bold; }
         .status-lost { background-color: #fecaca !important; color: #b91c1c !important; font-weight: bold; }
 
-        /* Widgets */
+        /* Custom Widgets */
         .duty-box-widget { background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%); border: 3px solid #d97706; padding: 20px; border-radius: 12px; margin-top: 20px; color: #92400e; }
         .responsibility-matrix-widget { background: linear-gradient(135deg, #fae8ff 0%, #fdf4ff 100%); border: 3px solid #d946ef; padding: 20px; border-radius: 12px; margin-top: 20px; color: #86198f; }
         .meeting-widget-card { background: linear-gradient(135deg, #ccfbf1 0%, #f0fdfa 100%); border: 3px solid #0d9488; padding: 20px; border-radius: 12px; margin-top: 20px; color: #115e59; }
@@ -239,7 +238,6 @@
         <div class="card card-goal">
             <h2>Our Main Goal</h2>
             <p>This is a shared online space where Aravali house members can use their personal skills and share their knowledge. It is a modern, easy way for students to talk about new ideas, support their friends, and make sure every single member's hard work is noticed and valued.</p>
-            <button type="button" class="action-button" onclick="switchPage('portal')">Access Student Portal Entrance &rarr;</button>
         </div>
 
         <div class="card" style="border-left: 8px solid #0284c7; background: #f0f9ff;">
@@ -333,7 +331,7 @@
             <div style="background: #fffbeb; border: 2px dashed #d97706; padding: 20px; border-radius: 12px; margin-bottom: 25px; color: #b45309;">
                 <strong>💡 HOUSE MENTORS INTRODUCTORY OVERVIEW:</strong>
                 <p id="live-teachers-intro-statement" style="margin: 5px 0 0 0; font-weight: 600; font-style: italic;">
-                    The teachers of Aravali House bring years of specialized classroom experience, strategic coaching, and non-proliferation of academic values across general sciences and arts. Their steadfast dedication provides leadership and strategic insights, allowing our active batchholders to fulfill their duty posts efficiently.
+                    The teachers of Aravali House bring years of specialized classroom experience, strategic coaching, and scholastic values across general sciences and arts. Their steadfast dedication provides leadership and strategic insights, allowing our active batchholders to fulfill their duty posts efficiently.
                 </p>
             </div>
 
@@ -380,7 +378,6 @@
             <h2>Official House Thought Stream Hub (Academic session 2026-2027)</h2>
             
             <div class="blog-split-container">
-                
                 <div class="blog-main-stream" id="blogs-stream-target-container"></div>
                 
                 <div class="blog-filter-sidebar">
@@ -397,7 +394,6 @@
                     
                     <button type="button" class="action-button btn-accent" style="margin-top: 15px; padding: 10px; font-size: 0.85rem;" onclick="resetBlogFiltersMatrix()">Clear Filters</button>
                 </div>
-
             </div>
         </div>
     </div>
@@ -483,7 +479,7 @@
                     <h2>House Council Global Data Engine</h2>
                     
                     <div style="background: #fffbeb; padding: 15px; border-radius: 8px; border: 2px solid #f59e0b; margin-bottom: 25px;">
-                        <h3 style="color: #b45309; margin-top: 0;">👩‍🏫 6. Manage Faculty Directory Data & Experiences Statements</h3>
+                        <h3 style="color: #b45309; margin-top: 0;">👩‍🏫 6. Manage Faculty Directory Data & Experience Summaries</h3>
                         <form onsubmit="directUpdateTeachersIntroStatementLog(event)" style="margin-bottom: 15px;">
                             <label>Modify Public Faculty Intro Summary Text</label>
                             <textarea id="form-teacher-intro-text" rows="2" required></textarea>
@@ -664,6 +660,11 @@
 
 </div>
 
+<footer>
+    THE ARAVALI HUB &copy; 2026<br>
+    <span style="font-size: 0.85rem; font-weight: 500; opacity: 0.9;">An initiative of the house council of Aravali house of the academic session 2026 - 2027</span>
+</footer>
+
 <script>
     // Master updated credentials array
     let authorizedStudents = [
@@ -686,7 +687,6 @@
         { name: "DIVAS ARORA", class: "10", section: "B", position: "HOUSE SPORTS CAPTAIN", pass: "Divas#Aravali", batchBadge: "Sports Captain Crest | ⚽" }
     ];
 
-    // Master base array for teacher index table entries
     let teachersDatabase = [
         { name: "Ms. Manmeet Kaur", subject: "Science" },
         { name: "Ms. Alka", subject: "Punjabi" },
@@ -709,7 +709,6 @@
         { name: "HREHAAN ARORA", text: "Punctuality Master", emoji: "⏱️" }
     ];
 
-    // Updated pre-loaded captain blog post matching properties
     let blogsDatabase = [
         {
             title: "SOARING HIGH: OUR MANDATE FOR THE INTENSIFIED SESSION",
@@ -739,7 +738,6 @@
         });
     }
 
-    // TEACHER LIST POPULATION CONSOLE ROUTINES
     function renderTeachersRegistryTable() {
         const tbody = document.querySelector("#teachers-registry-table tbody");
         if(!tbody) return; tbody.innerHTML = "";
@@ -786,7 +784,6 @@
         alert("Public introduction statement updated successfully!");
     }
 
-    // BATCHHOLDERS TABLE ADJUSTMENTS SPECIFIED IN TASK DESCRIPTION
     function renderPublicRegistry() {
         const tbody = document.querySelector("#public-members-table tbody");
         if(!tbody) return; tbody.innerHTML = "";
@@ -805,7 +802,6 @@
         });
     }
 
-    // MULTI-FILTER COMPILER ENGINE LOGIC FOR BLOG STACK SIDEBAR
     function populateBlogFilterSelectorsMatrix() {
         const authSelect = document.getElementById("filter-author-select");
         const topicSelect = document.getElementById("filter-topic-select");
@@ -1205,4 +1201,4 @@
     };
 </script>
 </body>
-            </html>
+</html>
