@@ -60,7 +60,7 @@
         header h1 { margin: 0; font-size: 3.2rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase; color: #ffffff; text-shadow: 3px 3px 8px rgba(0,0,0,0.7); }
         header p { margin: 15px 0 0 0; font-size: 1.2rem; color: #fcd34d; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 700; text-shadow: 2px 2px 4px rgba(0,0,0,0.6); }
         
-        /* RESPONSIVE NAV SYSTEM TO KEEP ALL BUTTONS IN ONE ROW ON LAPTOPS AND MOBILES */
+        /* RESPONSIVE NAV SYSTEM */
         nav { 
             background: #0f172a; 
             padding: 8px 10px; 
@@ -80,7 +80,6 @@
             align-items: center;
             gap: 6px; 
             overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
         }
         nav .nav-container::-webkit-scrollbar { display: none; }
         nav .nav-container { -ms-overflow-style: none; scrollbar-width: none; }
@@ -136,36 +135,20 @@
         input, select, textarea { padding: 14px; margin-top: 6px; width: 100%; box-sizing: border-box; border: 3px solid #cbd5e1; border-radius: 10px; font-size: 1rem; background-color: #ffffff; color: #0f172a; font-weight: 600; transition: all 0.2s; }
         input:focus, select:focus, textarea:focus { border-color: #f59e0b; box-shadow: 0 0 10px rgba(245, 158, 11, 0.5); outline: none; }
         
-        /* High-Vibrancy Buttons */
+        /* Buttons styling */
         .action-button { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: #ffffff; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: 800; font-size: 1rem; text-transform: uppercase; cursor: pointer; margin-top: 20px; letter-spacing: 1px; transition: all 0.2s; box-shadow: 0 4px 10px rgba(29, 78, 216, 0.3); }
         .action-button:hover { background: #1d4ed8; transform: scale(1.01); box-shadow: 0 6px 15px rgba(29, 78, 216, 0.4); }
         .btn-accent { background: linear-gradient(135deg, #10b981 0%, #047857 100%); box-shadow: 0 4px 10px rgba(4, 120, 87, 0.3); }
         .btn-accent:hover { background: #047857; box-shadow: 0 6px 15px rgba(4, 120, 87, 0.4); }
         
-        /* Inline Table Action Buttons */
-        .btn-inline-approve { background: #10b981; color: white; border: none; padding: 4px 8px; font-size: 0.75rem; font-weight: 900; border-radius: 4px; cursor: pointer; margin: 2px; }
-        .btn-inline-reject { background: #ef4444; color: white; border: none; padding: 4px 8px; font-size: 0.75rem; font-weight: 900; border-radius: 4px; cursor: pointer; margin: 2px; }
+        /* Inline Action Buttons */
+        .btn-inline-approve { background: #10b981; color: white; border: none; padding: 6px 10px; font-size: 0.8rem; font-weight: 900; border-radius: 4px; cursor: pointer; margin: 2px; text-transform: uppercase; }
+        .btn-inline-reject { background: #ef4444; color: white; border: none; padding: 6px 10px; font-size: 0.8rem; font-weight: 900; border-radius: 4px; cursor: pointer; margin: 2px; text-transform: uppercase; }
         .btn-inline-approve:hover { background: #059669; }
         .btn-inline-reject:hover { background: #dc2626; }
         
         .btn-delete { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important; color: white !important; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; box-shadow: 0 2px 5px rgba(220, 38, 38, 0.3); }
         .btn-delete:hover { background: #b91c1c !important; }
-
-        .whatsapp-btn {
-            display: inline-flex;
-            align-items: center;
-            background: #25d366;
-            color: #ffffff;
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-weight: 700;
-            text-decoration: none;
-            margin-top: 10px;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-        }
-        .whatsapp-btn:hover { background: #128c7e; transform: translateY(-1px); }
 
         /* Tables layout */
         .table-responsive { width: 100%; overflow-x: auto; margin-top: 15px; border: 3px solid #0f172a; border-radius: 12px; box-shadow: 0 8px 16px rgba(0,0,0,0.1); }
@@ -176,15 +159,17 @@
         tr:nth-child(even) td { background-color: #f8fafc; }
         .left-align { text-align: left !important; }
 
-        /* Split Workspace for Blog Filtering System Layout */
+        /* Blog Filtering Layout System */
         .blog-split-container { display: flex; gap: 25px; flex-wrap: wrap; }
         .blog-main-stream { flex: 3; min-width: 300px; }
         .blog-filter-sidebar { flex: 1; min-width: 250px; background: #ffffff; border: 3px solid #06b6d4; border-radius: 14px; padding: 20px; box-sizing: border-box; height: fit-content; }
 
-        /* Color Schemes */
-        .status-approved-cell { background-color: #dcfce7 !important; color: #15803d !important; font-weight: bold; }
-        .status-rejected-cell { background-color: #fee2e2 !important; color: #b91c1c !important; font-weight: bold; }
-        .status-pending-cell { background-color: #ffedd5 !important; color: #b45309 !important; font-weight: bold; }
+        /* Cell High-Vibrancy Styling Rules */
+        .status-present { background-color: #10b981 !important; color: #ffffff !important; font-weight: 900; text-transform: uppercase; }
+        .status-absent { background-color: #ef4444 !important; color: #ffffff !important; font-weight: 900; text-transform: uppercase; }
+        .status-pending { background-color: #f59e0b !important; color: #ffffff !important; font-weight: bold; text-transform: uppercase; }
+        .status-empty { background-color: #f1f5f9 !important; color: #94a3b8 !important; }
+
         .status-won { background-color: #bbf7d0 !important; color: #15803d !important; font-weight: bold; }
         .status-lost { background-color: #fecaca !important; color: #b91c1c !important; font-weight: bold; }
 
@@ -192,10 +177,6 @@
         .duty-box-widget { background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%); border: 3px solid #d97706; padding: 20px; border-radius: 12px; margin-top: 20px; color: #92400e; }
         .responsibility-matrix-widget { background: linear-gradient(135deg, #fae8ff 0%, #fdf4ff 100%); border: 3px solid #d946ef; padding: 20px; border-radius: 12px; margin-top: 20px; color: #86198f; }
         .meeting-widget-card { background: linear-gradient(135deg, #ccfbf1 0%, #f0fdfa 100%); border: 3px solid #0d9488; padding: 20px; border-radius: 12px; margin-top: 20px; color: #115e59; }
-
-        /* Blog Item Styles */
-        .blog-post { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-        .blog-meta { font-size: 0.85rem; color: #64748b; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; border-bottom: 2px solid #f1f5f9; padding-bottom: 5px; }
 
         .page-view { display: none; }
         .active-page { display: block !important; }
@@ -266,7 +247,6 @@
 
     <!-- PAGE 2: OUR ACHIEVERS -->
     <div id="page-achievers" class="page-view">
-        
         <!-- TABLE A: COMPETITION WINNERS LEDGER -->
         <div class="card card-achievers" style="border-color: #db2777;">
             <h2>🏆 Aravali Competition Winners Ledger (Academic session 2026-2027)</h2>
@@ -331,18 +311,14 @@
         </div>
     </div>
 
-    <!-- PAGE 4: TEACHERS TAB NAVIGATION LAYOUT -->
+    <!-- PAGE 4: TEACHERS TAB -->
     <div id="page-teachers" class="page-view">
         <div class="card card-teachers">
             <h2>Official Aravali House Faculty Directory (Academic session 2026-2027)</h2>
-            
             <div style="background: #fffbeb; border: 2px dashed #d97706; padding: 20px; border-radius: 12px; margin-bottom: 25px; color: #b45309;">
                 <strong>💡 HOUSE MENTORS INTRODUCTORY OVERVIEW:</strong>
-                <p id="live-teachers-intro-statement" style="margin: 5px 0 0 0; font-weight: 600; font-style: italic;">
-                    The teachers of Aravali House bring years of specialized classroom experience, strategic coaching, and scholastic values across general sciences and arts. Their steadfast dedication provides leadership and strategic insights, allowing our active batchholders to fulfill their duty posts efficiently.
-                </p>
+                <p id="live-teachers-intro-statement" style="margin: 5px 0 0 0; font-weight: 600; font-style: italic;"></p>
             </div>
-
             <div class="table-responsive" style="border-color: #f59e0b;">
                 <table id="teachers-registry-table">
                     <thead>
@@ -382,28 +358,20 @@
         </div>
     </div>
 
-    <!-- PAGE 6: OUR BLOGS WITH SIDEBAR FILTER MENU -->
+    <!-- PAGE 6: OUR BLOGS -->
     <div id="page-blogs" class="page-view">
         <div class="card card-blogs">
             <h2>Official House Thought Stream Hub (Academic session 2026-2027)</h2>
-            
             <div class="blog-split-container">
-                <!-- STACK GRID OF LOGS -->
                 <div class="blog-main-stream" id="blogs-stream-target-container"></div>
-                
-                <!-- SIDEBAR FILTERING UTILITY TOOLKIT -->
                 <div class="blog-filter-sidebar">
                     <h3 style="margin-top: 0; color: #0891b2; font-size: 1.1rem; border-bottom: 2px solid #c5f2f7; padding-bottom: 8px; text-transform: uppercase;">🔍 Filter Stream</h3>
-                    
                     <label style="margin-top: 10px;">By Author</label>
                     <select id="filter-author-select" onchange="applyBlogFiltersMatrix()"></select>
-                    
                     <label>By Topic</label>
                     <select id="filter-topic-select" onchange="applyBlogFiltersMatrix()"></select>
-                    
                     <label>By Month</label>
                     <select id="filter-month-select" onchange="applyBlogFiltersMatrix()"></select>
-                    
                     <button type="button" class="action-button btn-accent" style="margin-top: 15px; padding: 10px; font-size: 0.85rem;" onclick="resetBlogFiltersMatrix()">Clear Filters</button>
                 </div>
             </div>
@@ -448,33 +416,44 @@
                     User: <span id="display-name">Student</span> | Role: <span id="display-role">Member</span>
                 </div>
 
+                <!-- NEW COMPONENT: STUDENT APPLICATION PORTAL FOR ATTENDANCE LOGGING -->
+                <div id="student-apply-attendance-box" class="card" style="border: 2px solid #3b82f6; margin-bottom: 25px; padding: 20px;">
+                    <h3 style="margin-top:0; color:#1d4ed8; text-transform:uppercase;">📝 Apply For Attendance Verification</h3>
+                    <form onsubmit="handleStudentAttendanceApplicationSubmit(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Select Target Date</label>
+                                <select id="apply-date-select" required></select>
+                            </div>
+                            <div class="form-group">
+                                <label>Select Target Break Slot</label>
+                                <select id="apply-break-select" required>
+                                    <option value="1st">1st Break</option>
+                                    <option value="2nd">2nd Break</option>
+                                    <option value="Disp">Dispersal</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Where was your duty done?</label>
+                                <input type="text" id="apply-location-text" required placeholder="e.g., Science Block Stairs">
+                            </div>
+                        </div>
+                        <button type="submit" class="action-button btn-accent" style="margin-top: 10px; width: auto; padding: 10px 20px;">Submit Application Parameters</button>
+                    </form>
+                </div>
+
+                <!-- LIVE MEETINGS & TRACKERS -->
                 <div id="student-house-meeting-box" class="meeting-widget-card">
                     <h3>📢 UPCOMING HOUSE MEETINGS</h3>
                     <div id="live-meeting-text">No house meetings scheduled currently.</div>
                 </div>
 
-                <!-- WHERE IS YOUR DUTY DISPLAY METRICS -->
                 <div id="student-live-duty-box" class="duty-box-widget">
-                    <h3>📍 WHERE IS YOUR DUTY MAP</h3>
-                    <div style="font-size: 1.1rem; font-weight: 700;">
-                        🗺️ Location: <span id="live-duty-loc">Unassigned</span><br>
-                        🗓️ When (Dates/Week): <span id="live-duty-when">Unassigned</span><br>
-                        ⏰ Which Break: <span id="live-duty-break">Unassigned</span>
-                    </div>
-                    
-                    <div id="conditional-attendance-dispatcher" style="margin-top:15px; display:none;">
-                        <button type="button" class="action-button btn-accent" onclick="requestAttendance()">Forward Attendance Request for Current Break</button>
-                    </div>
+                    <h3>📍 ASSIGNED OPERATION POST</h3>
+                    <div id="live-duty-text">No operational post pinned currently.</div>
                 </div>
 
-                <div id="student-live-responsibility-box" class="responsibility-matrix-widget">
-                    <h3>🏆 COMPETITION ALLOCATION & CO-ORDINATION</h3>
-                    <div style="font-size: 1rem; font-weight: 600;">
-                        Task: <span id="live-resp-task">None</span> | Teachers: <span id="live-resp-teachers">None</span>
-                    </div>
-                </div>
-
-                <!-- MASTER REGISTER LIVE GRID -->
+                <!-- MASTER ATTENDANCE GRID -->
                 <h3 style="margin-top:40px; color: #4c1d95;">Duty Attendance Status Grid (Academic session 2026-2027)</h3>
                 <div class="table-responsive" style="border-color: #8b5cf6;">
                     <table id="attendance-table">
@@ -492,11 +471,71 @@
                     </table>
                 </div>
 
-                <!-- COUNCIL GLOBAL EDITOR ENGINE PANELS -->
+                <!-- COUNCILS SECURE GLOBAL MANAGEMENT ENGINE PANEL -->
                 <div id="council-panel" class="captain-panel" style="display:none;">
                     <h2>House Council Global Data Engine</h2>
                     
-                    <!-- TEACHER MANAGEMENT CONSOLE BOARD -->
+                    <!-- NEW EXCLUSIVE COMPONENT: LIVE APPLICATION STREAM INGESTION SYSTEM LOG (CAPTAIN & VICE CAPTAIN ONLY) -->
+                    <div id="council-applications-stream-card" style="background: #fffdf5; padding: 15px; border-radius: 8px; border: 2px dashed #ca8a04; margin-bottom: 25px; display: none;">
+                        <h3 style="color: #ca8a04; margin-top:0;">📨 Pending Student Attendance Requests Queue</h3>
+                        <p style="font-size:0.85rem; color:#854d0e; font-weight:600; margin:0 0 10px 0;">Live processing channel unlocked exclusively for Captain and Vice Captain nodes.</p>
+                        <div class="table-responsive" style="border-color: #ca8a04;">
+                            <table id="council-applications-table">
+                                <thead>
+                                    <tr>
+                                        <th>Applicant Name</th>
+                                        <th>Target Date</th>
+                                        <th>Target Break</th>
+                                        <th>Duty Location</th>
+                                        <th>Administrative Actions Decision</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- NEW EXCLUSIVE OVERRIDE FORM PANEL: CAPTAIN DIRECT ROW MARKER CONSOLE -->
+                    <div id="captain-absolute-override-section" style="background: #fff1f2; padding: 15px; border-radius: 8px; border: 2px solid #f43f5e; margin-bottom: 25px; display: none;">
+                        <h3 style="color: #e11d48; margin-top:0;">⚡ Captain Absolute Cell-Override Console</h3>
+                        <p style="font-size:0.85rem; color:#9f1239; font-weight:600; margin:0 0 10px 0;">Direct deployment station authorizing the Captain to mark parameters instantly.</p>
+                        <form onsubmit="handleCaptainCellOverrideSubmit(event)">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Target Student Name</label>
+                                    <select id="override-student-select"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Target Date</label>
+                                    <select id="override-date-select"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Target Break Slot</label>
+                                    <select id="override-break-select">
+                                        <option value="1st">1st Break</option>
+                                        <option value="2nd">2nd Break</option>
+                                        <option value="Disp">Dispersal</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Mark Location Where Duty Was Done</label>
+                                    <input type="text" id="override-location-text" required placeholder="e.g., Ground Arena Corridor">
+                                </div>
+                                <div class="form-group">
+                                    <label>Presence Status Decision</label>
+                                    <select id="override-status-select">
+                                        <option value="PRESENT">PRESENT 🟢</option>
+                                        <option value="ABSENT">ABSENT 🔴</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="action-button" style="background: linear-gradient(135deg, #e11d48 0%, #be123c 100%); margin-top:5px;">Commit Absolute Cell Parameters</button>
+                        </form>
+                    </div>
+
+                    <!-- FACULTY MANAGEMENT BOARD -->
                     <div style="background: #fffbeb; padding: 15px; border-radius: 8px; border: 2px solid #f59e0b; margin-bottom: 25px;">
                         <h3 style="color: #b45309; margin-top: 0;">👩‍🏫 6. Manage Faculty Directory Data & Experience Summaries</h3>
                         <form onsubmit="directUpdateTeachersIntroStatementLog(event)" style="margin-bottom: 15px;">
@@ -504,7 +543,6 @@
                             <textarea id="form-teacher-intro-text" rows="2" required></textarea>
                             <button type="submit" class="action-button" style="background: #f59e0b; padding: 10px; margin-top: 5px; font-size: 0.85rem;">Update Introduction Summary</button>
                         </form>
-                        
                         <form onsubmit="directAddTeacherProfile(event)">
                             <div class="form-row">
                                 <div class="form-group"><label>Teacher Name</label><input type="text" id="form-add-teach-name" placeholder="e.g. Gurpreet Mam" required></div>
@@ -628,6 +666,7 @@
                                 <div class="form-group"><label>Competition Task</label><input type="text" id="council-resp-task" required></div>
                                 <div class="form-group"><label>Teachers</label><input type="text" id="council-resp-teachers" required></div>
                             </div>
+                            <div class="form-row"></div>
                             <button type="submit" class="action-button" style="background: #c026d3; margin-top:10px;">Commit Responsibility Parameters</button>
                         </form>
                     </div>
@@ -695,7 +734,7 @@
 </footer>
 
 <script>
-    // Master synchronized dataset ledger
+    // Master updated credentials array[cite: 1]
     let authorizedStudents = [
         { name: "AARUSH", class: "10", section: "A", position: "PROCTOR - BOYS", pass: "Aarush#Proctor", batchBadge: "Proctor Badge | 🛡️" },
         { name: "JAPUNJAN", class: "10", section: "B", position: "CULTURAL SECRETARY - GIRLS", pass: "Japunjan#Cultural", batchBadge: "Secretary Badge | 🎭" },
@@ -729,10 +768,17 @@
     ];
 
     let activeDatesList = ["4/5/2026", "5/5/2026", "6/5/2026", "7/5/2026", "8/5/2026"];
-    let attendanceDatabase = [];
     let houseActivities = [];
     let achieversDatabase = [];
     
+    // PRE-POPULATING BASE ARRAYS FOR SYSTEM PERSISTENCE
+    let attendanceDatabase = [
+        { name: "AARUSH", pos: "PROCTOR - BOYS", loc: "Main Block", timeline: "Active Session", breaksData: { "4/5/2026_1st": "Approved", "4/5/2026_2nd": "Approved" } },
+        { name: "ALIYA", pos: "PREFECT", loc: "Ground Floor Corridor", timeline: "Active Session", breaksData: { "4/5/2026_1st": "Approved", "5/5/2026_1st": "Rejected" } }
+    ];
+
+    let pendingApplicationsDatabase = [];
+
     let badgesDatabase = [
         { name: "SANCHIT GUPTA", text: "Duty Post Champion", emoji: "👮" },
         { name: "HREHAAN ARORA", text: "Punctuality Master", emoji: "⏱️" }
@@ -752,18 +798,34 @@
     let allocatedResponsibilitiesMap = {};
     let activeHouseMeetingBroadcast = "No house meetings scheduled currently.";
     let currentSessionUser = null;
-    let teachersIntroStatementMemoryLog = "The educators of Aravali House bring seasoned scholastic mentorship, strategic guidance, and deep commitment across distinct sciences and cultural fields. Their experience empowers our batchholders to maintain house discipline and perform exceptionally in all intra-school leagues.";
+    let teachersIntroStatementMemoryLog = "The educators of Aravali House bring years of specialized classroom experience, strategic coaching, and scholastic values across general sciences and arts. Their steadfast dedication provides leadership and strategic insights, allowing our active batchholders to fulfill their duty posts efficiently.";
 
     function populateStudentSelectors() {
         const captainSelect = document.getElementById("captain-target-student");
         const councilSelect = document.getElementById("council-target-student");
-        if(!captainSelect || !councilSelect) return;
-        captainSelect.innerHTML = ""; councilSelect.innerHTML = "";
+        const overrideStudentSelect = document.getElementById("override-student-select");
+        if(!captainSelect || !councilSelect || !overrideStudentSelect) return;
+        
+        captainSelect.innerHTML = ""; councilSelect.innerHTML = ""; overrideStudentSelect.innerHTML = "";
         authorizedStudents.forEach(s => {
-            if(s.position !== "HOUSE CAPTAIN") {
-                let opt1 = document.createElement("option"); opt1.value = s.name; opt1.innerText = `${s.name} (${s.position})`;
-                let opt2 = opt1.cloneNode(true); captainSelect.appendChild(opt1); councilSelect.appendChild(opt2);
-            }
+            let opt1 = document.createElement("option"); opt1.value = s.name; opt1.innerText = `${s.name} (${s.position})`;
+            let opt2 = opt1.cloneNode(true); let opt3 = opt1.cloneNode(true);
+            captainSelect.appendChild(opt1);
+            councilSelect.appendChild(opt2);
+            overrideStudentSelect.appendChild(opt3);
+        });
+    }
+
+    function populateDateDropdownsMatrix() {
+        const applyDateSelect = document.getElementById("apply-date-select");
+        const overrideDateSelect = document.getElementById("override-date-select");
+        if(!applyDateSelect || !overrideDateSelect) return;
+        applyDateSelect.innerHTML = ""; overrideDateSelect.innerHTML = "";
+        activeDatesList.forEach(d => {
+            let o1 = document.createElement("option"); o1.value = d; o1.innerText = d;
+            let o2 = o1.cloneNode(true);
+            applyDateSelect.appendChild(o1);
+            overrideDateSelect.appendChild(o2);
         });
     }
 
@@ -771,47 +833,25 @@
         const tbody = document.querySelector("#teachers-registry-table tbody");
         if(!tbody) return; tbody.innerHTML = "";
         const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position);
-        
         document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none");
-
         teachersDatabase.forEach((teacher, idx) => {
             let row = document.createElement("tr");
-            let html = `
-                <td style="font-weight:800; width: 50px !important;">${idx + 1}</td>
-                <td class="left-align" style="padding-left: 20px;"><strong>${teacher.name.toUpperCase()}</strong></td>
-                <td><span style="font-weight:700; color:#b45309;">${teacher.subject}</span></td>
-            `;
-            if(isCouncil) {
-                html += `<td><button class="btn-delete" onclick="deleteTeacherRowNode(${idx})">Remove</button></td>`;
-            }
-            row.innerHTML = html;
-            tbody.appendChild(row);
+            let html = `<td>${idx + 1}</td><td class="left-align" style="padding-left: 20px;"><strong>${teacher.name.toUpperCase()}</strong></td><td><span style="font-weight:700; color:#b45309;">${teacher.subject}</span></td>`;
+            if(isCouncil) html += `<td><button class="btn-delete" onclick="deleteTeacherRowNode(${idx})">Remove</button></td>`;
+            row.innerHTML = html; tbody.appendChild(row);
         });
     }
 
     function directAddTeacherProfile(e) {
         e.preventDefault();
-        let name = document.getElementById("form-add-teach-name").value.trim();
-        let subject = document.getElementById("form-add-teach-sub").value.trim();
-        teachersDatabase.push({ name, subject });
-        alert(`${name} integrated into your house workstation faculty ledger!`);
-        document.getElementById("form-add-teach-name").value = "";
-        document.getElementById("form-add-teach-sub").value = "";
+        teachersDatabase.push({ name: document.getElementById("form-add-teach-name").value.trim(), subject: document.getElementById("form-add-teach-sub").value.trim() });
+        alert("Faculty member row added!");
+        document.getElementById("form-add-teach-name").value = ""; document.getElementById("form-add-teach-sub").value = "";
         renderTeachersRegistryTable();
     }
 
-    function deleteTeacherRowNode(idx) {
-        teachersDatabase.splice(idx, 1);
-        renderTeachersRegistryTable();
-    }
-
-    function directUpdateTeachersIntroStatementLog(e) {
-        e.preventDefault();
-        let text = document.getElementById("form-teacher-intro-text").value.trim();
-        teachersIntroStatementMemoryLog = text;
-        document.getElementById("live-teachers-intro-statement").innerText = text;
-        alert("Public introduction statement updated successfully!");
-    }
+    function deleteTeacherRowNode(idx) { teachersDatabase.splice(idx, 1); renderTeachersRegistryTable(); }
+    function directUpdateTeachersIntroStatementLog(e) { e.preventDefault(); teachersIntroStatementMemoryLog = document.getElementById("form-teacher-intro-text").value.trim(); document.getElementById("live-teachers-intro-statement").innerText = teachersIntroStatementMemoryLog; alert("Introduction updated!"); }
 
     function renderPublicRegistry() {
         const tbody = document.querySelector("#public-members-table tbody");
@@ -819,26 +859,15 @@
         authorizedStudents.forEach((student, idx) => {
             const row = document.createElement("tr");
             let parts = (student.batchBadge || "Member | -").split(" | ");
-            row.innerHTML = `
-                <td style="width: 50px !important; font-weight:800;">${idx + 1}</td>
-                <td class="left-align" style="padding-left: 20px;"><strong>${student.name}</strong></td>
-                <td>${student.class}</td>
-                <td>${student.section || '-'}</td>
-                <td><span style="font-weight:700; color:#1e3a8a;">${student.position}</span></td>
-                <td><span style="font-weight:bold; background:#fff; border:1px solid #fde047; padding:2px 6px; border-radius:4px;">${parts[1]} ${parts[0]}</span></td>
-            `;
+            row.innerHTML = `<td>${idx + 1}</td><td class="left-align" style="padding-left: 20px;"><strong>${student.name}</strong></td><td>${student.class}</td><td>${student.section || '-'}</td><td><span style="font-weight:700; color:#1e3a8a;">${student.position}</span></td><td><span style="font-weight:bold; background:#fff; border:1px solid #fde047; padding:2px 6px; border-radius:4px;">${parts[1]} ${parts[0]}</span></td>`;
             tbody.appendChild(row);
         });
     }
 
     function populateBlogFilterSelectorsMatrix() {
-        const authSelect = document.getElementById("filter-author-select");
-        const topicSelect = document.getElementById("filter-topic-select");
-        const monthSelect = document.getElementById("filter-month-select");
+        const authSelect = document.getElementById("filter-author-select"); const topicSelect = document.getElementById("filter-topic-select"); const monthSelect = document.getElementById("filter-month-select");
         if(!authSelect || !topicSelect || !monthSelect) return;
-
         let authors = ["ALL"]; let topics = ["ALL"]; let months = ["ALL"];
-        
         blogsDatabase.forEach(b => {
             if(!authors.includes(b.author)) authors.push(b.author);
             if(!topics.includes(b.topic)) topics.push(b.topic);
@@ -846,7 +875,6 @@
             let name = (m === "5" || m === "05") ? "MAY" : "JUNE";
             if(!months.includes(name)) months.push(name);
         });
-
         authSelect.innerHTML = ""; topicSelect.innerHTML = ""; monthSelect.innerHTML = "";
         authors.forEach(a => { let o = document.createElement("option"); o.value = a; o.innerText = a; authSelect.appendChild(o); });
         topics.forEach(t => { let o = document.createElement("option"); o.value = t; o.innerText = t; topicSelect.appendChild(o); });
@@ -856,56 +884,30 @@
     function renderBlogsStreamFeed(filterObj = null) {
         const target = document.getElementById("blogs-stream-target-container");
         if(!target) return; target.innerHTML = "";
-        
         let targetDataset = [...blogsDatabase];
         if(filterObj) {
             if(filterObj.author && filterObj.author !== "ALL") targetDataset = targetDataset.filter(b => b.author === filterObj.author);
             if(filterObj.topic && filterObj.topic !== "ALL") targetDataset = targetDataset.filter(b => b.topic === filterObj.topic);
             if(filterObj.month && filterObj.month !== "ALL") {
                 targetDataset = targetDataset.filter(b => {
-                    let m = b.date.split("/")[1];
-                    let name = (m === "5" || m === "05") ? "MAY" : "JUNE";
-                    return name === filterObj.month;
+                    let m = b.date.split("/")[1]; let name = (m === "5" || m === "05") ? "MAY" : "JUNE"; return name === filterObj.month;
                 });
             }
         }
-
-        if(targetDataset.length === 0) {
-            target.innerHTML = `<div style="text-align:center; padding:30px; color:#64748b; font-weight:600;">No articles match the selected filter parameters.</div>`;
-            return;
-        }
-
+        if(targetDataset.length === 0) { target.innerHTML = `<div style="text-align:center; padding:30px; color:#64748b;">No matching logs found.</div>`; return; }
         targetDataset.forEach(blog => {
-            let article = document.createElement("div");
-            article.className = "blog-post";
-            article.innerHTML = `
-                <div class="blog-meta">✍️ Published by ${blog.author} on ${blog.date} | Topic: <span style="color:#0891b2;">${blog.topic}</span></div>
-                <h3 style="margin: 0 0 15px 0; color:#0891b2; font-size:1.4rem; font-weight:900; text-transform:uppercase;">${blog.title}</h3>
-                <p style="margin:0; font-size:1.05rem; color:#334155; line-height:1.8; text-align:justify; white-space:pre-wrap;">${blog.content}</p>
-            `;
+            let article = document.createElement("div"); article.className = "blog-post";
+            article.innerHTML = `<div class="blog-meta">✍️ Published by ${blog.author} on ${blog.date} | Topic: <span style="color:#0891b2;">${blog.topic}</span></div><h3 style="margin: 0 0 15px 0; color:#0891b2; font-size:1.4rem; font-weight:900; text-transform:uppercase;">${blog.title}</h3><p style="margin:0; font-size:1.05rem; color:#334155; line-height:1.8; text-align:justify; white-space:pre-wrap;">${blog.content}</p>`;
             target.appendChild(article);
         });
     }
 
-    function applyBlogFiltersMatrix() {
-        let author = document.getElementById("filter-author-select").value;
-        let topic = document.getElementById("filter-topic-select").value;
-        let month = document.getElementById("filter-month-select").value;
-        renderBlogsStreamFeed({ author, topic, month });
-    }
+    function applyBlogFiltersMatrix() { renderBlogsStreamFeed({ author: document.getElementById("filter-author-select").value, topic: document.getElementById("filter-topic-select").value, month: document.getElementById("filter-month-select").value }); }
+    function resetBlogFiltersMatrix() { document.getElementById("filter-author-select").value = "ALL"; document.getElementById("filter-topic-select").value = "ALL"; document.getElementById("filter-month-select").value = "ALL"; renderBlogsStreamFeed(null); }
 
-    function resetBlogFiltersMatrix() {
-        document.getElementById("filter-author-select").value = "ALL";
-        document.getElementById("filter-topic-select").value = "ALL";
-        document.getElementById("filter-month-select").value = "ALL";
-        renderBlogsStreamFeed(null);
-    }
-
-    /* PRIVACY LOCK ACTION: RENDER CRITICAL REJECTION CONTROLS STRICTLY UNLOCKED FOR THE HOUSE CAPTAIN ACCOUNT ROLE */
     function renderBadgesLogLedgerTable() {
         const tbody = document.querySelector("#badges-table tbody");
         if(!tbody) return; tbody.innerHTML = "";
-        
         const isCaptain = currentSessionUser && currentSessionUser.position === "HOUSE CAPTAIN";
         document.querySelectorAll(".badge-captain-actions").forEach(th => th.style.display = isCaptain ? "table-cell" : "none");
 
@@ -913,41 +915,104 @@
             tbody.innerHTML = `<tr><td colspan="5" style="padding:20px; color:#6b7280; font-weight:600;">No appreciation badges distributed yet.</td></tr>`;
             return;
         }
-
         badgesDatabase.forEach((badge, idx) => {
             let row = document.createElement("tr");
-            let rowHtml = `
-                <td>${idx + 1}</td>
-                <td class="left-align" style="padding-left: 20px;"><strong>${badge.name}</strong></td>
-                <td><span style="font-weight:700; color:#6d28d9;">${badge.text}</span></td>
-                <td style="font-size:1.8rem; line-height:1;">${badge.emoji}</td>
+            let rowHtml = `<td>${idx + 1}</td><td class="left-align" style="padding-left: 20px;"><strong>${badge.name}</strong></td><td><span style="font-weight:700; color:#6d28d9;">${badge.text}</span></td><td style="font-size:1.8rem; line-height:1;">${badge.emoji}</td>`;
+            if(isCaptain) rowHtml += `<td><button class="btn-delete" onclick="deleteBadgeTokenRow(${idx})">Remove</button></td>`;
+            row.innerHTML = rowHtml; tbody.appendChild(row);
+        });
+    }
+
+    function directAwardDigitalBadge(e) { e.preventDefault(); let name = document.getElementById("badge-receiver-name").value.trim().toUpperCase(); let parts = document.getElementById("badge-appreciation-type").value.split(" | "); badgesDatabase.push({ name, text: parts[0], emoji: parts[1] }); alert("Badge awarded!"); document.getElementById("badge-receiver-name").value = ""; renderBadgesLogLedgerTable(); }
+    function deleteBadgeTokenRow(idx) { badgesDatabase.splice(idx, 1); renderBadgesLogLedgerTable(); }
+
+    // NEW UPGRADE: STUDENT APPLICATION SUBMISSION PIPELINE LOGGING
+    function handleStudentAttendanceApplicationSubmit(e) {
+        e.preventDefault();
+        if(!currentSessionUser) return;
+        
+        let date = document.getElementById("apply-date-select").value;
+        let breakSlot = document.getElementById("apply-break-select").value;
+        let loc = document.getElementById("apply-location-text").value.trim().toUpperCase();
+
+        pendingApplicationsDatabase.push({ name: currentSessionUser.name, pos: currentSessionUser.position, date, breakSlot, loc });
+        alert(`Attendance verification request successfully submitted for ${date} [${breakSlot} Break]!`);
+        document.getElementById("apply-location-text").value = "";
+        renderPendingApplicationsQueueTable();
+    }
+
+    // NEW UPGRADE: LIVE APPLICATIONS INGESTION WORKSPACE MATRIX CONSOLE
+    function renderPendingApplicationsQueueTable() {
+        const tbody = document.querySelector("#council-applications-table tbody");
+        if(!tbody) return; tbody.innerHTML = "";
+
+        if(pendingApplicationsDatabase.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="5" style="padding:15px; color:#78350f; font-weight:600;">The pending requests queue is completely clear.</td></tr>`;
+            return;
+        }
+
+        pendingApplicationsDatabase.forEach((app, idx) => {
+            let row = document.createElement("tr");
+            row.innerHTML = `
+                <td><strong>${app.name}</strong><br><small style="color:#64748b;">${app.pos}</small></td>
+                <td>${app.date}</td>
+                <td>${app.breakSlot}</td>
+                <td>${app.loc}</td>
+                <td>
+                    <button class="btn-inline-approve" onclick="processApplicationResolutionNode(${idx}, 'Approved')">Accept Node</button>
+                    <button class="btn-inline-reject" onclick="processApplicationResolutionNode(${idx}, 'Rejected')">Reject Node</button>
+                </td>
             `;
-            if(isCaptain) {
-                rowHtml += `<td><button class="btn-delete" onclick="deleteBadgeTokenRow(${idx})">Remove</button></td>`;
-            }
-            row.innerHTML = rowHtml;
             tbody.appendChild(row);
         });
     }
 
-    function directAwardDigitalBadge(e) {
-        e.preventDefault();
-        let name = document.getElementById("badge-receiver-name").value.trim().toUpperCase();
-        let rawType = document.getElementById("badge-appreciation-type").value;
-        let parts = rawType.split(" | ");
+    function processApplicationResolutionNode(idx, resolution) {
+        let app = pendingApplicationsDatabase[idx];
+        if(!app) return;
+
+        let targetRow = attendanceDatabase.find(r => r.name.toUpperCase() === app.name.toUpperCase());
+        if(!targetRow) {
+            targetRow = { name: app.name, pos: app.pos, loc: app.loc, timeline: "Active Session", breaksData: {} };
+            attendanceDatabase.push(targetRow);
+        }
+
+        targetRow.loc = app.loc;
+        let cellKey = `${app.date}_${app.breakSlot}`;
+        targetRow.breaksData[cellKey] = resolution;
+
+        pendingApplicationsDatabase.splice(idx, 1);
+        alert(`Request status successfully synchronized as ${resolution}!`);
         
-        badgesDatabase.push({ name, text: parts[0], emoji: parts[1] });
-        alert(`Digital badge (${parts[1]}) successfully dispatched to ${name}!`);
-        document.getElementById("badge-receiver-name").value = "";
-        renderBadgesLogLedgerTable();
+        renderAttendanceTable();
+        renderPendingApplicationsQueueTable();
     }
 
-    function deleteBadgeTokenRow(idx) {
-        badgesDatabase.splice(idx, 1);
-        renderBadgesLogLedgerTable();
+    // NEW UPGRADE: HOUSE CAPTAIN ABSOLUTE CELL OVERRIDE DEPLOYMENT PARAMETERS
+    function handleCaptainCellOverrideSubmit(e) {
+        e.preventDefault();
+        let targetStudent = document.getElementById("override-student-select").value;
+        let date = document.getElementById("override-date-select").value;
+        let breakSlot = document.getElementById("override-break-select").value;
+        let loc = document.getElementById("override-location-text").value.trim().toUpperCase();
+        let status = document.getElementById("override-status-select").value;
+
+        let targetRow = attendanceDatabase.find(r => r.name.toUpperCase() === targetStudent.toUpperCase());
+        if(!targetRow) {
+            let profile = authorizedStudents.find(s => s.name === targetStudent);
+            targetRow = { name: targetStudent, pos: profile ? profile.position : "Member", loc: loc, timeline: "Active Session", breaksData: {} };
+            attendanceDatabase.push(targetRow);
+        }
+
+        targetRow.loc = loc;
+        let cellKey = `${date}_${breakSlot}`;
+        targetRow.breaksData[cellKey] = (status === "PRESENT") ? "Approved" : "Rejected";
+
+        alert(`Force-marked attendance cell for ${targetStudent} successfully!`);
+        document.getElementById("override-location-text").value = "";
+        renderAttendanceTable();
     }
 
-    /* PRIVACY LOCK ENFORCEMENT ENGINE OVERRIDE TO ISOLATE READ-ONLY ENTRIES */
     function renderAttendanceTable() {
         const mainHeader = document.getElementById("main-header-row");
         const subHeader = document.getElementById("sub-header-row");
@@ -960,7 +1025,6 @@
         activeDatesList.forEach(date => {
             let th = document.createElement("th"); th.setAttribute("colspan", "3"); th.className = "date-header"; th.innerText = date;
             mainHeader.appendChild(th);
-
             let b1 = document.createElement("th"); b1.className = "nested-header"; b1.innerText = "1st";
             let b2 = document.createElement("th"); b2.className = "nested-header"; b2.innerText = "2nd";
             let b3 = document.createElement("th"); b3.className = "nested-header"; b3.innerText = "Disp";
@@ -968,178 +1032,71 @@
         });
 
         tbody.innerHTML = "";
-        if(attendanceDatabase.length === 0) {
-            let slotsCount = 5 + (activeDatesList.length * 3);
-            tbody.innerHTML = `<tr><td colspan="${slotsCount}" style="padding: 20px; color:#64748b; font-weight:600;">No verification records currently active. Council can manually append profiles below.</td></tr>`;
-            return;
-        }
-
         const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position);
 
-        /* CRITICAL ISOLATION LOGIC: If user is general staff/prefect, filter arrays down exclusively to match their name key token */
         let finalRenderSet = [...attendanceDatabase];
         if (!isCouncil && currentSessionUser) {
             finalRenderSet = finalRenderSet.filter(r => r.name.toUpperCase() === currentSessionUser.name.toUpperCase());
         }
 
+        if(finalRenderSet.length === 0) {
+            let slotsCount = 5 + (activeDatesList.length * 3);
+            tbody.innerHTML = `<tr><td colspan="${slotsCount}" style="padding: 20px; color:#64748b; font-weight:600;">No active attendance data matched to your login session token.</td></tr>`;
+            return;
+        }
+
         finalRenderSet.forEach((record, studentIdx) => {
             let row = document.createElement("tr");
-            let rowHtml = `<td>${studentIdx + 1}</td><td><strong>${record.name}</strong></td><td>${record.pos}</td><td>${record.loc}</td><td>${record.timeline}</td>`;
+            let rowHtml = `<td>${studentIdx + 1}</td><td class="left-align"><strong>${record.name}</strong></td><td>${record.pos}</td><td>${record.loc}</td><td>${record.timeline}</td>`;
 
             activeDatesList.forEach(date => {
                 ["1st", "2nd", "Disp"].forEach(breakName => {
                     let cellKey = `${date}_${breakName}`;
-                    let currentStatus = record.breaksData[cellKey] || "Pending";
-                    let cellClass = `status-${currentStatus.toLowerCase()}-cell`;
+                    let statusText = record.breaksData[cellKey] || "";
+                    
+                    let cellClass = "status-empty";
+                    let displayText = "-";
 
-                    rowHtml += `<td class="${cellClass}">`;
-                    if(isCouncil) {
-                        rowHtml += `
-                            <div style="font-size:0.8rem; margin-bottom:4px;">${currentStatus}</div>
-                            <button class="btn-inline-approve" onclick="updateCellStatus(${studentIdx}, '${cellKey}', 'Approved')">✓</button>
-                            <button class="btn-inline-reject" onclick="updateCellStatus(${studentIdx}, '${cellKey}', 'Rejected')">✗</button>
-                        `;
-                    } else {
-                        rowHtml += `<span>${currentStatus}</span>`;
-                    }
-                    rowHtml += `</td>`;
+                    if(statusText === "Approved") { cellClass = "status-present"; displayText = "PRESENT"; }
+                    else if(statusText === "Rejected") { cellClass = "status-absent"; displayText = "ABSENT"; }
+                    else if(statusText === "Pending") { cellClass = "status-pending"; displayText = "PENDING"; }
+
+                    rowHtml += `<td class="${cellClass}">${displayText}</td>`;
                 });
             });
-
             row.innerHTML = rowHtml;
             tbody.appendChild(row);
         });
     }
 
     function updateCellStatus(studentIdx, cellKey, status) {
-        if(attendanceDatabase[studentIdx]) {
-            attendanceDatabase[studentIdx].breaksData[cellKey] = status;
-            renderAttendanceTable();
-        }
+        if(attendanceDatabase[studentIdx]) { attendanceDatabase[studentIdx].breaksData[cellKey] = status; renderAttendanceTable(); }
     }
 
     function addNewAttendanceDate(e) {
-        e.preventDefault();
-        let newDate = document.getElementById("form-new-date-string").value.trim();
+        e.preventDefault(); let newDate = document.getElementById("form-new-date-string").value.trim();
         if(newDate && !activeDatesList.includes(newDate)) {
-            activeDatesList.push(newDate);
-            renderAttendanceTable();
-            alert(`Date block ${newDate} integrated across database matrices!`);
-            document.getElementById("form-new-date-string").value = "";
+            activeDatesList.push(newDate); renderAttendanceTable(); populateDateDropdownsMatrix();
+            alert(`Date block ${newDate} integrated across database matrices!`); document.getElementById("form-new-date-string").value = "";
         }
     }
 
     function deleteAttendanceDateColumn(e) {
-        e.preventDefault();
-        let targetDate = document.getElementById("form-delete-date-string").value.trim();
-        let index = activeDatesList.indexOf(targetDate);
+        e.preventDefault(); let targetDate = document.getElementById("form-delete-date-string").value.trim(); let index = activeDatesList.indexOf(targetDate);
         if (index > -1) {
             activeDatesList.splice(index, 1);
-            attendanceDatabase.forEach(record => {
-                ["1st", "2nd", "Disp"].forEach(breakName => {
-                    delete record.breaksData[`${targetDate}_${breakName}`];
-                });
-            });
-            renderAttendanceTable();
-            alert(`Date column ${targetDate} successfully purged from database layers!`);
-            document.getElementById("form-delete-date-string").value = "";
-        } else {
-            alert("Date string not found.");
-        }
+            attendanceDatabase.forEach(record => { ["1st", "2nd", "Disp"].forEach(bn => { delete record.breaksData[`${targetDate}_${bn}`]; }); });
+            renderAttendanceTable(); populateDateDropdownsMatrix();
+            alert(`Date column ${targetDate} successfully purged from database layers!`); document.getElementById("form-delete-date-string").value = "";
+        } else { alert("Date string not found."); }
     }
 
-    function manualAddAttendanceRow(e) {
-        e.preventDefault();
-        let name = document.getElementById("add-manual-name").value.trim().toUpperCase();
-        let pos = document.getElementById("add-manual-pos").value.trim();
-        attendanceDatabase.push({ name, pos, loc: "Assigned Station", timeline: "Active Session", breaksData: {} });
-        renderAttendanceTable();
-        document.getElementById("add-manual-name").value = ""; document.getElementById("add-manual-pos").value = "";
-    }
-
-    function allocateCaptainDuty(e) {
-        e.preventDefault();
-        let target = document.getElementById("captain-target-student").value;
-        let loc = document.getElementById("cap-duty-loc").value.trim();
-        let when = document.getElementById("cap-duty-when").value.trim();
-        let breakName = document.getElementById("cap-duty-break").value;
-
-        allocatedDutiesMap[target] = { loc, when, breakName };
-        alert(`Duty assignment completely routed for ${target}!`);
-        if(!attendanceDatabase.find(r => r.name.toUpperCase() === target.toUpperCase())) {
-            attendanceDatabase.push({ name: target, pos: "Batchholder", loc, timeline: when, breaksData: {} });
-        }
-        renderAttendanceTable();
-        document.getElementById("cap-duty-loc").value = ""; document.getElementById("cap-duty-when").value = "";
-    }
-
-    function allocateCompetitionResponsibility(e) {
-        e.preventDefault();
-        let student = document.getElementById("council-target-student").value;
-        let task = document.getElementById("council-resp-task").value.trim();
-        let teachers = document.getElementById("council-resp-teachers").value.trim();
-        allocatedResponsibilitiesMap[student] = { task, teachers };
-        alert("Responsibility mapped!");
-        document.getElementById("council-resp-task").value = ""; document.getElementById("council-resp-teachers").value = "";
-    }
-
-    function requestAttendance() {
-        if (!currentSessionUser) return;
-        let duty = allocatedDutiesMap[currentSessionUser.name];
-        if(!duty) return;
-
-        let matchedRow = attendanceDatabase.find(r => r.name.toUpperCase() === currentSessionUser.name.toUpperCase());
-        if(!matchedRow) {
-            matchedRow = { name: currentSessionUser.name, pos: currentSessionUser.position, loc: duty.loc, timeline: duty.when, breaksData: {} };
-            attendanceDatabase.push(matchedRow);
-        }
-
-        let todayStr = activeDatesList[activeDatesList.length - 1]; 
-        let targetKey = `${todayStr}_${duty.breakName}`;
-        matchedRow.breaksData[targetKey] = "Pending";
-        alert(`Attendance verification node pinned for ${todayStr} [${duty.breakName} Break]!`);
-        renderAttendanceTable();
-    }
-
-    function renderActivitiesTable() {
-        const tbody = document.querySelector("#activities-table tbody");
-        if(!tbody) return; tbody.innerHTML = "";
-        const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position);
-        document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none");
-
-        if(houseActivities.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="7" style="padding: 20px; color: #0369a1;">No activities initialized.</td></tr>`;
-            return;
-        }
-
-        houseActivities.forEach((act, idx) => {
-            let row = document.createElement("tr");
-            let html = `<td>${idx + 1}</td><td><strong>${act.type}</strong></td><td>${act.elig}</td><td>${act.name}</td><td class="${getStatusClass(act.won)}">${act.won || 'TBD'}</td><td>${act.remarks || '-'}</td>`;
-            if(isCouncil) html += `<td><button class="btn-delete" onclick="deleteActivityRow(${idx})">Delete</button></td>`;
-            row.innerHTML = html; tbody.appendChild(row);
-        });
-    }
-
-    function renderAchieversTable() {
-        const tbody = document.querySelector("#achievers-table tbody");
-        if(!tbody) return; tbody.innerHTML = "";
-        const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position);
-        document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none");
-
-        if(achieversDatabase.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="8" style="padding: 20px; color: #9d174d;">Roll matrix empty.</td></tr>`;
-            return;
-        }
-
-        achieversDatabase.forEach((ach, idx) => {
-            let row = document.createElement("tr");
-            let html = `<td>${idx + 1}</td><td><strong>${ach.name}</strong></td><td>${ach.housePos}</td><td>${ach.compType}</td><td><span style="color:#c2185b; font-weight:900;">${ach.wonPos}</span></td><td>${ach.class}</td><td>${ach.sec}</td>`;
-            if(isCouncil) html += `<td><button class="btn-delete" onclick="deleteAchieverRow(${idx})">Delete</button></td>`;
-            row.innerHTML = html;
-            tbody.appendChild(row);
-        });
-    }
-
+    function manualAddAttendanceRow(e) { e.preventDefault(); let name = document.getElementById("add-manual-name").value.trim().toUpperCase(); let pos = document.getElementById("add-manual-pos").value.trim(); attendanceDatabase.push({ name, pos, loc: "Assigned Station", timeline: "Active Session", breaksData: {} }); renderAttendanceTable(); document.getElementById("add-manual-name").value = ""; document.getElementById("add-manual-pos").value = ""; }
+    function allocateCaptainDuty(e) { e.preventDefault(); let target = document.getElementById("captain-target-student").value; let loc = document.getElementById("cap-duty-loc").value.trim(); let when = document.getElementById("cap-duty-when").value.trim(); let breakName = document.getElementById("cap-duty-break").value; allocatedDutiesMap[target] = { loc, when, breakName }; alert(`Duty assignment routed for ${target}!`); if(!attendanceDatabase.find(r => r.name.toUpperCase() === target.toUpperCase())) { attendanceDatabase.push({ name: target, pos: "Batchholder", loc, timeline: when, breaksData: {} }); } renderAttendanceTable(); document.getElementById("cap-duty-loc").value = ""; document.getElementById("cap-duty-when").value = ""; }
+    function allocateCompetitionResponsibility(e) { e.preventDefault(); let student = document.getElementById("council-target-student").value; let task = document.getElementById("council-resp-task").value.trim(); let teachers = document.getElementById("council-resp-teachers").value.trim(); allocatedResponsibilitiesMap[student] = { task, teachers }; alert("Responsibility mapped!"); document.getElementById("council-resp-task").value = ""; document.getElementById("council-resp-teachers").value = ""; }
+    function requestAttendance() { if (!currentSessionUser) return; let duty = allocatedDutiesMap[currentSessionUser.name]; if(!duty) return; let matchedRow = attendanceDatabase.find(r => r.name.toUpperCase() === currentSessionUser.name.toUpperCase()); if(!matchedRow) { matchedRow = { name: currentSessionUser.name, pos: currentSessionUser.position, loc: duty.loc, timeline: duty.when, breaksData: {} }; attendanceDatabase.push(matchedRow); } let todayStr = activeDatesList[activeDatesList.length - 1]; let targetKey = `${todayStr}_${duty.breakName}`; matchedRow.breaksData[targetKey] = "Pending"; alert(`Attendance verification request sent!`); renderAttendanceTable(); }
+    function renderActivitiesTable() { const tbody = document.querySelector("#activities-table tbody"); if(!tbody) return; tbody.innerHTML = ""; const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position); document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none"); if(houseActivities.length === 0) { tbody.innerHTML = `<tr><td colspan="7" style="padding: 20px; color: #0369a1;">No activities initialized.</td></tr>`; return; } houseActivities.forEach((act, idx) => { let row = document.createElement("tr"); let html = `<td>${idx + 1}</td><td><strong>${act.type}</strong></td><td>${act.elig}</td><td>${act.name}</td><td class="${getStatusClass(act.won)}">${act.won || 'TBD'}</td><td>${act.remarks || '-'}</td>`; if(isCouncil) html += `<td><button class="btn-delete" onclick="deleteActivityRow(${idx})">Delete</button></td>`; row.innerHTML = html; tbody.appendChild(row); }); }
+    function renderAchieversTable() { const tbody = document.querySelector("#achievers-table tbody"); if(!tbody) return; tbody.innerHTML = ""; const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position); document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none"); if(achieversDatabase.length === 0) { tbody.innerHTML = `<tr><td colspan="8" style="padding: 20px; color: #9d174d;">Roll matrix empty.</td></tr>`; return; } achieversDatabase.forEach((ach, idx) => { let row = document.createElement("tr"); let html = `<td>${idx + 1}</td><td><strong>${ach.name}</strong></td><td>${ach.housePos}</td><td>${ach.compType}</td><td><span style="color:#c2185b; font-weight:900;">${ach.wonPos}</span></td><td>${ach.class}</td><td>${ach.sec}</td>`; if(isCouncil) html += `<td><button class="btn-delete" onclick="deleteAchieverRow(${idx})">Delete</button></td>`; row.innerHTML = html; tbody.appendChild(row); }); }
     function deleteActivityRow(idx) { houseActivities.splice(idx, 1); renderActivitiesTable(); }
     function deleteAchieverRow(idx) { achieversDatabase.splice(idx, 1); renderAchieversTable(); }
     function allocateHouseMeeting(e) { e.preventDefault(); activeHouseMeetingBroadcast = document.getElementById("form-meeting-desc").value.trim(); document.getElementById("live-meeting-text").innerText = activeHouseMeetingBroadcast; alert("Notice posted!"); document.getElementById("form-meeting-desc").value = ""; }
@@ -1170,6 +1127,7 @@
             document.getElementById('display-name').innerText = verified.name;
             document.getElementById('display-role').innerText = verified.position;
 
+            populateDateDropdownsMatrix();
             renderAttendanceTable(); renderActivitiesTable(); renderAchieversTable(); renderBadgesLogLedgerTable(); renderTeachersRegistryTable();
             document.getElementById("live-meeting-text").innerText = activeHouseMeetingBroadcast;
             document.getElementById("form-teacher-intro-text").value = teachersIntroStatementMemoryLog;
@@ -1198,13 +1156,23 @@
             }
 
             const isCouncil = ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(verified.position);
+            const isCaptainOrVice = ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN"].includes(verified.position);
+            const isCaptainOnly = (verified.position === "HOUSE CAPTAIN");
+
             document.getElementById('council-panel').style.display = isCouncil ? "block" : "none";
-            document.getElementById('captain-exclusive-section').style.display = (verified.position === "HOUSE CAPTAIN") ? "block" : "none";
-            document.getElementById('captain-date-delete-panel').style.display = (verified.position === "HOUSE CAPTAIN") ? "block" : "none";
+            document.getElementById('captain-exclusive-section').style.display = isCaptainOnly ? "block" : "none";
+            document.getElementById('captain-date-delete-panel').style.display = isCaptainOnly ? "block" : "none";
+            document.getElementById('captain-absolute-override-section').style.display = isCaptainOnly ? "block" : "none";
+            
+            // Unlocked application stream table visibility checks
+            document.getElementById('council-applications-stream-card').style.display = isCaptainOrVice ? "block" : "none";
             
             document.getElementById("form-blog-author").value = `${verified.name} (${verified.position})`;
 
-            if(isCouncil) populateStudentSelectors();
+            if(isCouncil) {
+                populateStudentSelectors();
+                renderPendingApplicationsQueueTable();
+            }
 
             document.getElementById('login-box').className = "hidden-box";
             document.getElementById('dashboard-box').className = "visible-box";
@@ -1227,7 +1195,7 @@
         document.getElementById('nav-' + p).classList.add('active');
         
         if (p === 'portal' || p === 'batchholders') renderPublicRegistry();
-        if (p === 'blogs') { populateBlogFilterSelectorsMatrix(); resetBlogFiltersMatrix(); }
+        if (p === 'blogs') { populateBlogFilterSelectorsMatrix(); renderBlogsStreamFeed(); }
         if (p === 'achievers') { renderAchieversTable(); renderBadgesLogLedgerTable(); }
         if (p === 'teachers') { renderTeachersRegistryTable(); document.getElementById("live-teachers-intro-statement").innerText = teachersIntroStatementMemoryLog; }
     }
@@ -1235,9 +1203,8 @@
     window.onload = function() { 
         renderActivitiesTable(); 
         renderPublicRegistry(); 
-        renderTeachersRegistryTable();
         populateBlogFilterSelectorsMatrix();
-        resetBlogFiltersMatrix();
+        renderBlogsStreamFeed();
     };
 </script>
 </body>
