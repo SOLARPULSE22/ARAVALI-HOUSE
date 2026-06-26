@@ -80,6 +80,7 @@
             align-items: center;
             gap: 6px; 
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
         nav .nav-container::-webkit-scrollbar { display: none; }
         nav .nav-container { -ms-overflow-style: none; scrollbar-width: none; }
@@ -135,13 +136,13 @@
         input, select, textarea { padding: 14px; margin-top: 6px; width: 100%; box-sizing: border-box; border: 3px solid #cbd5e1; border-radius: 10px; font-size: 1rem; background-color: #ffffff; color: #0f172a; font-weight: 600; transition: all 0.2s; }
         input:focus, select:focus, textarea:focus { border-color: #f59e0b; box-shadow: 0 0 10px rgba(245, 158, 11, 0.5); outline: none; }
         
-        /* Buttons styling */
+        /* High-Vibrancy Buttons */
         .action-button { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: #ffffff; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: 800; font-size: 1rem; text-transform: uppercase; cursor: pointer; margin-top: 20px; letter-spacing: 1px; transition: all 0.2s; box-shadow: 0 4px 10px rgba(29, 78, 216, 0.3); }
         .action-button:hover { background: #1d4ed8; transform: scale(1.01); box-shadow: 0 6px 15px rgba(29, 78, 216, 0.4); }
         .btn-accent { background: linear-gradient(135deg, #10b981 0%, #047857 100%); box-shadow: 0 4px 10px rgba(4, 120, 87, 0.3); }
         .btn-accent:hover { background: #047857; box-shadow: 0 6px 15px rgba(4, 120, 87, 0.4); }
         
-        /* Inline Action Buttons */
+        /* Inline Table Action Buttons */
         .btn-inline-approve { background: #10b981; color: white; border: none; padding: 6px 10px; font-size: 0.8rem; font-weight: 900; border-radius: 4px; cursor: pointer; margin: 2px; text-transform: uppercase; }
         .btn-inline-reject { background: #ef4444; color: white; border: none; padding: 6px 10px; font-size: 0.8rem; font-weight: 900; border-radius: 4px; cursor: pointer; margin: 2px; text-transform: uppercase; }
         .btn-inline-approve:hover { background: #059669; }
@@ -159,7 +160,7 @@
         tr:nth-child(even) td { background-color: #f8fafc; }
         .left-align { text-align: left !important; }
 
-        /* Blog Filtering Layout System */
+        /* Split Workspace for Blog Filtering System Layout */
         .blog-split-container { display: flex; gap: 25px; flex-wrap: wrap; }
         .blog-main-stream { flex: 3; min-width: 300px; }
         .blog-filter-sidebar { flex: 1; min-width: 250px; background: #ffffff; border: 3px solid #06b6d4; border-radius: 14px; padding: 20px; box-sizing: border-box; height: fit-content; }
@@ -178,6 +179,11 @@
         .responsibility-matrix-widget { background: linear-gradient(135deg, #fae8ff 0%, #fdf4ff 100%); border: 3px solid #d946ef; padding: 20px; border-radius: 12px; margin-top: 20px; color: #86198f; }
         .meeting-widget-card { background: linear-gradient(135deg, #ccfbf1 0%, #f0fdfa 100%); border: 3px solid #0d9488; padding: 20px; border-radius: 12px; margin-top: 20px; color: #115e59; }
 
+        /* Blog Item Styles */
+        .blog-post { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 12px; padding: 25px; margin-bottom: 25px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .blog-meta { font-size: 0.85rem; color: #64748b; font-weight: 700; text-transform: uppercase; margin-bottom: 10px; border-bottom: 2px solid #f1f5f9; padding-bottom: 5px; }
+
+        /* SECURE VISIBILITY ENGINE UTILITIES */
         .page-view { display: none; }
         .active-page { display: block !important; }
         .hidden-box { display: none !important; }
@@ -188,7 +194,6 @@
 </head>
 <body>
 
-<!-- CONTINUOUS MOVING TEXT BANNER -->
 <div class="marquee-wrapper">
     <div class="marquee-content">
         <span>🌟 WELCOME TO ARAVALI HOUSE OFFICIAL HUBSITE! 🌟</span>
@@ -216,14 +221,12 @@
 
 <div class="container">
     
-    <!-- PAGE 1: HOME VIEW -->
     <div id="page-home" class="page-view active-page">
         <div class="card card-goal">
             <h2>Our Main Goal</h2>
             <p>This is a shared online space where Aravali house members can use their personal skills and share their knowledge. It is a modern, easy way for students to talk about new ideas, support their friends, and make sure every single member's hard work is noticed and valued.</p>
         </div>
 
-        <!-- UPCOMING EVENTS DATA CONTAINER -->
         <div class="card" style="border-left: 8px solid #0284c7; background: #f0f9ff;">
             <h2>Upcoming House Activities & Events</h2>
             <div class="table-responsive">
@@ -245,9 +248,7 @@
         </div>
     </div>
 
-    <!-- PAGE 2: OUR ACHIEVERS -->
     <div id="page-achievers" class="page-view">
-        <!-- TABLE A: COMPETITION WINNERS LEDGER -->
         <div class="card card-achievers" style="border-color: #db2777;">
             <h2>🏆 Aravali Competition Winners Ledger (Academic session 2026-2027)</h2>
             <p style="color: #9d174d; font-weight: 500;">Official public roster documenting positions secured in competitive events.</p>
@@ -270,7 +271,6 @@
             </div>
         </div>
 
-        <!-- TABLE B: EXCLUSIVE DIGITAL APPRECIATION BADGES LEDGER -->
         <div class="card card-achievers" style="border-color: #8b5cf6; background: #faf5ff;">
             <h2>🎖️ Official Digital Appreciation Badges Log (Academic session 2026-2027)</h2>
             <p style="color: #6d28d9; font-weight: 500;">Special recognition badges bestowed by the House Council for exemplary conduct and service.</p>
@@ -291,7 +291,6 @@
         </div>
     </div>
 
-    <!-- PAGE 3: HOUSE COUNCIL -->
     <div id="page-council" class="page-view">
         <div class="card card-council">
             <h2>Official House Council Registry Directory (Academic session 2026-2027)</h2>
@@ -311,7 +310,6 @@
         </div>
     </div>
 
-    <!-- PAGE 4: TEACHERS TAB -->
     <div id="page-teachers" class="page-view">
         <div class="card card-teachers">
             <h2>Official Aravali House Faculty Directory (Academic session 2026-2027)</h2>
@@ -335,7 +333,6 @@
         </div>
     </div>
 
-    <!-- PAGE 5: BATCHHOLDERS DIRECTORY -->
     <div id="page-batchholders" class="page-view">
         <div class="card card-batchholders">
             <h2>Official Batchholder Reference Directory (Academic session 2026-2027)</h2>
@@ -358,31 +355,34 @@
         </div>
     </div>
 
-    <!-- PAGE 6: OUR BLOGS -->
     <div id="page-blogs" class="page-view">
         <div class="card card-blogs">
             <h2>Official House Thought Stream Hub (Academic session 2026-2027)</h2>
+            
             <div class="blog-split-container">
                 <div class="blog-main-stream" id="blogs-stream-target-container"></div>
+                
                 <div class="blog-filter-sidebar">
                     <h3 style="margin-top: 0; color: #0891b2; font-size: 1.1rem; border-bottom: 2px solid #c5f2f7; padding-bottom: 8px; text-transform: uppercase;">🔍 Filter Stream</h3>
+                    
                     <label style="margin-top: 10px;">By Author</label>
                     <select id="filter-author-select" onchange="applyBlogFiltersMatrix()"></select>
+                    
                     <label>By Topic</label>
                     <select id="filter-topic-select" onchange="applyBlogFiltersMatrix()"></select>
+                    
                     <label>By Month</label>
                     <select id="filter-month-select" onchange="applyBlogFiltersMatrix()"></select>
+                    
                     <button type="button" class="action-button btn-accent" style="margin-top: 15px; padding: 10px; font-size: 0.85rem;" onclick="resetBlogFiltersMatrix()">Clear Filters</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- PAGE 7: SECURE STUDENT PORTAL -->
     <div id="page-portal" class="page-view">
         <div class="card card-portal">
             
-            <!-- SECURE LOGIN BOX -->
             <div id="login-box" class="visible-box">
                 <h2>Student Portal Secure Access</h2>
                 <form onsubmit="handleLogin(event)">
@@ -409,14 +409,12 @@
                 </form>
             </div>
 
-            <!-- DASHBOARD BOX -->
             <div id="dashboard-box" class="hidden-box">
                 <div class="welcome-banner">
                     <span style="font-weight:900; font-size:1.3rem;">OPERATIONAL WORKSPACE ACTIVE</span><br>
                     User: <span id="display-name">Student</span> | Role: <span id="display-role">Member</span>
                 </div>
 
-                <!-- NEW COMPONENT: STUDENT APPLICATION PORTAL FOR ATTENDANCE LOGGING -->
                 <div id="student-apply-attendance-box" class="card" style="border: 2px solid #3b82f6; margin-bottom: 25px; padding: 20px;">
                     <h3 style="margin-top:0; color:#1d4ed8; text-transform:uppercase;">📝 Apply For Attendance Verification</h3>
                     <form onsubmit="handleStudentAttendanceApplicationSubmit(event)">
@@ -442,7 +440,6 @@
                     </form>
                 </div>
 
-                <!-- LIVE MEETINGS & TRACKERS -->
                 <div id="student-house-meeting-box" class="meeting-widget-card">
                     <h3>📢 UPCOMING HOUSE MEETINGS</h3>
                     <div id="live-meeting-text">No house meetings scheduled currently.</div>
@@ -453,7 +450,13 @@
                     <div id="live-duty-text">No operational post pinned currently.</div>
                 </div>
 
-                <!-- MASTER ATTENDANCE GRID -->
+                <div id="student-live-responsibility-box" class="responsibility-matrix-widget">
+                    <h3>🏆 COMPETITION ALLOCATION & CO-ORDINATION</h3>
+                    <div style="font-size: 1rem; font-weight: 600;">
+                        Task: <span id="live-resp-task">None</span> | Teachers: <span id="live-resp-teachers">None</span>
+                    </div>
+                </div>
+
                 <h3 style="margin-top:40px; color: #4c1d95;">Duty Attendance Status Grid (Academic session 2026-2027)</h3>
                 <div class="table-responsive" style="border-color: #8b5cf6;">
                     <table id="attendance-table">
@@ -471,11 +474,9 @@
                     </table>
                 </div>
 
-                <!-- COUNCILS SECURE GLOBAL MANAGEMENT ENGINE PANEL -->
                 <div id="council-panel" class="captain-panel" style="display:none;">
                     <h2>House Council Global Data Engine</h2>
                     
-                    <!-- NEW EXCLUSIVE COMPONENT: LIVE APPLICATION STREAM INGESTION SYSTEM LOG (CAPTAIN & VICE CAPTAIN ONLY) -->
                     <div id="council-applications-stream-card" style="background: #fffdf5; padding: 15px; border-radius: 8px; border: 2px dashed #ca8a04; margin-bottom: 25px; display: none;">
                         <h3 style="color: #ca8a04; margin-top:0;">📨 Pending Student Attendance Requests Queue</h3>
                         <p style="font-size:0.85rem; color:#854d0e; font-weight:600; margin:0 0 10px 0;">Live processing channel unlocked exclusively for Captain and Vice Captain nodes.</p>
@@ -495,7 +496,6 @@
                         </div>
                     </div>
 
-                    <!-- NEW EXCLUSIVE OVERRIDE FORM PANEL: CAPTAIN DIRECT ROW MARKER CONSOLE -->
                     <div id="captain-absolute-override-section" style="background: #fff1f2; padding: 15px; border-radius: 8px; border: 2px solid #f43f5e; margin-bottom: 25px; display: none;">
                         <h3 style="color: #e11d48; margin-top:0;">⚡ Captain Absolute Cell-Override Console</h3>
                         <p style="font-size:0.85rem; color:#9f1239; font-weight:600; margin:0 0 10px 0;">Direct deployment station authorizing the Captain to mark parameters instantly.</p>
@@ -535,7 +535,6 @@
                         </form>
                     </div>
 
-                    <!-- FACULTY MANAGEMENT BOARD -->
                     <div style="background: #fffbeb; padding: 15px; border-radius: 8px; border: 2px solid #f59e0b; margin-bottom: 25px;">
                         <h3 style="color: #b45309; margin-top: 0;">👩‍🏫 6. Manage Faculty Directory Data & Experience Summaries</h3>
                         <form onsubmit="directUpdateTeachersIntroStatementLog(event)" style="margin-bottom: 15px;">
@@ -543,6 +542,7 @@
                             <textarea id="form-teacher-intro-text" rows="2" required></textarea>
                             <button type="submit" class="action-button" style="background: #f59e0b; padding: 10px; margin-top: 5px; font-size: 0.85rem;">Update Introduction Summary</button>
                         </form>
+                        
                         <form onsubmit="directAddTeacherProfile(event)">
                             <div class="form-row">
                                 <div class="form-group"><label>Teacher Name</label><input type="text" id="form-add-teach-name" placeholder="e.g. Gurpreet Mam" required></div>
@@ -552,7 +552,6 @@
                         </form>
                     </div>
 
-                    <!-- DIGITAL APPRECIATION BADGE ISSUER -->
                     <div style="background: #f5f3ff; padding: 15px; border-radius: 8px; border: 2px solid #8b5cf6; margin-bottom: 25px;">
                         <h3 style="color: #6d28d9; margin-top: 0;">🎖️ 5. Distribute Digital Appreciation Badges</h3>
                         <form onsubmit="directAwardDigitalBadge(event)">
@@ -590,7 +589,6 @@
                         </form>
                     </div>
 
-                    <!-- EXCLUSIVE COMPOSER FORM PANEL WITH TOPIC FIELD -->
                     <div style="background: #ecfdf5; padding: 15px; border-radius: 8px; border: 2px solid #10b981; margin-bottom: 25px;">
                         <h3 style="color: #059669; margin-top: 0;">✍️ 4. Compose & Launch Official Blog Posts</h3>
                         <form onsubmit="directPublishNewBlog(event)">
@@ -605,7 +603,6 @@
                         </form>
                     </div>
 
-                    <!-- DUAL DATE CONFIGURATION MODULE PANELS -->
                     <div class="form-row" style="gap:20px; margin-bottom:25px;">
                         <div style="flex:1; min-width:280px; background: #f0fdfa; padding: 15px; border-radius: 8px; border: 2px solid #0d9488;">
                             <h3 style="color: #0d9488; margin-top: 0;">📅 Add New Date Columns</h3>
@@ -625,7 +622,6 @@
                         </div>
                     </div>
 
-                    <!-- HOUSE MEETING SCHEDULER -->
                     <div style="background: #f0fdfa; padding: 15px; border-radius: 8px; border: 2px solid #0d9488; margin-bottom: 25px;">
                         <h3 style="color: #0d9488; margin-top: 0;">📅 House Council Meeting Scheduler Panel</h3>
                         <form onsubmit="allocateHouseMeeting(event)">
@@ -634,7 +630,6 @@
                         </form>
                     </div>
 
-                    <!-- HOUSE CAPTAIN EXCLUSIVE ASSIGNER -->
                     <div id="captain-exclusive-section" style="display: none; background: #fffdf5; padding: 15px; border-radius: 8px; border: 2px solid #ca8a04; margin-bottom: 25px;">
                         <h3 style="color: #ca8a04; margin-top: 0;">⚡ House Captain Exclusive Deployment Station</h3>
                         <form onsubmit="allocateCaptainDuty(event)">
@@ -657,7 +652,6 @@
                         </form>
                     </div>
 
-                    <!-- COMPETITION MATRIX ASSIGNER -->
                     <div style="background: #fdf4ff; padding: 15px; border-radius: 8px; border: 2px solid #d946ef; margin-bottom: 25px;">
                         <h3 style="color: #c026d3; margin-top: 0;">🎨 Council Competition & Teacher Co-ordination Assigner</h3>
                         <form onsubmit="allocateCompetitionResponsibility(event)">
@@ -666,12 +660,10 @@
                                 <div class="form-group"><label>Competition Task</label><input type="text" id="council-resp-task" required></div>
                                 <div class="form-group"><label>Teachers</label><input type="text" id="council-resp-teachers" required></div>
                             </div>
-                            <div class="form-row"></div>
                             <button type="submit" class="action-button" style="background: #c026d3; margin-top:10px;">Commit Responsibility Parameters</button>
                         </form>
                     </div>
 
-                    <!-- Manual Register Appender Form -->
                     <h3 style="color: #b45309;">1. Add Row to Attendance Register</h3>
                     <form onsubmit="manualAddAttendanceRow(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a; margin-bottom:25px;">
                         <div class="form-row">
@@ -681,7 +673,6 @@
                         <button type="submit" class="action-button" style="background: #ca8a04;">Append Student Row</button>
                     </form>
 
-                    <!-- Upcoming Events Modifier Form -->
                     <h3 style="color: #b45309;">2. Manage Upcoming Events Data & Outcomes</h3>
                     <form onsubmit="directAddActivity(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a; margin-bottom:25px;">
                         <div class="form-row">
@@ -703,7 +694,6 @@
                         <button type="submit" class="action-button" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">Add Event Outcome Entry</button>
                     </form>
 
-                    <!-- Achievers Data Modifier Form -->
                     <h3 style="color: #b45309;">3. Manage Achievers Roll Entry Logs</h3>
                     <form onsubmit="directAddAchiever(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a;">
                         <div class="form-row">
@@ -727,14 +717,13 @@
 
 </div>
 
-<!-- CREDITED FOOTER LINE -->
 <footer>
     THE ARAVALI HUB &copy; 2026<br>
     <span style="font-size: 0.85rem; font-weight: 500; opacity: 0.9;">An initiative of the house council of Aravali house of the academic session 2026 - 2027</span>
 </footer>
 
 <script>
-    // Master updated credentials array[cite: 1]
+    // Master updated credentials array
     let authorizedStudents = [
         { name: "AARUSH", class: "10", section: "A", position: "PROCTOR - BOYS", pass: "Aarush#Proctor", batchBadge: "Proctor Badge | 🛡️" },
         { name: "JAPUNJAN", class: "10", section: "B", position: "CULTURAL SECRETARY - GIRLS", pass: "Japunjan#Cultural", batchBadge: "Secretary Badge | 🎭" },
@@ -771,7 +760,6 @@
     let houseActivities = [];
     let achieversDatabase = [];
     
-    // PRE-POPULATING BASE ARRAYS FOR SYSTEM PERSISTENCE
     let attendanceDatabase = [
         { name: "AARUSH", pos: "PROCTOR - BOYS", loc: "Main Block", timeline: "Active Session", breaksData: { "4/5/2026_1st": "Approved", "4/5/2026_2nd": "Approved" } },
         { name: "ALIYA", pos: "PREFECT", loc: "Ground Floor Corridor", timeline: "Active Session", breaksData: { "4/5/2026_1st": "Approved", "5/5/2026_1st": "Rejected" } }
@@ -908,7 +896,9 @@
     function renderBadgesLogLedgerTable() {
         const tbody = document.querySelector("#badges-table tbody");
         if(!tbody) return; tbody.innerHTML = "";
-        const isCaptain = currentSessionUser && currentSessionUser.position === "HOUSE CAPTAIN";
+        
+        /* FIX: EVALUATE IDENTITY MATRIX STRING TO RESTRICT EXCLUSIVELY TO SANCHIT GUPTA MASTER ACCESS NODE */
+        const isCaptain = currentSessionUser && currentSessionUser.position === "HOUSE CAPTAIN" && currentSessionUser.name === "SANCHIT GUPTA";
         document.querySelectorAll(".badge-captain-actions").forEach(th => th.style.display = isCaptain ? "table-cell" : "none");
 
         if(badgesDatabase.length === 0) {
@@ -926,7 +916,6 @@
     function directAwardDigitalBadge(e) { e.preventDefault(); let name = document.getElementById("badge-receiver-name").value.trim().toUpperCase(); let parts = document.getElementById("badge-appreciation-type").value.split(" | "); badgesDatabase.push({ name, text: parts[0], emoji: parts[1] }); alert("Badge awarded!"); document.getElementById("badge-receiver-name").value = ""; renderBadgesLogLedgerTable(); }
     function deleteBadgeTokenRow(idx) { badgesDatabase.splice(idx, 1); renderBadgesLogLedgerTable(); }
 
-    // NEW UPGRADE: STUDENT APPLICATION SUBMISSION PIPELINE LOGGING
     function handleStudentAttendanceApplicationSubmit(e) {
         e.preventDefault();
         if(!currentSessionUser) return;
@@ -941,7 +930,6 @@
         renderPendingApplicationsQueueTable();
     }
 
-    // NEW UPGRADE: LIVE APPLICATIONS INGESTION WORKSPACE MATRIX CONSOLE
     function renderPendingApplicationsQueueTable() {
         const tbody = document.querySelector("#council-applications-table tbody");
         if(!tbody) return; tbody.innerHTML = "";
@@ -988,7 +976,6 @@
         renderPendingApplicationsQueueTable();
     }
 
-    // NEW UPGRADE: HOUSE CAPTAIN ABSOLUTE CELL OVERRIDE DEPLOYMENT PARAMETERS
     function handleCaptainCellOverrideSubmit(e) {
         e.preventDefault();
         let targetStudent = document.getElementById("override-student-select").value;
@@ -1092,7 +1079,7 @@
     }
 
     function manualAddAttendanceRow(e) { e.preventDefault(); let name = document.getElementById("add-manual-name").value.trim().toUpperCase(); let pos = document.getElementById("add-manual-pos").value.trim(); attendanceDatabase.push({ name, pos, loc: "Assigned Station", timeline: "Active Session", breaksData: {} }); renderAttendanceTable(); document.getElementById("add-manual-name").value = ""; document.getElementById("add-manual-pos").value = ""; }
-    function allocateCaptainDuty(e) { e.preventDefault(); let target = document.getElementById("captain-target-student").value; let loc = document.getElementById("cap-duty-loc").value.trim(); let when = document.getElementById("cap-duty-when").value.trim(); let breakName = document.getElementById("cap-duty-break").value; allocatedDutiesMap[target] = { loc, when, breakName }; alert(`Duty assignment routed for ${target}!`); if(!attendanceDatabase.find(r => r.name.toUpperCase() === target.toUpperCase())) { attendanceDatabase.push({ name: target, pos: "Batchholder", loc, timeline: when, breaksData: {} }); } renderAttendanceTable(); document.getElementById("cap-duty-loc").value = ""; document.getElementById("cap-duty-when").value = ""; }
+    function allocateCaptainDuty(e) { e.preventDefault(); let target = document.getElementById("captain-target-student").value; let loc = document.getElementById("cap-duty-loc").value.trim(); let when = document.getElementById("cap-duty-when").value.trim(); let breakName = document.getElementById("cap-duty-break").value; allocatedDutiesMap[target] = { loc, when, breakName }; alert(`Duty assignment completely routed for ${target}!`); if(!attendanceDatabase.find(r => r.name.toUpperCase() === target.toUpperCase())) { attendanceDatabase.push({ name: target, pos: "Batchholder", loc, timeline: when, breaksData: {} }); } renderAttendanceTable(); document.getElementById("cap-duty-loc").value = ""; document.getElementById("cap-duty-when").value = ""; }
     function allocateCompetitionResponsibility(e) { e.preventDefault(); let student = document.getElementById("council-target-student").value; let task = document.getElementById("council-resp-task").value.trim(); let teachers = document.getElementById("council-resp-teachers").value.trim(); allocatedResponsibilitiesMap[student] = { task, teachers }; alert("Responsibility mapped!"); document.getElementById("council-resp-task").value = ""; document.getElementById("council-resp-teachers").value = ""; }
     function requestAttendance() { if (!currentSessionUser) return; let duty = allocatedDutiesMap[currentSessionUser.name]; if(!duty) return; let matchedRow = attendanceDatabase.find(r => r.name.toUpperCase() === currentSessionUser.name.toUpperCase()); if(!matchedRow) { matchedRow = { name: currentSessionUser.name, pos: currentSessionUser.position, loc: duty.loc, timeline: duty.when, breaksData: {} }; attendanceDatabase.push(matchedRow); } let todayStr = activeDatesList[activeDatesList.length - 1]; let targetKey = `${todayStr}_${duty.breakName}`; matchedRow.breaksData[targetKey] = "Pending"; alert(`Attendance verification request sent!`); renderAttendanceTable(); }
     function renderActivitiesTable() { const tbody = document.querySelector("#activities-table tbody"); if(!tbody) return; tbody.innerHTML = ""; const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position); document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none"); if(houseActivities.length === 0) { tbody.innerHTML = `<tr><td colspan="7" style="padding: 20px; color: #0369a1;">No activities initialized.</td></tr>`; return; } houseActivities.forEach((act, idx) => { let row = document.createElement("tr"); let html = `<td>${idx + 1}</td><td><strong>${act.type}</strong></td><td>${act.elig}</td><td>${act.name}</td><td class="${getStatusClass(act.won)}">${act.won || 'TBD'}</td><td>${act.remarks || '-'}</td>`; if(isCouncil) html += `<td><button class="btn-delete" onclick="deleteActivityRow(${idx})">Delete</button></td>`; row.innerHTML = html; tbody.appendChild(row); }); }
@@ -1164,7 +1151,6 @@
             document.getElementById('captain-date-delete-panel').style.display = isCaptainOnly ? "block" : "none";
             document.getElementById('captain-absolute-override-section').style.display = isCaptainOnly ? "block" : "none";
             
-            // Unlocked application stream table visibility checks
             document.getElementById('council-applications-stream-card').style.display = isCaptainOrVice ? "block" : "none";
             
             document.getElementById("form-blog-author").value = `${verified.name} (${verified.position})`;
