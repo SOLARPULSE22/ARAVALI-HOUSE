@@ -410,9 +410,9 @@
             </div>
 
             <div id="dashboard-box" class="hidden-box">
-                <div class="welcome-banner">
+                <div class="welcome-banner" style="background: #f1f5f9; padding: 15px; border-radius: 8px; border-left: 5px solid #8b5cf6; margin-bottom: 20px;">
                     <span style="font-weight:900; font-size:1.3rem;">OPERATIONAL WORKSPACE ACTIVE</span><br>
-                    User: <span id="display-name">Student</span> | Role: <span id="display-role">Member</span>
+                    User: <span id="display-name" style="font-weight: 700;">Student</span> | Role: <span id="display-role" style="font-weight: 700;">Member</span>
                 </div>
 
                 <div id="student-apply-attendance-box" class="card" style="border: 2px solid #3b82f6; margin-bottom: 25px; padding: 20px;">
@@ -536,7 +536,7 @@
                     </div>
 
                     <div style="background: #fffbeb; padding: 15px; border-radius: 8px; border: 2px solid #f59e0b; margin-bottom: 25px;">
-                        <h3 style="color: #b45309; margin-top: 0;">👩‍🏫 6. Manage Faculty Directory Data & Experience Summaries</h3>
+                        <h3 style="color: #b45309; margin-top: 0;">👩‍🏫 Manage Faculty Directory Data & Experience Summaries</h3>
                         <form onsubmit="directUpdateTeachersIntroStatementLog(event)" style="margin-bottom: 15px;">
                             <label>Modify Public Faculty Intro Summary Text</label>
                             <textarea id="form-teacher-intro-text" rows="2" required></textarea>
@@ -553,7 +553,7 @@
                     </div>
 
                     <div style="background: #f5f3ff; padding: 15px; border-radius: 8px; border: 2px solid #8b5cf6; margin-bottom: 25px;">
-                        <h3 style="color: #6d28d9; margin-top: 0;">🎖️ 5. Distribute Digital Appreciation Badges</h3>
+                        <h3 style="color: #6d28d9; margin-top: 0;">🎖️ Distribute Digital Appreciation Badges</h3>
                         <form onsubmit="directAwardDigitalBadge(event)">
                             <div class="table-responsive" style="border-color: #8b5cf6; background: #ffffff; padding: 10px;">
                                 <table style="width: 100%; text-align: left;">
@@ -590,7 +590,7 @@
                     </div>
 
                     <div style="background: #ecfdf5; padding: 15px; border-radius: 8px; border: 2px solid #10b981; margin-bottom: 25px;">
-                        <h3 style="color: #059669; margin-top: 0;">✍️ 4. Compose & Launch Official Blog Posts</h3>
+                        <h3 style="color: #059669; margin-top: 0;">✍️ Compose & Launch Official Blog Posts</h3>
                         <form onsubmit="directPublishNewBlog(event)">
                             <div class="form-row">
                                 <div class="form-group"><label>Blog Title Heading</label><input type="text" id="form-blog-title" required placeholder="e.g. Integrity in Actions"></div>
@@ -664,7 +664,7 @@
                         </form>
                     </div>
 
-                    <h3 style="color: #b45309;">1. Add Row to Attendance Register</h3>
+                    <h3 style="color: #b45309;">Add Row to Attendance Register</h3>
                     <form onsubmit="manualAddAttendanceRow(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a; margin-bottom:25px;">
                         <div class="form-row">
                             <div class="form-group"><label>Name</label><input type="text" id="add-manual-name" required></div>
@@ -673,7 +673,7 @@
                         <button type="submit" class="action-button" style="background: #ca8a04;">Append Student Row</button>
                     </form>
 
-                    <h3 style="color: #b45309;">2. Manage Upcoming Events Data & Outcomes</h3>
+                    <h3 style="color: #b45309;">Manage Upcoming Events Data & Outcomes</h3>
                     <form onsubmit="directAddActivity(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a; margin-bottom:25px;">
                         <div class="form-row">
                             <div class="form-group"><label>Type of Event</label><input type="text" id="form-evt-type" required></div>
@@ -694,7 +694,7 @@
                         <button type="submit" class="action-button" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">Add Event Outcome Entry</button>
                     </form>
 
-                    <h3 style="color: #b45309;">3. Manage Achievers Roll Entry Logs</h3>
+                    <h3 style="color: #b45309;">Manage Achievers Roll Entry Logs</h3>
                     <form onsubmit="directAddAchiever(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a;">
                         <div class="form-row">
                             <div class="form-group"><label>Achiever Name</label><input type="text" id="form-ach-name" required></div>
@@ -897,7 +897,6 @@
         const tbody = document.querySelector("#badges-table tbody");
         if(!tbody) return; tbody.innerHTML = "";
         
-        /* FIX: EVALUATE IDENTITY MATRIX STRING TO RESTRICT EXCLUSIVELY TO SANCHIT GUPTA MASTER ACCESS NODE */
         const isCaptain = currentSessionUser && currentSessionUser.position === "HOUSE CAPTAIN" && currentSessionUser.name === "SANCHIT GUPTA";
         document.querySelectorAll(".badge-captain-actions").forEach(th => th.style.display = isCaptain ? "table-cell" : "none");
 
@@ -1090,6 +1089,21 @@
     function directAddActivity(e) { e.preventDefault(); houseActivities.push({ type: document.getElementById("form-evt-type").value.trim(), elig: document.getElementById("form-evt-elig").value.trim(), name: document.getElementById("form-evt-name").value.trim(), won: document.getElementById("form-evt-won").value, remarks: document.getElementById("form-evt-remarks").value.trim() }); renderActivitiesTable(); document.getElementById("form-evt-type").value=""; document.getElementById("form-evt-elig").value=""; document.getElementById("form-evt-name").value=""; document.getElementById("form-evt-remarks").value=""; }
     function directAddAchiever(e) { e.preventDefault(); achieversDatabase.push({ name: document.getElementById("form-ach-name").value.trim().toUpperCase(), housePos: document.getElementById("form-ach-pos").value.trim(), compType: document.getElementById("form-ach-type").value.trim(), wonPos: document.getElementById("form-ach-won").value.trim(), class: document.getElementById("form-ach-class").value.trim(), sec: document.getElementById("form-ach-sec").value.trim().toUpperCase() }); renderAchieversTable(); document.getElementById("form-ach-name").value=""; document.getElementById("form-ach-pos").value=""; document.getElementById("form-ach-type").value=""; document.getElementById("form-ach-won").value=""; document.getElementById("form-ach-class").value=""; document.getElementById("form-ach-sec").value=""; }
     function handleSuggestionSubmit(event) { event.preventDefault(); alert('Logged!'); document.getElementById('suggest-name').value = ''; document.getElementById('comments').value = ''; }
+    function getStatusClass(status) { return status === "WON" ? "status-won" : status === "LOST" ? "status-lost" : ""; }
+    
+    function directPublishNewBlog(e) {
+        e.preventDefault();
+        blogsDatabase.unshift({
+            title: document.getElementById("form-blog-title").value.trim().toUpperCase(),
+            topic: document.getElementById("form-blog-topic").value.trim(),
+            author: document.getElementById("form-blog-author").value,
+            date: "26/06/2026",
+            content: document.getElementById("form-blog-content").value.trim()
+        });
+        alert("Blog entry successfully synchronized down standard feeds!");
+        document.getElementById("form-blog-title").value = ""; document.getElementById("form-blog-content").value = "";
+        populateBlogFilterSelectorsMatrix(); renderBlogsStreamFeed();
+    }
 
     function handleLogin(event) {
         event.preventDefault();
@@ -1119,19 +1133,15 @@
             document.getElementById("live-meeting-text").innerText = activeHouseMeetingBroadcast;
             document.getElementById("form-teacher-intro-text").value = teachersIntroStatementMemoryLog;
 
+            // FIXED: Avoid script crash by safely updating only elements that exist in your HTML layout
             const duty = allocatedDutiesMap[verified.name];
-            const dispatcherWidget = document.getElementById("conditional-attendance-dispatcher");
-            
-            if(duty) {
-                document.getElementById("live-duty-loc").innerText = duty.loc;
-                document.getElementById("live-duty-when").innerText = duty.when;
-                document.getElementById("live-duty-break").innerText = `${duty.breakName} Break`;
-                dispatcherWidget.style.display = "block";
-            } else {
-                document.getElementById("live-duty-loc").innerText = "Unassigned";
-                document.getElementById("live-duty-when").innerText = "Unassigned";
-                document.getElementById("live-duty-break").innerText = "Unassigned";
-                dispatcherWidget.style.display = "none";
+            const liveDutyText = document.getElementById("live-duty-text");
+            if (liveDutyText) {
+                if (duty) {
+                    liveDutyText.innerText = `Location: ${duty.loc} | Timeline: ${duty.when} | Shift: ${duty.breakName} Break`;
+                } else {
+                    liveDutyText.innerText = "No operational post pinned currently.";
+                }
             }
 
             const assignedResp = allocatedResponsibilitiesMap[verified.name];
