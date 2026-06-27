@@ -477,6 +477,58 @@
                 <div id="council-panel" class="captain-panel" style="display:none;">
                     <h2>House Council Global Data Engine</h2>
                     
+                    <!-- NEW EXCLUSIVE DIRECT OVERRIDE ATTENDANCE MARKER FOR CAPTAIN AND VICE CAPTAIN -->
+                    <div id="captain-vice-direct-attendance-card" style="background: #e0f2fe; padding: 20px; border-radius: 12px; border: 3px solid #0284c7; margin-bottom: 25px; display: none;">
+                        <h3 style="color: #0369a1; margin-top:0; font-weight:900;">⚡ CAPTAIN & VICE CAPTAIN UNILATERAL ATTENDANCE ENTRY</h3>
+                        <p style="font-size:0.88rem; color:#075985; font-weight:700; margin:0 0 15px 0;">Direct administrative overriding tool. Logs presence instantly onto the data charts without student request workflows.</p>
+                        <form onsubmit="handleDirectUnilateralAttendanceMark(event)">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Select House Student</label>
+                                    <select id="direct-student-select" onchange="syncDirectStudentFormDetails()"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Class Profile</label>
+                                    <input type="text" id="direct-student-class" readonly style="background-color: #e2e8f0; cursor: not-allowed;">
+                                </div>
+                                <div class="form-group">
+                                    <label>Section</label>
+                                    <input type="text" id="direct-student-section" readonly style="background-color: #e2e8f0; cursor: not-allowed;">
+                                </div>
+                                <div class="form-group">
+                                    <label>Position</label>
+                                    <input type="text" id="direct-student-position" readonly style="background-color: #e2e8f0; cursor: not-allowed;">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Target Working Date</label>
+                                    <select id="direct-date-select"></select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Break Interval Slot</label>
+                                    <select id="direct-break-select">
+                                        <option value="1st">1st Break</option>
+                                        <option value="2nd">2nd Break</option>
+                                        <option value="Disp">Dispersal</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Where Was Duty Carried Out?</label>
+                                    <input type="text" id="direct-location-text" required placeholder="e.g., Academic Block Gate Corridor">
+                                </div>
+                                <div class="form-group">
+                                    <label>Status Judgment</label>
+                                    <select id="direct-status-select">
+                                        <option value="PRESENT">PRESENT 🟢</option>
+                                        <option value="ABSENT">ABSENT 🔴</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="action-button" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); margin-top:5px; font-weight:900;">Execute Unilateral Status Entry</button>
+                        </form>
+                    </div>
+
                     <div id="council-applications-stream-card" style="background: #fffdf5; padding: 15px; border-radius: 8px; border: 2px dashed #ca8a04; margin-bottom: 25px; display: none;">
                         <h3 style="color: #ca8a04; margin-top:0;">📨 Pending Student Attendance Requests Queue</h3>
                         <p style="font-size:0.85rem; color:#854d0e; font-weight:600; margin:0 0 10px 0;">Live processing channel unlocked exclusively for Captain and Vice Captain nodes.</p>
@@ -694,7 +746,7 @@
                         <button type="submit" class="action-button" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">Add Event Outcome Entry</button>
                     </form>
 
-                    <h3 style="color: #b45309;">Manage Achievers Roll Entry Logs</h3>
+                    <h3 style="color: #b45309;">Manage Upcoming Achievers Roll Entry Logs</h3>
                     <form onsubmit="directAddAchiever(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a;">
                         <div class="form-row">
                             <div class="form-group"><label>Achiever Name</label><input type="text" id="form-ach-name" required></div>
@@ -723,7 +775,7 @@
 </footer>
 
 <script>
-    // Master updated credentials array
+    // Master updated credentials array - FIXED: "SANA KAKKAR" altered globally to "SANA KAKAR"
     let authorizedStudents = [
         { name: "AARUSH", class: "10", section: "A", position: "PROCTOR - BOYS", pass: "Aarush#Proctor", batchBadge: "Proctor Badge | 🛡️" },
         { name: "JAPUNJAN", class: "10", section: "B", position: "CULTURAL SECRETARY - GIRLS", pass: "Japunjan#Cultural", batchBadge: "Secretary Badge | 🎭" },
@@ -732,7 +784,7 @@
         { name: "NAVYA KOHLI", class: "10", section: "A", position: "PREFECT", pass: "Navya@Prefect", batchBadge: "Prefect Badge | ⭐" },
         { name: "RAADHIYA", class: "9", section: "A", position: "PREFECT", pass: "Raadhiya@Prefect", batchBadge: "Prefect Badge | ⭐" },
         { name: "AKSHITA", class: "9", section: "A", position: "PREFECT", pass: "Akshita@Prefect", batchBadge: "Prefect Badge | ⭐" },
-        { name: "SANA KAKKAR", class: "9", section: "B", position: "PREFECT", pass: "Sana@Prefect", batchBadge: "Prefect Badge | ⭐" },
+        { name: "SANA KAKAR", class: "9", section: "B", position: "PREFECT", pass: "Sana@Prefect", batchBadge: "Prefect Badge | ⭐" },
         { name: "VANSH", class: "9", section: "C", position: "PREFECT", pass: "Vansh@Prefect", batchBadge: "Prefect Badge | ⭐" },
         { name: "TANISHKA", class: "9", section: "C", position: "PREFECT", pass: "Tanishka@Prefect", batchBadge: "Prefect Badge | ⭐" },
         { name: "BHAVIK", class: "8", section: "B", position: "PREFECT", pass: "Bhavik@Prefect", batchBadge: "Prefect Badge | ⭐" },
@@ -802,6 +854,73 @@
             councilSelect.appendChild(opt2);
             overrideStudentSelect.appendChild(opt3);
         });
+    }
+
+    // New configuration: Populates the Direct Attendance tool student dropdown map layers
+    function populateDirectAttendanceSelectors() {
+        const directSelect = document.getElementById("direct-student-select");
+        const directDate = document.getElementById("direct-date-select");
+        if(!directSelect || !directDate) return;
+
+        directSelect.innerHTML = "";
+        authorizedStudents.forEach(s => {
+            let opt = document.createElement("option");
+            opt.value = s.name;
+            opt.innerText = `${s.name} (${s.position})`;
+            directSelect.appendChild(opt);
+        });
+
+        directDate.innerHTML = "";
+        activeDatesList.forEach(d => {
+            let opt = document.createElement("option");
+            opt.value = d;
+            opt.innerText = d;
+            directDate.appendChild(opt);
+        });
+
+        syncDirectStudentFormDetails();
+    }
+
+    // Auto-populates text fields with class/section data based on selected student name
+    function syncDirectStudentFormDetails() {
+        const selectedName = document.getElementById("direct-student-select").value;
+        const studentProfile = authorizedStudents.find(s => s.name === selectedName);
+        if(studentProfile) {
+            document.getElementById("direct-student-class").value = studentProfile.class;
+            document.getElementById("direct-student-section").value = studentProfile.section || "-";
+            document.getElementById("direct-student-position").value = studentProfile.position;
+        }
+    }
+
+    // Processes the single target entry override logic loop
+    function handleDirectUnilateralAttendanceMark(e) {
+        e.preventDefault();
+        const studentName = document.getElementById("direct-student-select").value;
+        const dateString = document.getElementById("direct-date-select").value;
+        const breakInterval = document.getElementById("direct-break-select").value;
+        const spotLocation = document.getElementById("direct-location-text").value.trim().toUpperCase();
+        const decisionStatus = document.getElementById("direct-status-select").value;
+
+        let trackingRow = attendanceDatabase.find(r => r.name.toUpperCase() === studentName.toUpperCase());
+        if(!trackingRow) {
+            let coreProfile = authorizedStudents.find(s => s.name === studentName);
+            trackingRow = {
+                name: studentName,
+                pos: coreProfile ? coreProfile.position : "Member",
+                loc: spotLocation,
+                timeline: "Active Session",
+                breaksData: {}
+            };
+            attendanceDatabase.push(trackingRow);
+        }
+
+        trackingRow.loc = spotLocation;
+        let mapHashKey = `${dateString}_${breakInterval}`;
+        trackingRow.breaksData[mapHashKey] = (decisionStatus === "PRESENT") ? "Approved" : "Rejected";
+
+        alert(`Unilateral direct attendance applied for ${studentName} on ${dateString} [${breakInterval} Break]!`);
+        document.getElementById("direct-location-text").value = "";
+        renderAttendanceTable();
     }
 
     function populateDateDropdownsMatrix() {
@@ -1063,6 +1182,7 @@
         e.preventDefault(); let newDate = document.getElementById("form-new-date-string").value.trim();
         if(newDate && !activeDatesList.includes(newDate)) {
             activeDatesList.push(newDate); renderAttendanceTable(); populateDateDropdownsMatrix();
+            populateDirectAttendanceSelectors(); // Synchronizes updated calendar matrices down options fields
             alert(`Date block ${newDate} integrated across database matrices!`); document.getElementById("form-new-date-string").value = "";
         }
     }
@@ -1073,6 +1193,7 @@
             activeDatesList.splice(index, 1);
             attendanceDatabase.forEach(record => { ["1st", "2nd", "Disp"].forEach(bn => { delete record.breaksData[`${targetDate}_${bn}`]; }); });
             renderAttendanceTable(); populateDateDropdownsMatrix();
+            populateDirectAttendanceSelectors();
             alert(`Date column ${targetDate} successfully purged from database layers!`); document.getElementById("form-delete-date-string").value = "";
         } else { alert("Date string not found."); }
     }
@@ -1133,7 +1254,6 @@
             document.getElementById("live-meeting-text").innerText = activeHouseMeetingBroadcast;
             document.getElementById("form-teacher-intro-text").value = teachersIntroStatementMemoryLog;
 
-            // FIXED: Avoid script crash by safely updating only elements that exist in your HTML layout
             const duty = allocatedDutiesMap[verified.name];
             const liveDutyText = document.getElementById("live-duty-text");
             if (liveDutyText) {
@@ -1161,6 +1281,8 @@
             document.getElementById('captain-date-delete-panel').style.display = isCaptainOnly ? "block" : "none";
             document.getElementById('captain-absolute-override-section').style.display = isCaptainOnly ? "block" : "none";
             
+            // Unlocks the Unilateral Direct form field widget exclusively across Captain and Vice Captain workspace hubs
+            document.getElementById('captain-vice-direct-attendance-card').style.display = isCaptainOrVice ? "block" : "none";
             document.getElementById('council-applications-stream-card').style.display = isCaptainOrVice ? "block" : "none";
             
             document.getElementById("form-blog-author").value = `${verified.name} (${verified.position})`;
@@ -1168,6 +1290,9 @@
             if(isCouncil) {
                 populateStudentSelectors();
                 renderPendingApplicationsQueueTable();
+            }
+            if(isCaptainOrVice) {
+                populateDirectAttendanceSelectors();
             }
 
             document.getElementById('login-box').className = "hidden-box";
