@@ -201,7 +201,7 @@
     </div>
 
     <script>
-        const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbweo98JpmI1ca4qg-0wl8oc9Xnj9BLexqTDOQtmqVY_4pziNTjVOmShkh7g_FgMnmkteg/exec"; 
+        const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbzExi72U-4uc94TWin_2AoEESvi59YhTQ_MwpHPGzVWBpCqzPVmK1Ng3KI6w9PYvFUPtA/exec"; 
         const MASTER_PASSPHRASE_KEY = "aravali2026"; 
 
         let currentActiveTab = "Sheet1";
@@ -259,14 +259,13 @@
             const allocations = localDatabaseCache["Competition_Allocations"] || [];
             const trophies = localDatabaseCache["Competitions_Won"] || [];
 
-            // --- 🏆 ADVANCED HOUSE POINTS WEIGHTED CALCULATOR ENGINE ---
             let totalAravaliPointsScore = 0;
             let studentPointContributions = {};
 
             trophies.forEach(row => {
                 let name = row[0];
                 let rank = String(row[3]).toUpperCase().trim();
-                let points = 10; // Base default points for participating or unmapped rows
+                let points = 10; 
 
                 if (rank.includes("1ST") || rank.includes("FIRST")) points = 100;
                 else if (rank.includes("2ND") || rank.includes("SECOND")) points = 75;
@@ -276,11 +275,10 @@
                 if (name) studentPointContributions[name] = (studentPointContributions[name] || 0) + points;
             });
 
-            // Factor in participation base metrics from allocations as well
             allocations.forEach(row => {
                 let name = row[0];
                 if (name) {
-                    totalAravaliPointsScore += 10; // 10 points per participation log entry
+                    totalAravaliPointsScore += 10; 
                     studentPointContributions[name] = (studentPointContributions[name] || 0) + 10;
                 }
             });
@@ -300,7 +298,6 @@
                     </div>`;
             });
 
-            // --- 🏃 PARTICIPATION INDEX COMPILER ---
             let participationCounters = {};
             allocations.forEach(row => {
                 let name = row[0];
@@ -317,7 +314,6 @@
                     </div>`;
             });
 
-            // --- 🚨 PREFECT ATTENDANCE CRITICAL RISK PROFILER ---
             let prefectAttendanceRecords = {};
             attendance.forEach(row => {
                 let name = row[0];
@@ -334,7 +330,7 @@
                 let pct = data.total > 0 ? Math.round((data.present / data.total) * 100) : 0;
                 attendanceRankings.push({ name, pct });
             });
-            let sortedAttendance = attendanceRankings.sort((a,b) => a.pct - b.pct).slice(0, 5); // Sorted ascending to highlight low-attendance risk groups first
+            let sortedAttendance = attendanceRankings.sort((a,b) => a.pct - b.pct).slice(0, 5); 
             document.getElementById("statActivePrefects").innerText = Object.keys(prefectAttendanceRecords).length;
 
             const attendanceContainer = document.getElementById("leaderboardAttendance");
@@ -343,7 +339,6 @@
             let totalPctSum = 0;
             sortedAttendance.forEach((item, index) => {
                 totalPctSum += item.pct;
-                // Risk threshold assessment flag: under 75% appends high-risk flashing indicator badge layouts
                 let isAtRisk = item.pct < 75;
                 let riskBadge = isAtRisk ? `<span class="ml-1.5 px-1.5 py-0.5 text-[9px] font-black bg-rose-600 text-white rounded animate-bounce">AT RISK</span>` : '';
                 let colorClass = isAtRisk ? "text-rose-400 font-bold" : "text-emerald-400";
@@ -357,7 +352,7 @@
             let finalAvg = attendanceRankings.length > 0 ? Math.round(totalPctSum / sortedAttendance.length) : 0;
             document.getElementById("statAvgAttendance").innerText = `${finalAvg}%`;
 
-   // --- 🏫 CLASS ENGAGEMENT EXPANDED MATRIX PROFILER (V - XII) ---
+            // --- 🏫 CLASS ENGAGEMENT EXPRANGE PROFILER (V - XII) ---
             let classCounts = { 
                 "V": 0, "VI": 0, "VII": 2, "VIII": 1, 
                 "IX": 8, "X": 6, "XI": 0, "XII": 0 
@@ -373,17 +368,7 @@
                         <span class="text-slate-200 font-bold bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">${count} Profiles</span>
                     </div>`;
             });
-            const classContainer = document.getElementById("metricsClassDistribution");
-            classContainer.innerHTML = "";
-            Object.entries(classCounts).forEach(([cls, count]) => {
-                classContainer.innerHTML += `
-                    <div class="flex justify-between items-center border-b border-slate-900/40 pb-1">
-                        <span class="text-slate-400">Class ${cls} Tier</span>
-                        <span class="text-slate-200 font-bold bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">${count} Profiles</span>
-                    </div>`;
-            });
 
-            // --- 📍 STATION ROSTER HEATMAP LAYER ---
             let stationAbsenteeLog = {};
             attendance.forEach(row => {
                 let loc = row[2];
