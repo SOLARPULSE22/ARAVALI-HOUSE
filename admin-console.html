@@ -3,154 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aravali Hub | Admin Control Tower</title>
-    <!-- Tailwind CSS & FontAwesome Icons -->
+    <title>Aravali Hub | Command Center & Advanced Analytics Matrix</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Space+Mono&display=swap');
-        body { font-family: 'Space Grotesk', sans-serif; background-color: #0b0f19; }
+        body { font-family: 'Space Grotesk', sans-serif; background-color: #060913; }
         .mono { font-family: 'Space Mono', monospace; }
-        .glass { background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
-        .glow-green:focus { border-color: #10b981; box-shadow: 0 0 10px rgba(16, 185, 129, 0.2); }
-        /* Custom scrollbar for matrix grids */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #0b0f19; }
-        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+        .glass { background: rgba(11, 17, 34, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); }
     </style>
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col antialiased">
 
-    <!-- 🔐 MASTER GATEWAY SECURITY MODAL -->
-    <div id="lockModal" class="fixed inset-0 z-50 flex items-center justify-center bg-[#05070c]/90 backdrop-blur-md px-4">
-        <div class="glass w-full max-w-md p-8 rounded-2xl border-amber-500/30 shadow-2xl shadow-amber-500/5">
+    <div id="lockModal" class="fixed inset-0 z-50 flex items-center justify-center bg-[#03050a]/95 backdrop-blur-xl px-4">
+        <div class="glass w-full max-w-md p-8 rounded-2xl border-amber-500/20 shadow-2xl shadow-amber-500/5">
             <div class="text-center mb-6">
                 <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-500/10 text-amber-500 mb-4 animate-pulse">
                     <i class="fa-solid fa-shield-halved text-2xl"></i>
                 </div>
-                <h1 class="text-2xl font-bold tracking-tight text-amber-500">ARAVALI MASTER KEYWAYS</h1>
+                <h1 class="text-2xl font-bold tracking-tight text-slate-200">ARAVALI MASTER KEYWAYS</h1>
                 <p class="text-sm text-slate-400 mt-1">Authorized Command Personnel Only</p>
             </div>
             <div class="space-y-4">
                 <div>
-                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Access Passphrase</label>
-                    <input type="password" id="passphraseInput" class="w-full px-4 py-3 bg-[#0f172a] border border-slate-700 rounded-xl text-amber-400 font-mono focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all" placeholder="••••••••••••">
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Access Keyphrase</label>
+                    <input type="password" id="passphraseInput" class="w-full px-4 py-3 bg-[#0c1224] border border-slate-800 rounded-xl text-amber-400 font-mono focus:outline-none focus:border-amber-500 transition-all" placeholder="••••••••••••">
                 </div>
-                <button onclick="verifyAccess()" class="w-full py-3 bg-amber-600 hover:bg-amber-500 active:bg-amber-700 text-white font-semibold rounded-xl tracking-wide transition-colors shadow-lg shadow-amber-600/20 cursor-pointer">
-                    Decrypt System Mainframe
+                <button onclick="verifyAccess()" class="w-full py-3 bg-amber-600 hover:bg-amber-500 active:bg-amber-700 text-white font-semibold rounded-xl tracking-wide transition-colors cursor-pointer shadow-lg shadow-amber-600/10">
+                    Unlock Core Infrastructure
                 </button>
                 <p id="lockError" class="text-center text-xs text-red-400 font-mono hidden"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Passphrase signature rejected.</p>
             </div>
         </div>
     </div>
 
-    <!-- 🛰️ CENTRAL COMMAND UI LAYOUT -->
     <div id="dashboardUI" class="hidden flex-1 flex flex-col">
-        <!-- HEADER BRIDGE -->
-        <header class="glass border-b border-slate-800 px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <header class="glass border-b border-slate-900 px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div class="flex items-center gap-3">
                 <div class="p-2.5 bg-emerald-500/10 text-emerald-400 rounded-xl border border-emerald-500/20">
                     <i class="fa-solid fa-tower-cell text-xl"></i>
                 </div>
                 <div>
-                    <h2 class="text-lg font-bold tracking-wide uppercase text-slate-200">Aravali Hub Central Operations Bridge</h2>
-                    <p class="text-xs text-slate-400 mono">Role: House Captain Administrative View</p>
+                    <h2 class="text-lg font-bold tracking-wide uppercase text-slate-200">Aravali Control Center & Analytics Matrix</h2>
+                    <p class="text-xs text-slate-400 mono">Role: House Captain & House Mistress Operational Bridge [2026-2027]</p>
                 </div>
             </div>
             <div class="flex items-center gap-3 w-full sm:w-auto">
-                <button onclick="fetchMasterData()" class="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium rounded-xl border border-slate-700 transition-colors cursor-pointer">
+                <button onclick="fetchMasterData()" class="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2 bg-slate-900 hover:bg-slate-800 text-slate-200 text-sm font-medium rounded-xl border border-slate-800 transition-colors cursor-pointer">
                     <i class="fa-solid fa-rotate text-xs"></i> Sync Live Telemetry
                 </button>
-                <button onclick="logout()" class="p-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 rounded-xl transition-colors cursor-pointer" title="Lock Console">
+                <button onclick="logout()" class="p-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 rounded-xl transition-colors cursor-pointer" title="Lock Mainframe">
                     <i class="fa-solid fa-power-off"></i>
                 </button>
             </div>
         </header>
 
         <main class="flex-1 p-6 space-y-6 max-w-7xl w-full mx-auto">
-            <!-- METRIC TICKERS -->
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-                <div class="glass p-4 rounded-xl flex items-center justify-between">
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass p-5 rounded-2xl flex flex-col justify-between border-amber-500/10">
                     <div>
-                        <p class="text-xs uppercase text-slate-400 tracking-wider">Total Registries</p>
-                        <h3 id="metricRegistries" class="text-2xl font-bold text-emerald-400 mt-1 mono">--</h3>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xs font-bold tracking-wider uppercase text-amber-400"><i class="fa-solid fa-trophy mr-1.5"></i> Trophy Winner Rankings</h3>
+                            <span class="text-[10px] bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded-full mono">Top Achievers</span>
+                        </div>
+                        <div id="leaderboardTrophies" class="space-y-2 text-xs font-mono">
+                            <div class="text-slate-500 text-center py-4">Awaiting ledger compilation...</div>
+                        </div>
                     </div>
-                    <i class="fa-solid fa-users text-slate-600 text-xl"></i>
                 </div>
-                <div class="glass p-4 rounded-xl flex items-center justify-between">
+
+                <div class="glass p-5 rounded-2xl flex flex-col justify-between border-violet-500/10">
                     <div>
-                        <p class="text-xs uppercase text-slate-400 tracking-wider">Duty Logs</p>
-                        <h3 id="metricAttendance" class="text-2xl font-bold text-cyan-400 mt-1 mono">--</h3>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xs font-bold tracking-wider uppercase text-violet-400"><i class="fa-solid fa-users mr-1.5"></i> Participation Density</h3>
+                            <span class="text-[10px] bg-violet-500/10 text-violet-400 px-2 py-0.5 rounded-full mono">Total Allocations</span>
+                        </div>
+                        <div id="leaderboardParticipation" class="space-y-2 text-xs font-mono">
+                            <div class="text-slate-500 text-center py-4">Awaiting allocation rows...</div>
+                        </div>
                     </div>
-                    <i class="fa-solid fa-clipboard-user text-slate-600 text-xl"></i>
                 </div>
-                <div class="glass p-4 rounded-xl flex items-center justify-between">
+
+                <div class="glass p-5 rounded-2xl flex flex-col justify-between border-cyan-500/10">
                     <div>
-                        <p class="text-xs uppercase text-slate-400 tracking-wider">Allocations</p>
-                        <h3 id="metricAllocations" class="text-2xl font-bold text-violet-400 mt-1 mono">--</h3>
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xs font-bold tracking-wider uppercase text-cyan-400"><i class="fa-solid fa-calendar-check mr-1.5"></i> Prefect Attendance Ladder</h3>
+                            <span class="text-[10px] bg-cyan-500/10 text-cyan-400 px-2 py-0.5 rounded-full mono">Presence %</span>
+                        </div>
+                        <div id="leaderboardAttendance" class="space-y-2 text-xs font-mono">
+                            <div class="text-slate-500 text-center py-4">Awaiting attendance sync...</div>
+                        </div>
                     </div>
-                    <i class="fa-solid fa-bolt text-slate-600 text-xl"></i>
-                </div>
-                <div class="glass p-4 rounded-xl flex items-center justify-between">
-                    <div>
-                        <p class="text-xs uppercase text-slate-400 tracking-wider">Podiums Won</p>
-                        <h3 id="metricWins" class="text-2xl font-bold text-amber-400 mt-1 mono">--</h3>
-                    </div>
-                    <i class="fa-solid fa-trophy text-slate-600 text-xl"></i>
                 </div>
             </div>
 
-            <!-- BROADCAST MODULE & RUNTIME LOGS -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="glass p-5 rounded-2xl border-slate-800">
+                    <h4 class="text-xs font-bold tracking-wider uppercase text-slate-300 mb-3 flex items-center gap-1.5">
+                        <i class="fa-solid fa-chart-pie text-emerald-400"></i> Class Engagement Profiler
+                    </h4>
+                    <div id="metricsClassDistribution" class="space-y-2 text-xs font-mono">
+                        <div class="text-slate-500 py-2">No active distribution cached.</div>
+                    </div>
+                </div>
+
+                <div class="glass p-5 rounded-2xl border-slate-800">
+                    <h4 class="text-xs font-bold tracking-wider uppercase text-slate-300 mb-3 flex items-center gap-1.5">
+                        <i class="fa-solid fa-map-location-dot text-rose-400"></i> Station Roster & Absentee Heatmap
+                    </h4>
+                    <div id="metricsStationHeatmap" class="space-y-2 text-xs font-mono max-h-[140px] overflow-y-auto">
+                        <div class="text-slate-500 py-2">No target station pings logged.</div>
+                    </div>
+                </div>
+
+                <div class="glass p-5 rounded-2xl border-slate-800 flex flex-col justify-between">
+                    <h4 class="text-xs font-bold tracking-wider uppercase text-slate-300 mb-2 flex items-center gap-1.5">
+                        <i class="fa-solid fa-gauge-high text-amber-500"></i> House Operational Summary
+                    </h4>
+                    <div class="grid grid-cols-2 gap-3 flex-1 mt-2 font-mono text-xs">
+                        <div class="bg-[#0b1122] p-2.5 rounded-xl border border-slate-800">
+                            <span class="text-slate-500 uppercase block text-[10px]">Registry Volume</span>
+                            <span id="statTotalRegistry" class="text-base font-bold text-slate-200">--</span>
+                        </div>
+                        <div class="bg-[#0b1122] p-2.5 rounded-xl border border-slate-800">
+                            <span class="text-slate-500 uppercase block text-[10px]">Trophies Secured</span>
+                            <span id="statTotalTrophies" class="text-base font-bold text-amber-400">--</span>
+                        </div>
+                        <div class="bg-[#0b1122] p-2.5 rounded-xl border border-slate-800">
+                            <span class="text-slate-500 uppercase block text-[10px]">Active Prefects</span>
+                            <span id="statActivePrefects" class="text-base font-bold text-cyan-400">--</span>
+                        </div>
+                        <div class="bg-[#0b1122] p-2.5 rounded-xl border border-slate-800">
+                            <span class="text-slate-500 uppercase block text-[10px]">Avg House Attendance</span>
+                            <span id="statAvgAttendance" class="text-base font-bold text-emerald-400">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                <!-- BROADCAST MATRIX -->
                 <div class="glass p-5 rounded-2xl flex flex-col justify-between space-y-4">
                     <div>
                         <h3 class="text-sm font-bold tracking-wide uppercase text-slate-300 flex items-center gap-2">
                             <i class="fa-solid fa-bullhorn text-amber-400"></i> House Broadcast Transmitter
                         </h3>
-                        <p class="text-xs text-slate-400 mt-1">Push live urgent operational alerts to the student view.</p>
+                        <p class="text-xs text-slate-400 mt-1">Push alerts live to the banner of the main student webpage view instantly.</p>
                     </div>
-                    <textarea id="broadcastInput" rows="3" class="w-full p-3 bg-[#0f172a] border border-slate-700 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all resize-none" placeholder="Type house announcement here..."></textarea>
+                    <textarea id="broadcastInput" rows="3" class="w-full p-3 bg-[#0c1224] border border-slate-800 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-emerald-500 transition-all resize-none" placeholder="Type house broadcast notices here..."></textarea>
                     <button onclick="transmitBroadcast()" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white text-sm font-semibold rounded-xl tracking-wide transition-colors cursor-pointer">
                         Transmit Announcement Link
                     </button>
                 </div>
 
-                <!-- LIVE TERMINAL FEED -->
                 <div class="glass p-5 rounded-2xl lg:col-span-2 flex flex-col space-y-3">
                     <h3 class="text-sm font-bold tracking-wide uppercase text-slate-300 flex items-center gap-2">
-                        <i class="fa-solid fa-terminal text-emerald-400 animate-pulse"></i> Live Term Logs & Sync Telemetry
+                        <i class="fa-solid fa-terminal text-emerald-400"></i> Live Analytical Terminal Feed Logs
                     </h3>
-                    <div id="terminalFeed" class="flex-1 bg-[#05070c] rounded-xl p-4 font-mono text-xs text-emerald-400 space-y-1.5 overflow-y-auto max-h-[160px] border border-slate-800">
-                        <div>[SYSTEM READY]: Command array initializing...</div>
+                    <div id="terminalFeed" class="flex-1 bg-[#03050a] rounded-xl p-4 font-mono text-xs text-emerald-400 space-y-1.5 overflow-y-auto max-h-[160px] border border-slate-900">
+                        <div>[SYSTEM READY]: Advanced analytical framework online...</div>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB MATRIX SELECTOR -->
             <div class="glass rounded-2xl overflow-hidden flex flex-col">
-                <div class="bg-[#0f172a]/80 border-b border-slate-800 px-4 py-2 flex flex-wrap gap-2 items-center justify-between">
-                    <div class="flex flex-wrap gap-1">
-                        <button onclick="switchTab('Sheet1')" id="btnTabSheet1" class="px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer bg-slate-800 text-emerald-400 border border-slate-700">Student Registry</button>
-                        <button onclick="switchTab('Attendance_Logs')" id="btnTabAttendance_Logs" class="px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer text-slate-400 hover:text-slate-200">Duty Attendance</button>
-                        <button onclick="switchTab('Competition_Allocations')" id="btnTabCompetition_Allocations" class="px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer text-slate-400 hover:text-slate-200">Allocations Matrix</button>
-                        <button onclick="switchTab('Competitions_Won')" id="btnTabCompetitions_Won" class="px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer text-slate-400 hover:text-slate-200">House Trophies</button>
+                <div class="bg-[#0b1122] border-b border-slate-900 px-4 py-3 flex flex-col md:flex-row gap-3 items-center justify-between">
+                    <div class="flex flex-wrap gap-1.5">
+                        <button onclick="switchTab('Sheet1')" id="btnTabSheet1" class="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg bg-slate-900 text-emerald-400 border border-slate-800">Registry</button>
+                        <button onclick="switchTab('Attendance_Logs')" id="btnTabOpenAttendance_Logs" class="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg text-slate-400 hover:text-slate-200">Attendance Logs</button>
+                        <button onclick="switchTab('Competition_Allocations')" id="btnTabOpenCompetition_Allocations" class="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg text-slate-400 hover:text-slate-200">Allocations Matrix</button>
+                        <button onclick="switchTab('Competitions_Won')" id="btnTabOpenCompetitions_Won" class="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg text-slate-400 hover:text-slate-200">Trophies Secured</button>
                     </div>
-                    <button onclick="exportCurrentTableToCSV()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-lg border border-slate-700 transition-colors cursor-pointer flex items-center gap-1.5">
-                        <i class="fa-solid fa-file-export"></i> Export Ledger
-                    </button>
+                    
+                    <div class="flex items-center gap-2 w-full md:w-auto">
+                        <div class="relative flex-1 md:w-64">
+                            <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-xs text-slate-500"></i>
+                            <input type="text" id="tableFilterInput" oninput="renderActiveTableData()" class="w-full pl-8 pr-3 py-1.5 bg-[#060913] border border-slate-800 rounded-lg text-xs text-slate-300 focus:outline-none focus:border-emerald-500" placeholder="Search across parameters...">
+                        </div>
+                        <button onclick="exportCurrentTableToCSV()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-semibold rounded-lg border border-slate-800 transition-colors cursor-pointer flex items-center gap-1">
+                            <i class="fa-solid fa-file-export text-[10px]"></i> Export CSV
+                        </button>
+                    </div>
                 </div>
 
-                <!-- DYNAMIC DATA MATRIX CONTAINER -->
                 <div class="overflow-x-auto w-full">
                     <table class="w-full text-left text-sm border-collapse">
-                        <thead id="tableHeader" class="bg-[#0b0f19] text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-800">
-                            <!-- Populated Dynamically -->
-                        </thead>
-                        <tbody id="tableBody" class="divide-y divide-slate-800/50 bg-[#0f172a]/20">
+                        <thead id="tableHeader" class="bg-[#060913] text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-900">
+                            </thead>
+                        <tbody id="tableBody" class="divide-y divide-slate-900/60 bg-[#0c1224]/10">
                             <tr>
-                                <td colspan="10" class="p-8 text-center text-xs text-slate-500 font-mono">Awaiting system handshake database synchronization loop...</td>
+                                <td colspan="10" class="p-8 text-center text-xs text-slate-500 font-mono">Awaiting main decryption access pass to map cloud datasets...</td>
                             </tr>
                         </tbody>
                     </table>
@@ -159,28 +201,26 @@
         </main>
     </div>
 
-    <!-- ⚙️ BACKEND DATA ROUTING CORE SCRIPT -->
     <script>
-        // 🚨 CONFIGURATION PARAMETERS
-        const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbwxjtUGHtzh4OGEDKC-ywPWkCPZGf8uhPl4W4nNvBEe8tkyW9l9ZH172mUJjOxU6IGtoQ/exec"; 
-        const MASTER_PASSPHRASE_HASH = "aravali2026"; // Direct encryption bypass key
+        // Paste your master active Apps Script Deployment URL link here inside quotes
+        const WEB_APP_DATABASE_URL = "YOUR_DEPLOYED_GOOGLE_APPS_SCRIPT_URL_HERE"; 
+        const MASTER_PASSPHRASE_KEY = "aravali2026"; 
 
         let currentActiveTab = "Sheet1";
         let localDatabaseCache = {};
 
-        // 🔐 SECURITY VERIFICATION HANDSHAKE
         function verifyAccess() {
             const input = document.getElementById("passphraseInput").value;
             const err = document.getElementById("lockError");
             
-            if (input === MASTER_PASSPHRASE_HASH) {
+            if (input === MASTER_PASSPHRASE_KEY) {
                 document.getElementById("lockModal").classList.add("hidden");
                 document.getElementById("dashboardUI").classList.remove("hidden");
-                logTerminal("Access authorization granted. Fetching central operational cloud matrix rows...");
+                logTerminal("Verification access signatures matched. Initializing systems...");
                 fetchMasterData();
             } else {
                 err.classList.remove("hidden");
-                logTerminal("🔴 Telemetry Error: Access handshake rejected.", true);
+                logTerminal("🔴 Security Block: Handshake parameter invalid.", true);
             }
         }
 
@@ -190,35 +230,27 @@
             document.getElementById("dashboardUI").classList.add("hidden");
         }
 
-        // 📡 LIVE TERMINAL LOG LOGGER
         function logTerminal(message, isError = false) {
             const container = document.getElementById("terminalFeed");
             const time = new Date().toLocaleTimeString();
-            const log = document.createElement("div");
-            log.className = isError ? "text-red-400" : "text-emerald-400";
-            log.innerHTML = `<span class="text-slate-500">[${time}]</span> ${message}`;
-            container.appendChild(log);
+            const element = document.createElement("div");
+            element.className = isError ? "text-red-400" : "text-emerald-400";
+            element.innerHTML = `<span class="text-slate-600">[${time}]</span> ${message}`;
+            container.appendChild(element);
             container.scrollTop = container.scrollHeight;
         }
 
-        // 🔄 FETCH MASTER ARCHIVE COMPILATION FROM GOOGLE SHEET
         async function fetchMasterData() {
-            logTerminal("Polling secure cloud server database spreadsheets rows...");
+            logTerminal("Polling secure cloud server spreadsheets rows...");
             try {
-                // Requests all tabs simultaneously by triggering our upgraded Apps Script action code
                 const response = await fetch(`${WEB_APP_DATABASE_URL}?action=getAllData`);
-                if (!response.ok) throw new Error("Handshake rejected or pipeline down.");
+                if (!response.ok) throw new Error("CORS / Pipeline channel disconnected.");
                 
                 const data = await response.json();
                 localDatabaseCache = data;
                 
-                // Update micro-metric counters
-                document.getElementById("metricRegistries").innerText = data.Sheet1 ? data.Sheet1.length : 0;
-                document.getElementById("metricAttendance").innerText = data.Attendance_Logs ? data.Attendance_Logs.length : 0;
-                document.getElementById("metricAllocations").innerText = data.Competition_Allocations ? data.Competition_Allocations.length : 0;
-                document.getElementById("metricWins").innerText = data.Competitions_Won ? data.Competitions_Won.length : 0;
-                
-                logTerminal(`🟢 Handshake Authorized. Synchronized rows cached successfully.`);
+                logTerminal(`🟢 Handshake Authorized. Processing data analytical matrices...`);
+                compileComprehensiveHouseAnalytics();
                 renderActiveTableData();
             } catch (err) {
                 logTerminal(`🔴 Telemetry Error: Handshake rejected or script URL wrong.`, true);
@@ -226,143 +258,247 @@
             }
         }
 
-        // 🛠️ ACTIVE MATRIX TAB CONTROLLER
-        function switchTab(tabId) {
-            currentActiveTab = tabId;
+        function compileComprehensiveHouseAnalytics() {
+            const registries = localDatabaseCache["Sheet1"] || [];
+            const attendance = localDatabaseCache["Attendance_Logs"] || [];
+            const allocations = localDatabaseCache["Competition_Allocations"] || [];
+            const trophies = localDatabaseCache["Competitions_Won"] || [];
+
+            document.getElementById("statTotalRegistry").innerText = registries.length;
+            document.getElementById("statTotalTrophies").innerText = trophies.length;
+
+            // --- 🏆 TROPHY WINNERS LEADERBOARD ENGINE ---
+            let trophyCounters = {};
+            trophies.forEach(row => {
+                let name = row[0];
+                if(name) trophyCounters[name] = (trophyCounters[name] || 0) + 1;
+            });
+            let sortedTrophies = Object.entries(trophyCounters).sort((a,b) => b[1] - a[1]).slice(0, 5);
             
-            // Toggle active visual states on button rows
-            ['Sheet1', 'Attendance_Logs', 'Competition_Allocations', 'Competitions_Won'].forEach(t => {
-                const btn = document.getElementById(`btnTab${t}`);
-                if (t === tabId) {
-                    btn.className = "px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer bg-slate-800 text-emerald-400 border border-slate-700";
-                } else {
-                    btn.className = "px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer text-slate-400 hover:text-slate-200";
-                }
+            const trophyContainer = document.getElementById("leaderboardTrophies");
+            trophyContainer.innerHTML = sortedTrophies.length === 0 ? '<div class="text-slate-600 text-center py-2">No trophies recorded yet.</div>' : '';
+            sortedTrophies.forEach((item, index) => {
+                let badgeStyle = index === 0 ? "text-amber-400 font-bold" : "text-slate-300";
+                trophyContainer.innerHTML += `
+                    <div class="flex justify-between items-center bg-[#0b1122] p-2 rounded-xl border border-slate-900 ${badgeStyle}">
+                        <span>#${index + 1} ${item[0]}</span>
+                        <span class="bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded border border-amber-500/20 font-bold">${item[1]} Wins</span>
+                    </div>`;
             });
 
+            // --- 🏃 PARTICIPATION DENSITY ENGINE ---
+            let participationCounters = {};
+            allocations.forEach(row => {
+                let name = row[0];
+                if(name) participationCounters[name] = (participationCounters[name] || 0) + 1;
+            });
+            let sortedParticipation = Object.entries(participationCounters).sort((a,b) => b[1] - a[1]).slice(0, 5);
+            
+            const participationContainer = document.getElementById("leaderboardParticipation");
+            participationContainer.innerHTML = sortedParticipation.length === 0 ? '<div class="text-slate-600 text-center py-2">No participations logged.</div>' : '';
+            sortedParticipation.forEach((item, index) => {
+                participationContainer.innerHTML += `
+                    <div class="flex justify-between items-center bg-[#0b1122] p-2 rounded-xl border border-slate-900 text-slate-300">
+                        <span>#${index + 1} ${item[0]}</span>
+                        <span class="bg-violet-500/10 text-violet-400 px-2 py-0.5 rounded border border-violet-500/20 font-bold">${item[1]} Events</span>
+                    </div>`;
+            });
+
+            // --- 📅 ATTENDANCE PERCENTAGE LADDER CORE ---
+            let prefectAttendanceRecords = {};
+            attendance.forEach(row => {
+                let name = row[0];
+                let status = row[5]; 
+                if(name) {
+                    if(!prefectAttendanceRecords[name]) prefectAttendanceRecords[name] = { present: 0, total: 0 };
+                    prefectAttendanceRecords[name].total++;
+                    if(status === "Present" || status === "PRESENT" || status === "Approved") prefectAttendanceRecords[name].present++;
+                }
+            });
+            
+            let attendanceRankings = [];
+            Object.entries(prefectAttendanceRecords).forEach(([name, data]) => {
+                let pct = data.total > 0 ? Math.round((data.present / data.total) * 100) : 0;
+                attendanceRankings.push({ name, pct });
+            });
+            let sortedAttendance = attendanceRankings.sort((a,b) => b.pct - a.pct).slice(0, 5);
+            document.getElementById("statActivePrefects").innerText = Object.keys(prefectAttendanceRecords).length;
+
+            const attendanceContainer = document.getElementById("leaderboardAttendance");
+            attendanceContainer.innerHTML = sortedAttendance.length === 0 ? '<div class="text-slate-600 text-center py-2">No attendance sheets tracked.</div>' : '';
+            
+            let totalPctSum = 0;
+            sortedAttendance.forEach((item, index) => {
+                totalPctSum += item.pct;
+                let colorClass = item.pct >= 75 ? "text-emerald-400" : "text-rose-400";
+                attendanceContainer.innerHTML += `
+                    <div class="flex justify-between items-center bg-[#0b1122] p-2 rounded-xl border border-slate-900 text-slate-300">
+                        <span>#${index + 1} ${item[0]}</span>
+                        <span class="bg-cyan-500/10 ${colorClass} px-2 py-0.5 rounded border border-cyan-500/20 font-bold">${item.pct}%</span>
+                    </div>`;
+            });
+            let finalAvg = attendanceRankings.length > 0 ? Math.round(totalPctSum / sortedAttendance.length) : 0;
+            document.getElementById("statAvgAttendance").innerText = `${finalAvg}%`;
+
+            // --- 🏫 CLASS DISTRIBUTION PROFILER ---
+            let classCounts = { "IX": 0, "X": 0, "XI": 0, "XII": 0 };
+            registries.forEach(row => {
+                let cls = String(row[1]).toUpperCase();
+                if(cls.includes("IX") || cls.includes("9")) classCounts["IX"]++;
+                else if(cls.includes("X") || cls.includes("10")) classCounts["X"]++;
+                else if(cls.includes("XI") || cls.includes("11")) classCounts["XI"]++;
+                else if(cls.includes("XII") || cls.includes("12")) classCounts["XII"]++;
+            });
+            const classContainer = document.getElementById("metricsClassDistribution");
+            classContainer.innerHTML = "";
+            Object.entries(classCounts).forEach(([cls, count]) => {
+                classContainer.innerHTML += `
+                    <div class="flex justify-between items-center">
+                        <span class="text-slate-400">${cls} Tier</span>
+                        <span class="text-slate-200 font-bold">${count} Profiles</span>
+                    </div>`;
+            });
+
+            // --- 📍 STATION RISK HEATMAP ENGINE ---
+            let stationAbsenteeLog = {};
+            attendance.forEach(row => {
+                let loc = row[2];
+                let status = row[5];
+                if(loc) {
+                    if(!stationAbsenteeLog[loc]) stationAbsenteeLog[loc] = 0;
+                    if(status === "Absent" || status === "ABSENT") stationAbsenteeLog[loc]++;
+                }
+            });
+            const heatmapContainer = document.getElementById("metricsStationHeatmap");
+            heatmapContainer.innerHTML = Object.keys(stationAbsenteeLog).length === 0 ? '<div class="text-slate-600 text-center py-2">No station heatmap logs found.</div>' : '';
+            Object.entries(stationAbsenteeLog).forEach(([loc, count]) => {
+                let alertColor = count > 0 ? "text-rose-400 font-bold" : "text-slate-400";
+                heatmapContainer.innerHTML += `
+                    <div class="flex justify-between items-center border-b border-slate-900/50 pb-1">
+                        <span class="text-slate-400 truncate max-w-[150px]">${loc}</span>
+                        <span class="${alertColor}">${count} Missed Shifts</span>
+                    </div>`;
+            });
+        }
+
+        function switchTab(tabId) {
+            currentActiveTab = tabId;
+            const buttons = {
+                "Sheet1": "btnTabSheet1",
+                "Attendance_Logs": "btnTabOpenAttendance_Logs",
+                "Competition_Allocations": "btnTabOpenCompetition_Allocations",
+                "Competitions_Won": "btnTabOpenCompetitions_Won"
+            };
+            
+            Object.entries(buttons).forEach(([key, id]) => {
+                const element = document.getElementById(id);
+                if (key === tabId) {
+                    element.className = "px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg bg-slate-900 text-emerald-400 border border-slate-800";
+                } else {
+                    element.className = "px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg text-slate-400 hover:text-slate-200";
+                }
+            });
             renderActiveTableData();
         }
 
-        // 📊 INTERACTIVE MATRIX DATA TABLE GENERATOR
         function renderActiveTableData() {
             const header = document.getElementById("tableHeader");
             const body = document.getElementById("tableBody");
+            const searchFilter = document.getElementById("tableFilterInput").value.toLowerCase();
             
-            header.innerHTML = "";
-            body.innerHTML = "";
+            header.innerHTML = ""; body.innerHTML = "";
+            let rows = localDatabaseCache[currentActiveTab] || [];
 
-            const rows = localDatabaseCache[currentActiveTab] || [];
+            if (searchFilter) {
+                rows = rows.filter(r => r.some(cell => String(cell).toLowerCase().includes(searchFilter)));
+            }
 
             if (rows.length === 0) {
-                body.innerHTML = `<tr><td colspan="10" class="p-8 text-center text-xs text-slate-500 font-mono">No telemetry rows verified inside this sheet page database grid.</td></tr>`;
+                body.innerHTML = `<tr><td colspan="10" class="p-8 text-center text-xs text-slate-500 font-mono">No telemetry matching records found.</td></tr>`;
                 return;
             }
 
-            // Map structural configurations based on active tab requirements
             let columns = [];
-            if (currentActiveTab === "Sheet1") {
-                columns = ["NAME", "CLASS", "SECTION", "ADMISSION_NO", "EMAIL", "PHONE", "POSITION", "LOGIN_TIMESTAMP"];
-            } else if (currentActiveTab === "Attendance_Logs") {
-                columns = ["NAME", "POSITION", "DUTY_LOCATION", "TARGET_DATE", "BREAK_SLOT", "STATUS_JUDGMENT", "TIMESTAMP"];
-            } else if (currentActiveTab === "Competition_Allocations") {
-                columns = ["STUDENT_NAME", "COMPETITION_TASK", "TEACHERS_IN_CHARGE", "TIMESTAMP"];
-            } else if (currentActiveTab === "Competitions_Won") {
-                columns = ["ACHIEVER_NAME", "HOUSE_POSITION", "COMPETITION_TYPE", "RANK_WON", "CLASS", "SECTION", "TIMESTAMP"];
-            }
+            if (currentActiveTab === "Sheet1") columns = ["NAME", "CLASS", "SECTION", "ADMISSION_NO", "EMAIL", "PHONE", "POSITION", "TIMESTAMP"];
+            else if (currentActiveTab === "Attendance_Logs") columns = ["NAME", "POSITION", "DUTY_LOCATION", "TARGET_DATE", "BREAK_SLOT", "STATUS_JUDGMENT", "TIMESTAMP"];
+            else if (currentActiveTab === "Competition_Allocations") columns = ["NAME", "CLASS", "SECTION", "TYPE_COMPETITION", "DATE_HELD", "NAME_OF_COMPETITION", "TIMESTAMP"];
+            else if (currentActiveTab === "Competitions_Won") columns = ["ACHIEVER_NAME", "HOUSE_POSITION", "COMPETITION_TYPE", "RANK_WON", "CLASS", "SECTION", "TIMESTAMP"];
 
-            // Build structural header row HTML elements
-            let headerRow = '<tr class="border-b border-slate-800">';
-            columns.forEach(col => { headerRow += `<th class="px-5 py-3">${col.replace('_', ' ')}</th>`; });
-            headerRow += '<th class="px-5 py-3 text-right">Overrides</th></tr>';
-            header.innerHTML = headerRow;
+            let headerHtml = '<tr class="border-b border-slate-900">';
+            columns.forEach(col => { headerHtml += `<th class="px-5 py-3">${col.replace('_', ' ')}</th>`; });
+            headerHtml += '<th class="px-5 py-3 text-right">Action Overrides</th></tr>';
+            header.innerHTML = headerHtml;
 
-            // Compile body data entries row inside the matrix grid
-            rows.forEach((row, rowIndex) => {
-                let bodyRow = `<tr class="hover:bg-slate-800/30 transition-colors text-xs text-slate-300 font-mono">`;
-                columns.forEach((col, colIndex) => {
-                    let cellVal = row[colIndex] !== undefined ? row[colIndex] : '';
-                    
-                    // Add distinct badges for status judgments
-                    if (cellVal === "Present") {
-                        bodyRow += `<td class="px-5 py-3"><span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded border border-emerald-500/20 font-bold">PRESENT</span></td>`;
-                    } else if (cellVal === "Absent") {
-                        bodyRow += `<td class="px-5 py-3"><span class="px-2 py-0.5 bg-red-500/10 text-red-400 rounded border border-red-500/20 font-bold">ABSENT</span></td>`;
+            rows.forEach((row, rIdx) => {
+                let rowHtml = `<tr class="hover:bg-slate-900/40 transition-colors text-xs text-slate-300 font-mono">`;
+                columns.forEach((_, cIdx) => {
+                    let val = row[cIdx] !== undefined ? row[cIdx] : '';
+                    if (val === "Present" || val === "PRESENT" || val === "Approved") {
+                        rowHtml += `<td class="px-5 py-3"><span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 text-[10px] font-bold rounded border border-emerald-500/20">PRESENT</span></td>`;
+                    } else if (val === "Absent" || val === "ABSENT" || val === "Rejected") {
+                        rowHtml += `<td class="px-5 py-3"><span class="px-2 py-0.5 bg-rose-500/10 text-rose-400 text-[10px] font-bold rounded border border-rose-500/20">ABSENT</span></td>`;
                     } else {
-                        bodyRow += `<td class="px-5 py-3 max-w-[200px] truncate" title="${cellVal}">${cellVal}</td>`;
+                        rowHtml += `<td class="px-5 py-3 max-w-[180px] truncate" title="${val}">${val}</td>`;
                     }
                 });
-                
-                // Active action override interface controls
-                bodyRow += `<td class="px-5 py-3 text-right">
-                    <button onclick="triggerRowDeletion('${currentActiveTab}', ${rowIndex + 2})" class="p-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 rounded-md transition-colors cursor-pointer" title="Purge Record">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
+                rowHtml += `<td class="px-5 py-3 text-right">
+                    <button onclick="purgeDatabaseRow('${currentActiveTab}', ${rIdx + 2})" class="p-1 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 border border-rose-500/20 rounded cursor-pointer"><i class="fa-solid fa-trash-can text-[11px]"></i></button>
                 </td></tr>`;
-                body.innerHTML += bodyRow;
+                body.innerHTML += rowHtml;
             });
         }
 
-        // 🗑️ TELEMETRY ROW PURGE COMMAND OVERRIDE
-        async function triggerRowDeletion(sheetName, realRowIdx) {
-            if (!confirm(`Confirm absolute purge query on row reference row index index ${realRowIdx} inside database ledger tab "${sheetName}"?`)) return;
-            
-            logTerminal(`Initiating structural log deletion payload at row ${realRowIdx}...`);
-            
+        async function purgeDatabaseRow(sheetName, realIndex) {
+            if(!confirm(`Are you absolutely sure you want to delete row ${realIndex} from "${sheetName}"?`)) return;
+            logTerminal(`Transmitting row deletion override frame for row index ${realIndex}...`);
             try {
-                const response = await fetch(WEB_APP_DATABASE_URL, {
+                await fetch(WEB_APP_DATABASE_URL, {
                     method: "POST",
-                    mode: "no-cors", // Bypasses browser cross-origin preflight locks
+                    mode: "no-cors",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        action: "deleteRowOverride",
-                        sheetName: sheetName,
-                        rowNumber: realRowIdx
-                    })
+                    body: JSON.stringify({ action: "deleteRowOverride", sheetName: sheetName, rowNumber: realIndex })
                 });
-                
-                logTerminal(`Deletion network broadcast frame committed. Triggering automatic cache sync...`);
-                // Wait 1.5 seconds for Google cloud infrastructure nodes to compile before executing sync refresh
+                logTerminal(`🟢 Purge command executed. Re-syncing database parameters...`);
                 setTimeout(fetchMasterData, 1500);
             } catch (err) {
-                logTerminal(`🔴 Telemetry Error: Overrides frame rejection pipeline failure.`, true);
+                logTerminal("🔴 Telemetry Error: Overrides frame rejection pipeline failure.", true);
             }
         }
 
-        // 📢 BROADCAST ALERT TRANSMITTER SYSTEM
-        function transmitBroadcast() {
+        async function transmitBroadcast() {
             const input = document.getElementById("broadcastInput");
             if (!input.value.trim()) return;
-            
-            logTerminal(`Broadcasting matrix house message: "${input.value}"`);
-            alert(`House announcement system broadcast committed safely across the system node array!`);
-            input.value = "";
+            logTerminal("Broadcasting matrix house message frame...");
+            try {
+                await fetch(WEB_APP_DATABASE_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ action: "updateBroadcast", message: input.value.trim() })
+                });
+                logTerminal(`🟢 Broadcast signal committed successfully across system arrays!`);
+                alert("House announcement updated live!");
+                input.value = "";
+            } catch(err) {
+                logTerminal(`🔴 Broadcast transmission network dropped.`, true);
+            }
         }
 
-        // 📥 EXPORT LOCAL CLIPBOARD LOGS ENGINE (.CSV)
         function exportCurrentTableToCSV() {
             const rows = localDatabaseCache[currentActiveTab] || [];
-            if (rows.length === 0) return alert("No active spreadsheet data parameters available to isolate.");
-            
-            let csvContent = "data:text/csv;charset=utf-8,";
-            rows.forEach(r => {
-                let rowStr = r.map(val => `"${String(val).replace(/"/g, '""')}"`).join(",");
-                csvContent += rowStr + "\r\n";
-            });
-            
-            const encodedUri = encodeURI(csvContent);
-            const downloadAnchor = document.createElement("a");
-            downloadAnchor.setAttribute("href", encodedUri);
-            downloadAnchor.setAttribute("download", `AravaliHub_${currentActiveTab}_Ledger_2026.csv`);
-            document.body.appendChild(downloadAnchor);
-            downloadAnchor.click();
-            document.body.removeChild(downloadAnchor);
-            logTerminal(`Local CSV export ledger compiled and downloaded successfully.`);
+            if (rows.length === 0) return alert("No active data to extract.");
+            let content = "data:text/csv;charset=utf-8,";
+            rows.forEach(r => { content += r.map(v => `"${String(v).replace(/"/g, '""')}"`).join(",") + "\r\n"; });
+            const anchor = document.createElement("a");
+            anchor.setAttribute("href", encodeURI(content));
+            anchor.setAttribute("download", `AravaliHub_${currentActiveTab}_Report.csv`);
+            document.body.appendChild(anchor);
+            anchor.click();
+            document.body.removeChild(anchor);
+            logTerminal("Local CSV data report generated and downloaded.");
         }
 
-        // Enter Key listener for Security Prompt Modal
-        document.getElementById("passphraseInput").addEventListener("keypress", (e) => {
-            if (e.key === "Enter") verifyAccess();
-        });
+        document.getElementById("passphraseInput").addEventListener("keypress", (e) => { if(e.key === "Enter") verifyAccess(); });
     </script>
 </body>
 </html>
