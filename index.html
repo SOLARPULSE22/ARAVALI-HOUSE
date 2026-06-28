@@ -132,9 +132,8 @@
 </div>
 
 <div id="liveAlertBanner">
-    📢 HOUSE BULLETIN: <span id="broadcastTargetText">Awaiting live administration updates...</span>
-</div>
-
+        📢 HOUSE BULLETIN: <span id="broadcastTargetText">Awaiting live administration updates...</span>
+    </div>
 <header>
     <h1>THE ARAVALI HUB</h1>
     <p>DIGITAL WORKSTATION & OPERATIONS PORTAL</p>
@@ -1246,33 +1245,46 @@
                 }
             }
             
-            // 🎯 FIXED TRACKING POINTER: Maps row[0] of array layer [0] from database payload
-            if(masterData.Broadcast_Alerts && masterData.Broadcast_Alerts.length > 0) {
-                const liveMessagePayload = masterData.Broadcast_Alerts[0][0]; 
-                if (liveMessagePayload && liveMessagePayload !== "MESSAGE") {
-                    document.getElementById("broadcastTargetText").innerText = liveMessagePayload;
-                }
-            }
-        } catch (err) {
-            console.error("Pipeline mapping error: ", err);
-        }
-    }
+    async function fetchLatestBroadcast() {
+    // Replace with your actual API key if needed, or use the public gviz endpoint:
+    const spreadsheetId = '1FWnkxV1zpYWYOQXtZ1O2omTgu5qS9-X0u8pFiZ_7qN0';
+    const sheetName = 'broadcast alerts';
+    
+    // We fetch Column A using Google's Visualization API query language
+    const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?sheet=${encodeURIComponent(sheetName)}&range=A:A`;
 
-    window.onload = function() { 
-        renderActivitiesTable(); renderPublicRegistry(); populateBlogFilterSelectorsMatrix(); renderBlogsStreamFeed();
-        if (WEB_APP_DATABASE_URL !== "") {
-    fetch(`${WEB_APP_DATABASE_URL}?action=getLatestBroadcast`)
-        .then(res => res.json())
-        .then(data => {
-            // Checks for the exact lowercase "message" key-signature passed out from Sheets
-            if (data && data.message) { 
-                // Dynamically wipes out the "Awaiting..." placeholder text and drops your real message in!
-                document.getElementById("broadcastTargetText").innerText = data.message;
-            }
-        }).catch(err => console.log("Transmission wire timing out. Standing by..."));
-}
-        fetchGlobalMasterDatabaseGrid(); 
-    };
+    try {
+      const response = await fetch(url);
+      const text = await response.text();
+      
+      // The response comes wrapped in a callback function, we strip it out to get pure JSON
+      const jsonString = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
+      const data = JSON.parse(jsonString);
+      
+      // Get all rows in column A
+      const rows = data.table.rows;
+      
+      if (rows && rows.length > 0) {
+        // Get the very last row's value (latest entry)
+        const latestRow = rows[rows.length - 1];
+        const latestMessage = latestRow.c[0] ? latestRow.c[0].v : 'No new updates.';
+        
+        // Update your HTML div
+        document.getElementById('broadcastTargetText').innerText = latestMessage;
+      } else {
+        document.getElementById('broadcastTargetText').innerText = 'No updates found.';
+      }
+    } catch (error) {
+      console.error('Error fetching broadcast updates:', error);
+      document.getElementById('broadcastTargetText').innerText = 'Failed to load updates.';
+    }
+  }
+
+  // Fetch the update when the page loads
+  window.addEventListener('DOMContentLoaded', fetchLatestBroadcast);
+  
+  // Optional: Auto-refresh every 30 seconds
+  setInterval(fetchLatestBroadcast, 30000);
 </script>
 </body>
 </html>
