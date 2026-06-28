@@ -1116,7 +1116,29 @@
     function renderAchieversTable() { const tbody = document.querySelector("#achievers-table tbody"); if(!tbody) return; tbody.innerHTML = ""; const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position); document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none"); if(achieversDatabase.length === 0) { tbody.innerHTML = `<tr><td colspan="8" style="padding: 20px; color: #9d174d;">Roll matrix empty.</td></tr>`; return; } achieversDatabase.forEach((ach, idx) => { let row = document.createElement("tr"); let html = `<td>${idx + 1}</td><td><strong>${ach.name}</strong></td><td>${ach.housePos}</td><td>${ach.compType}</td><td><span style="color:#c2185b; font-weight:900;">${ach.wonPos}</span></td><td>${ach.class}</td><td>${ach.sec}</td>`; if(isCouncil) html += `<td><button class="btn-delete" onclick="deleteAchieverRow(${idx})">Delete</button></td>`; row.innerHTML = html; tbody.appendChild(row); }); }
     function deleteActivityRow(idx) { houseActivities.splice(idx, 1); renderActivitiesTable(); }
     function deleteAchieverRow(idx) { achieversDatabase.splice(idx, 1); renderAchieversTable(); }
-    function allocateHouseMeeting(e) { e.preventDefault(); activeHouseMeetingBroadcast = document.getElementById("form-meeting-desc").value.trim(); document.getElementById("live-meeting-text").innerText = activeHouseMeetingBroadcast; alert("Notice posted!"); document.getElementById("form-meeting-desc").value = ""; }
+    function allocateHouseMeeting(e) { 
+        e.preventDefault(); 
+        const meetingDescription = document.getElementById("form-meeting-desc").value.trim(); 
+        if (!meetingDescription) return;
+
+        const meetingPayload = {
+            action: "postMeeting", 
+            message: meetingDescription
+        };
+
+        document.getElementById("live-meeting-text").innerText = meetingDescription; 
+
+        fetch(WEB_APP_DATABASE_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(meetingPayload)
+        }).then(() => {
+            alert("House meeting parameters successfully committed to your cloud database!"); 
+        }).catch(err => console.error("Database cloud tracking fault: ", err));
+
+        document.getElementById("form-meeting-desc").value = ""; 
+    }
     function directAddActivity(e) { e.preventDefault(); houseActivities.push({ type: document.getElementById("form-evt-type").value.trim(), elig: document.getElementById("form-evt-elig").value.trim(), name: document.getElementById("form-evt-name").value.trim(), won: document.getElementById("form-evt-won").value, remarks: document.getElementById("form-evt-remarks").value.trim() }); renderActivitiesTable(); document.getElementById("form-evt-type").value=""; document.getElementById("form-evt-elig").value=""; document.getElementById("form-evt-name").value=""; document.getElementById("form-evt-remarks").value=""; }
     function directAddAchiever(e) { e.preventDefault(); achieversDatabase.push({ name: document.getElementById("form-ach-name").value.trim().toUpperCase(), housePos: document.getElementById("form-ach-pos").value.trim(), compType: document.getElementById("form-ach-type").value.trim(), wonPos: document.getElementById("form-ach-won").value.trim(), class: document.getElementById("form-ach-class").value.trim(), sec: document.getElementById("form-ach-sec").value.trim().toUpperCase() }); renderAchieversTable(); document.getElementById("form-ach-name").value=""; document.getElementById("form-ach-pos").value=""; document.getElementById("form-ach-type").value=""; document.getElementById("form-ach-won").value=""; document.getElementById("form-ach-class").value=""; document.getElementById("form-ach-sec").value=""; }
     function getStatusClass(status) { return status === "WON" ? "status-won" : status === "LOST" ? "status-lost" : ""; }
