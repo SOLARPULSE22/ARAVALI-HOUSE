@@ -1129,13 +1129,18 @@
         populateBlogFilterSelectorsMatrix(); renderBlogsStreamFeed();
     }
 
-    function handleLogin(event) {
+   function handleLogin(event) {
         event.preventDefault();
         const nameInput = document.getElementById('student-name').value.trim().toUpperCase();
         let classInput = document.getElementById('student-class').value.trim().toUpperCase();
         const posInput = document.getElementById('student-position').value.toUpperCase();
         const passInput = document.getElementById('student-password').value.trim();
         const errorBox = document.getElementById('error-box');
+
+        // Grab additional credential metadata variables to map down to your Sheet1 rows
+        const admissionNoInput = document.getElementById('student-admission-no').value.trim();
+        const emailInput = document.getElementById('student-email-id').value.trim();
+        const phoneInput = document.getElementById('student-phone-no').value.trim();
 
         const verified = authorizedStudents.find(s => s.name === nameInput && s.pass === passInput && s.position === posInput);
         if (verified) {
@@ -1172,11 +1177,39 @@
             if(isCouncil) { populateStudentSelectors(); renderPendingApplicationsQueueTable(); }
             if(isCaptainOrVice) { populateDirectAttendanceSelectors(); }
 
+            // 📡 LIVE DATA WIRE TRANSMISSION NODE FOR SHEET1 UPDATES
+            const telemetryPayload = {
+                action: "registerStudent",
+                name: verified.name,
+                class: verified.class,
+                section: verified.section || "A",
+                admissionNo: admissionNoInput,
+                email: emailInput,
+                phone: phoneInput,
+                position: verified.position
+            };
+
+            // Fire request directly through Google's macro router gateway
+            fetch(WEB_APP_DATABASE_URL, {
+                method: "POST",
+                mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(telemetryPayload)
+            }).then(() => {
+                console.log("Portal session successfully recorded onto cloud ledger row.");
+            }).catch(err => console.error("Telemetry link dropout: ", err));
+
+            // Clear credentials input elements out safely for system privacy
+            document.getElementById('student-name').value = '';
+            document.getElementById('student-password').value = '';
+            document.getElementById('student-admission-no').value = '';
+            document.getElementById('student-email-id').value = '';
+            document.getElementById('student-phone-no').value = '';
+
             document.getElementById('login-box').className = "hidden-box";
             document.getElementById('dashboard-box').className = "visible-box";
         } else { errorBox.style.display = 'block'; }
     }
-
     function fetchLiveDatabaseGrid() {
         const rowsContainer = document.getElementById("adminRegistryRows");
         fetch(`${WEB_APP_DATABASE_URL}?action=getRegistry`)
