@@ -1298,7 +1298,6 @@
     function manualAddAttendanceRow(e) { e.preventDefault(); let name = document.getElementById("add-manual-name").value.trim().toUpperCase(); let pos = document.getElementById("add-manual-pos").value.trim(); attendanceDatabase.push({ name, pos, loc: "Assigned Station", timeline: "Active Session", breaksData: {} }); renderAttendanceTable(); document.getElementById("add-manual-name").value = ""; document.getElementById("add-manual-pos").value = ""; }
     function allocateCaptainDuty(e) { e.preventDefault(); let target = document.getElementById("captain-target-student").value; let loc = document.getElementById("cap-duty-loc").value.trim(); let when = document.getElementById("cap-duty-when").value.trim(); let breakName = document.getElementById("cap-duty-break").value; allocatedDutiesMap[target] = { loc, when, breakName }; alert(`Duty assignment completely routed for ${target}!`); if(!attendanceDatabase.find(r => r.name.toUpperCase() === target.toUpperCase())) { attendanceDatabase.push({ name: target, pos: "Batchholder", loc, timeline: when, breaksData: {} }); } renderAttendanceTable(); document.getElementById("cap-duty-loc").value = ""; document.getElementById("cap-duty-when").value = ""; }
     
-    // 🛠️ UPGRADED COMP ALLOCATION MAPPING HANDLER
     function allocateCompetitionResponsibility(e) { 
         e.preventDefault(); 
         let student = document.getElementById("council-target-student").value; 
@@ -1308,7 +1307,7 @@
         alert("Responsibility mapped safely across local matrices!"); 
         document.getElementById("council-resp-task").value = ""; 
         document.getElementById("council-resp-teachers").value = ""; 
-        fetchGlobalMasterDatabaseGrid(); // Triggers direct re-render tracking grids
+        fetchGlobalMasterDatabaseGrid(); 
     }
     
     function requestAttendance() { if (!currentSessionUser) return; let duty = allocatedDutiesMap[currentSessionUser.name]; if(!duty) return; let matchedRow = attendanceDatabase.find(r => r.name.toUpperCase() === currentSessionUser.name.toUpperCase()); if(!matchedRow) { matchedRow = { name: currentSessionUser.name, pos: currentSessionUser.position, loc: duty.loc, timeline: duty.when, breaksData: {} }; attendanceDatabase.push(matchedRow); } let todayStr = activeDatesList[activeDatesList.length - 1]; let targetKey = `${todayStr}_${duty.breakName}`; matchedRow.breaksData[targetKey] = "Pending"; alert(`Attendance verification request sent!`); renderAttendanceTable(); }
@@ -1321,260 +1320,63 @@
     function directAddAchiever(e) { e.preventDefault(); achieversDatabase.push({ name: document.getElementById("form-ach-name").value.trim().toUpperCase(), housePos: document.getElementById("form-ach-pos").value.trim(), compType: document.getElementById("form-ach-type").value.trim(), wonPos: document.getElementById("form-ach-won").value.trim(), class: document.getElementById("form-ach-class").value.trim(), sec: document.getElementById("form-ach-sec").value.trim().toUpperCase() }); renderAchieversTable(); document.getElementById("form-ach-name").value=""; document.getElementById("form-ach-pos").value=""; document.getElementById("form-ach-type").value=""; document.getElementById("form-ach-won").value=""; document.getElementById("form-ach-class").value=""; document.getElementById("form-ach-sec").value=""; }
     function handleSuggestionSubmit(event) { event.preventDefault(); alert('Logged!'); document.getElementById('suggest-name').value = ''; document.getElementById('comments').value = ''; }
     function getStatusClass(status) { return status === "WON" ? "status-won" : status === "LOST" ? "status-lost" : ""; }
-    
-    function directPublishNewBlog(e) {
-        e.preventDefault();
-        blogsDatabase.unshift({
-            title: document.getElementById("form-blog-title").value.trim().toUpperCase(),
-            topic: document.getElementById("form-blog-topic").value.trim(),
-            author: document.getElementById("form-blog-author").value,
-            date: "26/06/2026",
-            content: document.getElementById("form-blog-content").value.trim()
-        });
-        alert("Blog entry successfully synchronized down standard feeds!");
-        document.getElementById("form-blog-title").value = ""; document.getElementById("form-blog-content").value = "";
-        populateBlogFilterSelectorsMatrix(); renderBlogsStreamFeed();
-    }
 
-    function handleLogin(event) {
-        event.preventDefault();
-        const nameInput = document.getElementById('student-name').value.trim().toUpperCase();
-        let classInput = document.getElementById('student-class').value.trim().toUpperCase();
-        const posInput = document.getElementById('student-position').value.toUpperCase();
-        const passInput = document.getElementById('student-password').value.trim();
-        const errorBox = document.getElementById('error-box');
-
-        const admissionNoInput = document.getElementById('student-admission-no').value.trim();
-        const emailInput = document.getElementById('student-email-id').value.trim();
-        const phoneInput = document.getElementById('student-phone-no').value.trim();
-
-        if (classInput === "X" || classInput === "10TH" || classInput === "IX" || classInput === "9TH") {
-            if (classInput.includes("10") || classInput.includes("X")) classInput = "10";
-            if (classInput.includes("9") || classInput.includes("IX")) classInput = "9";
-        }
-
-        const verified = authorizedStudents.find(s => s.name === nameInput && s.pass === passInput && s.position === posInput);
-
-        if (verified) {
-            currentSessionUser = verified;
-            errorBox.style.display = 'none';
-            
-            document.getElementById('student-name').value = ''; document.getElementById('student-class').value = ''; document.getElementById('student-section').value = ''; document.getElementById('student-password').value = '';
-            document.getElementById('student-admission-no').value = ''; document.getElementById('student-email-id').value = ''; document.getElementById('student-phone-no').value = '';
-            
-            document.getElementById('display-name').innerText = verified.name;
-            document.getElementById('display-role').innerText = verified.position;
-
-            populateDateDropdownsMatrix();
-            renderAttendanceTable(); renderActivitiesTable(); renderAchieversTable(); renderBadgesLogLedgerTable(); renderTeachersRegistryTable();
-            document.getElementById("live-meeting-text").innerText = activeHouseMeetingBroadcast;
-            document.getElementById("form-teacher-intro-text").value = teachersIntroStatementMemoryLog;
-
-            const duty = allocatedDutiesMap[verified.name];
-            const liveDutyText = document.getElementById("live-duty-text");
-            if (liveDutyText) {
-                if (duty) {
-                    liveDutyText.innerText = `Location: ${duty.loc} | Timeline: ${duty.when} | Shift: ${duty.breakName} Break`;
-                } else {
-                    liveDutyText.innerText = "No operational post pinned currently.";
-                }
-            }
-
-            const assignedResp = allocatedResponsibilitiesMap[verified.name];
-            if(assignedResp) {
-                document.getElementById("live-resp-task").innerText = assignedResp.task;
-                document.getElementById("live-resp-teachers").innerText = assignedResp.teachers;
-            } else {
-                document.getElementById("live-resp-task").innerText = "None"; document.getElementById("live-resp-teachers").innerText = "None";
-            }
-
-            const isCouncil = ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(verified.position);
-            const isCaptainOrVice = ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN"].includes(verified.position);
-            const isCaptainOnly = (verified.position === "HOUSE CAPTAIN");
-
-            document.getElementById('council-panel').style.display = isCouncil ? "block" : "none";
-            document.getElementById('captain-exclusive-section').style.display = isCaptainOnly ? "block" : "none";
-            document.getElementById('captain-date-delete-panel').style.display = isCaptainOnly ? "block" : "none";
-            document.getElementById('captain-absolute-override-section').style.display = isCaptainOnly ? "block" : "none";
-            
-            document.getElementById('captain-vice-direct-attendance-card').style.display = isCaptainOrVice ? "block" : "none";
-            document.getElementById('council-applications-stream-card').style.display = isCaptainOrVice ? "block" : "none";
-            
-            document.getElementById("form-blog-author").value = `${verified.name} (${verified.position})`;
-
-            if (isCaptainOnly && verified.name === "SANCHIT GUPTA") {
-                document.getElementById("masterAdminBridge").style.display = "block";
-                fetchLiveDatabaseGrid();
-            } else {
-                document.getElementById("masterAdminBridge").style.display = "none";
-            }
-
-            if(isCouncil) {
-                populateStudentSelectors();
-                renderPendingApplicationsQueueTable();
-            }
-            if(isCaptainOrVice) {
-                populateDirectAttendanceSelectors();
-            }
-
-            const payload = {
-                action: "registerStudent",
-                name: verified.name,
-                class: verified.class,
-                section: verified.section || "A",
-                admissionNo: admissionNoInput,
-                email: emailInput,
-                phone: phoneInput,
-                position: verified.position
-            };
-
-            if (WEB_APP_DATABASE_URL !== "YOUR_DEPLOYED_GOOGLE_APPS_SCRIPT_URL_HERE") {
-                fetch(WEB_APP_DATABASE_URL, {
-                    method: "POST",
-                    mode: "no-cors",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(payload)
-                }).catch(err => console.log("Cross sync telemetry bypassed: ", err));
-            } else {
-                let localRegistry = JSON.parse(localStorage.getItem("aravaliBackupRegistry")) || [];
-                localRegistry.push(payload);
-                localStorage.setItem("aravaliBackupRegistry", JSON.stringify(localRegistry));
-            }
-
-            document.getElementById('login-box').className = "hidden-box";
-            document.getElementById('dashboard-box').className = "visible-box";
-        } else {
-            errorBox.style.display = 'block';
-        }
-    }
-
-    function fetchLiveDatabaseGrid() {
-        logTerminalAction("Polling secure cloud server spreadsheet rows...");
-        const rowsContainer = document.getElementById("adminRegistryRows");
-
-        if (WEB_APP_DATABASE_URL === "YOUR_DEPLOYED_GOOGLE_APPS_SCRIPT_URL_HERE") {
-            let localData = JSON.parse(localStorage.getItem("aravaliBackupRegistry")) || [];
-            if(localData.length === 0) {
-                rowsContainer.innerHTML = `<tr><td colspan="3" style="padding:15px; text-align:center; color:#94a3b8;">No simulation data. Replace URL string constant to connect.</td></tr>`;
-                return;
-            }
-            renderRegistryRows(localData);
-            return;
-        }
-
-        fetch(`${WEB_APP_DATABASE_URL}?action=getRegistry`)
-            .then(res => res.json())
-            .then(data => {
-                renderRegistryRows(data);
-                logTerminalAction(`Handshake success. Synced ${data.length} student data structures.`);
-            })
-            .catch(err => {
-                logTerminalAction("🔴 Telemetry Error: Handshake rejected or script URL wrong.");
-            });
-    }
-
-    function renderRegistryRows(dataArr) {
-        const rowsContainer = document.getElementById("adminRegistryRows");
-        rowsContainer.innerHTML = dataArr.map(student => `
-            <tr style="border-bottom: 1px solid #cbd5e1;">
-                <td style="padding: 10px; text-align:left;"><strong>${student.name}</strong><br><small style="color:#64748b;">${student.position}</small></td>
-                <td style="font-family: monospace; color:#0284c7;">#${student.admissionNo}</td>
-                <td style="text-align:left; line-height:1.3;"><small>📧 ${student.email}<br>📱 +91 ${student.phone}</small></td>
-            </tr>
-        `).join('');
-    }
-
-    function logTerminalAction(message) {
-        const terminal = document.getElementById("liveStreamLogs");
-        if(terminal) {
-            terminal.innerHTML += `<br>[${new Date().toLocaleTimeString()}] ${message}`;
-            terminal.scrollTop = terminal.scrollHeight;
-        }
-    }
-
-    function handleLogout() {
-        currentSessionUser = null;
-        document.getElementById('login-box').className = "visible-box";
-        document.getElementById('dashboard-box').className = "hidden-box";
-        document.getElementById("masterAdminBridge").style.display = "none";
-        renderActivitiesTable(); renderAchieversTable(); renderBadgesLogLedgerTable(); renderTeachersRegistryTable();
-    }
-
-    function switchPage(p) {
-        document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active-page'));
-        document.querySelectorAll('nav button').forEach(btn => btn.classList.remove('active'));
-        document.getElementById('page-' + p).classList.add('active-page');
-        document.getElementById('nav-' + p).classList.add('active');
-        
-        if (p === 'portal' || p === 'batchholders') renderPublicRegistry();
-        if (p === 'blogs') { populateBlogFilterSelectorsMatrix(); renderBlogsStreamFeed(); }
-        if (p === 'achievers') { fetchGlobalMasterDatabaseGrid(); } 
-        if (p === 'teachers') { renderTeachersRegistryTable(); document.getElementById("live-teachers-intro-statement").innerText = teachersIntroStatementMemoryLog; }
-    }
-
-    // 🔄 LIVE SYNC EXTRACTION MATRIX FOR PARTICIPATION PANELS
     async function fetchGlobalMasterDatabaseGrid() {
-        if (WEB_APP_DATABASE_URL === "https://script.google.com/macros/s/AKfycbxVXp-lpRglyGYjlmLtFwF0WPHNOTzeRR3emoH4OIguOT583M9-TJVDGreiuYaVW3jG3Q/exec") {
-            renderAchieversTable();
-            return;
-        }
-
+        if (WEB_APP_DATABASE_URL === "") return;
         try {
             const res = await fetch(`${WEB_APP_DATABASE_URL}?action=getAllData`);
             const masterData = await res.json();
             
-            // 1. Map to Participation Table Frame
             const participationRows = masterData.Competition_Allocations || [];
             const pBody = document.getElementById("participationTableBody");
-            pBody.innerHTML = "";
-
-            if(participationRows.length === 0) {
-                pBody.innerHTML = `<tr><td colspan="7" style="padding:15px; color:#64748b;">No active entries mapped inside allocation sheets nodes.</td></tr>`;
-            } else {
-                participationRows.forEach((row, i) => {
-                    pBody.innerHTML += `
-                        <tr>
-                            <td>${i + 1}</td>
-                            <td><strong>${row[0] || '—'}</strong></td>
-                            <td>${row[1] || '—'}</td>
-                            <td>${row[2] || '—'}</td>
-                            <td style="color:#6d28d9; font-weight:700;">${row[3] || '—'}</td>
-                            <td>${row[4] || '—'}</td>
-                            <td style="color:#0f172a; font-weight:700;">${row[5] || '—'}</td>
-                        </tr>`;
-                });
+            if(pBody) {
+                pBody.innerHTML = "";
+                if(participationRows.length === 0) {
+                    pBody.innerHTML = `<tr><td colspan="7" style="padding:15px; color:#64748b;">No active entries mapped inside allocation sheets nodes.</td></tr>`;
+                } else {
+                    participationRows.forEach((row, i) => {
+                        pBody.innerHTML += `
+                            <tr>
+                                <td>${i + 1}</td>
+                                <td><strong>${row[0] || '—'}</strong></td>
+                                <td>${row[1] || '—'}</td>
+                                <td>${row[2] || '—'}</td>
+                                <td style="color:#6d28d9; font-weight:700;">${row[3] || '—'}</td>
+                                <td>${row[4] || '—'}</td>
+                                <td style="color:#0f172a; font-weight:700;">${row[5] || '—'}</td>
+                            </tr>`;
+                    });
+                }
             }
 
-            // 2. Map to Achievers Victory Ledger Table Frame
             const winRows = masterData.Competitions_Won || [];
             const aBody = document.querySelector("#achievers-table tbody");
-            aBody.innerHTML = "";
-
-            if(winRows.length === 0) {
-                aBody.innerHTML = `<tr><td colspan="8" style="padding:15px; color:#94a3b8;">Ledger currently empty.</td></tr>`;
-            } else {
-                winRows.forEach((row, idx) => {
-                    aBody.innerHTML += `
-                        <tr>
-                            <td>${idx + 1}</td>
-                            <td><strong>${row[0] || '—'}</strong></td>
-                            <td>${row[1] || '—'}</td>
-                            <td>${row[2] || '—'}</td>
-                            <td><span style="color:#c2185b; font-weight:900;">${row[3] || '—'}</span></td>
-                            <td>${row[4] || '—'}</td>
-                            <td>${row[5] || '—'}</td>
-                            <td class="council-actions" style="display:none;">—</td>
-                        </tr>`;
-                });
+            if(aBody) {
+                aBody.innerHTML = "";
+                if(winRows.length === 0) {
+                    aBody.innerHTML = `<tr><td colspan="8" style="padding:15px; color:#94a3b8;">Ledger currently empty.</td></tr>`;
+                } else {
+                    winRows.forEach((row, idx) => {
+                        aBody.innerHTML += `
+                            <tr>
+                                <td>${idx + 1}</td>
+                                <td><strong>${row[0] || '—'}</strong></td>
+                                <td>${row[1] || '—'}</td>
+                                <td>${row[2] || '—'}</td>
+                                <td><span style="color:#c2185b; font-weight:900;">${row[3] || '—'}</span></td>
+                                <td>${row[4] || '—'}</td>
+                                <td>${row[5] || '—'}</td>
+                                <td class="council-actions" style="display:none;">—</td>
+                            </tr>`;
+                    });
+                }
             }
             
-            // 3. Sync Broadcast Alert Banner Text if available
             if(masterData.Broadcast_Alerts && masterData.Broadcast_Alerts.length > 0) {
                 const bAlert = masterData.Broadcast_Alerts[0];
                 document.getElementById("liveAlertBanner").style.display = "block";
                 document.getElementById("broadcastTargetText").innerText = bAlert[0];
             }
-
         } catch (err) {
             console.error("Central backend ledger parsing failure: ", err);
         }
@@ -1586,7 +1388,6 @@
         populateBlogFilterSelectorsMatrix();
         renderBlogsStreamFeed();
         
-        // 📢 REAL-TIME BROADCAST RECEIVER CORES
         if (WEB_APP_DATABASE_URL !== "") {
             fetch(`${WEB_APP_DATABASE_URL}?action=getLatestBroadcast`)
                 .then(res => res.json())
@@ -1597,8 +1398,6 @@
                     }
                 }).catch(err => console.log("Broadcast network node asleep..."));
         }
-        
-        // Load the new live participation tables data grids
         fetchGlobalMasterDatabaseGrid(); 
     };
 </script>
