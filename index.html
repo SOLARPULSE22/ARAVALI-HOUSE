@@ -1260,16 +1260,17 @@
 
     window.onload = function() { 
         renderActivitiesTable(); renderPublicRegistry(); populateBlogFilterSelectorsMatrix(); renderBlogsStreamFeed();
-        
         if (WEB_APP_DATABASE_URL !== "") {
-            fetch(`${WEB_APP_DATABASE_URL}?action=getLatestBroadcast`)
-                .then(res => res.json())
-                .then(data => {
-                    if (data && data.message) {
-                        document.getElementById("broadcastTargetText").innerText = data.message;
-                    }
-                }).catch(err => console.log("Standing by for broadcast logs..."));
-        }
+    fetch(`${WEB_APP_DATABASE_URL}?action=getLatestBroadcast`)
+        .then(res => res.json())
+        .then(data => {
+            // Checks for the exact lowercase "message" key-signature passed out from Sheets
+            if (data && data.message) { 
+                // Dynamically wipes out the "Awaiting..." placeholder text and drops your real message in!
+                document.getElementById("broadcastTargetText").innerText = data.message;
+            }
+        }).catch(err => console.log("Transmission wire timing out. Standing by..."));
+}
         fetchGlobalMasterDatabaseGrid(); 
     };
 </script>
