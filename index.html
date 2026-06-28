@@ -1244,41 +1244,45 @@
                     });
                 }
             }
-            
-async function fetchLatestBroadcast() {
-  const spreadsheetId = '1FWnkxV1zpYWYOQXtZ1O2omTgu5qS9-X0u8pFiZ_7qN0';
-  // FIX: Must perfectly match the Apps Script sheet name
+
+            async function fetchLatestBroadcast() {
+            const spreadsheetId = '1FWnkxV1zpYWYOQXtZ1O2omTgu5qS9-X0u8pFiZ_7qN0';
   const sheetName = 'Broadcast_Alerts'; 
   
-  // Fetching Range A:A 
-  const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?sheet=${encodeURIComponent(sheetName)}&range=A:A`;
+  // Appending tqx=out:json ensures we get a JSON-like response back
+  const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?sheet=${encodeURIComponent(sheetName)}&range=A:A&tqx=out:json`;
 
   try {
     const response = await fetch(url);
-    if (!response.ok) throw new Error('Network response was not ok');
+    if (!response.ok) throw new Error(`Network response status: ${response.status}`);
     
     const text = await response.text();
     
-    // Strip out the gviz callback wrapper to get clean JSON
-    const jsonString = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
+    // Extract the clean JSON object from the gviz wrapper
+    const startIdx = text.indexOf('{');
+    const endIdx = text.lastIndexOf('}') + 1;
+    if (startIdx === -1 || endIdx === -1) {
+      throw new Error("Invalid response format received from Google Sheets. Ensure sheet is public.");
+    }
+    
+    const jsonString = text.substring(startIdx, endIdx);
     const data = JSON.parse(jsonString);
     
-const rows = data.table.rows;
+    const rows = data.table?.rows;
 
-if (rows && rows.length > 1) {
-  // 1. Check if row 1 has a columns array
-  // 2. Check if column 0 exists
-  // 3. Extract the value (.v), making sure it's not null or empty
-  const hasCellData = rows[1].c && rows[1].c[0] && rows[1].c[0].v !== null;
-  const latestMessage = hasCellData ? rows[1].c[0].v : 'No new updates.';
-  
-  document.getElementById('broadcastTargetText').innerText = latestMessage;
-} else if (rows && rows.length === 1) {
-  document.getElementById('broadcastTargetText').innerText = 'No active updates.';
-} else {
-  document.getElementById('broadcastTargetText').innerText = 'No updates found.';
-}
-  
+    if (rows && rows.length > 0) {
+      // Get the absolute last row in the column (the most recent entry)
+      const lastRow = rows[rows.length - 1];
+      
+      // Verify the cell structure exists and contains a value
+      const hasCellData = lastRow && lastRow.c && lastRow.c[0] && lastRow.c[0].v !== null;
+      const latestMessage = hasCellData ? lastRow.c[0].v : 'No new updates.';
+      
+      document.getElementById('broadcastTargetText').innerText = latestMessage;
+    } else {
+      document.getElementById('broadcastTargetText').innerText = 'No updates found.';
+    }
+    
   } catch (error) {
     console.error('Error fetching broadcast updates:', error);
     document.getElementById('broadcastTargetText').innerText = 'Failed to load updates.';
