@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aravali Hub | Admin Control Tower</title>
+    <!-- Tailwind CSS & FontAwesome Icons -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Space+Mono&display=swap');
+        body { font-family: 'Space Grotesk', sans-serif; background-color: #0b0f19; }
+        .mono { font-family: 'Space Mono', monospace; }
+        .glass { background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); }
+        .glow-green:focus { border-color: #10b981; box-shadow: 0 0 10px rgba(16, 185, 129, 0.2); }
+        /* Custom scrollbar for matrix grids */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #0b0f19; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #334155; }
+    </style>
+</head>
+<body class="text-slate-100 min-h-screen flex flex-col antialiased">
+
+    <!-- 🔐 MASTER GATEWAY SECURITY MODAL -->
+    <div id="lockModal" class="fixed inset-0 z-50 flex items-center justify-center bg-[#05070c]/90 backdrop-blur-md px-4">
+        <div class="glass w-full max-w-md p-8 rounded-2xl border-amber-500/30 shadow-2xl shadow-amber-500/5">
+            <div class="text-center mb-6">
+                <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-500/10 text-amber-500 mb-4 animate-pulse">
+                    <i class="fa-solid fa-shield-halved text-2xl"></i>
+                </div>
+                <h1 class="text-2xl font-bold tracking-tight text-amber-500">ARAVALI MASTER KEYWAYS</h1>
+                <p class="text-sm text-slate-400 mt-1">Authorized Command Personnel Only</p>
+            </div>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">Access Passphrase</label>
+                    <input type="password" id="passphraseInput" class="w-full px-4 py-3 bg-[#0f172a] border border-slate-700 rounded-xl text-amber-400 font-mono focus:outline-none focus:border-amber-500 focus:ring-1 focus:ring-amber-500 transition-all" placeholder="••••••••••••">
+                </div>
+                <button onclick="verifyAccess()" class="w-full py-3 bg-amber-600 hover:bg-amber-500 active:bg-amber-700 text-white font-semibold rounded-xl tracking-wide transition-colors shadow-lg shadow-amber-600/20 cursor-pointer">
+                    Decrypt System Mainframe
+                </button>
+                <p id="lockError" class="text-center text-xs text-red-400 font-mono hidden"><i class="fa-solid fa-triangle-exclamation mr-1"></i> Passphrase signature rejected.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 🛰️ CENTRAL COMMAND UI LAYOUT -->
+    <div id="dashboardUI" class="hidden flex-1 flex flex-col">
+        <!-- HEADER BRIDGE -->
+        <header class="glass border-b border-slate-800 px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div class="flex items-center gap-3">
+                <div class="p-2.5 bg-emerald-500/10 text-emerald-400 rounded-xl border border-emerald-500/20">
+                    <i class="fa-solid fa-tower-cell text-xl"></i>
+                </div>
+                <div>
+                    <h2 class="text-lg font-bold tracking-wide uppercase text-slate-200">Aravali Hub Central Operations Bridge</h2>
+                    <p class="text-xs text-slate-400 mono">Role: House Captain Administrative View</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3 w-full sm:w-auto">
+                <button onclick="fetchMasterData()" class="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-200 text-sm font-medium rounded-xl border border-slate-700 transition-colors cursor-pointer">
+                    <i class="fa-solid fa-rotate text-xs"></i> Sync Live Telemetry
+                </button>
+                <button onclick="logout()" class="p-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 rounded-xl transition-colors cursor-pointer" title="Lock Console">
+                    <i class="fa-solid fa-power-off"></i>
+                </button>
+            </div>
+        </header>
+
+        <main class="flex-1 p-6 space-y-6 max-w-7xl w-full mx-auto">
+            <!-- METRIC TICKERS -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="glass p-4 rounded-xl flex items-center justify-between">
+                    <div>
+                        <p class="text-xs uppercase text-slate-400 tracking-wider">Total Registries</p>
+                        <h3 id="metricRegistries" class="text-2xl font-bold text-emerald-400 mt-1 mono">--</h3>
+                    </div>
+                    <i class="fa-solid fa-users text-slate-600 text-xl"></i>
+                </div>
+                <div class="glass p-4 rounded-xl flex items-center justify-between">
+                    <div>
+                        <p class="text-xs uppercase text-slate-400 tracking-wider">Duty Logs</p>
+                        <h3 id="metricAttendance" class="text-2xl font-bold text-cyan-400 mt-1 mono">--</h3>
+                    </div>
+                    <i class="fa-solid fa-clipboard-user text-slate-600 text-xl"></i>
+                </div>
+                <div class="glass p-4 rounded-xl flex items-center justify-between">
+                    <div>
+                        <p class="text-xs uppercase text-slate-400 tracking-wider">Allocations</p>
+                        <h3 id="metricAllocations" class="text-2xl font-bold text-violet-400 mt-1 mono">--</h3>
+                    </div>
+                    <i class="fa-solid fa-bolt text-slate-600 text-xl"></i>
+                </div>
+                <div class="glass p-4 rounded-xl flex items-center justify-between">
+                    <div>
+                        <p class="text-xs uppercase text-slate-400 tracking-wider">Podiums Won</p>
+                        <h3 id="metricWins" class="text-2xl font-bold text-amber-400 mt-1 mono">--</h3>
+                    </div>
+                    <i class="fa-solid fa-trophy text-slate-600 text-xl"></i>
+                </div>
+            </div>
+
+            <!-- BROADCAST MODULE & RUNTIME LOGS -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- BROADCAST MATRIX -->
+                <div class="glass p-5 rounded-2xl flex flex-col justify-between space-y-4">
+                    <div>
+                        <h3 class="text-sm font-bold tracking-wide uppercase text-slate-300 flex items-center gap-2">
+                            <i class="fa-solid fa-bullhorn text-amber-400"></i> House Broadcast Transmitter
+                        </h3>
+                        <p class="text-xs text-slate-400 mt-1">Push live urgent operational alerts to the student view.</p>
+                    </div>
+                    <textarea id="broadcastInput" rows="3" class="w-full p-3 bg-[#0f172a] border border-slate-700 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition-all resize-none" placeholder="Type house announcement here..."></textarea>
+                    <button onclick="transmitBroadcast()" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white text-sm font-semibold rounded-xl tracking-wide transition-colors cursor-pointer">
+                        Transmit Announcement Link
+                    </button>
+                </div>
+
+                <!-- LIVE TERMINAL FEED -->
+                <div class="glass p-5 rounded-2xl lg:col-span-2 flex flex-col space-y-3">
+                    <h3 class="text-sm font-bold tracking-wide uppercase text-slate-300 flex items-center gap-2">
+                        <i class="fa-solid fa-terminal text-emerald-400 animate-pulse"></i> Live Term Logs & Sync Telemetry
+                    </h3>
+                    <div id="terminalFeed" class="flex-1 bg-[#05070c] rounded-xl p-4 font-mono text-xs text-emerald-400 space-y-1.5 overflow-y-auto max-h-[160px] border border-slate-800">
+                        <div>[SYSTEM READY]: Command array initializing...</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TAB MATRIX SELECTOR -->
+            <div class="glass rounded-2xl overflow-hidden flex flex-col">
+                <div class="bg-[#0f172a]/80 border-b border-slate-800 px-4 py-2 flex flex-wrap gap-2 items-center justify-between">
+                    <div class="flex flex-wrap gap-1">
+                        <button onclick="switchTab('Sheet1')" id="btnTabSheet1" class="px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer bg-slate-800 text-emerald-400 border border-slate-700">Student Registry</button>
+                        <button onclick="switchTab('Attendance_Logs')" id="btnTabAttendance_Logs" class="px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer text-slate-400 hover:text-slate-200">Duty Attendance</button>
+                        <button onclick="switchTab('Competition_Allocations')" id="btnTabCompetition_Allocations" class="px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer text-slate-400 hover:text-slate-200">Allocations Matrix</button>
+                        <button onclick="switchTab('Competitions_Won')" id="btnTabCompetitions_Won" class="px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer text-slate-400 hover:text-slate-200">House Trophies</button>
+                    </div>
+                    <button onclick="exportCurrentTableToCSV()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-semibold rounded-lg border border-slate-700 transition-colors cursor-pointer flex items-center gap-1.5">
+                        <i class="fa-solid fa-file-export"></i> Export Ledger
+                    </button>
+                </div>
+
+                <!-- DYNAMIC DATA MATRIX CONTAINER -->
+                <div class="overflow-x-auto w-full">
+                    <table class="w-full text-left text-sm border-collapse">
+                        <thead id="tableHeader" class="bg-[#0b0f19] text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-800">
+                            <!-- Populated Dynamically -->
+                        </thead>
+                        <tbody id="tableBody" class="divide-y divide-slate-800/50 bg-[#0f172a]/20">
+                            <tr>
+                                <td colspan="10" class="p-8 text-center text-xs text-slate-500 font-mono">Awaiting system handshake database synchronization loop...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- ⚙️ BACKEND DATA ROUTING CORE SCRIPT -->
+    <script>
+        // 🚨 CONFIGURATION PARAMETERS
+        const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbwxjtUGHtzh4OGEDKC-ywPWkCPZGf8uhPl4W4nNvBEe8tkyW9l9ZH172mUJjOxU6IGtoQ/exec"; 
+        const MASTER_PASSPHRASE_HASH = "aravali2026"; // Direct encryption bypass key
+
+        let currentActiveTab = "Sheet1";
+        let localDatabaseCache = {};
+
+        // 🔐 SECURITY VERIFICATION HANDSHAKE
+        function verifyAccess() {
+            const input = document.getElementById("passphraseInput").value;
+            const err = document.getElementById("lockError");
+            
+            if (input === MASTER_PASSPHRASE_HASH) {
+                document.getElementById("lockModal").classList.add("hidden");
+                document.getElementById("dashboardUI").classList.remove("hidden");
+                logTerminal("Access authorization granted. Fetching central operational cloud matrix rows...");
+                fetchMasterData();
+            } else {
+                err.classList.remove("hidden");
+                logTerminal("🔴 Telemetry Error: Access handshake rejected.", true);
+            }
+        }
+
+        function logout() {
+            document.getElementById("passphraseInput").value = "";
+            document.getElementById("lockModal").classList.remove("hidden");
+            document.getElementById("dashboardUI").classList.add("hidden");
+        }
+
+        // 📡 LIVE TERMINAL LOG LOGGER
+        function logTerminal(message, isError = false) {
+            const container = document.getElementById("terminalFeed");
+            const time = new Date().toLocaleTimeString();
+            const log = document.createElement("div");
+            log.className = isError ? "text-red-400" : "text-emerald-400";
+            log.innerHTML = `<span class="text-slate-500">[${time}]</span> ${message}`;
+            container.appendChild(log);
+            container.scrollTop = container.scrollHeight;
+        }
+
+        // 🔄 FETCH MASTER ARCHIVE COMPILATION FROM GOOGLE SHEET
+        async function fetchMasterData() {
+            logTerminal("Polling secure cloud server database spreadsheets rows...");
+            try {
+                // Requests all tabs simultaneously by triggering our upgraded Apps Script action code
+                const response = await fetch(`${WEB_APP_DATABASE_URL}?action=getAllData`);
+                if (!response.ok) throw new Error("Handshake rejected or pipeline down.");
+                
+                const data = await response.json();
+                localDatabaseCache = data;
+                
+                // Update micro-metric counters
+                document.getElementById("metricRegistries").innerText = data.Sheet1 ? data.Sheet1.length : 0;
+                document.getElementById("metricAttendance").innerText = data.Attendance_Logs ? data.Attendance_Logs.length : 0;
+                document.getElementById("metricAllocations").innerText = data.Competition_Allocations ? data.Competition_Allocations.length : 0;
+                document.getElementById("metricWins").innerText = data.Competitions_Won ? data.Competitions_Won.length : 0;
+                
+                logTerminal(`🟢 Handshake Authorized. Synchronized rows cached successfully.`);
+                renderActiveTableData();
+            } catch (err) {
+                logTerminal(`🔴 Telemetry Error: Handshake rejected or script URL wrong.`, true);
+                console.error(err);
+            }
+        }
+
+        // 🛠️ ACTIVE MATRIX TAB CONTROLLER
+        function switchTab(tabId) {
+            currentActiveTab = tabId;
+            
+            // Toggle active visual states on button rows
+            ['Sheet1', 'Attendance_Logs', 'Competition_Allocations', 'Competitions_Won'].forEach(t => {
+                const btn = document.getElementById(`btnTab${t}`);
+                if (t === tabId) {
+                    btn.className = "px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer bg-slate-800 text-emerald-400 border border-slate-700";
+                } else {
+                    btn.className = "px-4 py-2 text-xs font-bold uppercase tracking-wider rounded-lg transition-colors cursor-pointer text-slate-400 hover:text-slate-200";
+                }
+            });
+
+            renderActiveTableData();
+        }
+
+        // 📊 INTERACTIVE MATRIX DATA TABLE GENERATOR
+        function renderActiveTableData() {
+            const header = document.getElementById("tableHeader");
+            const body = document.getElementById("tableBody");
+            
+            header.innerHTML = "";
+            body.innerHTML = "";
+
+            const rows = localDatabaseCache[currentActiveTab] || [];
+
+            if (rows.length === 0) {
+                body.innerHTML = `<tr><td colspan="10" class="p-8 text-center text-xs text-slate-500 font-mono">No telemetry rows verified inside this sheet page database grid.</td></tr>`;
+                return;
+            }
+
+            // Map structural configurations based on active tab requirements
+            let columns = [];
+            if (currentActiveTab === "Sheet1") {
+                columns = ["NAME", "CLASS", "SECTION", "ADMISSION_NO", "EMAIL", "PHONE", "POSITION", "LOGIN_TIMESTAMP"];
+            } else if (currentActiveTab === "Attendance_Logs") {
+                columns = ["NAME", "POSITION", "DUTY_LOCATION", "TARGET_DATE", "BREAK_SLOT", "STATUS_JUDGMENT", "TIMESTAMP"];
+            } else if (currentActiveTab === "Competition_Allocations") {
+                columns = ["STUDENT_NAME", "COMPETITION_TASK", "TEACHERS_IN_CHARGE", "TIMESTAMP"];
+            } else if (currentActiveTab === "Competitions_Won") {
+                columns = ["ACHIEVER_NAME", "HOUSE_POSITION", "COMPETITION_TYPE", "RANK_WON", "CLASS", "SECTION", "TIMESTAMP"];
+            }
+
+            // Build structural header row HTML elements
+            let headerRow = '<tr class="border-b border-slate-800">';
+            columns.forEach(col => { headerRow += `<th class="px-5 py-3">${col.replace('_', ' ')}</th>`; });
+            headerRow += '<th class="px-5 py-3 text-right">Overrides</th></tr>';
+            header.innerHTML = headerRow;
+
+            // Compile body data entries row inside the matrix grid
+            rows.forEach((row, rowIndex) => {
+                let bodyRow = `<tr class="hover:bg-slate-800/30 transition-colors text-xs text-slate-300 font-mono">`;
+                columns.forEach((col, colIndex) => {
+                    let cellVal = row[colIndex] !== undefined ? row[colIndex] : '';
+                    
+                    // Add distinct badges for status judgments
+                    if (cellVal === "Present") {
+                        bodyRow += `<td class="px-5 py-3"><span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 rounded border border-emerald-500/20 font-bold">PRESENT</span></td>`;
+                    } else if (cellVal === "Absent") {
+                        bodyRow += `<td class="px-5 py-3"><span class="px-2 py-0.5 bg-red-500/10 text-red-400 rounded border border-red-500/20 font-bold">ABSENT</span></td>`;
+                    } else {
+                        bodyRow += `<td class="px-5 py-3 max-w-[200px] truncate" title="${cellVal}">${cellVal}</td>`;
+                    }
+                });
+                
+                // Active action override interface controls
+                bodyRow += `<td class="px-5 py-3 text-right">
+                    <button onclick="triggerRowDeletion('${currentActiveTab}', ${rowIndex + 2})" class="p-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/20 rounded-md transition-colors cursor-pointer" title="Purge Record">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </td></tr>`;
+                body.innerHTML += bodyRow;
+            });
+        }
+
+        // 🗑️ TELEMETRY ROW PURGE COMMAND OVERRIDE
+        async function triggerRowDeletion(sheetName, realRowIdx) {
+            if (!confirm(`Confirm absolute purge query on row reference row index index ${realRowIdx} inside database ledger tab "${sheetName}"?`)) return;
+            
+            logTerminal(`Initiating structural log deletion payload at row ${realRowIdx}...`);
+            
+            try {
+                const response = await fetch(WEB_APP_DATABASE_URL, {
+                    method: "POST",
+                    mode: "no-cors", // Bypasses browser cross-origin preflight locks
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        action: "deleteRowOverride",
+                        sheetName: sheetName,
+                        rowNumber: realRowIdx
+                    })
+                });
+                
+                logTerminal(`Deletion network broadcast frame committed. Triggering automatic cache sync...`);
+                // Wait 1.5 seconds for Google cloud infrastructure nodes to compile before executing sync refresh
+                setTimeout(fetchMasterData, 1500);
+            } catch (err) {
+                logTerminal(`🔴 Telemetry Error: Overrides frame rejection pipeline failure.`, true);
+            }
+        }
+
+        // 📢 BROADCAST ALERT TRANSMITTER SYSTEM
+        function transmitBroadcast() {
+            const input = document.getElementById("broadcastInput");
+            if (!input.value.trim()) return;
+            
+            logTerminal(`Broadcasting matrix house message: "${input.value}"`);
+            alert(`House announcement system broadcast committed safely across the system node array!`);
+            input.value = "";
+        }
+
+        // 📥 EXPORT LOCAL CLIPBOARD LOGS ENGINE (.CSV)
+        function exportCurrentTableToCSV() {
+            const rows = localDatabaseCache[currentActiveTab] || [];
+            if (rows.length === 0) return alert("No active spreadsheet data parameters available to isolate.");
+            
+            let csvContent = "data:text/csv;charset=utf-8,";
+            rows.forEach(r => {
+                let rowStr = r.map(val => `"${String(val).replace(/"/g, '""')}"`).join(",");
+                csvContent += rowStr + "\r\n";
+            });
+            
+            const encodedUri = encodeURI(csvContent);
+            const downloadAnchor = document.createElement("a");
+            downloadAnchor.setAttribute("href", encodedUri);
+            downloadAnchor.setAttribute("download", `AravaliHub_${currentActiveTab}_Ledger_2026.csv`);
+            document.body.appendChild(downloadAnchor);
+            downloadAnchor.click();
+            document.body.removeChild(downloadAnchor);
+            logTerminal(`Local CSV export ledger compiled and downloaded successfully.`);
+        }
+
+        // Enter Key listener for Security Prompt Modal
+        document.getElementById("passphraseInput").addEventListener("keypress", (e) => {
+            if (e.key === "Enter") verifyAccess();
+        });
+    </script>
+</body>
+</html>
