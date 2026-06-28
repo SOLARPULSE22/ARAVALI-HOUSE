@@ -1213,70 +1213,41 @@
     }
 
     // 🔄 FIXED EXTRACTION PIPELINE MAPPING ROW [1] FOR TARGET MESSAGES
-    async function fetchGlobalMasterDatabaseGrid() {
-        if (WEB_APP_DATABASE_URL === "") return;
-        try {
-            const res = await fetch(`${WEB_APP_DATABASE_URL}?action=getAllData`);
-            const masterData = await res.json();
-            
-            const participationRows = masterData.Competition_Allocations || [];
-            const pBody = document.getElementById("participationTableBody");
-            if(pBody) {
-                pBody.innerHTML = "";
-                if(participationRows.length === 0) {
-                    pBody.innerHTML = `<tr><td colspan="7" style="padding:15px; color:#64748b;">No active tracking matrix logs.</td></tr>`;
-                } else {
-                    participationRows.forEach((row, i) => {
-                        pBody.innerHTML += `<tr><td>${i + 1}</td><td><strong>${row[0] || '—'}</strong></td><td>${row[1] || '—'}</td><td>${row[2] || '—'}</td><td style="color:#6d28d9; font-weight:700;">${row[3] || '—'}</td><td>${row[4] || '—'}</td><td style="color:#0f172a; font-weight:700;">${row[5] || '—'}</td></tr>`;
-                    });
-                }
-            }
-
-            const winRows = masterData.Competitions_Won || [];
-            const aBody = document.querySelector("#achievers-table tbody");
-            if(aBody) {
-                aBody.innerHTML = "";
-                if(winRows.length === 0) {
-                    aBody.innerHTML = `<tr><td colspan="8" style="padding:15px; color:#94a3b8;">Ledger currently empty.</td></tr>`;
-                } else {
-                    winRows.forEach((row, idx) => {
-                        aBody.innerHTML += `<tr><td>${idx + 1}</td><td><strong>${row[0] || '—'}</strong></td><td>${row[1] || '—'}</td><td>${row[2] || '—'}</td><td><span style="color:#c2185b; font-weight:900;">${row[3] || '—'}</span></td><td>${row[4] || '—'}</td><td>${row[5] || '—'}</td><td class="council-actions" style="display:none;">—</td></tr>`;
-                    });
-                }
-            }
-
-            async function fetchLatestBroadcast() {
-            const spreadsheetId = '1FWnkxV1zpYWYOQXtZ1O2omTgu5qS9-X0u8pFiZ_7qN0';
+  async function fetchLatestBroadcast() {
+  const spreadsheetId = '1FWnkxV1zpYWYOQXtZ1O2omTgu5qS9-X0u8pFiZ_7qN0';
   const sheetName = 'Broadcast_Alerts'; 
   
-  // Appending tqx=out:json ensures we get a JSON-like response back
+  // Changing the query format so Google skips the custom callback string wrapper
   const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?sheet=${encodeURIComponent(sheetName)}&range=A:A&tqx=out:json`;
 
   try {
     const response = await fetch(url);
-    if (!response.ok) throw new Error(`Network response status: ${response.status}`);
+    if (!response.ok) throw new Error('Network response was not ok');
     
-    const text = await response.text();
+    let text = await response.text();
     
-    // Extract the clean JSON object from the gviz wrapper
-    const startIdx = text.indexOf('{');
-    const endIdx = text.lastIndexOf('}') + 1;
-    if (startIdx === -1 || endIdx === -1) {
-      throw new Error("Invalid response format received from Google Sheets. Ensure sheet is public.");
+    // Highly resilient regex to match everything cleanly between the outer brackets
+    const jsonMatch = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);/);
+    
+    let data;
+    if (jsonMatch && jsonMatch[1]) {
+      data = JSON.parse(jsonMatch[1]);
+    } else {
+      // Fallback: If Google skipped the wrapper, try parsing the raw text directly
+      data = JSON.parse(text);
     }
-    
-    const jsonString = text.substring(startIdx, endIdx);
-    const data = JSON.parse(jsonString);
     
     const rows = data.table?.rows;
 
     if (rows && rows.length > 0) {
-      // Get the absolute last row in the column (the most recent entry)
-      const lastRow = rows[rows.length - 1];
-      
-      // Verify the cell structure exists and contains a value
-      const hasCellData = lastRow && lastRow.c && lastRow.c[0] && lastRow.c[0].v !== null;
-      const latestMessage = hasCellData ? lastRow.c[0].v : 'No new updates.';
+      // Safe check: Search from the bottom up to grab the absolute latest row containing data
+      let latestMessage = 'No new updates.';
+      for (let i = rows.length - 1; i >= 0; i--) {
+        if (rows[i].c && rows[i].c[0] && rows[i].c[0].v !== null && rows[i].c[0].v !== '') {
+          latestMessage = rows[i].c[0].v;
+          break; 
+        }
+      }
       
       document.getElementById('broadcastTargetText').innerText = latestMessage;
     } else {
