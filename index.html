@@ -43,6 +43,20 @@
             100% { transform: translate3d(-50%, 0, 0); }
         }
 
+        /* LIVE BROADCAST BANNER ALERTS PANEL */
+        #liveAlertBanner {
+            background: linear-gradient(90deg, #b45309 0%, #d97706 100%);
+            color: #ffffff;
+            padding: 12px;
+            text-align: center;
+            font-weight: 800;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            border-bottom: 2px solid #ffffff;
+        }
+
         /* HEADER FRAMEWORK */
         header { 
             background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(30, 58, 138, 0.75)), 
@@ -66,6 +80,8 @@
             padding: 8px 10px; 
             position: sticky; 
             top: 0; 
+            box-sizing: border-box;
+            width: 100%;
             z-index: 100; 
             border-bottom: 4px solid #f59e0b; 
             box-shadow: 0 5px 20px rgba(0,0,0,0.2); 
@@ -116,6 +132,7 @@
         
         .card-goal { border-color: #3b82f6; background: #eff6ff; box-shadow: 0 10px 20px rgba(59, 130, 246, 0.15); }
         .card-achievers { border-color: #ec4899; background: #fdf2f8; box-shadow: 0 10px 20px rgba(236, 72, 153, 0.15); }
+        .card-participation { border-color: #8b5cf6; background: #f5f3ff; box-shadow: 0 10px 20px rgba(139, 92, 246, 0.15); }
         .card-council { border-color: #10b981; background: #f0fdf4; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.15); }
         .card-teachers { border-color: #f59e0b; background: #fffbeb; box-shadow: 0 10px 20px rgba(245, 158, 11, 0.15); }
         .card-batchholders { border-color: #eab308; background: #fefce8; box-shadow: 0 10px 20px rgba(234, 179, 8, 0.15); }
@@ -125,6 +142,7 @@
         h2 { color: #0f172a; margin-top: 0; font-size: 1.8rem; text-transform: uppercase; border-bottom: 3px dashed #cbd5e1; padding-bottom: 12px; margin-bottom: 20px; font-weight: 900; display: flex; align-items: center; gap: 10px; }
         .card-goal h2 { color: #1e40af; border-bottom-color: #bfdbfe; }
         .card-achievers h2 { color: #9d174d; border-bottom-color: #fbcfe8; }
+        .card-participation h2 { color: #6d28d9; border-bottom-color: #ddd6fe; }
         .card-council h2 { color: #065f46; border-bottom-color: #a7f3d0; }
         .card-teachers h2 { color: #b45309; border-bottom-color: #fde68a; }
         .card-batchholders h2 { color: #854d0e; border-bottom-color: #fef08a; }
@@ -208,6 +226,10 @@
     </div>
 </div>
 
+<div id="liveAlertBanner" style="display:none;">
+    📢 URGENT BROADCAST: <span id="broadcastTargetText">Fetching telemetry dashboard updates...</span>
+</div>
+
 <header>
     <h1>THE ARAVALI HUB</h1>
     <p>DIGITAL WORKSTATION & OPERATIONS PORTAL</p>
@@ -255,7 +277,7 @@
     </div>
 
     <div id="page-achievers" class="page-view">
-        <div class="card card-achievers" style="border-color: #db2777;">
+        <div class="card card-achievers">
             <h2>🏆 Aravali Competition Winners Ledger (Academic session 2026-2027)</h2>
             <p style="color: #9d174d; font-weight: 500;">Official public roster documenting positions secured in competitive events.</p>
             <div class="table-responsive">
@@ -273,6 +295,29 @@
                         </tr>
                     </thead>
                     <tbody></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="card card-participation">
+            <h2>🏃 Competition Participation Tracking Ledger</h2>
+            <p style="color: #6d28d9; font-weight: 500;">Dedicated tracking system monitoring all Aravali house students representing and participating in events.</p>
+            <div class="table-responsive">
+                <table id="participation-table">
+                    <thead>
+                        <tr>
+                            <th>S. No.</th>
+                            <th>Name</th>
+                            <th>Class</th>
+                            <th>Section</th>
+                            <th>Type of Competition</th>
+                            <th>Date Held</th>
+                            <th>Name of Competition</th>
+                        </tr>
+                    </thead>
+                    <tbody id="participationTableBody">
+                        <tr><td colspan="6" style="padding:20px; color:#6b7280;">Awaiting pipeline data transmission logs...</td></tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -576,7 +621,7 @@
                                 <div class="form-group">
                                     <label>Target Student Name</label>
                                     <select id="override-student-select"></select>
-                                </div>
+                                end</div>
                                 <div class="form-group">
                                     <label>Target Date</label>
                                     <select id="override-date-select"></select>
@@ -828,10 +873,10 @@
 </footer>
 
 <script>
-    // Paste your Google Apps Script Web App Deployment Link here inside the quotes to hook up live cross-device sync:
+    // Master Live Apps Script Database Gateway URL Endpoint Link Constant Location
     const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbxVXp-lpRglyGYjlmLtFwF0WPHNOTzeRR3emoH4OIguOT583M9-TJVDGreiuYaVW3jG3Q/exec";
 
-    // Master updated credentials array - FIXED: "SANA KAKKAR" altered globally to "SANA KAKAR"
+    // Master credential data models matching active user roles array configuration
     let authorizedStudents = [
         { name: "AARUSH", class: "10", section: "A", position: "PROCTOR - BOYS", pass: "Aarush#Proctor", batchBadge: "Proctor Badge | 🛡️" },
         { name: "JAPUNJAN", class: "10", section: "B", position: "CULTURAL SECRETARY - GIRLS", pass: "Japunjan#Cultural", batchBadge: "Secretary Badge | 🎭" },
@@ -874,7 +919,6 @@
     ];
 
     let pendingApplicationsDatabase = [];
-
     let badgesDatabase = [
         { name: "SANCHIT GUPTA", text: "Duty Post Champion", emoji: "👮" },
         { name: "HREHAAN ARORA", text: "Punctuality Master", emoji: "⏱️" }
@@ -1253,7 +1297,20 @@
 
     function manualAddAttendanceRow(e) { e.preventDefault(); let name = document.getElementById("add-manual-name").value.trim().toUpperCase(); let pos = document.getElementById("add-manual-pos").value.trim(); attendanceDatabase.push({ name, pos, loc: "Assigned Station", timeline: "Active Session", breaksData: {} }); renderAttendanceTable(); document.getElementById("add-manual-name").value = ""; document.getElementById("add-manual-pos").value = ""; }
     function allocateCaptainDuty(e) { e.preventDefault(); let target = document.getElementById("captain-target-student").value; let loc = document.getElementById("cap-duty-loc").value.trim(); let when = document.getElementById("cap-duty-when").value.trim(); let breakName = document.getElementById("cap-duty-break").value; allocatedDutiesMap[target] = { loc, when, breakName }; alert(`Duty assignment completely routed for ${target}!`); if(!attendanceDatabase.find(r => r.name.toUpperCase() === target.toUpperCase())) { attendanceDatabase.push({ name: target, pos: "Batchholder", loc, timeline: when, breaksData: {} }); } renderAttendanceTable(); document.getElementById("cap-duty-loc").value = ""; document.getElementById("cap-duty-when").value = ""; }
-    function allocateCompetitionResponsibility(e) { e.preventDefault(); let student = document.getElementById("council-target-student").value; let task = document.getElementById("council-resp-task").value.trim(); let teachers = document.getElementById("council-resp-teachers").value.trim(); allocatedResponsibilitiesMap[student] = { task, teachers }; alert("Responsibility mapped!"); document.getElementById("council-resp-task").value = ""; document.getElementById("council-resp-teachers").value = ""; }
+    
+    // 🛠️ UPGRADED COMP ALLOCATION MAPPING HANDLER
+    function allocateCompetitionResponsibility(e) { 
+        e.preventDefault(); 
+        let student = document.getElementById("council-target-student").value; 
+        let task = document.getElementById("council-resp-task").value.trim(); 
+        let teachers = document.getElementById("council-resp-teachers").value.trim(); 
+        allocatedResponsibilitiesMap[student] = { task, teachers }; 
+        alert("Responsibility mapped safely across local matrices!"); 
+        document.getElementById("council-resp-task").value = ""; 
+        document.getElementById("council-resp-teachers").value = ""; 
+        fetchGlobalMasterDatabaseGrid(); // Triggers direct re-render tracking grids
+    }
+    
     function requestAttendance() { if (!currentSessionUser) return; let duty = allocatedDutiesMap[currentSessionUser.name]; if(!duty) return; let matchedRow = attendanceDatabase.find(r => r.name.toUpperCase() === currentSessionUser.name.toUpperCase()); if(!matchedRow) { matchedRow = { name: currentSessionUser.name, pos: currentSessionUser.position, loc: duty.loc, timeline: duty.when, breaksData: {} }; attendanceDatabase.push(matchedRow); } let todayStr = activeDatesList[activeDatesList.length - 1]; let targetKey = `${todayStr}_${duty.breakName}`; matchedRow.breaksData[targetKey] = "Pending"; alert(`Attendance verification request sent!`); renderAttendanceTable(); }
     function renderActivitiesTable() { const tbody = document.querySelector("#activities-table tbody"); if(!tbody) return; tbody.innerHTML = ""; const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position); document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none"); if(houseActivities.length === 0) { tbody.innerHTML = `<tr><td colspan="7" style="padding: 20px; color: #0369a1;">No activities initialized.</td></tr>`; return; } houseActivities.forEach((act, idx) => { let row = document.createElement("tr"); let html = `<td>${idx + 1}</td><td><strong>${act.type}</strong></td><td>${act.elig}</td><td>${act.name}</td><td class="${getStatusClass(act.won)}">${act.won || 'TBD'}</td><td>${act.remarks || '-'}</td>`; if(isCouncil) html += `<td><button class="btn-delete" onclick="deleteActivityRow(${idx})">Delete</button></td>`; row.innerHTML = html; tbody.appendChild(row); }); }
     function renderAchieversTable() { const tbody = document.querySelector("#achievers-table tbody"); if(!tbody) return; tbody.innerHTML = ""; const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position); document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none"); if(achieversDatabase.length === 0) { tbody.innerHTML = `<tr><td colspan="8" style="padding: 20px; color: #9d174d;">Roll matrix empty.</td></tr>`; return; } achieversDatabase.forEach((ach, idx) => { let row = document.createElement("tr"); let html = `<td>${idx + 1}</td><td><strong>${ach.name}</strong></td><td>${ach.housePos}</td><td>${ach.compType}</td><td><span style="color:#c2185b; font-weight:900;">${ach.wonPos}</span></td><td>${ach.class}</td><td>${ach.sec}</td>`; if(isCouncil) html += `<td><button class="btn-delete" onclick="deleteAchieverRow(${idx})">Delete</button></td>`; row.innerHTML = html; tbody.appendChild(row); }); }
@@ -1279,7 +1336,6 @@
         populateBlogFilterSelectorsMatrix(); renderBlogsStreamFeed();
     }
 
-    // UPDATED Handlers managing direct telemetry pipeline variables distribution
     function handleLogin(event) {
         event.preventDefault();
         const nameInput = document.getElementById('student-name').value.trim().toUpperCase();
@@ -1288,7 +1344,6 @@
         const passInput = document.getElementById('student-password').value.trim();
         const errorBox = document.getElementById('error-box');
 
-        // Capture newly embedded form parameter layers securely
         const admissionNoInput = document.getElementById('student-admission-no').value.trim();
         const emailInput = document.getElementById('student-email-id').value.trim();
         const phoneInput = document.getElementById('student-phone-no').value.trim();
@@ -1304,7 +1359,6 @@
             currentSessionUser = verified;
             errorBox.style.display = 'none';
             
-            // Safe clean up values reset
             document.getElementById('student-name').value = ''; document.getElementById('student-class').value = ''; document.getElementById('student-section').value = ''; document.getElementById('student-password').value = '';
             document.getElementById('student-admission-no').value = ''; document.getElementById('student-email-id').value = ''; document.getElementById('student-phone-no').value = '';
             
@@ -1348,7 +1402,6 @@
             
             document.getElementById("form-blog-author").value = `${verified.name} (${verified.position})`;
 
-            // Display or lock custom central command overlays depending on verified administrative tokens
             if (isCaptainOnly && verified.name === "SANCHIT GUPTA") {
                 document.getElementById("masterAdminBridge").style.display = "block";
                 fetchLiveDatabaseGrid();
@@ -1364,7 +1417,6 @@
                 populateDirectAttendanceSelectors();
             }
 
-            // Fire network processing task payload directly out to your Sheet DB app layer pipeline
             const payload = {
                 action: "registerStudent",
                 name: verified.name,
@@ -1456,8 +1508,79 @@
         
         if (p === 'portal' || p === 'batchholders') renderPublicRegistry();
         if (p === 'blogs') { populateBlogFilterSelectorsMatrix(); renderBlogsStreamFeed(); }
-        if (p === 'achievers') { renderAchieversTable(); renderBadgesLogLedgerTable(); }
+        if (p === 'achievers') { fetchGlobalMasterDatabaseGrid(); } // Fetch live data dynamically on tab focus
         if (p === 'teachers') { renderTeachersRegistryTable(); document.getElementById("live-teachers-intro-statement").innerText = teachersIntroStatementMemoryLog; }
+    }
+
+    // 🔄 NEW DEDICATED FETCH INFRASTRUCTURE CORES FOR LIVE SYNCING THE DATA ARRAYS
+    async function fetchGlobalMasterDatabaseGrid() {
+        if (WEB_APP_DATABASE_URL === "https://script.google.com/macros/s/AKfycbxVXp-lpRglyGYjlmLtFwF0WPHNOTzeRR3emoH4OIguOT583M9-TJVDGreiuYaVW3jG3Q/exec") {
+            // If the script is default simulation framework mode, fallback securely
+            renderAchieversTable();
+            return;
+        }
+
+        try {
+            // Wires up single GET payload request fetching all sheet blocks
+            const res = await fetch(`${WEB_APP_DATABASE_URL}?action=getAllData`);
+            const masterData = await res.json();
+            
+            // 1. Map to Participation Table Frame
+            const participationRows = masterData.Competition_Allocations || [];
+            const pBody = document.getElementById("participationTableBody");
+            pBody.innerHTML = "";
+
+            if(participationRows.length === 0) {
+                pBody.innerHTML = `<tr><td colspan="7" style="padding:15px; color:#64748b;">No active entries mapped inside allocation sheets nodes.</td></tr>`;
+            } else {
+                participationRows.forEach((row, i) => {
+                    // Pulls parameters cleanly: Name (0), Class (1), Section (2), Type of Competition (3), Date Held (4), Competition Name (5)
+                    pBody.innerHTML += `
+                        <tr>
+                            <td>${i + 1}</td>
+                            <td><strong>${row[0] || '—'}</strong></td>
+                            <td>${row[1] || '—'}</td>
+                            <td>${row[2] || '—'}</td>
+                            <td style="color:#6d28d9; font-weight:700;">${row[3] || '—'}</td>
+                            <td>${row[4] || '—'}</td>
+                            <td style="color:#0f172a; font-weight:700;">${row[5] || '—'}</td>
+                        </tr>`;
+                });
+            }
+
+            // 2. Map to Achievers Victory Ledger Table Frame
+            const winRows = masterData.Competitions_Won || [];
+            const aBody = document.querySelector("#achievers-table tbody");
+            aBody.innerHTML = "";
+
+            if(winRows.length === 0) {
+                aBody.innerHTML = `<tr><td colspan="8" style="padding:15px; color:#94a3b8;">Ledger currently empty.</td></tr>`;
+            } else {
+                winRows.forEach((row, idx) => {
+                    aBody.innerHTML += `
+                        <tr>
+                            <td>${idx + 1}</td>
+                            <td><strong>${row[0] || '—'}</strong></td>
+                            <td>${row[1] || '—'}</td>
+                            <td>${row[2] || '—'}</td>
+                            <td><span style="color:#c2185b; font-weight:900;">${row[3] || '—'}</span></td>
+                            <td>${row[4] || '—'}</td>
+                            <td>${row[5] || '—'}</td>
+                            <td class="council-actions" style="display:none;">—</td>
+                        </tr>`;
+                });
+            }
+            
+            // 3. Sync Broadcast Alert Banner Text if available
+            if(masterData.Broadcast_Alerts && masterData.Broadcast_Alerts.length > 0) {
+                const bAlert = masterData.Broadcast_Alerts[0];
+                document.getElementById("liveAlertBanner").style.display = "block";
+                document.getElementById("broadcastTargetText").innerText = bAlert[0];
+            }
+
+        } catch (err) {
+            console.error("Central backend ledger parsing failure: ", err);
+        }
     }
 
     window.onload = function() { 
@@ -1465,6 +1588,7 @@
         renderPublicRegistry(); 
         populateBlogFilterSelectorsMatrix();
         renderBlogsStreamFeed();
+        fetchGlobalMasterDatabaseGrid(); // Auto handshake rows on mount
     };
 </script>
 </body>
