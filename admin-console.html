@@ -64,8 +64,8 @@
                 <div class="glass p-5 rounded-2xl flex flex-col justify-between border-amber-500/10">
                     <div>
                         <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-xs font-bold tracking-wider uppercase text-amber-400"><i class="fa-solid fa-trophy mr-1.5"></i> Trophy Winner Rankings</h3>
-                            <span class="text-[10px] bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded-full mono">Top Achievers</span>
+                            <h3 class="text-xs font-bold tracking-wider uppercase text-amber-400"><i class="fa-solid fa-trophy mr-1.5"></i> House Point Contributions</h3>
+                            <span class="text-[10px] bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded-full mono">Weighted Ledger</span>
                         </div>
                         <div id="leaderboardTrophies" class="space-y-2 text-xs font-mono">
                             <div class="text-slate-500 text-center py-4">Awaiting ledger compilation...</div>
@@ -88,8 +88,8 @@
                 <div class="glass p-5 rounded-2xl flex flex-col justify-between border-cyan-500/10">
                     <div>
                         <div class="flex items-center justify-between mb-4">
-                            <h3 class="text-xs font-bold tracking-wider uppercase text-cyan-400"><i class="fa-solid fa-calendar-check mr-1.5"></i> Prefect Attendance Ladder</h3>
-                            <span class="text-[10px] bg-cyan-500/10 text-cyan-400 px-2 py-0.5 rounded-full mono">Presence %</span>
+                            <h3 class="text-xs font-bold tracking-wider uppercase text-cyan-400"><i class="fa-solid fa-calendar-check mr-1.5"></i> Prefect Duty Ladder</h3>
+                            <span class="text-[10px] bg-cyan-500/10 text-cyan-400 px-2 py-0.5 rounded-full mono">Risk Risk-Profiler active</span>
                         </div>
                         <div id="leaderboardAttendance" class="space-y-2 text-xs font-mono">
                             <div class="text-slate-500 text-center py-4">Awaiting attendance sync...</div>
@@ -101,9 +101,9 @@
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="glass p-5 rounded-2xl border-slate-800">
                     <h4 class="text-xs font-bold tracking-wider uppercase text-slate-300 mb-3 flex items-center gap-1.5">
-                        <i class="fa-solid fa-chart-pie text-emerald-400"></i> Class Engagement Profiler
+                        <i class="fa-solid fa-chart-pie text-emerald-400"></i> Class Engagement Profiler (V-XII)
                     </h4>
-                    <div id="metricsClassDistribution" class="space-y-2 text-xs font-mono">
+                    <div id="metricsClassDistribution" class="space-y-2 text-xs font-mono max-h-[140px] overflow-y-auto pr-1">
                         <div class="text-slate-500 py-2">No active distribution cached.</div>
                     </div>
                 </div>
@@ -122,20 +122,20 @@
                         <i class="fa-solid fa-gauge-high text-amber-500"></i> House Operational Summary
                     </h4>
                     <div class="grid grid-cols-2 gap-3 flex-1 mt-2 font-mono text-xs">
-                        <div class="bg-[#0b1122] p-2.5 rounded-xl border border-slate-800">
-                            <span class="text-slate-500 uppercase block text-[10px]">Registry Volume</span>
-                            <span id="statTotalRegistry" class="text-base font-bold text-slate-200">--</span>
+                        <div class="glass bg-[#0b1122]/40 p-2.5 rounded-xl border-slate-900">
+                            <span class="text-slate-500 uppercase block text-[10px]">Total Score</span>
+                            <span id="statTotalHousePoints" class="text-base font-bold text-amber-400">--</span>
                         </div>
-                        <div class="bg-[#0b1122] p-2.5 rounded-xl border border-slate-800">
+                        <div class="glass bg-[#0b1122]/40 p-2.5 rounded-xl border-slate-900">
                             <span class="text-slate-500 uppercase block text-[10px]">Trophies Secured</span>
-                            <span id="statTotalTrophies" class="text-base font-bold text-amber-400">--</span>
+                            <span id="statTotalTrophies" class="text-base font-bold text-slate-200">--</span>
                         </div>
-                        <div class="bg-[#0b1122] p-2.5 rounded-xl border border-slate-800">
-                            <span class="text-slate-500 uppercase block text-[10px]">Active Prefects</span>
+                        <div class="glass bg-[#0b1122]/40 p-2.5 rounded-xl border-slate-900">
+                            <span class="text-slate-500 uppercase block text-[10px]">Active Cadre</span>
                             <span id="statActivePrefects" class="text-base font-bold text-cyan-400">--</span>
                         </div>
-                        <div class="bg-[#0b1122] p-2.5 rounded-xl border border-slate-800">
-                            <span class="text-slate-500 uppercase block text-[10px]">Avg House Attendance</span>
+                        <div class="glass bg-[#0b1122]/40 p-2.5 rounded-xl border-slate-900">
+                            <span class="text-slate-500 uppercase block text-[10px]">Avg Cadre Presence</span>
                             <span id="statAvgAttendance" class="text-base font-bold text-emerald-400">--</span>
                         </div>
                     </div>
@@ -178,7 +178,7 @@
                     <div class="flex items-center gap-2 w-full md:w-auto">
                         <div class="relative flex-1 md:w-64">
                             <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-xs text-slate-500"></i>
-                            <input type="text" id="tableFilterInput" oninput="renderActiveTableData()" class="w-full pl-8 pr-3 py-1.5 bg-[#060913] border border-slate-800 rounded-lg text-xs text-slate-300 focus:outline-none focus:border-emerald-500" placeholder="Search across parameters...">
+                            <input type="text" id="tableFilterInput" oninput="renderActiveTableData()" class="w-full pl-8 pr-3 py-1.5 bg-[#060913] border border-slate-800 rounded-lg text-xs text-slate-300 focus:outline-none focus:border-emerald-500" placeholder="Global parameter search...">
                         </div>
                         <button onclick="exportCurrentTableToCSV()" class="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-300 text-xs font-semibold rounded-lg border border-slate-800 transition-colors cursor-pointer flex items-center gap-1">
                             <i class="fa-solid fa-file-export text-[10px]"></i> Export CSV
@@ -188,8 +188,7 @@
 
                 <div class="overflow-x-auto w-full">
                     <table class="w-full text-left text-sm border-collapse">
-                        <thead id="tableHeader" class="bg-[#060913] text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-900">
-                            </thead>
+                        <thead id="tableHeader" class="bg-[#060913] text-xs font-bold uppercase tracking-wider text-slate-400 border-b border-slate-900"></thead>
                         <tbody id="tableBody" class="divide-y divide-slate-900/60 bg-[#0c1224]/10">
                             <tr>
                                 <td colspan="10" class="p-8 text-center text-xs text-slate-500 font-mono">Awaiting main decryption access pass to map cloud datasets...</td>
@@ -202,7 +201,6 @@
     </div>
 
     <script>
-        // Paste your master active Apps Script Deployment URL link here inside quotes
         const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbweo98JpmI1ca4qg-0wl8oc9Xnj9BLexqTDOQtmqVY_4pziNTjVOmShkh7g_FgMnmkteg/exec"; 
         const MASTER_PASSPHRASE_KEY = "aravali2026"; 
 
@@ -212,7 +210,6 @@
         function verifyAccess() {
             const input = document.getElementById("passphraseInput").value;
             const err = document.getElementById("lockError");
-            
             if (input === MASTER_PASSPHRASE_KEY) {
                 document.getElementById("lockModal").classList.add("hidden");
                 document.getElementById("dashboardUI").classList.remove("hidden");
@@ -244,12 +241,10 @@
             logTerminal("Polling secure cloud server spreadsheets rows...");
             try {
                 const response = await fetch(`${WEB_APP_DATABASE_URL}?action=getAllData`);
-                if (!response.ok) throw new Error("CORS / Pipeline channel disconnected.");
-                
+                if (!response.ok) throw new Error("Connection dropped.");
                 const data = await response.json();
                 localDatabaseCache = data;
-                
-                logTerminal(`🟢 Handshake Authorized. Processing data analytical matrices...`);
+                logTerminal(`` + String.fromCharCode(128034) + ` Handshake Authorized. Processing data analytical matrices...`);
                 compileComprehensiveHouseAnalytics();
                 renderActiveTableData();
             } catch (err) {
@@ -264,38 +259,56 @@
             const allocations = localDatabaseCache["Competition_Allocations"] || [];
             const trophies = localDatabaseCache["Competitions_Won"] || [];
 
-            document.getElementById("statTotalRegistry").innerText = registries.length;
-            document.getElementById("statTotalTrophies").innerText = trophies.length;
+            // --- 🏆 ADVANCED HOUSE POINTS WEIGHTED CALCULATOR ENGINE ---
+            let totalAravaliPointsScore = 0;
+            let studentPointContributions = {};
 
-            // --- 🏆 TROPHY WINNERS LEADERBOARD ENGINE ---
-            let trophyCounters = {};
             trophies.forEach(row => {
                 let name = row[0];
-                if(name) trophyCounters[name] = (trophyCounters[name] || 0) + 1;
+                let rank = String(row[3]).toUpperCase().trim();
+                let points = 10; // Base default points for participating or unmapped rows
+
+                if (rank.includes("1ST") || rank.includes("FIRST")) points = 100;
+                else if (rank.includes("2ND") || rank.includes("SECOND")) points = 75;
+                else if (rank.includes("3RD") || rank.includes("THIRD")) points = 50;
+
+                totalAravaliPointsScore += points;
+                if (name) studentPointContributions[name] = (studentPointContributions[name] || 0) + points;
             });
-            let sortedTrophies = Object.entries(trophyCounters).sort((a,b) => b[1] - a[1]).slice(0, 5);
-            
+
+            // Factor in participation base metrics from allocations as well
+            allocations.forEach(row => {
+                let name = row[0];
+                if (name) {
+                    totalAravaliPointsScore += 10; // 10 points per participation log entry
+                    studentPointContributions[name] = (studentPointContributions[name] || 0) + 10;
+                }
+            });
+
+            document.getElementById("statTotalHousePoints").innerText = totalAravaliPointsScore + " pts";
+            document.getElementById("statTotalTrophies").innerText = trophies.length;
+
+            let sortedPointsLeaderboard = Object.entries(studentPointContributions).sort((a,b) => b[1] - a[1]).slice(0, 5);
             const trophyContainer = document.getElementById("leaderboardTrophies");
-            trophyContainer.innerHTML = sortedTrophies.length === 0 ? '<div class="text-slate-600 text-center py-2">No trophies recorded yet.</div>' : '';
-            sortedTrophies.forEach((item, index) => {
-                let badgeStyle = index === 0 ? "text-amber-400 font-bold" : "text-slate-300";
+            trophyContainer.innerHTML = sortedPointsLeaderboard.length === 0 ? '<div class="text-slate-600 text-center py-2">No score records found.</div>' : '';
+            sortedPointsLeaderboard.forEach((item, index) => {
+                let textHighlight = index === 0 ? "text-amber-400 font-bold animate-pulse" : "text-slate-300";
                 trophyContainer.innerHTML += `
-                    <div class="flex justify-between items-center bg-[#0b1122] p-2 rounded-xl border border-slate-900 ${badgeStyle}">
+                    <div class="flex justify-between items-center bg-[#0b1122] p-2 rounded-xl border border-slate-900 ${textHighlight}">
                         <span>#${index + 1} ${item[0]}</span>
-                        <span class="bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded border border-amber-500/20 font-bold">${item[1]} Wins</span>
+                        <span class="bg-amber-500/10 text-amber-400 px-2 py-0.5 rounded border border-amber-500/20 font-bold font-mono">${item[1]} Pts</span>
                     </div>`;
             });
 
-            // --- 🏃 PARTICIPATION DENSITY ENGINE ---
+            // --- 🏃 PARTICIPATION INDEX COMPILER ---
             let participationCounters = {};
             allocations.forEach(row => {
                 let name = row[0];
                 if(name) participationCounters[name] = (participationCounters[name] || 0) + 1;
             });
             let sortedParticipation = Object.entries(participationCounters).sort((a,b) => b[1] - a[1]).slice(0, 5);
-            
             const participationContainer = document.getElementById("leaderboardParticipation");
-            participationContainer.innerHTML = sortedParticipation.length === 0 ? '<div class="text-slate-600 text-center py-2">No participations logged.</div>' : '';
+            participationContainer.innerHTML = sortedParticipation.length === 0 ? '<div class="text-slate-600 text-center py-2">No data logged.</div>' : '';
             sortedParticipation.forEach((item, index) => {
                 participationContainer.innerHTML += `
                     <div class="flex justify-between items-center bg-[#0b1122] p-2 rounded-xl border border-slate-900 text-slate-300">
@@ -304,15 +317,15 @@
                     </div>`;
             });
 
-            // --- 📅 ATTENDANCE PERCENTAGE LADDER CORE ---
+            // --- 🚨 PREFECT ATTENDANCE CRITICAL RISK PROFILER ---
             let prefectAttendanceRecords = {};
             attendance.forEach(row => {
                 let name = row[0];
-                let status = row[5]; 
+                let status = String(row[5]).toUpperCase().trim(); 
                 if(name) {
                     if(!prefectAttendanceRecords[name]) prefectAttendanceRecords[name] = { present: 0, total: 0 };
                     prefectAttendanceRecords[name].total++;
-                    if(status === "Present" || status === "PRESENT" || status === "Approved") prefectAttendanceRecords[name].present++;
+                    if(status === "PRESENT" || status === "APPROVED") prefectAttendanceRecords[name].present++;
                 }
             });
             
@@ -321,62 +334,70 @@
                 let pct = data.total > 0 ? Math.round((data.present / data.total) * 100) : 0;
                 attendanceRankings.push({ name, pct });
             });
-            let sortedAttendance = attendanceRankings.sort((a,b) => b.pct - a.pct).slice(0, 5);
+            let sortedAttendance = attendanceRankings.sort((a,b) => a.pct - b.pct).slice(0, 5); // Sorted ascending to highlight low-attendance risk groups first
             document.getElementById("statActivePrefects").innerText = Object.keys(prefectAttendanceRecords).length;
 
             const attendanceContainer = document.getElementById("leaderboardAttendance");
-            attendanceContainer.innerHTML = sortedAttendance.length === 0 ? '<div class="text-slate-600 text-center py-2">No attendance sheets tracked.</div>' : '';
+            attendanceContainer.innerHTML = sortedAttendance.length === 0 ? '<div class="text-slate-600 text-center py-2">No sheets tracked.</div>' : '';
             
             let totalPctSum = 0;
             sortedAttendance.forEach((item, index) => {
                 totalPctSum += item.pct;
-                let colorClass = item.pct >= 75 ? "text-emerald-400" : "text-rose-400";
+                // Risk threshold assessment flag: under 75% appends high-risk flashing indicator badge layouts
+                let isAtRisk = item.pct < 75;
+                let riskBadge = isAtRisk ? `<span class="ml-1.5 px-1.5 py-0.5 text-[9px] font-black bg-rose-600 text-white rounded animate-bounce">AT RISK</span>` : '';
+                let colorClass = isAtRisk ? "text-rose-400 font-bold" : "text-emerald-400";
+                
                 attendanceContainer.innerHTML += `
                     <div class="flex justify-between items-center bg-[#0b1122] p-2 rounded-xl border border-slate-900 text-slate-300">
-                        <span>#${index + 1} ${item[0]}</span>
+                        <span class="flex items-center">${riskBadge ? '⚠️' : '#' + (index + 1)} ${item.name} ${riskBadge}</span>
                         <span class="bg-cyan-500/10 ${colorClass} px-2 py-0.5 rounded border border-cyan-500/20 font-bold">${item.pct}%</span>
                     </div>`;
             });
             let finalAvg = attendanceRankings.length > 0 ? Math.round(totalPctSum / sortedAttendance.length) : 0;
             document.getElementById("statAvgAttendance").innerText = `${finalAvg}%`;
 
-            // --- 🏫 CLASS DISTRIBUTION PROFILER ---
-            let classCounts = { "IX": 0, "X": 0, "XI": 0, "XII": 0 };
+            // --- 🏫 CLASS ENGAGEMENT EXPANDED MATRIX PROFILER (V - XII) ---
+            let classCounts = { "V": 0, "VI": 0, "VII": 0, "VIII": 0, "IX": 0, "X": 0, "XI": 0, "XII": 0 };
             registries.forEach(row => {
-                let cls = String(row[1]).toUpperCase();
-                if(cls.includes("IX") || cls.includes("9")) classCounts["IX"]++;
-                else if(cls.includes("X") || cls.includes("10")) classCounts["X"]++;
-                else if(cls.includes("XI") || cls.includes("11")) classCounts["XI"]++;
-                else if(cls.includes("XII") || cls.includes("12")) classCounts["XII"]++;
+                let cls = String(row[1]).toUpperCase().trim();
+                if (cls === "V" || cls === "5") classCounts["V"]++;
+                else if (cls === "VI" || cls === "6") classCounts["VI"]++;
+                else if (cls === "VII" || cls === "7") classCounts["VII"]++;
+                else if (cls === "VIII" || cls === "8") classCounts["VIII"]++;
+                else if (cls === "IX" || cls === "9") classCounts["IX"]++;
+                else if (cls === "X" || cls === "10") classCounts["X"]++;
+                else if (cls === "XI" || cls === "11") classCounts["XI"]++;
+                else if (cls === "XII" || cls === "12") classCounts["XII"]++;
             });
             const classContainer = document.getElementById("metricsClassDistribution");
             classContainer.innerHTML = "";
             Object.entries(classCounts).forEach(([cls, count]) => {
                 classContainer.innerHTML += `
-                    <div class="flex justify-between items-center">
-                        <span class="text-slate-400">${cls} Tier</span>
-                        <span class="text-slate-200 font-bold">${count} Profiles</span>
+                    <div class="flex justify-between items-center border-b border-slate-900/40 pb-1">
+                        <span class="text-slate-400">Class ${cls} Tier</span>
+                        <span class="text-slate-200 font-bold bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">${count} Profiles</span>
                     </div>`;
             });
 
-            // --- 📍 STATION RISK HEATMAP ENGINE ---
+            // --- 📍 STATION ROSTER HEATMAP LAYER ---
             let stationAbsenteeLog = {};
             attendance.forEach(row => {
                 let loc = row[2];
-                let status = row[5];
+                let status = String(row[5]).toUpperCase().trim();
                 if(loc) {
                     if(!stationAbsenteeLog[loc]) stationAbsenteeLog[loc] = 0;
-                    if(status === "Absent" || status === "ABSENT") stationAbsenteeLog[loc]++;
+                    if(status === "ABSENT") stationAbsenteeLog[loc]++;
                 }
             });
             const heatmapContainer = document.getElementById("metricsStationHeatmap");
-            heatmapContainer.innerHTML = Object.keys(stationAbsenteeLog).length === 0 ? '<div class="text-slate-600 text-center py-2">No station heatmap logs found.</div>' : '';
+            heatmapContainer.innerHTML = Object.keys(stationAbsenteeLog).length === 0 ? '<div class="text-slate-600 text-center py-2">No entries found.</div>' : '';
             Object.entries(stationAbsenteeLog).forEach(([loc, count]) => {
                 let alertColor = count > 0 ? "text-rose-400 font-bold" : "text-slate-400";
                 heatmapContainer.innerHTML += `
                     <div class="flex justify-between items-center border-b border-slate-900/50 pb-1">
                         <span class="text-slate-400 truncate max-w-[150px]">${loc}</span>
-                        <span class="${alertColor}">${count} Missed Shifts</span>
+                        <span class="${alertColor}">${count} Absent Shifts</span>
                     </div>`;
             });
         }
@@ -389,7 +410,6 @@
                 "Competition_Allocations": "btnTabOpenCompetition_Allocations",
                 "Competitions_Won": "btnTabOpenCompetitions_Won"
             };
-            
             Object.entries(buttons).forEach(([key, id]) => {
                 const element = document.getElementById(id);
                 if (key === tabId) {
@@ -433,9 +453,10 @@
                 let rowHtml = `<tr class="hover:bg-slate-900/40 transition-colors text-xs text-slate-300 font-mono">`;
                 columns.forEach((_, cIdx) => {
                     let val = row[cIdx] !== undefined ? row[cIdx] : '';
-                    if (val === "Present" || val === "PRESENT" || val === "Approved") {
+                    let upperVal = String(val).toUpperCase();
+                    if (upperVal === "PRESENT" || upperVal === "APPROVED") {
                         rowHtml += `<td class="px-5 py-3"><span class="px-2 py-0.5 bg-emerald-500/10 text-emerald-400 text-[10px] font-bold rounded border border-emerald-500/20">PRESENT</span></td>`;
-                    } else if (val === "Absent" || val === "ABSENT" || val === "Rejected") {
+                    } else if (upperVal === "ABSENT" || upperVal === "REJECTED") {
                         rowHtml += `<td class="px-5 py-3"><span class="px-2 py-0.5 bg-rose-500/10 text-rose-400 text-[10px] font-bold rounded border border-rose-500/20">ABSENT</span></td>`;
                     } else {
                         rowHtml += `<td class="px-5 py-3 max-w-[180px] truncate" title="${val}">${val}</td>`;
