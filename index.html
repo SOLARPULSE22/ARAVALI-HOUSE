@@ -1245,46 +1245,49 @@
                 }
             }
             
-    async function fetchLatestBroadcast() {
-    // Replace with your actual API key if needed, or use the public gviz endpoint:
-    const spreadsheetId = '1FWnkxV1zpYWYOQXtZ1O2omTgu5qS9-X0u8pFiZ_7qN0';
-    const sheetName = 'broadcast alerts';
-    
-    // We fetch Column A using Google's Visualization API query language
-    const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?sheet=${encodeURIComponent(sheetName)}&range=A:A`;
-
-    try {
-      const response = await fetch(url);
-      const text = await response.text();
-      
-      // The response comes wrapped in a callback function, we strip it out to get pure JSON
-      const jsonString = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
-      const data = JSON.parse(jsonString);
-      
-      // Get all rows in column A
-      const rows = data.table.rows;
-      
-      if (rows && rows.length > 0) {
-        // Get the very last row's value (latest entry)
-        const latestRow = rows[rows.length - 1];
-        const latestMessage = latestRow.c[0] ? latestRow.c[0].v : 'No new updates.';
-        
-        // Update your HTML div
-        document.getElementById('broadcastTargetText').innerText = latestMessage;
-      } else {
-        document.getElementById('broadcastTargetText').innerText = 'No updates found.';
-      }
-    } catch (error) {
-      console.error('Error fetching broadcast updates:', error);
-      document.getElementById('broadcastTargetText').innerText = 'Failed to load updates.';
-    }
-  }
-
-  // Fetch the update when the page loads
-  window.addEventListener('DOMContentLoaded', fetchLatestBroadcast);
+async function fetchLatestBroadcast() {
+  const spreadsheetId = '1FWnkxV1zpYWYOQXtZ1O2omTgu5qS9-X0u8pFiZ_7qN0';
+  // FIX: Must perfectly match the Apps Script sheet name
+  const sheetName = 'Broadcast_Alerts'; 
   
-  // Optional: Auto-refresh every 30 seconds
-  setInterval(fetchLatestBroadcast, 30000);
+  // Fetching Range A:A 
+  const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?sheet=${encodeURIComponent(sheetName)}&range=A:A`;
+
+  try {
+    const response = await fetch(url);
+    if (!response.ok) throw new Error('Network response was not ok');
+    
+    const text = await response.text();
+    
+    // Strip out the gviz callback wrapper to get clean JSON
+    const jsonString = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
+    const data = JSON.parse(jsonString);
+    
+    const rows = data.table.rows;
+    
+    // Because your Apps Script clears the sheet and posts exactly 2 rows:
+    // rows[0] is always "MESSAGE" (Header)
+    // rows[1] is always your actual message
+    if (rows && rows.length > 1) {
+      const latestMessage = rows[1].c[0] ? rows[1].c[0].v : 'No new updates.';
+      document.getElementById('broadcastTargetText').innerText = latestMessage;
+    } else if (rows && rows.length === 1) {
+      // Only header exists
+      document.getElementById('broadcastTargetText').innerText = 'No active updates.';
+    } else {
+      document.getElementById('broadcastTargetText').innerText = 'No updates found.';
+    }
+  } catch (error) {
+    console.error('Error fetching broadcast updates:', error);
+    document.getElementById('broadcastTargetText').innerText = 'Failed to load updates.';
+  }
+}
+
+// Fetch when page loads
+window.addEventListener('DOMContentLoaded', fetchLatestBroadcast);
+
+// Auto-refresh every 30 seconds
+setInterval(fetchLatestBroadcast, 30000);
 </script>
 </body>
 </html>
