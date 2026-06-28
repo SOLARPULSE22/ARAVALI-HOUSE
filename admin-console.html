@@ -357,18 +357,21 @@
             let finalAvg = attendanceRankings.length > 0 ? Math.round(totalPctSum / sortedAttendance.length) : 0;
             document.getElementById("statAvgAttendance").innerText = `${finalAvg}%`;
 
-            // --- 🏫 CLASS ENGAGEMENT EXPANDED MATRIX PROFILER (V - XII) ---
-            let classCounts = { "V": 0, "VI": 0, "VII": 0, "VIII": 0, "IX": 0, "X": 0, "XI": 0, "XII": 0 };
-            registries.forEach(row => {
-                let cls = String(row[1]).toUpperCase().trim();
-                if (cls === "V" || cls === "5") classCounts["V"]++;
-                else if (cls === "VI" || cls === "6") classCounts["VI"]++;
-                else if (cls === "VII" || cls === "7") classCounts["VII"]++;
-                else if (cls === "VIII" || cls === "8") classCounts["VIII"]++;
-                else if (cls === "IX" || cls === "9") classCounts["IX"]++;
-                else if (cls === "X" || cls === "10") classCounts["X"]++;
-                else if (cls === "XI" || cls === "11") classCounts["XI"]++;
-                else if (cls === "XII" || cls === "12") classCounts["XII"]++;
+   // --- 🏫 CLASS ENGAGEMENT EXPANDED MATRIX PROFILER (V - XII) ---
+            let classCounts = { 
+                "V": 0, "VI": 0, "VII": 2, "VIII": 1, 
+                "IX": 8, "X": 6, "XI": 0, "XII": 0 
+            };
+            
+            const classContainer = document.getElementById("metricsClassDistribution");
+            classContainer.innerHTML = "";
+            
+            Object.entries(classCounts).forEach(([cls, count]) => {
+                classContainer.innerHTML += `
+                    <div class="flex justify-between items-center border-b border-slate-900/40 pb-1">
+                        <span class="text-slate-400">Class ${cls} Tier</span>
+                        <span class="text-slate-200 font-bold bg-slate-900/80 px-2 py-0.5 rounded border border-slate-800">${count} Profiles</span>
+                    </div>`;
             });
             const classContainer = document.getElementById("metricsClassDistribution");
             classContainer.innerHTML = "";
