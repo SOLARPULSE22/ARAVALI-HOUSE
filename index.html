@@ -105,7 +105,7 @@
         .status-empty { background-color: #f1f5f9 !important; color: #94a3b8 !important; }
         .status-won { background-color: #bbf7d0 !important; color: #15803d !important; font-weight: bold; }
         .status-lost { background-color: #fecaca !important; color: #b91c1c !important; font-weight: bold; }
-        .duty-box-widget { background: linear-gradient(135deg, #fef3c7 0%, #fffbeb 100%); border: 3px solid #d97706; padding: 20px; border-radius: 12px; margin-top: 20px; color: #92400e; }
+        .duty-box-widget { background: linear-gradient(135deg, #fef3c7 0%, #fffbeb; 100%); border: 3px solid #d97706; padding: 20px; border-radius: 12px; margin-top: 20px; color: #92400e; }
         .responsibility-matrix-widget { background: linear-gradient(135deg, #fae8ff 0%, #fdf4ff 100%); border: 3px solid #d946ef; padding: 20px; border-radius: 12px; margin-top: 20px; color: #86198f; }
         .meeting-widget-card { background: linear-gradient(135deg, #ccfbf1 0%, #f0fdfa 100%); border: 3px solid #0d9488; padding: 20px; border-radius: 12px; margin-top: 20px; color: #115e59; }
         .blog-post { background: #ffffff; border: 2px solid #e2e8f0; border-radius: 12px; padding: 25px; margin-bottom: 25px; }
@@ -1139,9 +1139,63 @@
 
         document.getElementById("form-meeting-desc").value = ""; 
     }
-    function directAddActivity(e) { e.preventDefault(); houseActivities.push({ type: document.getElementById("form-evt-type").value.trim(), elig: document.getElementById("form-evt-elig").value.trim(), name: document.getElementById("form-evt-name").value.trim(), won: document.getElementById("form-evt-won").value, remarks: document.getElementById("form-evt-remarks").value.trim() }); renderActivitiesTable(); document.getElementById("form-evt-type").value=""; document.getElementById("form-evt-elig").value=""; document.getElementById("form-evt-name").value=""; document.getElementById("form-evt-remarks").value=""; }
-    function directAddAchiever(e) { e.preventDefault(); achieversDatabase.push({ name: document.getElementById("form-ach-name").value.trim().toUpperCase(), housePos: document.getElementById("form-ach-pos").value.trim(), compType: document.getElementById("form-ach-type").value.trim(), wonPos: document.getElementById("form-ach-won").value.trim(), class: document.getElementById("form-ach-class").value.trim(), sec: document.getElementById("form-ach-sec").value.trim().toUpperCase() }); renderAchieversTable(); document.getElementById("form-ach-name").value=""; document.getElementById("form-ach-pos").value=""; document.getElementById("form-ach-type").value=""; document.getElementById("form-ach-won").value=""; document.getElementById("form-ach-class").value=""; document.getElementById("form-ach-sec").value=""; }
-    function getStatusClass(status) { return status === "WON" ? "status-won" : status === "LOST" ? "status-lost" : ""; }
+   function directAddActivity(e) { 
+        e.preventDefault(); 
+        
+        const activityPayload = {
+            action: "addActivity",
+            type: document.getElementById("form-evt-type").value.trim(),
+            eligibility: document.getElementById("form-evt-elig").value.trim(),
+            name: document.getElementById("form-evt-name").value.trim(),
+            status: document.getElementById("form-evt-won").value,
+            remarks: document.getElementById("form-evt-remarks").value.trim()
+        };
+
+        fetch(WEB_APP_DATABASE_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(activityPayload)
+        }).then(() => {
+            alert("Activity added permanently to Google Sheets!");
+            fetchGlobalMasterDatabaseGrid();
+        }).catch(err => console.error("Database connection dropped: ", err));
+
+        document.getElementById("form-evt-type").value = "";
+        document.getElementById("form-evt-elig").value = "";
+        document.getElementById("form-evt-name").value = "";
+        document.getElementById("form-evt-remarks").value = "";
+    }
+   function directAddAchiever(e) { 
+        e.preventDefault(); 
+        
+        const achieverPayload = {
+            action: "addAchiever",
+            name: document.getElementById("form-ach-name").value.trim().toUpperCase(),
+            housePos: document.getElementById("form-ach-pos").value.trim(),
+            compType: document.getElementById("form-ach-type").value.trim(),
+            wonPos: document.getElementById("form-ach-won").value.trim(),
+            class: document.getElementById("form-ach-class").value.trim(),
+            sec: document.getElementById("form-ach-sec").value.trim().toUpperCase()
+        };
+
+        fetch(WEB_APP_DATABASE_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(achieverPayload)
+        }).then(() => {
+            alert("Achiever profile added permanently to Google Sheets!");
+            fetchGlobalMasterDatabaseGrid();
+        }).catch(err => console.error("Database connection dropped: ", err));
+
+        document.getElementById("form-ach-name").value = "";
+        document.getElementById("form-ach-pos").value = "";
+        document.getElementById("form-ach-type").value = "";
+        document.getElementById("form-ach-won").value = "";
+        document.getElementById("form-ach-class").value = "";
+        document.getElementById("form-ach-sec").value = "";
+    }
 
     function directPublishNewBlog(e) {
         e.preventDefault();
@@ -1305,6 +1359,12 @@
       }
       
       document.getElementById('broadcastTargetText').innerText = latestMessage;
+      
+      // Update the student dashboard house meeting text as well
+      const dynamicMeetingWidget = document.getElementById("live-meeting-text");
+      if (dynamicMeetingWidget) {
+          dynamicMeetingWidget.innerText = latestMessage;
+      }
     } else {
       document.getElementById('broadcastTargetText').innerText = 'No updates found.';
     }
@@ -1315,8 +1375,40 @@
   }
 }
 
+// 🌐 NEW FUNCTION: Added missing extraction pipeline engine from blueprint to load permanent activities and achievers lists from your sheet tabs
+async function fetchGlobalMasterDatabaseGrid() {
+    if (WEB_APP_DATABASE_URL === "") return;
+    try {
+        const res = await fetch(`${WEB_APP_DATABASE_URL}?action=getAllData`);
+        const masterData = await res.json();
+        
+        // Read activities from the cloud tab
+        const activityRows = masterData.Upcoming_Activities || [];
+        const actBody = document.querySelector("#activities-table tbody");
+        if(actBody) {
+            actBody.innerHTML = activityRows.length === 0 ? 
+                `<tr><td colspan="7" style="padding: 20px; color: #0369a1;">No activities initialized.</td></tr>` : 
+                activityRows.map((row, i) => `<tr><td>${i + 1}</td><td><strong>${row[0] || '—'}</strong></td><td>${row[1] || '—'}</td><td>${row[2] || '—'}</td><td class="${getStatusClass(row[3])}">${row[3] || 'TBD'}</td><td>${row[4] || '—'}</td><td class="council-actions" style="display:none;">—</td></tr>`).join('');
+        }
+
+        // Read achievers from the cloud tab
+        const winRows = masterData.Achievers_Ledger || [];
+        const aBody = document.querySelector("#achievers-table tbody");
+        if(aBody) {
+            aBody.innerHTML = winRows.length === 0 ? 
+                `<tr><td colspan="8" style="padding:15px; color:#94a3b8;">Ledger currently empty.</td></tr>` : 
+                winRows.map((row, idx) => `<tr><td>${idx + 1}</td><td><strong>${row[0] || '—'}</strong></td><td>${row[1] || '—'}</td><td>${row[2] || '—'}</td><td><span style="color:#c2185b; font-weight:900;">${row[3] || '—'}</span></td><td>${row[4] || '—'}</td><td>${row[5] || '—'}</td><td class="council-actions" style="display:none;">—</td></tr>`).join('');
+        }
+    } catch (err) {
+        console.error("Pipeline mapping error: ", err);
+    }
+}
+
 // Fetch when page loads
-window.addEventListener('DOMContentLoaded', fetchLatestBroadcast);
+window.addEventListener('DOMContentLoaded', () => {
+    fetchLatestBroadcast();
+    fetchGlobalMasterDatabaseGrid();
+});
 
 // Auto-refresh every 30 seconds
 setInterval(() => {
