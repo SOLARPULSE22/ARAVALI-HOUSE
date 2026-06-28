@@ -1583,12 +1583,29 @@
         }
     }
 
-    window.onload = function() { 
+   window.onload = function() { 
         renderActivitiesTable(); 
         renderPublicRegistry(); 
         populateBlogFilterSelectorsMatrix();
         renderBlogsStreamFeed();
-        fetchGlobalMasterDatabaseGrid(); // Auto handshake rows on mount
+        
+        // 📢 NEW DYNAMIC BROADCAST RECEIVER CORES
+        if (WEB_APP_DATABASE_URL !== "") {
+            // Handshake with Google Cloud to pull the active transmitter parameters
+            fetch(`${WEB_APP_DATABASE_URL}?action=getLatestBroadcast`)
+                .then(res => res.json())
+                .then(data => {
+                    if (data && data.message) {
+                        // Makes your hidden layout block slide open instantly on student screens!
+                        document.getElementById("liveAlertBanner").style.display = "block";
+                        document.getElementById("broadcastTargetText").innerText = data.message;
+                    }
+                }).catch(err => console.log("Broadcast network node asleep..."));
+        }
+        
+        // Load the new live participation tables data grids
+        fetchGlobalMasterDatabaseGrid(); 
+    }; // Auto handshake rows on mount
     };
 </script>
 </body>
