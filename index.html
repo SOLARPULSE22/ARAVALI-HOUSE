@@ -621,7 +621,7 @@
                                 <div class="form-group">
                                     <label>Target Student Name</label>
                                     <select id="override-student-select"></select>
-                                end</div>
+                                </div>
                                 <div class="form-group">
                                     <label>Target Date</label>
                                     <select id="override-date-select"></select>
@@ -874,7 +874,7 @@
 
 <script>
     // Master Live Apps Script Database Gateway URL Endpoint Link Constant Location
-    const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbwxlXi6S0pHzyu4Fc4iRjvgdRZC1hU8CHys8EsJPNVcd7sdXrg2hYBfiB5g3MrQszbTfA/exec";
+    const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbxlXi6S0pHzyu4Fc4iRjvgdRZC1hU8CHys8EsJPNVcd7sdXrg2hYBfiB5g3MrQszbTfA/exec";
 
     // Master credential data models matching active user roles array configuration
     let authorizedStudents = [
@@ -1508,20 +1508,18 @@
         
         if (p === 'portal' || p === 'batchholders') renderPublicRegistry();
         if (p === 'blogs') { populateBlogFilterSelectorsMatrix(); renderBlogsStreamFeed(); }
-        if (p === 'achievers') { fetchGlobalMasterDatabaseGrid(); } // Fetch live data dynamically on tab focus
+        if (p === 'achievers') { fetchGlobalMasterDatabaseGrid(); } 
         if (p === 'teachers') { renderTeachersRegistryTable(); document.getElementById("live-teachers-intro-statement").innerText = teachersIntroStatementMemoryLog; }
     }
 
-    // 🔄 NEW DEDICATED FETCH INFRASTRUCTURE CORES FOR LIVE SYNCING THE DATA ARRAYS
+    // 🔄 LIVE SYNC EXTRACTION MATRIX FOR PARTICIPATION PANELS
     async function fetchGlobalMasterDatabaseGrid() {
         if (WEB_APP_DATABASE_URL === "https://script.google.com/macros/s/AKfycbxVXp-lpRglyGYjlmLtFwF0WPHNOTzeRR3emoH4OIguOT583M9-TJVDGreiuYaVW3jG3Q/exec") {
-            // If the script is default simulation framework mode, fallback securely
             renderAchieversTable();
             return;
         }
 
         try {
-            // Wires up single GET payload request fetching all sheet blocks
             const res = await fetch(`${WEB_APP_DATABASE_URL}?action=getAllData`);
             const masterData = await res.json();
             
@@ -1534,7 +1532,6 @@
                 pBody.innerHTML = `<tr><td colspan="7" style="padding:15px; color:#64748b;">No active entries mapped inside allocation sheets nodes.</td></tr>`;
             } else {
                 participationRows.forEach((row, i) => {
-                    // Pulls parameters cleanly: Name (0), Class (1), Section (2), Type of Competition (3), Date Held (4), Competition Name (5)
                     pBody.innerHTML += `
                         <tr>
                             <td>${i + 1}</td>
@@ -1583,20 +1580,18 @@
         }
     }
 
-   window.onload = function() { 
+    window.onload = function() { 
         renderActivitiesTable(); 
         renderPublicRegistry(); 
         populateBlogFilterSelectorsMatrix();
         renderBlogsStreamFeed();
         
-        // 📢 NEW DYNAMIC BROADCAST RECEIVER CORES
+        // 📢 REAL-TIME BROADCAST RECEIVER CORES
         if (WEB_APP_DATABASE_URL !== "") {
-            // Handshake with Google Cloud to pull the active transmitter parameters
             fetch(`${WEB_APP_DATABASE_URL}?action=getLatestBroadcast`)
                 .then(res => res.json())
                 .then(data => {
                     if (data && data.message) {
-                        // Makes your hidden layout block slide open instantly on student screens!
                         document.getElementById("liveAlertBanner").style.display = "block";
                         document.getElementById("broadcastTargetText").innerText = data.message;
                     }
@@ -1605,7 +1600,7 @@
         
         // Load the new live participation tables data grids
         fetchGlobalMasterDatabaseGrid(); 
-    }; // Auto handshake rows on mount
+    };
 </script>
 </body>
 </html>
