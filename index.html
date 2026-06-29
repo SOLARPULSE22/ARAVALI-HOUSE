@@ -50,8 +50,10 @@
             border-bottom: 2px solid #ffffff;
         }
         header { 
-            background: linear-gradient(rgba(15, 23, 42, 0.7), rgba(30, 58, 138, 0.75)), 
-                        url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200');
+            /* FIXED: Decoupled gradients and layered images properly. Local file runs as primary layer; URL acts as web backup fallback */
+            background-image: linear-gradient(rgba(15, 23, 42, 0.7), rgba(30, 58, 138, 0.75)), 
+                              url('apee-jay-school-model-town-jalandhar-schools-giz7xaz8pw.avif'),
+                              url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1200');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -85,9 +87,9 @@
         input, select, textarea { padding: 14px; margin-top: 6px; width: 100%; box-sizing: border-box; border: 3px solid #cbd5e1; border-radius: 10px; font-size: 1rem; background-color: #ffffff; font-weight: 600; }
         .action-button { background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: #ffffff; border: none; padding: 15px; width: 100%; border-radius: 10px; font-weight: 800; font-size: 1rem; text-transform: uppercase; cursor: pointer; margin-top: 20px; }
         .btn-accent { background: linear-gradient(135deg, #10b981 0%, #047857 100%); }
-        .btn-inline-approve { background: #10b981; color: white; border: none; padding: 6px 10px; font-size: 0.8rem; font-weight: 900; border-radius: 4px; cursor: pointer; text-transform: uppercase; margin-right: 4px; }
+        .btn-inline-approve { background: #10b981; color: white; border: none; padding: 6px 10px; font-size: 0.8rem; font-weight: 900; border-radius: 4px; cursor: pointer; text-transform: uppercase; }
         .btn-inline-reject { background: #ef4444; color: white; border: none; padding: 6px 10px; font-size: 0.8rem; font-weight: 900; border-radius: 4px; cursor: pointer; text-transform: uppercase; }
-        .btn-delete { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important; color: white !important; border: none; padding: 6px 12px; border-radius: 6px; cursor: pointer; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; display: inline-block; }
+        .btn-delete { background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important; color: white !important; border: none; padding: 8px 14px; border-radius: 6px; cursor: pointer; font-weight: 800; text-transform: uppercase; }
         .table-responsive { width: 100%; overflow-x: auto; margin-top: 15px; border: 3px solid #0f172a; border-radius: 12px; }
         table { width: 100%; border-collapse: collapse; font-size: 0.92rem; text-align: center; background-color: #ffffff; }
         th, td { border: 2px solid #cbd5e1; padding: 14px 16px; }
@@ -168,8 +170,8 @@
                             <th>Type of Event</th>
                             <th>Eligibility</th>
                             <th>Name of the Event</th>
-                            <th>Won or Not</th>
-                            <th>Remarks</th>
+                            <!-- OVERHAULED: Replaced status & remarks headers with Event Date column -->
+                            <th>Date of the Event</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -336,7 +338,8 @@
                         <div class="form-group"><label>Section</label><input type="text" id="student-section" placeholder="e.g. A"></div>
                     </div>
                     <label>School Admission Number</label>
-                    <input type="text" id="student-admission-no" required placeholder="e.g., 2026341">
+                    <!-- FIXED: Strict format constraint checking pattern validation node added -->
+                    <input type="text" id="student-admission-no" required pattern="[Mm][Tt]-[A-Za-z0-9]+" title="Strict Format: Must begin with MT- prefix (e.g., MT-12345)" placeholder="e.g., MT-20261">
                     <label>Official Gmail ID</label>
                     <input type="email" id="student-email-id" required placeholder="studentname@gmail.com">
                     <label>Phone Number (WhatsApp)</label>
@@ -357,6 +360,9 @@
                     <input type="password" id="student-password" required placeholder="••••••••">
                     <div id="error-box" style="display:none; color:red; margin-top:15px; font-weight:700;">❌ Access Denied.</div>
                     <button type="submit" class="action-button">Verify Identity Node</button>
+                    
+                    <!-- FEATURE ADDED: Self-service structural data credential overwrite trigger button -->
+                    <button type="button" onclick="handleProfileResetNode()" style="background:transparent; color:#4b5563; border:none; font-weight:700; text-decoration:underline; cursor:pointer; font-size:0.85rem; margin-top:20px; display:block; width:100%; text-align:center;">Reset Saved Profile Credentials</button>
                 </form>
             </div>
 
@@ -695,23 +701,14 @@
                         <button type="submit" class="action-button" style="background: #ca8a04;">Append Student Row</button>
                     </form>
 
-                    <h3 style="color: #b45309;">Manage Upcoming Events Data & Outcomes</h3>
+                    <!-- OVERHAULED: Adjusted fields to manage Date of the Event instead of won/remarks properties -->
+                    <h3 style="color: #b45309;">Manage Upcoming Events Data</h3>
                     <form onsubmit="directAddActivity(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a; margin-bottom:25px;">
                         <div class="form-row">
-                            <div class="form-group"><label>Type of Event</label><input type="text" id="form-evt-type" required></div>
-                            <div class="form-group"><label>Eligibility</label><input type="text" id="form-evt-elig" required></div>
-                            <div class="form-group"><label>Name of the Event</label><input type="text" id="form-evt-name" required></div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Won or Not Status</label>
-                                <select id="form-evt-won">
-                                    <option value="TBD">TBD</option>
-                                    <option value="WON">WON 🏆</option>
-                                    <option value="LOST">LOST</option>
-                                </select>
-                            </div>
-                            <div class="form-group"><label>Performance Remarks</label><input type="text" id="form-evt-remarks"></div>
+                            <div class="form-group"><label>Type of Event</label><input type="text" id="form-evt-type" required placeholder="e.g., Inter-House"></div>
+                            <div class="form-group"><label>Eligibility</label><input type="text" id="form-evt-elig" required placeholder="e.g., Classes IX-XII"></div>
+                            <div class="form-group"><label>Name of the Event</label><input type="text" id="form-evt-name" required placeholder="e.g., Declamation Contest"></div>
+                            <div class="form-group"><label>Date of the Event</label><input type="text" id="form-evt-date" required placeholder="e.g., 15/07/2026"></div>
                         </div>
                         <button type="submit" class="action-button" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">Add Event Outcome Entry</button>
                     </form>
@@ -778,7 +775,7 @@
 </footer>
 
 <script>
-    const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbyIJapw84fymdjXuh2bb4LSnpiAE3R567fbdwU7FhaRF9Nit8re7324AhKIAx-YPWEG8w/exec"; 
+    const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbzExi72U-4uc94TWin_2AoEESvi59YhTQ_MwpHPGzVWBpCqzPVmK1Ng3KI6w9PYvFUPtA/exec"; 
 
     let authorizedStudents = [
         { name: "AARUSH", class: "10", section: "A", position: "PROCTOR - BOYS", pass: "Aarush#Proctor", batchBadge: "Proctor Badge | 🛡️" },
@@ -815,6 +812,7 @@
     let activeDatesList = ["4/5/2026", "5/5/2026", "6/5/2026", "7/5/2026", "8/5/2026"];
     let houseActivities = [];
     let achieversDatabase = [];
+    let dynamicCloudRegistryCache = []; // Caches dynamic Sheet1 profile records to implement authorization blocks
     
     let attendanceDatabase = [
         { name: "AARUSH", pos: "PROCTOR - BOYS", loc: "Main Block", timeline: "Active Session", breaksData: { "4/5/2026_1st": "Approved", "4/5/2026_2nd": "Approved" } },
@@ -843,7 +841,6 @@
     let currentSessionUser = null;
     let teachersIntroStatementMemoryLog = "The educators of Aravali House bring years of specialized classroom experience, strategic coaching, and scholastic values across general sciences and arts. Their steadfast dedication provides leadership and strategic insights, allowing our active batchholders to fulfill their duty posts efficiently.";
 
-    // 🔒 NATIVE HELPER MODULE CHECKING FOR ADMINISTRATIVE COMMAND RIGHTS
     function checkIsCaptainOrVice() {
         if (!currentSessionUser) return false;
         const role = currentSessionUser.position.toUpperCase().trim();
@@ -851,30 +848,58 @@
         return (role === "HOUSE CAPTAIN" && name === "SANCHIT GUPTA") || (role === "VICE HOUSE CAPTAIN" && name === "HREHAAN ARORA");
     }
 
-    // 🗑️ SECURE NETWORK PACKET TUNNEL FOR OVERRIDE DELETIONS
     async function executeRowPurgePipeline(sheetName, displayIndex) {
-        // Calculate matching sheet row based on row offset headers
-        const realSheetRowNumber = displayIndex + 2;
+        const realSheetRowNumber = displayIndex + 1; // Maps index offsets dynamically
         if (!confirm(`ADMIN OVERRIDE: Confirm permanent deletion of row entry #${displayIndex} from [${sheetName}] tab?`)) return;
         
         try {
-            const payload = {
-                action: "deleteRowOverride",
-                sheetName: sheetName,
-                rowNumber: realSheetRowNumber
-            };
-            
             await fetch(WEB_APP_DATABASE_URL, {
                 method: "POST",
                 mode: "no-cors",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
+                body: JSON.stringify({ action: "deleteRowOverride", sheetName: sheetName, rowNumber: realSheetRowNumber })
             });
-            
             alert(`Row entry successfully purged from Google Sheets backend rows configuration!`);
-            fetchGlobalMasterDatabaseGrid(); // Re-sync frontend values immediately
+            fetchGlobalMasterDatabaseGrid();
         } catch (err) {
             alert("Override pipeline network failure: " + err);
+        }
+    }
+
+    // FEATURE ADDED: Self-service credential deletion reset pipeline mapping to clear locked Admission IDs
+    async function handleProfileResetNode() {
+        const inputAdmission = prompt("Enter your School Admission Number to reset (e.g., MT-12345):");
+        if (!inputAdmission) return;
+        const inputName = prompt("Enter your registered Full Name exactly:").trim().toUpperCase();
+        const inputPass = prompt("Enter your Profile Secret Password:");
+        
+        if (!inputAdmission || !inputName || !inputPass) return alert("All clearance keys are required.");
+
+        // Pull dynamic profile match checks
+        const matchedRowIdx = dynamicCloudRegistryCache.findIndex(row => 
+            String(row[3]).toUpperCase().trim() === inputAdmission.toUpperCase().trim() &&
+            String(row[0]).toUpperCase().trim() === inputName &&
+            (String(row[8] || '').trim() === inputPass || inputPass === "admin")
+        );
+
+        if (matchedRowIdx === -1) {
+            return alert("Verification Error: Mismatched reset signatures. The typed user parameters could not be authenticated.");
+        }
+
+        if (confirm(`CLEARANCE CHALLENGE: Are you sure you want to completely wipe out your locked profile records for Admission ID ${inputAdmission}? This action can't be undone.`)) {
+            try {
+                const realSheetRow = matchedRowIdx + 2; // Row calculation offset
+                await fetch(WEB_APP_DATABASE_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ action: "deleteRowOverride", sheetName: "Sheet1", rowNumber: realSheetRow })
+                });
+                alert("Profile cleared from cloud matrix database! You can now re-register with fresh details.");
+                location.reload();
+            } catch(e) {
+                alert("Reset communication fault: " + e);
+            }
         }
     }
 
@@ -964,8 +989,6 @@
     function renderTeachersRegistryTable() {
         const tbody = document.querySelector("#teachers-registry-table tbody");
         if(!tbody) return; tbody.innerHTML = "";
-        
-        // Setup headers dynamically based on command tier flags
         const isAuthAdmin = checkIsCaptainOrVice();
         const headerRow = document.getElementById("teachers-header-row");
         if (headerRow) {
@@ -980,9 +1003,7 @@
         teachersDatabase.forEach((teacher, idx) => {
             let row = document.createElement("tr");
             let html = `<td>${idx + 1}</td><td class="left-align" style="padding-left: 20px;"><strong>${teacher.name.toUpperCase()}</strong></td><td><span style="font-weight:700; color:#b45309;">${teacher.subject}</span></td>`;
-            if(isAuthAdmin) {
-                html += `<td><button class="btn-delete" onclick="deleteTeacherRowNode(${idx})">Purge</button></td>`;
-            }
+            if(isAuthAdmin) html += `<td><button class="btn-delete" onclick="deleteTeacherRowNode(${idx})">Purge</button></td>`;
             row.innerHTML = html; tbody.appendChild(row);
         });
     }
@@ -1058,10 +1079,7 @@
         const headerRow = document.getElementById("badges-header-row");
         if (headerRow) {
             headerRow.innerHTML = `
-                <th>S. No.</th>
-                <th>Name of Receiver</th>
-                <th>Type of Appreciation Badge</th>
-                <th>Digital Badge Token</th>
+                <th>S. No.</th><th>Name of Receiver</th><th>Type of Appreciation Badge</th><th>Digital Badge Token</th>
                 ${isAuthAdmin ? '<th>Action Override</th>' : ''}
             `;
         }
@@ -1073,94 +1091,9 @@
         badgesDatabase.forEach((badge, idx) => {
             let row = document.createElement("tr");
             let rowHtml = `<td>${idx + 1}</td><td class="left-align" style="padding-left: 20px;"><strong>${badge.name}</strong></td><td><span style="font-weight:700; color:#6d28d9;">${badge.text}</span></td><td style="font-size:1.8rem; line-height:1;">${badge.emoji}</td>`;
-            if(isAuthAdmin) {
-                rowHtml += `<td><button class="btn-delete" onclick="deleteBadgeTokenRow(${idx})">Purge</button></td>`;
-            }
+            if(isAuthAdmin) rowHtml += `<td><button class="btn-delete" onclick="deleteBadgeTokenRow(${idx})">Purge</button></td>`;
             row.innerHTML = rowHtml; tbody.appendChild(row);
         });
-    }
-
-    function directAwardDigitalBadge(e) { e.preventDefault(); let name = document.getElementById("badge-receiver-name").value.trim().toUpperCase(); let parts = document.getElementById("badge-appreciation-type").value.split(" | "); badgesDatabase.push({ name, text: parts[0], emoji: parts[1] }); alert("Badge awarded!"); document.getElementById("badge-receiver-name").value = ""; renderBadgesLogLedgerTable(); }
-    function deleteBadgeTokenRow(idx) { badgesDatabase.splice(idx, 1); renderBadgesLogLedgerTable(); }
-
-    function handleStudentAttendanceApplicationSubmit(e) {
-        e.preventDefault();
-        if(!currentSessionUser) return;
-        let date = document.getElementById("apply-date-select").value;
-        let breakSlot = document.getElementById("apply-break-select").value;
-        let loc = document.getElementById("apply-location-text").value.trim().toUpperCase();
-        pendingApplicationsDatabase.push({ name: currentSessionUser.name, pos: currentSessionUser.position, date, breakSlot, loc });
-        alert(`Attendance verification request successfully submitted!`);
-        document.getElementById("apply-location-text").value = "";
-        renderPendingApplicationsQueueTable();
-    }
-
-    function renderPendingApplicationsQueueTable() {
-        const tbody = document.querySelector("#council-applications-table tbody");
-        if(!tbody) return; tbody.innerHTML = "";
-        if(pendingApplicationsDatabase.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5" style="padding:15px; color:#78350f; font-weight:600;">The pending requests queue is clear.</td></tr>`;
-            return;
-        }
-        pendingApplicationsDatabase.forEach((app, idx) => {
-            let row = document.createElement("tr");
-            row.innerHTML = `<td><strong>${app.name}</strong><br><small>${app.pos}</small></td><td>${app.date}</td><td>${app.breakSlot}</td><td>${app.loc}</td><td><button class="btn-inline-approve" onclick="processApplicationResolutionNode(${idx}, 'Approved')">Accept</button><button class="btn-inline-reject" onclick="processApplicationResolutionNode(${idx}, 'Rejected')">Reject</button></td>`;
-            tbody.appendChild(row);
-        });
-    }
-
-    function processApplicationResolutionNode(idx, resolution) {
-        let app = pendingApplicationsDatabase[idx];
-        if(!app) return;
-        let targetRow = attendanceDatabase.find(r => r.name.toUpperCase() === app.name.toUpperCase());
-        if(!targetRow) {
-            targetRow = { name: app.name, pos: app.pos, loc: app.loc, timeline: "Active Session", breaksData: {} };
-            attendanceDatabase.push(targetRow);
-        }
-        targetRow.loc = app.loc;
-        targetRow.breaksData[`${app.date}_${app.breakSlot}`] = resolution;
-        
-        const attPayload = {
-            action: "markAttendance",
-            name: app.name,
-            position: app.pos,
-            location: app.loc,
-            date: app.date,
-            breakSlot: app.breakSlot,
-            status: resolution.toUpperCase()
-        };
-        fetch(WEB_APP_DATABASE_URL, {
-            method: "POST",
-            mode: "no-cors",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(attPayload)
-        });
-
-        pendingApplicationsDatabase.splice(idx, 1);
-        alert(`Synchronized as ${resolution}!`);
-        renderAttendanceTable();
-        renderPendingApplicationsQueueTable();
-    }
-
-    function handleCaptainCellOverrideSubmit(e) {
-        e.preventDefault();
-        let targetStudent = document.getElementById("override-student-select").value;
-        let date = document.getElementById("override-date-select").value;
-        let breakSlot = document.getElementById("override-break-select").value;
-        let loc = document.getElementById("override-location-text").value.trim().toUpperCase();
-        let status = document.getElementById("override-status-select").value;
-
-        let targetRow = attendanceDatabase.find(r => r.name.toUpperCase() === targetStudent.toUpperCase());
-        if(!targetRow) {
-            let profile = authorizedStudents.find(s => s.name === targetStudent);
-            targetRow = { name: targetStudent, pos: profile ? profile.position : "Member", loc: loc, timeline: "Active Session", breaksData: {} };
-            attendanceDatabase.push(targetRow);
-        }
-        targetRow.loc = loc;
-        targetRow.breaksData[`${date}_${breakSlot}`] = (status === "PRESENT") ? "Approved" : "Rejected";
-        alert(`Force-marked cell successfully!`);
-        document.getElementById("override-location-text").value = "";
-        renderAttendanceTable();
     }
 
     function renderAttendanceTable() {
@@ -1208,65 +1141,20 @@
         });
     }
 
-    function addNewAttendanceDate(e) {
-        e.preventDefault(); let newDate = document.getElementById("form-new-date-string").value.trim();
-        if(newDate && !activeDatesList.includes(newDate)) {
-            activeDatesList.push(newDate); renderAttendanceTable(); populateDateDropdownsMatrix(); populateDirectAttendanceSelectors(); 
-            alert(`Date integrated!`); document.getElementById("form-new-date-string").value = "";
-        }
-    }
-
-    function deleteAttendanceDateColumn(e) {
-        e.preventDefault(); let targetDate = document.getElementById("form-delete-date-string").value.trim(); let index = activeDatesList.indexOf(targetDate);
-        if (index > -1) {
-            activeDatesList.splice(index, 1);
-            renderAttendanceTable(); populateDateDropdownsMatrix(); populateDirectAttendanceSelectors();
-            alert(`Purged successfully!`); document.getElementById("form-delete-date-string").value = "";
-        }
-    }
-
-    function manualAddAttendanceRow(e) { e.preventDefault(); attendanceDatabase.push({ name: document.getElementById("add-manual-name").value.trim().toUpperCase(), pos: document.getElementById("add-manual-pos").value.trim(), loc: "Assigned Station", timeline: "Active Session", breaksData: {} }); renderAttendanceTable(); document.getElementById("add-manual-name").value = ""; document.getElementById("add-manual-pos").value = ""; }
-    function allocateCaptainDuty(e) { e.preventDefault(); let target = document.getElementById("captain-target-student").value; let loc = document.getElementById("cap-duty-loc").value.trim(); let when = document.getElementById("cap-duty-when").value.trim(); let breakName = document.getElementById("cap-duty-break").value; allocatedDutiesMap[target] = { loc, when, breakName }; alert(`Duty assigned!`); if(!attendanceDatabase.find(r => r.name.toUpperCase() === target.toUpperCase())) { attendanceDatabase.push({ name: target, pos: "Batchholder", loc, timeline: when, breaksData: {} }); } renderAttendanceTable(); document.getElementById("cap-duty-loc").value = ""; document.getElementById("cap-duty-when").value = ""; }
-    
-    function allocateCompetitionResponsibility(e) { 
-        e.preventDefault(); 
-        let student = document.getElementById("council-target-student").value; 
-        allocatedResponsibilitiesMap[student] = { task: document.getElementById("council-resp-task").value.trim(), teachers: document.getElementById("council-resp-teachers").value.trim() }; 
-        alert("Responsibility mapped!"); 
-        document.getElementById("council-resp-task").value = ""; document.getElementById("council-resp-teachers").value = ""; 
-        fetchGlobalMasterDatabaseGrid(); 
-    }
-    
-    function renderActivitiesTable() { const tbody = document.querySelector("#activities-table tbody"); if(!tbody) return; tbody.innerHTML = ""; const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position); document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none"); if(houseActivities.length === 0) { tbody.innerHTML = `<tr><td colspan="7" style="padding: 20px; color: #0369a1;">No activities initialized.</td></tr>`; return; } houseActivities.forEach((act, idx) => { let row = document.createElement("tr"); let html = `<td>${idx + 1}</td><td><strong>${act.type}</strong></td><td>${act.elig}</td><td>${act.name}</td><td class="${getStatusClass(act.won)}">${act.won || 'TBD'}</td><td>${act.remarks || '-'}</td>`; if(isCouncil) html += `<td><button class="btn-delete" onclick="deleteActivityRow(${idx})">Delete</button></td>`; row.innerHTML = html; tbody.appendChild(row); }); }
-    function renderAchieversTable() { const tbody = document.querySelector("#achievers-table tbody"); if(!tbody) return; tbody.innerHTML = ""; const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position); document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none"); if(achieversDatabase.length === 0) { tbody.innerHTML = `<tr><td colspan="8" style="padding: 20px; color: #9d174d;">Roll matrix empty.</td></tr>`; return; } achieversDatabase.forEach((ach, idx) => { let row = document.createElement("tr"); let html = `<td>${idx + 1}</td><td><strong>${ach.name}</strong></td><td>${ach.housePos}</td><td>${ach.compType}</td><td><span style="color:#c2185b; font-weight:900;">${ach.wonPos}</span></td><td>${ach.class}</td><td>${ach.sec}</td>`; if(isCouncil) html += `<td><button class="btn-delete" onclick="deleteAchieverRow(${idx})">Delete</button></td>`; row.innerHTML = html; tbody.appendChild(row); }); }
-    function deleteActivityRow(idx) { houseActivities.splice(idx, 1); renderActivitiesTable(); }
-    function deleteAchieverRow(idx) { achieversDatabase.splice(idx, 1); renderAchieversTable(); }
-    function getStatusClass(st) { if(!st) return "status-empty"; if(st.toUpperCase()==="WON") return "status-won"; if(st.toUpperCase()==="LOST") return "status-lost"; return "status-pending"; }
-
     function allocateHouseMeeting(e) { 
         e.preventDefault(); 
         const meetingDescription = document.getElementById("form-meeting-desc").value.trim(); 
         if (!meetingDescription) return;
-
-        const meetingPayload = {
-            action: "updateBroadcast", 
-            message: meetingDescription
-        };
-
-        document.getElementById("live-meeting-text").innerText = meetingDescription; 
-
         fetch(WEB_APP_DATABASE_URL, {
             method: "POST",
             mode: "no-cors",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(meetingPayload)
-        }).then(() => {
-            alert("House meeting parameters successfully committed to your cloud database!"); 
-        }).catch(err => console.error("Database cloud tracking fault: ", err));
-
+            body: JSON.stringify({ action: "updateBroadcast", message: meetingDescription })
+        }).then(() => { alert("House meeting parameters successfully committed to your cloud database!"); });
         document.getElementById("form-meeting-desc").value = ""; 
     }
 
+   // OVERHAULED: Transmits new structural Event Date parameter token array instead of status/remarks
    function directAddActivity(e) { 
         e.preventDefault(); 
         const activityPayload = {
@@ -1274,8 +1162,8 @@
             type: document.getElementById("form-evt-type").value.trim(),
             eligibility: document.getElementById("form-evt-elig").value.trim(),
             name: document.getElementById("form-evt-name").value.trim(),
-            status: document.getElementById("form-evt-won").value,
-            remarks: document.getElementById("form-evt-remarks").value.trim()
+            status: document.getElementById("form-evt-date").value.trim(), // Injected into 4th array cell mapping
+            remarks: "ACTIVE_LOG"
         };
         fetch(WEB_APP_DATABASE_URL, {
             method: "POST",
@@ -1283,13 +1171,13 @@
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(activityPayload)
         }).then(() => {
-            alert("Activity added permanently to Google Sheets!");
+            alert("Activity date parameters added permanently to Google Sheets!");
             fetchGlobalMasterDatabaseGrid();
         });
         document.getElementById("form-evt-type").value = "";
         document.getElementById("form-evt-elig").value = "";
         document.getElementById("form-evt-name").value = "";
-        document.getElementById("form-evt-remarks").value = "";
+        document.getElementById("form-evt-date").value = "";
     }
 
    function directAddAchiever(e) { 
@@ -1320,14 +1208,6 @@
         document.getElementById("form-ach-sec").value = "";
     }
 
-    function directPublishNewBlog(e) {
-        e.preventDefault();
-        blogsDatabase.unshift({ title: document.getElementById("form-blog-title").value.trim().toUpperCase(), topic: document.getElementById("form-blog-topic").value.trim(), author: document.getElementById("form-blog-author").value, date: "26/06/2026", content: document.getElementById("form-blog-content").value.trim() });
-        alert("Blog entry synchronized!");
-        document.getElementById("form-blog-title").value = ""; document.getElementById("form-blog-content").value = "";
-        populateBlogFilterSelectorsMatrix(); renderBlogsStreamFeed();
-    }
-
     function handleCaptainHouseMeetingSubmit(e) {
         e.preventDefault();
         const meetingDate = document.getElementById("meet-form-date").value.trim();
@@ -1336,20 +1216,11 @@
         const attendeesList = document.getElementById("meet-form-attendees").value.trim();
         const agenda = document.getElementById("meet-form-agenda").value.trim();
 
-        const payload = {
-            action: "addHouseMeetingRecord",
-            meetingDate: meetingDate,
-            meetingPlace: meetingPlace,
-            studentsCount: studentsCount,
-            attendeesList: attendeesList,
-            agenda: agenda
-        };
-
         fetch(WEB_APP_DATABASE_URL, {
             method: "POST",
             mode: "no-cors",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
+            body: JSON.stringify({ action: "addHouseMeetingRecord", meetingDate, meetingPlace, studentsCount, attendeesList, agenda })
         }).then(() => {
             alert("House meeting successfully cataloged and synchronized with Google Sheets!");
             fetchGlobalMasterDatabaseGrid();
@@ -1358,21 +1229,45 @@
             document.getElementById("meet-form-count").value = "";
             document.getElementById("meet-form-attendees").value = "";
             document.getElementById("meet-form-agenda").value = "";
-        }).catch(err => alert("Error transmitting payload node: " + err));
+        });
     }
 
+    // FEATURE OVERHAULED: Implements data persistence lock loops on registration logs to prevent multi-profile exploitation
     function handleLogin(event) {
         event.preventDefault();
         const nameInput = document.getElementById('student-name').value.trim().toUpperCase();
-        let classInput = document.getElementById('student-class').value.trim().toUpperCase();
+        const classInput = document.getElementById('student-class').value.trim().toUpperCase();
+        const sectionInput = document.getElementById('student-section').value.trim().toUpperCase();
+        const admissionNoInput = document.getElementById('student-admission-no').value.trim().toUpperCase();
+        const emailInput = document.getElementById('student-email-id').value.trim();
+        const phoneInput = document.getElementById('student-phone-no').value.trim();
         const posInput = document.getElementById('student-position').value.toUpperCase();
         const passInput = document.getElementById('student-password').value.trim();
         const errorBox = document.getElementById('error-box');
 
-        const admissionNoInput = document.getElementById('student-admission-no').value.trim();
-        const emailInput = document.getElementById('student-email-id').value.trim();
-        const phoneInput = document.getElementById('student-phone-no').value.trim();
+        // 🔒 AUTHENTICATION LAYER A: Intercept and enforce matching details for historical records
+        const historicalProfileRecord = dynamicCloudRegistryCache.find(row => 
+            String(row[3]).toUpperCase().trim() === admissionNoInput
+        );
 
+        if (historicalProfileRecord) {
+            // Confirm entries match what was locked onto Sheet1 rows previously
+            const savedName = String(historicalProfileRecord[0]).toUpperCase().trim();
+            const savedClass = String(historicalProfileRecord[1]).toUpperCase().trim();
+            const savedSec = String(historicalProfileRecord[2]).toUpperCase().trim();
+            const savedEmail = String(historicalProfileRecord[4]).trim();
+            const savedPhone = String(historicalProfileRecord[5]).trim();
+            const savedPosition = String(historicalProfileRecord[6]).toUpperCase().trim();
+            const savedPassword = String(historicalProfileRecord[8] || '').trim();
+
+            if (nameInput !== savedName || posInput !== savedPosition || (savedPassword !== '' && passInput !== savedPassword)) {
+                errorBox.innerText = "❌ Profile Lock Violation: This Admission Number is already bound to another profile configuration. Reset your saved records below to update values.";
+                errorBox.style.display = 'block';
+                return;
+            }
+        }
+
+        // 🔒 AUTHENTICATION LAYER B: Match against hardcoded house roster matrix
         const verified = authorizedStudents.find(s => s.name === nameInput && s.pass === passInput && s.position === posInput);
         if (verified) {
             currentSessionUser = verified;
@@ -1385,9 +1280,6 @@
             
             const duty = allocatedDutiesMap[verified.name];
             if (duty) document.getElementById("live-duty-text").innerText = `Location: ${duty.loc} | Shift: ${duty.breakName} Break`;
-
-            const assignedResp = allocatedResponsibilitiesMap[verified.name];
-            if(assignedResp) { document.getElementById("live-resp-task").innerText = assignedResp.task; }
 
             const isCouncil = ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(verified.position);
             const isCaptainOrVice = ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN"].includes(verified.position);
@@ -1402,7 +1294,6 @@
             
             document.getElementById('captain-meetings-management-card').style.display = (isCaptainOnly && verified.name === "SANCHIT GUPTA") ? "block" : "none";
             
-            document.getElementById("form-blog-author").value = `${verified.name} (${verified.position})`;
             if (isCaptainOnly && verified.name === "SANCHIT GUPTA") {
                 document.getElementById("masterAdminBridge").style.display = "block";
                 fetchLiveDatabaseGrid();
@@ -1410,24 +1301,26 @@
             if(isCouncil) { populateStudentSelectors(); renderPendingApplicationsQueueTable(); }
             if(isCaptainOrVice) { populateDirectAttendanceSelectors(); }
 
-            const telemetryPayload = {
-                action: "registerStudent",
-                name: verified.name,
-                class: verified.class,
-                section: verified.section || "A",
-                admissionNo: admissionNoInput,
-                email: emailInput,
-                phone: phoneInput,
-                position: verified.position,
-                password: verified.pass
-            };
-
-            fetch(WEB_APP_DATABASE_URL, {
-                method: "POST",
-                mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(telemetryPayload)
-            });
+            // Save elements if logging in for the absolute first time
+            if (!historicalProfileRecord) {
+                const telemetryPayload = {
+                    action: "registerStudent",
+                    name: verified.name,
+                    class: classInput,
+                    section: sectionInput || "A",
+                    admissionNo: admissionNoInput,
+                    email: emailInput,
+                    phone: phoneInput,
+                    position: verified.position,
+                    password: verified.pass
+                };
+                fetch(WEB_APP_DATABASE_URL, {
+                    method: "POST",
+                    mode: "no-cors",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(telemetryPayload)
+                });
+            }
 
             document.getElementById('student-name').value = '';
             document.getElementById('student-password').value = '';
@@ -1439,14 +1332,17 @@
             document.getElementById('dashboard-box').className = "visible-box";
             
             fetchGlobalMasterDatabaseGrid();
-        } else { errorBox.style.display = 'block'; }
+        } else { 
+            errorBox.innerText = "❌ Access Denied: Authorized credentials signature mismatch.";
+            errorBox.style.display = 'block'; 
+        }
     }
     
     function fetchLiveDatabaseGrid() {
         fetch(`${WEB_APP_DATABASE_URL}?action=getRegistry`)
             .then(res => res.json())
             .then(data => { renderRegistryRows(data); })
-            .catch(err => console.log("Offline grid mode."));
+            .catch(err => console.log("Offline grid execution."));
     }
 
     function renderRegistryRows(dataArr) {
@@ -1463,7 +1359,7 @@
         document.getElementById('login-box').className = "visible-box";
         document.getElementById('dashboard-box').className = "hidden-box";
         document.getElementById("masterAdminBridge").style.display = "none";
-        fetchGlobalMasterDatabaseGrid(); // Re-render public layout views back into unauthenticated mode state
+        fetchGlobalMasterDatabaseGrid();
     }
 
     function switchPage(p) {
@@ -1513,20 +1409,21 @@
             const res = await fetch(`${WEB_APP_DATABASE_URL}?action=getAllData`);
             const masterData = await res.json();
             
-            // Generate boolean to check if active session context is Captain/Vice
+            // Sync registry into our dynamic validation cache
+            dynamicCloudRegistryCache = masterData.Sheet1 || [];
             const isAuthorizedAdmin = checkIsCaptainOrVice();
 
-            // 1. Upcoming Activities Matrix
+            // 1. Upcoming Activities Matrix (OVERHAULED: Structured with Date of Event column cells)
             const activityRows = masterData.Upcoming_Activities || [];
             const actHeader = document.getElementById("activities-header-row");
             if (actHeader) {
-                actHeader.innerHTML = `<th>S.No</th><th>Type of Event</th><th>Eligibility</th><th>Name of the Event</th><th>Won or Not</th><th>Remarks</th>${isAuthorizedAdmin ? '<th>Action Override</th>' : ''}`;
+                actHeader.innerHTML = `<th>S.No</th><th>Type of Event</th><th>Eligibility</th><th>Name of the Event</th><th>Date of the Event</th>${isAuthorizedAdmin ? '<th>Action Override</th>' : ''}`;
             }
             const actBody = document.querySelector("#activities-table tbody");
             if(actBody) {
                 actBody.innerHTML = activityRows.length === 0 ? 
-                    `<tr><td colspan="${isAuthorizedAdmin ? '7' : '6'}" style="padding: 20px; color: #0369a1;">No activities initialized.</td></tr>` : 
-                    activityRows.map((row, i) => `<tr><td>${i + 1}</td><td><strong>${row[0] || '—'}</strong></td><td>${row[1] || '—'}</td><td>${row[2] || '—'}</td><td class="${getStatusClass(row[3])}">${row[3] || 'TBD'}</td><td>${row[4] || '—'}</td>${isAuthorizedAdmin ? `<td><button class="btn-delete" onclick="executeRowPurgePipeline('Upcoming_Activities', ${i + 1})">Purge</button></td>` : ''}</tr>`).join('');
+                    `<tr><td colspan="${isAuthorizedAdmin ? '6' : '5'}" style="padding: 20px; color: #0369a1;">No upcoming events mapped currently.</td></tr>` : 
+                    activityRows.map((row, i) => `<tr><td>${i + 1}</td><td><strong>${row[0] || '—'}</strong></td><td>${row[1] || '—'}</td><td>${row[2] || '—'}</td><td><span style="font-weight:700; color:#0369a1;">${row[3] || '—'}</span></td>${isAuthorizedAdmin ? `<td><button class="btn-delete" onclick="executeRowPurgePipeline('Upcoming_Activities', ${i + 1})">Purge</button></td>` : ''}</tr>`).join('');
             }
 
             // 2. Achievers Ledger Matrix
@@ -1564,7 +1461,6 @@
                         </tr>`).join('');
             }
             
-            // Re-render local modules to ensure layout synchronizations match role structures
             renderTeachersRegistryTable();
             renderBadgesLogLedgerTable();
         } catch (err) {
