@@ -799,8 +799,11 @@
 </div>
 
 <script>
-    // 1. DATABASE & CONFIGURATION
-    const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbwqyXBlD_ajI7sBhw76VywM8efOSZ0bz9EpkshPiiUK7PYMKtN3pLgNVAarbF7zwzuGiw/exec"; 
+    // ==========================================================================
+    // 1. DATABASE, MATRIX CONFIGURATION & LIVE SYSTEM CACHES
+    // ==========================================================================
+    const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbyIJapw84fymdjXuh2bb4LSnpiAE3R567fbdwU7FhaRF9Nit8re7324AhKIAx-YPWEG8w/exec"; 
+    
     let authorizedStudents = [
         { name: "AARUSH", class: "10", section: "A", position: "PROCTOR - BOYS", pass: "Aarush#Proctor", batchBadge: "Proctor Badge | 🛡️" },
         { name: "JAPUNJAN", class: "10", section: "B", position: "CULTURAL SECRETARY - GIRLS", pass: "Japunjan#Cultural", batchBadge: "Secretary Badge | 🎭" },
@@ -820,20 +823,14 @@
         { name: "PAAVNI BHALLA", class: "9", section: "C", position: "HOUSE CULTURAL CAPTAIN", pass: "Paavni#Aravali", batchBadge: "Cultural Captain Crest | 🎨" },
         { name: "DIVAS ARORA", class: "10", section: "B", position: "HOUSE SPORTS CAPTAIN", pass: "Divas#Aravali", batchBadge: "Sports Captain Crest | ⚽" }
     ];
-    let attendanceDatabase = [];
-    let activeDatesList = ["4/5/2026", "5/5/2026", "6/5/2026", "7/5/2026", "8/5/2026"];
+    
+    let localCacheMatrix = {};
     let currentSessionUser = null;
-    let dynamicCloudRegistryCache = [];
-    let blogsDatabase = [{ title: "WELCOME", topic: "General", author: "SYSTEM", date: "29/06/2026", content: "Welcome to the Aravali Hub." }];
-    let badgesDatabase = [];
-    let houseActivities = [];
-    let achieversDatabase = [];
-    let pendingApplicationsDatabase = [];
-    let allocatedDutiesMap = {}; 
-    let allocatedResponsibilitiesMap = {};
-    let activeHouseMeetingBroadcast = "No meetings scheduled.";
+    let activeDatesList = ["4/5/2026", "5/5/2026", "6/5/2026", "7/5/2026", "8/5/2026"];
 
-    // 2. CORE RENDERING ENGINE
+    // ==========================================================================
+    // 2. CORE RENDERING ENGINE & NAVIGATION ROUTING
+    // ==========================================================================
     function switchPage(pageId) {
         document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active-page'));
         document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
@@ -864,68 +861,112 @@
         } catch (err) { alert("Override error: " + err); }
     }
 
-    // 3. SECURE handshakes DIRECT TO "Admins" SPREADSHEET CHANNEL
-   // FIND THIS EXACT BLOCK IN YOUR SCRIPT TAG AND REPLACE IT WITH THE NEW CODE:
-async function executeSecureDashboardLogin(event) {
-    if (event) event.preventDefault();
-    const nameInput = document.getElementById('student-name').value.trim().toUpperCase();
-    const passInput = document.getElementById('student-password').value.trim();
-    const posInput = document.getElementById('student-position').value.toUpperCase();
-    const errorBox = document.getElementById('error-box');
+    // ==========================================================================
+    // 3. REPAIRED SECURE INTEGRATED LOGIN MECHANISM
+    // ==========================================================================
+    async function executeSecureDashboardLogin(event) {
+        if (event) event.preventDefault();
+        const nameInput = document.getElementById('student-name').value.trim().toUpperCase();
+        const passInput = document.getElementById('student-password').value.trim();
+        const posInput = document.getElementById('student-position').value.toUpperCase();
+        const errorBox = document.getElementById('error-box');
 
-    // 1. First, check if the student exists in your local hardcoded roster
-    const localUser = authorizedStudents.find(s => s.name === nameInput && s.pass === passInput && s.position === posInput);
+        // Step A: Check local hardcoded credential array lists first (Allows Prefects like Manraj right in)
+        const localUser = authorizedStudents.find(s => s.name === nameInput && s.pass === passInput && s.position === posInput);
 
-    if (localUser) {
-        currentSessionUser = localUser;
-        document.getElementById('login-box').className = "hidden-box";
-        document.getElementById('dashboard-box').className = "visible-box";
-        document.getElementById('display-name').innerText = localUser.name;
-        document.getElementById('display-role').innerText = localUser.position;
-        
-        // Hide admin panel for regular house members/prefects
-        document.getElementById('council-panel').style.display = "none";
-        document.getElementById("masterAdminBridge").style.display = "none";
-        errorBox.style.display = "none";
-        
-        fetchGlobalMasterDatabaseGrid();
-        return;
-    }
-
-    // 2. If not found locally, see if they are a Cloud Admin logging in
-    try {
-        const response = await fetch(`${WEB_APP_DATABASE_URL}?action=getAdminPassphrases`);
-        const adminPassphrases = await response.json();
-
-        if (adminPassphrases.includes(passInput) && (posInput === "HOUSE CAPTAIN" || posInput === "VICE HOUSE CAPTAIN")) {
-            currentSessionUser = { name: nameInput, position: posInput };
+        if (localUser) {
+            currentSessionUser = localUser;
             document.getElementById('login-box').className = "hidden-box";
             document.getElementById('dashboard-box').className = "visible-box";
-            document.getElementById('display-name').innerText = nameInput;
-            document.getElementById('display-role').innerText = posInput;
-
-            document.getElementById("masterAdminBridge").style.display = "block";
-            document.getElementById('council-panel').style.display = "block";
+            document.getElementById('display-name').innerText = localUser.name;
+            document.getElementById('display-role').innerText = localUser.position;
+            
+            // Hide administrative console engine options from standard rosters
+            document.getElementById('council-panel').style.display = "none";
+            document.getElementById("masterAdminBridge").style.display = "none";
             errorBox.style.display = "none";
+            
             fetchGlobalMasterDatabaseGrid();
-        } else {
-            errorBox.innerText = "❌ Access Denied. Signature profile keys rejected.";
+            return;
+        }
+
+        // Step B: Fallback check against the cloud secure spreadsheet Admins sheet tab
+        try {
+            const response = await fetch(`${WEB_APP_DATABASE_URL}?action=getAdminPassphrases`);
+            const adminPassphrases = await response.json();
+
+            if (adminPassphrases.includes(passInput) && (posInput === "HOUSE CAPTAIN" || posInput === "VICE HOUSE CAPTAIN" || posInput === "HOUSE MISTRESS")) {
+                currentSessionUser = { name: nameInput, position: posInput };
+                document.getElementById('login-box').className = "hidden-box";
+                document.getElementById('dashboard-box').className = "visible-box";
+                document.getElementById('display-name').innerText = nameInput;
+                document.getElementById('display-role').innerText = posInput;
+
+                document.getElementById("masterAdminBridge").style.display = "block";
+                document.getElementById('council-panel').style.display = "block";
+                
+                // Expose sub-widgets dynamically inside admin panels
+                document.getElementById('captain-meetings-management-card').style.display = "block";
+                document.getElementById('captain-vice-direct-attendance-card').style.display = "block";
+                document.getElementById('council-applications-stream-card').style.display = "block";
+                document.getElementById('captain-absolute-override-section').style.display = "block";
+                document.getElementById('captain-exclusive-section').style.display = (posInput === "HOUSE CAPTAIN") ? "block" : "none";
+                
+                errorBox.style.display = "none";
+                
+                const blogAuthorInput = document.getElementById('form-blog-author');
+                if (blogAuthorInput) blogAuthorInput.value = nameInput;
+                
+                fetchGlobalMasterDatabaseGrid();
+            } else {
+                errorBox.innerText = "❌ Access Denied. Credentials not verified inside system registers.";
+                errorBox.style.display = 'block';
+            }
+        } catch (err) {
+            console.error("Authentication check dropped: ", err);
+            errorBox.innerText = "❌ Connection Error: Secure verification handshake failed.";
             errorBox.style.display = 'block';
         }
-    } catch (err) {
-        console.error("Auth Loop dropped: ", err);
-        errorBox.innerText = "❌ Connection Handshake Error.";
-        errorBox.style.display = 'block';
     }
-}
-    // 4. DATA LOG DISPATCH MODULES
+
+    // ==========================================================================
+    // 4. ACTIVE DATA STREAM DISPATCH PLUGINS (UPDATES GOOGLE SHEETS LIVE)
+    // ==========================================================================
+    async function handleStudentRegistrationSubmit(event) {
+        if (event) event.preventDefault();
+        
+        const payload = {
+            action: "registerStudent",
+            name: document.getElementById('student-name').value.trim().toUpperCase(),
+            class: document.getElementById('student-class').value.trim(),
+            section: document.getElementById('student-section').value.trim().toUpperCase(),
+            admissionNo: document.getElementById('student-admission-no').value.trim().toUpperCase(),
+            email: document.getElementById('student-email-id').value.trim(),
+            phone: document.getElementById('student-phone-no').value.trim(),
+            position: document.getElementById('student-position').value.toUpperCase(),
+            password: document.getElementById('student-password').value.trim()
+        };
+
+        try {
+            await fetch(WEB_APP_DATABASE_URL, {
+                method: "POST", mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+            alert("🎉 Profile Registration Logs Committed to Cloud Spreadsheet Sheet1!");
+            fetchGlobalMasterDatabaseGrid();
+        } catch (err) {
+            alert("❌ Failed to stream registration details to database.");
+        }
+    }
+
     async function executeActivitySubmissionAsync(event) {
         if (event) event.preventDefault();
         const type = document.getElementById("form-evt-type").value.trim();
         const elig = document.getElementById("form-evt-elig").value.trim();
         const name = document.getElementById("form-evt-name").value.trim();
         const date = document.getElementById("form-evt-date").value.trim();
-        if (!type || !elig || !name || !date) return alert("All parameters required!");
+        if (!type || !elig || !name || !date) return alert("All fields required!");
         
         try {
             await fetch(WEB_APP_DATABASE_URL, {
@@ -933,7 +974,8 @@ async function executeSecureDashboardLogin(event) {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ action: "addActivity", type, eligibility: elig, name, status: date })
             });
-            alert("✓ Success!");
+            alert("✓ Activity logged successfully inside spreadsheet database!");
+            event.target.reset();
             fetchGlobalMasterDatabaseGrid();
         } catch (err) { alert("Error: " + err); }
     }
@@ -950,16 +992,64 @@ async function executeSecureDashboardLogin(event) {
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ action: "addBlog", title, topic, author: currentSessionUser.name, content })
             });
-            alert("✓ Thought Stream Log deployed successfully!");
+            alert("✓ Thought Stream Log deployed live into Blogs_Logs!");
+            event.target.reset();
             fetchGlobalMasterDatabaseGrid();
-        } catch (err) { alert("Exception error: " + err); }
+        } catch (err) { alert("Error: " + err); }
     }
 
-    // Placeholder modules preserved to match your custom form inline onclick triggers perfectly
+    async function handleStudentAttendanceApplicationSubmit(event) {
+        if (event) event.preventDefault();
+        if (!currentSessionUser) return alert("Session expired.");
+
+        const payload = {
+            action: "markAttendance",
+            name: currentSessionUser.name,
+            position: currentSessionUser.position,
+            location: document.getElementById('apply-location-text').value.trim(),
+            date: document.getElementById('apply-date-select').value,
+            breakSlot: document.getElementById('apply-break-select').value,
+            status: "PENDING"
+        };
+
+        try {
+            await fetch(WEB_APP_DATABASE_URL, {
+                method: "POST", mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+            alert("📝 Attendance request sent cleanly to backend Attendance_Logs!");
+            event.target.reset();
+            fetchGlobalMasterDatabaseGrid();
+        } catch (err) { alert("❌ Error: " + err); }
+    }
+
+    async function handleCaptainHouseMeetingSubmit(event) {
+        if (event) event.preventDefault();
+        const payload = {
+            action: "addHouseMeetingRecord",
+            meetingDate: document.getElementById('meet-form-date').value.trim(),
+            meetingPlace: document.getElementById('meet-form-place').value.trim(),
+            studentsCount: parseInt(document.getElementById('meet-form-count').value),
+            attendeesList: document.getElementById('meet-form-attendees').value.trim(),
+            agenda: document.getElementById('meet-form-agenda').value.trim()
+        };
+
+        try {
+            await fetch(WEB_APP_DATABASE_URL, {
+                method: "POST", mode: "no-cors",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            });
+            alert("⚡ House Meeting log parameters pushed to dynamic sheets pipeline!");
+            event.target.reset();
+            fetchGlobalMasterDatabaseGrid();
+        } catch (err) { alert("❌ Error: " + err); }
+    }
+
+    // Secondary UI action placeholders kept for fallback configurations safety mapping
     function syncDirectStudentFormDetails() {}
     function handleDirectUnilateralAttendanceMark(e) { if(e) e.preventDefault(); }
-    function handleStudentAttendanceApplicationSubmit(e) { if(e) e.preventDefault(); }
-    function handleCaptainHouseMeetingSubmit(e) { if(e) e.preventDefault(); }
     function handleCaptainCellOverrideSubmit(e) { if(e) e.preventDefault(); }
     function directUpdateTeachersIntroStatementLog(e) { if(e) e.preventDefault(); }
     function directAddTeacherProfile(e) { if(e) e.preventDefault(); }
@@ -971,50 +1061,57 @@ async function executeSecureDashboardLogin(event) {
     function allocateCompetitionResponsibility(e) { if(e) e.preventDefault(); }
     function manualAddAttendanceRow(e) { if(e) e.preventDefault(); }
     function directAddAchiever(e) { if(e) e.preventDefault(); }
-    function handleProfileResetNode() { alert("Profile signatures reset."); }
+    function handleProfileResetNode() { alert("Signature cache references scrubbed."); }
     function fetchLiveDatabaseGrid() { fetchGlobalMasterDatabaseGrid(); }
+    function applyBlogFiltersMatrix() {}
+    function resetBlogFiltersMatrix() { fetchGlobalMasterDatabaseGrid(); }
 
-    // 5. GLOBAL TELEMETRY RETRIEVAL ARRAY WRAPPERS
+    // ==========================================================================
+    // 5. CLOUD TELEMETRY SYNC & DOM DATA GENERATION ENGINE
+    // ==========================================================================
     async function fetchGlobalMasterDatabaseGrid() {
         if (!WEB_APP_DATABASE_URL) return;
         try {
+            // Poll for banner notices text
             const broadcastRes = await fetch(`${WEB_APP_DATABASE_URL}?action=getLatestBroadcast`);
             const broadcastData = await broadcastRes.json();
-            document.getElementById("broadcastTargetText").innerText = broadcastData.message || "System online.";
+            document.getElementById("broadcastTargetText").innerText = broadcastData.message || "System Standing by.";
 
+            // Fetch bulk data blocks cleanly
             const res = await fetch(`${WEB_APP_DATABASE_URL}?action=getAllData`);
             const data = await res.json();
+            localCacheMatrix = data;
             const isAuthAdmin = checkIsCaptainOrVice();
 
-            // Activities Table Sync
+            // Render A: Activities
             const actBody = document.querySelector("#activities-table tbody");
-            if(actBody && data.Upcoming_Activities) {
+            if (actBody && data.Upcoming_Activities) {
                 actBody.innerHTML = data.Upcoming_Activities.map((r, i) => `<tr><td>${i+1}</td><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td>${isAuthAdmin ? `<td><button class="btn-delete" onclick="executeRowPurgePipeline('Upcoming_Activities', ${i+1})">Purge</button></td>` : ''}</tr>`).join('');
             }
             
-            // Achievers Table Sync
+            // Render B: Achievers Roll
             const achBody = document.querySelector("#achievers-table tbody");
-            if(achBody && data.Competitions_Won) {
+            if (achBody && data.Competitions_Won) {
                 achBody.innerHTML = data.Competitions_Won.map((r, i) => `<tr><td>${i+1}</td><td>${r[0]}</td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td><td>${r[5]}</td></tr>`).join('');
             }
 
-            // Public Batchholders Sync 
+            // Render C: Member Registries
             const batchBody = document.querySelector("#public-members-table tbody");
-            if(batchBody && data.Sheet1) {
-                batchBody.innerHTML = data.Sheet1.map((r, i) => `<tr><td>${i+1}</td><td class="left-align" style="padding-left:20px;"><strong>${r[0]}</strong></td><td>Class ${r[1]}</td><td>${r[2]}</td><td>${r[6]}</td><td>${r[8] ? '⭐ active' : '--'}</td></tr>`).join('');
+            if (batchBody && data.Sheet1) {
+                batchBody.innerHTML = data.Sheet1.map((r, i) => `<tr><td>${i+1}</td><td class="left-align" style="padding-left:20px;"><strong>${r[0]}</strong></td><td>Class ${r[1]}</td><td>${r[2]}</td><td>${r[6]}</td><td>Active Roster Node</td></tr>`).join('');
             }
 
-            // Blogs Engine Dynamic Inline Stream Grid Repaired
+            // Render D: Thoughts Stream Blogs Logs
             const streamContainer = document.getElementById("blogs-stream-target-container");
-            if(streamContainer && data.Blogs_Logs) {
+            if (streamContainer && data.Blogs_Logs) {
                 streamContainer.innerHTML = data.Blogs_Logs.map(r => `
                     <div class="blog-post">
-                        <div class="blog-meta">📌 TOPIC: ${r[1]} | AUTHOR: ${r[2]} | TIMELOG: ${r[4]}</div>
+                        <div class="blog-meta">📌 CATEGORY: ${r[1]} | AUTHOR: ${r[2]} | TIMESTAMP: ${r[4]}</div>
                         <h3 style="margin-top:5px; color:#0f172a; font-size:1.4rem;">${r[0]}</h3>
                         <p style="color:#334155; white-space: pre-wrap;">${r[3]}</p>
                     </div>`).join('');
             }
-        } catch (err) { console.error("Telemetry sync failure exception: ", err); }
+        } catch (err) { console.error("Telemetry structural dropout stack trace: ", err); }
     }
 
     function handleLogout() {
@@ -1025,10 +1122,9 @@ async function executeSecureDashboardLogin(event) {
         document.getElementById('masterAdminBridge').style.display = "none";
     }
 
-    // 6. INITIALIZERS
+    // Run initialization commands on DOM structural mounts
     window.addEventListener('DOMContentLoaded', () => { fetchGlobalMasterDatabaseGrid(); });
 </script>
-
 <footer>
     THE ARAVALI HUB &copy; 2026<br>
     <span style="font-size: 0.85rem; font-weight: 500; opacity: 0.9;">An initiative of the house council of Aravali house of the academic session 2026 - 2027</span>
