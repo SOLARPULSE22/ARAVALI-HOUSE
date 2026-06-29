@@ -208,60 +208,59 @@
         let localDatabaseCache = {};
 
         async function verifyAccess() {
-            const input = document.getElementById("passphraseInput").value.trim();
-            const err = document.getElementById("lockError");
-            const btn = document.getElementById("unlockBtn");
-            
-            if(!input) return;
-            
-            btn.disabled = true;
-            btn.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin mr-1.5"></i> Authenticating...`;
-            
-            try {
-                const response = await fetch(`${WEB_APP_DATABASE_URL}?action=getAllData`);
-                const data = await response.json();
-                
-                // Uses clean fallback configuration array check to cross-verify keys inside sheet datasets
-                const credentialsSheet = data.Sheet1 || [];
-                const matchedUser = credentialsSheet.find(row => row[6] === "HOUSE CAPTAIN" && row[0] === "SANCHIT GUPTA");
-                
-                // Bulletproof access control verification block logic mapping directly to security credentials
-                if (input === "Sanchit#Aravali" || input === "admin") {
-                    err.classList.add("hidden");
-                    document.getElementById("lockModal").classList.add("hidden");
-                    document.getElementById("dashboardUI").classList.remove("hidden");
-                    logTerminal("Verification access signatures matched. Initializing systems...");
-                    localDatabaseCache = data;
-                    compileComprehensiveHouseAnalytics();
-                    renderActiveTableData();
-                } else {
-                    err.classList.remove("hidden");
-                    logTerminal("🔴 Security Block: Handshake parameter invalid.", true);
-                }
-            } catch(e) {
-                logTerminal("🔴 Security Block: Failed to query credentials.", true);
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = "Unlock Core Infrastructure";
-            }
+    const input = document.getElementById("passphraseInput").value.trim();
+    const err = document.getElementById("lockError");
+    const btn = document.getElementById("unlockBtn");
+    
+    if(!input) return;
+    
+    btn.disabled = true;
+    btn.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin mr-1.5"></i> Authenticating...`;
+    
+    try {
+        const response = await fetch(`${WEB_APP_DATABASE_URL}?action=getAllData`);
+        const data = await response.json();
+        
+        // Uses clean fallback configuration array check to cross-verify keys inside sheet datasets
+        const credentialsSheet = data.Sheet1 || [];
+        const matchedUser = credentialsSheet.find(row => row[6] === "HOUSE CAPTAIN" && row[0] === "SANCHIT GUPTA");
+        
+        // Bulletproof access control verification block logic mapping directly to security credentials
+        if (input === "Sanchit#Aravali" || input === "admin" || input === "YOUR_NEW_PASSWORD") {
+            err.classList.add("hidden");
+            document.getElementById("lockModal").classList.add("hidden");
+            document.getElementById("dashboardUI").classList.remove("hidden");
+            logTerminal("Verification access signatures matched. Initializing systems...");
+            localDatabaseCache = data;
+            compileComprehensiveHouseAnalytics();
+            renderActiveTableData();
+        } else {
+            err.classList.remove("hidden");
+            logTerminal("🔴 Security Block: Handshake parameter invalid.", true);
         }
+    } catch(e) {
+        logTerminal("🔴 Security Block: Failed to query credentials.", true);
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = "Unlock Core Infrastructure";
+    }
+}
 
-        function logout() {
-            document.getElementById("passphraseInput").value = "";
-            document.getElementById("lockModal").classList.remove("hidden");
-            document.getElementById("dashboardUI").classList.add("hidden");
-        }
+function logout() {
+    document.getElementById("passphraseInput").value = "";
+    document.getElementById("lockModal").classList.remove("hidden");
+    document.getElementById("dashboardUI").classList.add("hidden");
+}
 
-        function logTerminal(message, isError = false) {
-            const container = document.getElementById("terminalFeed");
-            const time = new Date().toLocaleTimeString();
-            const element = document.createElement("div");
-            element.className = isError ? "text-red-400" : "text-emerald-400";
-            element.innerHTML = `<span class="text-slate-600">[${time}]</span> ${message}`;
-            container.appendChild(element);
-            container.scrollTop = container.scrollHeight;
-        }
-
+function logTerminal(message, isError = false) {
+    const container = document.getElementById("terminalFeed");
+    const time = new Date().toLocaleTimeString();
+    const element = document.createElement("div");
+    element.className = isError ? "text-red-400" : "text-emerald-400";
+    element.innerHTML = `<span class="text-slate-600">[${time}]</span> ${message}`;
+    container.appendChild(element);
+    container.scrollTop = container.scrollHeight;
+}
         async function fetchMasterData() {
             logTerminal("Polling secure cloud server spreadsheets rows...");
             try {
