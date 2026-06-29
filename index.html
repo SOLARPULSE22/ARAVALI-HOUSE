@@ -932,34 +932,55 @@
     // ==========================================================================
     // 4. ACTIVE DATA STREAM DISPATCH PLUGINS (UPDATES GOOGLE SHEETS LIVE)
     // ==========================================================================
-    async function handleStudentRegistrationSubmit(event) {
-        if (event) event.preventDefault();
-        
-        const payload = {
-            action: "registerStudent",
-            name: document.getElementById('student-name').value.trim().toUpperCase(),
-            class: document.getElementById('student-class').value.trim(),
-            section: document.getElementById('student-section').value.trim().toUpperCase(),
-            admissionNo: document.getElementById('student-admission-no').value.trim().toUpperCase(),
-            email: document.getElementById('student-email-id').value.trim(),
-            phone: document.getElementById('student-phone-no').value.trim(),
-            position: document.getElementById('student-position').value.toUpperCase(),
-            password: document.getElementById('student-password').value.trim()
-        };
+    // ==========================================================================
+// 🛰️ DISPATCH ENGINES: FIXED ID CONFLICTS FOR GOOGLE SHEETS STREAMING
+// ==========================================================================
 
-        try {
-            await fetch(WEB_APP_DATABASE_URL, {
-                method: "POST", mode: "no-cors",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(payload)
-            });
-            alert("🎉 Profile Registration Logs Committed to Cloud Spreadsheet Sheet1!");
-            fetchGlobalMasterDatabaseGrid();
-        } catch (err) {
-            alert("❌ Failed to stream registration details to database.");
-        }
+/**
+ * 1. Pushes New Student Registration Parameters live into "Sheet1"
+ */
+async function handleStudentRegistrationSubmit(event) {
+    if (event) event.preventDefault();
+    
+    // Using explicit registration IDs so it doesn't accidentally pull from login elements
+    const payload = {
+        action: "registerStudent",
+        name: document.getElementById('reg-student-name') ? document.getElementById('reg-student-name').value.trim().toUpperCase() : "",
+        class: document.getElementById('reg-student-class') ? document.getElementById('reg-student-class').value.trim() : "",
+        section: document.getElementById('reg-student-section') ? document.getElementById('reg-student-section').value.trim().toUpperCase() : "",
+        admissionNo: document.getElementById('reg-student-admission-no') ? document.getElementById('reg-student-admission-no').value.trim().toUpperCase() : "",
+        email: document.getElementById('reg-student-email-id') ? document.getElementById('reg-student-email-id').value.trim() : "",
+        phone: document.getElementById('reg-student-phone-no') ? document.getElementById('reg-student-phone-no').value.trim() : "",
+        position: document.getElementById('reg-student-position') ? document.getElementById('reg-student-position').value.toUpperCase() : "MEMBER",
+        password: document.getElementById('reg-student-password') ? document.getElementById('reg-student-password').value.trim() : ""
+    };
+
+    // Fallback: If your HTML doesn't have "reg-" IDs yet, read from base IDs safely
+    if (!payload.name) {
+        payload.name = document.getElementById('student-name').value.trim().toUpperCase();
+        payload.class = document.getElementById('student-class') ? document.getElementById('student-class').value.trim() : "9";
+        payload.section = document.getElementById('student-section') ? document.getElementById('student-section').value.trim().toUpperCase() : "A";
+        payload.admissionNo = document.getElementById('student-admission-no') ? document.getElementById('student-admission-no').value.trim().toUpperCase() : "MT-00000";
+        payload.email = document.getElementById('student-email-id') ? document.getElementById('student-email-id').value.trim() : "test@gmail.com";
+        payload.phone = document.getElementById('student-phone-no') ? document.getElementById('student-phone-no').value.trim() : "0000000000";
+        payload.position = document.getElementById('student-position').value.toUpperCase();
+        payload.password = document.getElementById('student-password').value.trim();
     }
 
+    try {
+        const response = await fetch(WEB_APP_DATABASE_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        });
+        alert("🎉 Registration data pushed! Checking database logs...");
+        fetchGlobalMasterDatabaseGrid();
+    } catch (err) {
+        console.error("Pipeline failure: ", err);
+        alert("❌ Failed to stream registration details to database.");
+    }
+}
     async function executeActivitySubmissionAsync(event) {
         if (event) event.preventDefault();
         const type = document.getElementById("form-evt-type").value.trim();
