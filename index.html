@@ -328,10 +328,9 @@
 
     <div id="page-portal" class="page-view">
         <div class="card card-portal">
-            <div id="login-box" class="visible-box">
+          <div id="login-box" class="visible-box">
     <h2>Student Portal Secure Access</h2>
-    <form id="studentPortalLoginForm" onsubmit="event.preventDefault();">
-        <label>Full Name</label>
+    <div id="studentPortalLoginForm"> <label>Full Name</label>
         <input type="text" id="student-name" required placeholder="e.g. SANCHIT GUPTA">
         <div class="form-row">
             <div class="form-group">
@@ -371,9 +370,7 @@
         <button type="button" onclick="executeSecureDashboardLogin(event)" class="action-button">Verify Identity Node</button>
         
         <button type="button" onclick="handleProfileResetNode()" style="background:transparent; color:#4b5563; border:none; font-weight:700; text-decoration:underline; cursor:pointer; font-size:0.85rem; margin-top:20px; display:block; width:100%; text-align:center;">Reset Saved Profile Credentials</button>
-    </form>
-</div>
-
+    </div> </div>
             <div id="dashboard-box" class="hidden-box">
                 <div class="welcome-banner" style="background: #f1f5f9; padding: 15px; border-radius: 8px; border-left: 5px solid #8b5cf6; margin-bottom: 20px;">
                     <span style="font-weight:900; font-size:1.3rem;">OPERATIONAL WORKSPACE ACTIVE</span><br>
