@@ -703,15 +703,33 @@
 
                     <!-- OVERHAULED: Adjusted fields to manage Date of the Event instead of won/remarks properties -->
                     <h3 style="color: #b45309;">Manage Upcoming Events Data</h3>
-                    <form onsubmit="directAddActivity(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a; margin-bottom:25px;">
-                        <div class="form-row">
-                            <div class="form-group"><label>Type of Event</label><input type="text" id="form-evt-type" required placeholder="e.g., Inter-House"></div>
-                            <div class="form-group"><label>Eligibility</label><input type="text" id="form-evt-elig" required placeholder="e.g., Classes IX-XII"></div>
-                            <div class="form-group"><label>Name of the Event</label><input type="text" id="form-evt-name" required placeholder="e.g., Declamation Contest"></div>
-                            <div class="form-group"><label>Date of the Event</label><input type="text" id="form-evt-date" required placeholder="e.g., 15/07/2026"></div>
-                        </div>
-                        <button type="submit" class="action-button" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">Add Event Outcome Entry</button>
-                    </form>
+                   <!-- === COPY AND PASTE THIS DIRECTLY OVER YOUR UPCOMING EVENTS FORM SECTION === -->
+<h3 style="color: #b45309;">Manage Upcoming Events Data</h3>
+<form id="upcomingEventsForm" onsubmit="event.preventDefault();" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a; margin-bottom:25px;">
+    <div class="form-row">
+        <div class="form-group">
+            <label>Type of Event</label>
+            <input type="text" id="form-evt-type" required placeholder="e.g., Inter-House">
+        </div>
+        <div class="form-group">
+            <label>Eligibility</label>
+            <input type="text" id="form-evt-elig" required placeholder="e.g., Classes IX-XII">
+        </div>
+        <div class="form-group">
+            <label>Name of the Event</label>
+            <input type="text" id="form-evt-name" required placeholder="e.g., Declamation Contest">
+        </div>
+        <div class="form-group">
+            <label>Date of the Event</label>
+            <input type="text" id="form-evt-date" required placeholder="e.g., 15/07/2026">
+        </div>
+    </div>
+    <!-- CHANGED: Explicitly made this a type="button" and attached a solid custom trigger handler -->
+    <button type="button" onclick="executeActivitySubmissionAsync(event)" class="action-button" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); margin-top:15px;">
+        Add Event Outcome Entry
+    </button>
+</form>
+<!-- ========================================================================== -->
 
                     <h3 style="color: #b45309;">Manage Upcoming Achievers Roll Entry Logs</h3>
                     <form onsubmit="directAddAchiever(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a;">
