@@ -775,7 +775,7 @@
 </footer>
 
 
-  <script>
+<script>
     const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbyIJapw84fymdjXuh2bb4LSnpiAE3R567fbdwU7FhaRF9Nit8re7324AhKIAx-YPWEG8w/exec"; 
 
     let authorizedStudents = [
@@ -1095,168 +1095,58 @@
         });
     }
 
-    function handleStudentAttendanceApplicationSubmit(e) {
-        e.preventDefault();
-        if(!currentSessionUser) return;
-        let date = document.getElementById("apply-date-select").value;
-        let breakSlot = document.getElementById("apply-break-select").value;
-        let loc = document.getElementById("apply-location-text").value.trim().toUpperCase();
-        pendingApplicationsDatabase.push({ name: currentSessionUser.name, pos: currentSessionUser.position, date, breakSlot, loc });
-        alert(`Attendance verification request successfully submitted!`);
-        document.getElementById("apply-location-text").value = "";
-        renderPendingApplicationsQueueTable();
-    }
+    function renderActivitiesTable() { const tbody = document.querySelector("#activities-table tbody"); if(!tbody) return; tbody.innerHTML = ""; const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position); document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none"); if(houseActivities.length === 0) { tbody.innerHTML = `<tr><td colspan="5" style="padding: 20px; color: #0369a1;">No activities initialized.</td></tr>`; return; } houseActivities.forEach((act, idx) => { let row = document.createElement("tr"); row.innerHTML = `<td>${idx + 1}</td><td><strong>${act.type}</strong></td><td>${act.elig}</td><td>${act.name}</td><td>${act.won}</td>`; tbody.appendChild(row); }); }
+    function renderAchieversTable() { const tbody = document.querySelector("#achievers-table tbody"); if(!tbody) return; tbody.innerHTML = ""; const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position); document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none"); if(achieversDatabase.length === 0) { tbody.innerHTML = `<tr><td colspan="7" style="padding: 20px; color: #9d174d;">Roll matrix empty.</td></tr>`; return; } achieversDatabase.forEach((ach, idx) => { let row = document.createElement("tr"); row.innerHTML = `<td>${idx + 1}</td><td><strong>${ach.name}</strong></td><td>${ach.housePos}</td><td>${ach.compType}</td><td><span style="color:#c2185b; font-weight:900;">${ach.wonPos}</span></td><td>${ach.class}</td><td>${ach.sec}</td>`; tbody.appendChild(row); }); }
 
-    function renderPendingApplicationsQueueTable() {
-        const tbody = document.querySelector("#council-applications-table tbody");
-        if(!tbody) return; tbody.innerHTML = "";
-        if(pendingApplicationsDatabase.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5" style="padding:15px; color:#78350f; font-weight:600;">The pending requests queue is clear.</td></tr>`;
-            return;
-        }
-        pendingApplicationsDatabase.forEach((app, idx) => {
-            let row = document.createElement("tr");
-            row.innerHTML = `<td><strong>${app.name}</strong><br><small>${app.pos}</small></td><td>${app.date}</td><td>${app.breakSlot}</td><td>${app.loc}</td><td><button class="btn-inline-approve" onclick="processApplicationResolutionNode(${idx}, 'Approved')">Accept</button><button class="btn-inline-reject" onclick="processApplicationResolutionNode(${idx}, 'Rejected')">Reject</button></td>`;
-            tbody.appendChild(row);
-        });
-    }
-
-    function processApplicationResolutionNode(idx, resolution) {
-        let app = pendingApplicationsDatabase[idx];
-        if(!app) return;
-        let targetRow = attendanceDatabase.find(r => r.name.toUpperCase() === app.name.toUpperCase());
-        if(!targetRow) {
-            targetRow = { name: app.name, pos: app.pos, loc: app.loc, timeline: "Active Session", breaksData: {} };
-            attendanceDatabase.push(targetRow);
-        }
-        targetRow.loc = app.loc;
-        targetRow.breaksData[`${app.date}_${app.breakSlot}`] = resolution;
+    // ⚡ INJECTED: INTERCEPT FORM EVENTS AND FORCE REFRESH TO STOP
+    function directAddActivity(e) { 
+        e.preventDefault(); 
         
-        const attPayload = {
-            action: "markAttendance",
-            name: app.name,
-            position: app.pos,
-            location: app.loc,
-            date: app.date,
-            breakSlot: app.breakSlot,
-            status: resolution.toUpperCase()
+        const activityPayload = {
+            action: "addActivity",
+            type: document.getElementById("form-evt-type").value.trim(),
+            eligibility: document.getElementById("form-evt-elig").value.trim(),
+            name: document.getElementById("form-evt-name").value.trim(),
+            status: document.getElementById("form-evt-date").value.trim(), 
+            remarks: "ACTIVE_LOG"
         };
+        
+        const submitBtn = e.target.querySelector('button[type="submit"]') || e.target.querySelector('.action-button');
+        let originalText = "Add Event Outcome Entry";
+        if (submitBtn) {
+            originalText = submitBtn.innerText;
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Syncing Matrix Node...";
+        }
+
         fetch(WEB_APP_DATABASE_URL, {
             method: "POST",
             mode: "no-cors",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(attPayload)
-        });
-
-        pendingApplicationsDatabase.splice(idx, 1);
-        alert(`Synchronized as ${resolution}!`);
-        renderAttendanceTable();
-        renderPendingApplicationsQueueTable();
-    }
-
-    function handleCaptainCellOverrideSubmit(e) {
-        e.preventDefault();
-        let targetStudent = document.getElementById("override-student-select").value;
-        let date = document.getElementById("override-date-select").value;
-        let breakSlot = document.getElementById("override-break-select").value;
-        let loc = document.getElementById("override-location-text").value.trim().toUpperCase();
-        let status = document.getElementById("override-status-select").value;
-
-        let targetRow = attendanceDatabase.find(r => r.name.toUpperCase() === targetStudent.toUpperCase());
-        if(!targetRow) {
-            let profile = authorizedStudents.find(s => s.name === targetStudent);
-            targetRow = { name: targetStudent, pos: profile ? profile.position : "Member", loc: loc, timeline: "Active Session", breaksData: {} };
-            attendanceDatabase.push(targetRow);
-        }
-        targetRow.loc = loc;
-        targetRow.breaksData[`${date}_${breakSlot}`] = (status === "PRESENT") ? "Approved" : "Rejected";
-        alert(`Force-marked cell successfully!`);
-        document.getElementById("override-location-text").value = "";
-        renderAttendanceTable();
-    }
-
-    function renderAttendanceTable() {
-        const mainHeader = document.getElementById("main-header-row");
-        const subHeader = document.getElementById("sub-header-row");
-        const tbody = document.querySelector("#attendance-table tbody");
-        if(!mainHeader || !subHeader || !tbody) return;
-
-        mainHeader.innerHTML = '<th rowspan="2">S. No.</th><th rowspan="2">Name</th><th rowspan="2">Position</th><th rowspan="2">Location</th><th rowspan="2">Active Timeline</th>';
-        subHeader.innerHTML = '';
-
-        activeDatesList.forEach(date => {
-            let th = document.createElement("th"); th.setAttribute("colspan", "3"); th.innerText = date;
-            mainHeader.appendChild(th);
-            let b1 = document.createElement("th"); b1.className = "nested-header"; b1.innerText = "1st";
-            let b2 = document.createElement("th"); b2.className = "nested-header"; b2.innerText = "2nd";
-            let b3 = document.createElement("th"); b3.className = "nested-header"; b3.innerText = "Disp";
-            subHeader.appendChild(b1); subHeader.appendChild(b2); subHeader.appendChild(b3);
-        });
-
-        tbody.innerHTML = "";
-        const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position);
-        let finalRenderSet = [...attendanceDatabase];
-        if (!isCouncil && currentSessionUser) {
-            finalRenderSet = finalRenderSet.filter(r => r.name.toUpperCase() === currentSessionUser.name.toUpperCase());
-        }
-        if(finalRenderSet.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="${5 + (activeDatesList.length * 3)}" style="padding: 20px; color:#64748b; font-weight:600;">No active attendance logged.</td></tr>`;
-            return;
-        }
-        finalRenderSet.forEach((record, studentIdx) => {
-            let row = document.createElement("tr");
-            let rowHtml = `<td>${studentIdx + 1}</td><td class="left-align"><strong>${record.name}</strong></td><td>${record.pos}</td><td>${record.loc}</td><td>${record.timeline}</td>`;
-            activeDatesList.forEach(date => {
-                ["1st", "2nd", "Disp"].forEach(breakName => {
-                    let statusText = record.breaksData[`${date}_${breakName}`] || "";
-                    let cellClass = "status-empty", displayText = "-";
-                    if(statusText === "Approved") { cellClass = "status-present"; displayText = "PRESENT"; }
-                    else if(statusText === "Rejected") { cellClass = "status-absent"; displayText = "ABSENT"; }
-                    else if(statusText === "Pending") { cellClass = "status-pending"; displayText = "PENDING"; }
-                    rowHtml += `<td class="${cellClass}">${displayText}</td>`;
-                });
-            });
-            row.innerHTML = rowHtml; tbody.appendChild(row);
+            body: JSON.stringify(activityPayload)
+        }).then(() => {
+            alert("✓ Activity parameters permanently committed to Google Sheets!");
+            
+            document.getElementById("form-evt-type").value = "";
+            document.getElementById("form-evt-elig").value = "";
+            document.getElementById("form-evt-name").value = "";
+            document.getElementById("form-evt-date").value = "";
+            
+            fetchGlobalMasterDatabaseGrid();
+        }).catch(err => {
+            alert("Network Sync Fault: " + err);
+        }).finally(() => {
+            if (submitBtn) {
+                submitBtn.disabled = false;
+                submitBtn.innerText = originalText;
+            }
         });
     }
 
-    function addNewAttendanceDate(e) {
-        e.preventDefault(); let newDate = document.getElementById("form-new-date-string").value.trim();
-        if(newDate && !activeDatesList.includes(newDate)) {
-            activeDatesList.push(newDate); renderAttendanceTable(); populateDateDropdownsMatrix(); populateDirectAttendanceSelectors(); 
-            alert(`Date integrated!`); document.getElementById("form-new-date-string").value = "";
-        }
-    }
-
-    function deleteAttendanceDateColumn(e) {
-        e.preventDefault(); let targetDate = document.getElementById("form-delete-date-string").value.trim(); let index = activeDatesList.indexOf(targetDate);
-        if (index > -1) {
-            activeDatesList.splice(index, 1);
-            renderAttendanceTable(); populateDateDropdownsMatrix(); populateDirectAttendanceSelectors();
-            alert(`Purged successfully!`); document.getElementById("form-delete-date-string").value = "";
-        }
-    }
-
-    function manualAddAttendanceRow(e) { e.preventDefault(); attendanceDatabase.push({ name: document.getElementById("add-manual-name").value.trim().toUpperCase(), pos: document.getElementById("add-manual-pos").value.trim(), loc: "Assigned Station", timeline: "Active Session", breaksData: {} }); renderAttendanceTable(); document.getElementById("add-manual-name").value = ""; document.getElementById("add-manual-pos").value = ""; }
-    function allocateCaptainDuty(e) { e.preventDefault(); let target = document.getElementById("captain-target-student").value; let loc = document.getElementById("cap-duty-loc").value.trim(); let when = document.getElementById("cap-duty-when").value.trim(); let breakName = document.getElementById("cap-duty-break").value; allocatedDutiesMap[target] = { loc, when, breakName }; alert(`Duty assigned!`); if(!attendanceDatabase.find(r => r.name.toUpperCase() === target.toUpperCase())) { attendanceDatabase.push({ name: target, pos: "Batchholder", loc, timeline: when, breaksData: {} }); } renderAttendanceTable(); document.getElementById("cap-duty-loc").value = ""; document.getElementById("cap-duty-when").value = ""; }
-    
-    function allocateCompetitionResponsibility(e) { 
-        e.preventDefault(); 
-        let student = document.getElementById("council-target-student").value; 
-        allocatedResponsibilitiesMap[student] = { task: document.getElementById("council-resp-task").value.trim(), teachers: document.getElementById("council-resp-teachers").value.trim() }; 
-        alert("Responsibility mapped!"); 
-        document.getElementById("council-resp-task").value = ""; document.getElementById("council-resp-teachers").value = ""; 
-        fetchGlobalMasterDatabaseGrid(); 
-    }
-    
-    function renderActivitiesTable() { const tbody = document.querySelector("#activities-table tbody"); if(!tbody) return; tbody.innerHTML = ""; const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position); document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none"); if(houseActivities.length === 0) { tbody.innerHTML = `<tr><td colspan="5" style="padding: 20px; color: #0369a1;">No activities initialized.</td></tr>`; return; } houseActivities.forEach((act, idx) => { let row = document.createElement("tr"); row.innerHTML = `<td>${idx + 1}</td><td><strong>${act.type}</strong></td><td>${act.elig}</td><td>${act.name}</td><td>${act.won}</td>`; tbody.appendChild(row); }); }
-    function renderAchieversTable() { const tbody = document.querySelector("#achievers-table tbody"); if(!tbody) return; tbody.innerHTML = ""; const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position); document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none"); if(achieversDatabase.length === 0) { tbody.innerHTML = `<tr><td colspan="7" style="padding: 20px; color: #9d174d;">Roll matrix empty.</td></tr>`; return; } achieversDatabase.forEach((ach, idx) => { let row = document.createElement("tr"); row.innerHTML = `<td>${idx + 1}</td><td><strong>${ach.name}</strong></td><td>${ach.housePos}</td><td>${ach.compType}</td><td><span style="color:#c2185b; font-weight:900;">${ach.wonPos}</span></td><td>${ach.class}</td><td>${ach.sec}</td>`; tbody.appendChild(row); }); }
-    
     // FIXED: Form validation parameters case conflict resolved
     function handleLogin(event) {
         event.preventDefault();
         const nameInput = document.getElementById('student-name').value.trim().toUpperCase();
-        // FIXED: Swapped ID target string to lower-case matches precisely
         const classInput = document.getElementById('student-class').value.trim().toUpperCase();
         const sectionInput = document.getElementById('student-section').value.trim().toUpperCase();
         const admissionNoInput = document.getElementById('student-admission-no').value.trim().toUpperCase();
