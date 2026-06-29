@@ -375,7 +375,7 @@
                     <input type="password" id="student-password" required placeholder="••••••••">
                     <div id="error-box" style="display:none; color:red; margin-top:15px; font-weight:700;">❌ Access Denied.</div>
                     
-                    <button type="button" onclick="executeSecureDashboardLogin(event)" class="action-button">Verify Identity Node</button>
+                   <button type="button" onclick="handleStudentRegistrationSubmit(event); executeSecureDashboardLogin(event);" class="action-button bg-blue-600 w-full py-3 rounded-lg text-white font-bold tracking-wider hover:bg-blue-700 transition">VERIFY IDENTITY NODE</button>
                     <button type="button" onclick="handleProfileResetNode()" style="background:transparent; color:#4b5563; border:none; font-weight:700; text-decoration:underline; cursor:pointer; font-size:0.85rem; margin-top:20px; display:block; width:100%; text-align:center;">Reset Saved Profile Credentials</button>
                 </div> 
             </div>
