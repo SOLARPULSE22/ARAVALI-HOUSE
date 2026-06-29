@@ -15,6 +15,7 @@
 </head>
 <body class="text-slate-100 min-h-screen flex flex-col antialiased">
 
+    <!-- 🔐 LOCK SCREEN SECURITY DECRYPTION LAYER -->
     <div id="lockModal" class="fixed inset-0 z-50 flex items-center justify-center bg-[#03050a]/95 backdrop-blur-xl px-4">
         <div class="glass w-full max-w-md p-8 rounded-2xl border-amber-500/20 shadow-2xl shadow-amber-500/5">
             <div class="text-center mb-6">
@@ -37,6 +38,7 @@
         </div>
     </div>
 
+    <!-- 📊 ACTIVE ANALYTICS WORKSPACE MAINFRAME -->
     <div id="dashboardUI" class="hidden flex-1 flex flex-col">
         <header class="glass border-b border-slate-900 px-6 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <div class="flex items-center gap-3">
@@ -60,6 +62,7 @@
 
         <main class="flex-1 p-6 space-y-6 max-w-7xl w-full mx-auto">
             
+            <!-- Real-Time Metrics Counters Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="glass p-5 rounded-2xl flex flex-col justify-between border-amber-500/10">
                     <div>
@@ -98,6 +101,7 @@
                 </div>
             </div>
 
+            <!-- Heatmaps and Status Aggregates Layer -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <div class="glass p-5 rounded-2xl border-slate-800">
                     <h4 class="text-xs font-bold tracking-wider uppercase text-slate-300 mb-3 flex items-center gap-1.5">
@@ -142,6 +146,7 @@
                 </div>
             </div>
 
+            <!-- Transmitter Signals and Live Event Logs -->
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 <div class="glass p-5 rounded-2xl flex flex-col justify-between space-y-4">
                     <div>
@@ -166,10 +171,12 @@
                 </div>
             </div>
 
+            <!-- Spreadsheet Cloud Datasets Interface Console -->
             <div class="glass rounded-2xl overflow-hidden flex flex-col">
                 <div class="bg-[#0b1122] border-b border-slate-900 px-4 py-3 flex flex-col md:flex-row gap-3 items-center justify-between">
                     <div class="flex flex-wrap gap-1.5">
                         <button onclick="switchTab('Sheet1')" id="btnTabSheet1" class="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg bg-slate-900 text-emerald-400 border border-slate-800">Registry</button>
+                        <button onclick="switchTab('Admins')" id="btnTabOpenAdmins" class="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg text-slate-400 hover:text-slate-200">Admins Matrix</button>
                         <button onclick="switchTab('Attendance_Logs')" id="btnTabOpenAttendance_Logs" class="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg text-slate-400 hover:text-slate-200">Attendance Logs</button>
                         <button onclick="switchTab('House_Meetings')" id="btnTabOpenHouse_Meetings" class="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg text-slate-400 hover:text-slate-200">House Meetings</button>
                         <button onclick="switchTab('Competition_Allocations')" id="btnTabOpenCompetition_Allocations" class="px-3 py-1.5 text-xs font-bold uppercase tracking-wider rounded-lg text-slate-400 hover:text-slate-200">Allocations Matrix</button>
@@ -202,7 +209,8 @@
     </div>
 
     <script>
-        const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbwis_icWsZ2uTtWroTuIPMvH5pSxi3k9QSjJLG3e903_X0LnGfYPgPtQ8wkMbE7XYhJMg/exec"; 
+        // 📢 PASTE YOUR DEPLOYED GOOGLE MACRO WEB APP LINK RIGHT HERE BETWEEN THE QUOTES
+        const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbyIJapw84fymdjXuh2bb4LSnpiAE3R567fbdwU7FhaRF9Nit8re7324AhKIAx-YPWEG8w/exec"; 
 
         let currentActiveTab = "Sheet1";
         let localDatabaseCache = {};
@@ -218,7 +226,6 @@
             btn.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin mr-1.5"></i> Authenticating Matrix...`;
             
             try {
-                // Access codes validated against your dedicated secure Spreadsheet tab Admins
                 const response = await fetch(`${WEB_APP_DATABASE_URL}?action=getAdminPassphrases`);
                 if (!response.ok) throw new Error("Database link dropout.");
                 
@@ -233,11 +240,11 @@
                     fetchMasterData();
                 } else {
                     err.classList.remove("hidden");
-                    logTerminal("漏 Security Block: Handshake verification signature string rejected.", true);
+                    logTerminal("❌ Security Block: Handshake verification signature string rejected.", true);
                 }
             } catch(e) {
                 console.error(e);
-                logTerminal("漏 Connection Error: Failed to fetch active access arrays from deployment macro endpoint.", true);
+                logTerminal("❌ Connection Error: Failed to fetch active access arrays from deployment macro endpoint.", true);
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = "Unlock Core Infrastructure";
@@ -271,7 +278,7 @@
                 compileComprehensiveHouseAnalytics();
                 renderActiveTableData();
             } catch (err) {
-                logTerminal(`漏 Telemetry Error: Synchronization handshake pipeline execution failure.`, true);
+                logTerminal(`❌ Telemetry Error: Synchronization handshake pipeline execution failure.`, true);
                 console.error(err);
             }
         }
@@ -285,10 +292,9 @@
             let totalAravaliPointsScore = 0;
             let studentPointContributions = {};
 
-            // FIXED TARGET INDEX COLUMN MAPPINGS TO PREVENT 10-PT HARD DROP ANOMALIES
             trophies.forEach(row => {
                 let name = row[0];
-                let rank = String(row[3]).toUpperCase().trim(); // Corrected reference cell matching index lookup metrics pointer
+                let rank = String(row[3]).toUpperCase().trim(); 
                 let points = 10; 
 
                 if (rank.includes("1ST") || rank.includes("FIRST")) points = 100;
@@ -373,12 +379,10 @@
                         <span class="bg-cyan-500/10 ${colorClass} px-2 py-0.5 rounded border border-cyan-500/20 font-bold">${item.pct}%</span>
                     </div>`;
             });
-            
-            // FIXED UNRELIABLE RATIO BOUNDS MATH AVERAGING LOGIC ERROR
             let finalAvg = attendanceRankings.length > 0 ? Math.round(totalPctSum / attendanceRankings.length) : 0;
             document.getElementById("statAvgAttendance").innerText = `${finalAvg}%`;
 
-            // DYNAMIC CALCULATION SYSTEM EXTRACTING PROFILE DISTRIBUTIONS FROM CLOUD ARRAYS
+            // DYNAMIC ENGINE COUPLING TARGETING SHEET1 ENTRIES 
             let classCounts = { "V": 0, "VI": 0, "VII": 0, "VIII": 0, "IX": 0, "X": 0, "XI": 0, "XII": 0 };
             registries.forEach(row => {
                 let clsString = String(row[1]).toUpperCase().trim();
@@ -500,7 +504,7 @@
                 logTerminal(`🟢 Purge command executed. Re-syncing database parameters...`);
                 setTimeout(fetchMasterData, 1500);
             } catch (err) {
-                logTerminal("漏 Telemetry Error: Overrides frame rejection pipeline failure.", true);
+                logTerminal("🔴 Telemetry Error: Overrides frame rejection pipeline failure.", true);
             }
         }
 
@@ -519,7 +523,7 @@
                 alert("House announcement updated live!");
                 input.value = "";
             } catch(err) {
-                logTerminal(`漏 Broadcast transmission network dropped.`, true);
+                logTerminal(`🔴 Broadcast transmission network dropped.`, true);
             }
         }
 
