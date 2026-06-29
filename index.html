@@ -945,16 +945,16 @@ async function handleStudentRegistrationSubmit(event) {
     // Using explicit registration IDs so it doesn't accidentally pull from login elements
     const payload = {
         action: "registerStudent",
-        name: document.getElementById('reg-student-name') ? document.getElementById('reg-student-name').value.trim().toUpperCase() : "",
-        class: document.getElementById('reg-student-class') ? document.getElementById('reg-student-class').value.trim() : "",
-        section: document.getElementById('reg-student-section') ? document.getElementById('reg-student-section').value.trim().toUpperCase() : "",
-        admissionNo: document.getElementById('reg-student-admission-no') ? document.getElementById('reg-student-admission-no').value.trim().toUpperCase() : "",
-        email: document.getElementById('reg-student-email-id') ? document.getElementById('reg-student-email-id').value.trim() : "",
-        phone: document.getElementById('reg-student-phone-no') ? document.getElementById('reg-student-phone-no').value.trim() : "",
-        position: document.getElementById('reg-student-position') ? document.getElementById('reg-student-position').value.toUpperCase() : "MEMBER",
-        password: document.getElementById('reg-student-password') ? document.getElementById('reg-student-password').value.trim() : ""
+        // This safely checks both 'reg-' IDs and standard IDs so it never pulls a blank value!
+        name: (document.getElementById('reg-student-name') || document.getElementById('student-name') || {value:""}).value.trim().toUpperCase(),
+        class: (document.getElementById('reg-student-class') || document.getElementById('student-class') || {value:""}).value.trim(),
+        section: (document.getElementById('reg-student-section') || document.getElementById('student-section') || {value:""}).value.trim().toUpperCase(),
+        admissionNo: (document.getElementById('reg-student-admission-no') || document.getElementById('student-admission-no') || {value:""}).value.trim().toUpperCase(),
+        email: (document.getElementById('reg-student-email-id') || document.getElementById('student-email-id') || {value:""}).value.trim(),
+        phone: (document.getElementById('reg-student-phone-no') || document.getElementById('student-phone-no') || {value:""}).value.trim(),
+        position: (document.getElementById('reg-student-position') || document.getElementById('student-position') || {value:"MEMBER"}).value.toUpperCase(),
+        password: (document.getElementById('reg-student-password') || document.getElementById('student-password') || {value:""}).value.trim()
     };
-
     // Fallback: If your HTML doesn't have "reg-" IDs yet, read from base IDs safely
     if (!payload.name) {
         payload.name = document.getElementById('student-name').value.trim().toUpperCase();
