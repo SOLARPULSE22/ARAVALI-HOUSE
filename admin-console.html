@@ -202,65 +202,64 @@
     </div>
 
     <script>
-        const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbyIJapw84fymdjXuh2bb4LSnpiAE3R567fbdwU7FhaRF9Nit8re7324AhKIAx-YPWEG8w/exec"; 
+        // 📢 PASTE YOUR DEPLOYED GOOGLE MACRO WEB APP LINK RIGHT HERE BETWEEN THE QUOTES
+        const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbzExi72U-4uc94TWin_2AoEESvi59YhTQ_MwpHPGzVWBpCqzPVmK1Ng3KI6w9PYvFUPtA/exec"; 
 
         let currentActiveTab = "Sheet1";
         let localDatabaseCache = {};
 
         async function verifyAccess() {
-    const input = document.getElementById("passphraseInput").value.trim();
-    const err = document.getElementById("lockError");
-    const btn = document.getElementById("unlockBtn");
-    
-    if(!input) return;
-    
-    btn.disabled = true;
-    btn.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin mr-1.5"></i> Authenticating...`;
-    
-    try {
-        const response = await fetch(`${WEB_APP_DATABASE_URL}?action=getAllData`);
-        const data = await response.json();
-        
-        // Uses clean fallback configuration array check to cross-verify keys inside sheet datasets
-        const credentialsSheet = data.Sheet1 || [];
-        const matchedUser = credentialsSheet.find(row => row[6] === "HOUSE CAPTAIN" && row[0] === "SANCHIT GUPTA");
-        
-        // Bulletproof access control verification block logic mapping directly to security credentials
-        if (input === "Sanchit#Aravali" || input === "admin" || input === "YOUR_NEW_PASSWORD") {
-            err.classList.add("hidden");
-            document.getElementById("lockModal").classList.add("hidden");
-            document.getElementById("dashboardUI").classList.remove("hidden");
-            logTerminal("Verification access signatures matched. Initializing systems...");
-            localDatabaseCache = data;
-            compileComprehensiveHouseAnalytics();
-            renderActiveTableData();
-        } else {
-            err.classList.remove("hidden");
-            logTerminal("🔴 Security Block: Handshake parameter invalid.", true);
+            const input = document.getElementById("passphraseInput").value.trim();
+            const err = document.getElementById("lockError");
+            const btn = document.getElementById("unlockBtn");
+            
+            if(!input) return;
+            
+            btn.disabled = true;
+            btn.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin mr-1.5"></i> Authenticating Matrix...`;
+            
+            try {
+                const response = await fetch(`${WEB_APP_DATABASE_URL}?action=getAdminPassphrases`);
+                if (!response.ok) throw new Error("Database link dropout.");
+                
+                const validPassphrasesList = await response.json();
+                
+                if (validPassphrasesList.includes(input)) {
+                    err.classList.add("hidden");
+                    document.getElementById("lockModal").classList.add("hidden");
+                    document.getElementById("dashboardUI").classList.remove("hidden");
+                    
+                    logTerminal("✓ Security signature handshake cleared. Opening mainframe...");
+                    fetchMasterData();
+                } else {
+                    err.classList.remove("hidden");
+                    logTerminal("🔴 Security Block: Handshake signature rejected.", true);
+                }
+            } catch(e) {
+                console.error(e);
+                logTerminal("🔴 Connection Error: Failed to fetch live access arrays from spreadsheet.", true);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = "Unlock Core Infrastructure";
+            }
         }
-    } catch(e) {
-        logTerminal("🔴 Security Block: Failed to query credentials.", true);
-    } finally {
-        btn.disabled = false;
-        btn.innerHTML = "Unlock Core Infrastructure";
-    }
-}
 
-function logout() {
-    document.getElementById("passphraseInput").value = "";
-    document.getElementById("lockModal").classList.remove("hidden");
-    document.getElementById("dashboardUI").classList.add("hidden");
-}
+        function logout() {
+            document.getElementById("passphraseInput").value = "";
+            document.getElementById("lockModal").classList.remove("hidden");
+            document.getElementById("dashboardUI").classList.add("hidden");
+        }
 
-function logTerminal(message, isError = false) {
-    const container = document.getElementById("terminalFeed");
-    const time = new Date().toLocaleTimeString();
-    const element = document.createElement("div");
-    element.className = isError ? "text-red-400" : "text-emerald-400";
-    element.innerHTML = `<span class="text-slate-600">[${time}]</span> ${message}`;
-    container.appendChild(element);
-    container.scrollTop = container.scrollHeight;
-}
+        function logTerminal(message, isError = false) {
+            const container = document.getElementById("terminalFeed");
+            const time = new Date().toLocaleTimeString();
+            const element = document.createElement("div");
+            element.className = isError ? "text-red-400" : "text-emerald-400";
+            element.innerHTML = `<span class="text-slate-600">[${time}]</span> ${message}`;
+            container.appendChild(element);
+            container.scrollTop = container.scrollHeight;
+        }
+
         async function fetchMasterData() {
             logTerminal("Polling secure cloud server spreadsheets rows...");
             try {
@@ -460,7 +459,7 @@ function logTerminal(message, isError = false) {
             else if (currentActiveTab === "Competitions_Won") columns = ["ACHIEVER_NAME", "HOUSE_POSITION", "COMPETITION_TYPE", "RANK_WON", "CLASS", "SECTION", "TIMESTAMP"];
 
             let headerHtml = '<tr class="border-b border-slate-900">';
-            columns.forEach(col => { headerHtml += `<th class="px-5 py-3 text-slate-400 font-bold">${col.replace(/_/g, ' ')}</th>`; });
+            columns.forEach(col => { headerHtml += `<th class="px-5 py-3 text-slate-400 font-bold text-left">${col.replace(/_/g, ' ')}</th>`; });
             headerHtml += '<th class="px-5 py-3 text-right text-slate-400 font-bold">Action Overrides</th></tr>';
             header.innerHTML = headerHtml;
 
