@@ -79,6 +79,7 @@
         .card-batchholders { border-color: #eab308; background: #fefce8; }
         .card-blogs { border-color: #06b6d4; background: #f0fdfa; }
         .card-portal { border-color: #8b5cf6; background: #faf5ff; }
+        .card-meetings { border-color: #f59e0b; background: #fffdf5; }
         h2 { color: #0f172a; margin-top: 0; font-size: 1.8rem; text-transform: uppercase; border-bottom: 3px dashed #cbd5e1; padding-bottom: 12px; margin-bottom: 20px; font-weight: 900; display: flex; align-items: center; gap: 10px; }
         label { display: block; margin-top: 15px; font-weight: 800; font-size: 0.9rem; text-transform: uppercase; }
         .form-row { display: flex; gap: 15px; margin-bottom: 10px; flex-wrap: wrap; }
@@ -323,6 +324,7 @@
                     <select id="filter-topic-select" onchange="applyBlogFiltersMatrix()"></select>
                     <label>By Month</label>
                     <select id="filter-month-select" onchange="applyBlogFiltersMatrix()"></select>
+                    <label>By Month</label>
                     <button type="button" class="action-button btn-accent" style="margin-top: 15px; padding: 10px; font-size: 0.85rem;" onclick="resetBlogFiltersMatrix()">Clear Filters</button>
                 </div>
             </div>
@@ -369,6 +371,28 @@
                 <div class="welcome-banner" style="background: #f1f5f9; padding: 15px; border-radius: 8px; border-left: 5px solid #8b5cf6; margin-bottom: 20px;">
                     <span style="font-weight:900; font-size:1.3rem;">OPERATIONAL WORKSPACE ACTIVE</span><br>
                     User: <span id="display-name" style="font-weight: 700;">Student</span> | Role: <span id="display-role" style="font-weight: 700;">Member</span>
+                </div>
+
+                <div class="card card-meetings">
+                    <h2>📅 Official House Meetings Tracking Roster</h2>
+                    <p style="color: #b45309; font-weight: 500;">Historical register detailing official structural meetings, schedules, and resolution agendas.</p>
+                    <div class="table-responsive" style="border-color: #f59e0b;">
+                        <table id="house-meetings-table">
+                            <thead>
+                                <tr>
+                                    <th>S.No</th>
+                                    <th>Date of Meeting</th>
+                                    <th>Place Held</th>
+                                    <th>Total Present</th>
+                                    <th>Who All Were Present</th>
+                                    <th>Agenda / Minutes of Meeting</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td colspan="6" style="padding:20px; color:#6b7280;">Loading central meeting pipelines...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
 
                 <div id="student-apply-attendance-box" class="card" style="border: 2px solid #3b82f6; margin-bottom: 25px; padding: 20px;">
@@ -425,13 +449,40 @@
                                 <th rowspan="2">Active Timeline</th>
                             </tr>
                             <tr id="sub-header-row"></tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
+                        </table>
+                    </div>
                 </div>
 
                 <div id="council-panel" class="captain-panel" style="display:none;">
                     <h2>House Council Global Data Engine</h2>
+                    
+                    <div id="captain-meetings-management-card" style="background: #fffbeb; padding: 20px; border-radius: 12px; border: 3px solid #d97706; margin-bottom: 25px; display: none;">
+                        <h3 style="color: #b45309; margin-top:0; font-weight:900;">⚡ HOUSE CAPTAIN EXCLUSIVE: LOG NEW HOUSE MEETING DATA</h3>
+                        <form onsubmit="handleCaptainHouseMeetingSubmit(event)">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Date of Meeting</label>
+                                    <input type="text" id="meet-form-date" required placeholder="e.g., 29/06/2026">
+                                </div>
+                                <div class="form-group">
+                                    <label>Place Meeting Was Held</label>
+                                    <input type="text" id="meet-form-place" required placeholder="e.g., Amphitheatre / House Room">
+                                </div>
+                                <div class="form-group">
+                                    <label>No. of Students Present</label>
+                                    <input type="number" id="meet-form-count" required placeholder="e.g., 14">
+                                </div>
+                            </div>
+                            <label>Who All Were Present (Names / Positions Summary)</label>
+                            <input type="text" id="meet-form-attendees" required placeholder="e.g., Sanchit, Hrehaan, and all Class 9 Prefects">
+                            
+                            <label>What was the Agenda / Minutes of the Meeting?</label>
+                            <textarea id="meet-form-agenda" rows="3" required placeholder="Outline key performance benchmarks discussed..."></textarea>
+                            
+                            <button type="submit" class="action-button" style="background: linear-gradient(135deg, #d97706 0%, #b45309 100%);">Publish Meeting Records Node</button>
+                        </form>
+                    </div>
+
                     <div id="captain-vice-direct-attendance-card" style="background: #e0f2fe; padding: 20px; border-radius: 12px; border: 3px solid #0284c7; margin-bottom: 25px; display: none;">
                         <h3 style="color: #0369a1; margin-top:0; font-weight:900;">⚡ CAPTAIN & VICE CAPTAIN UNILATERAL ATTENDANCE ENTRY</h3>
                         <form onsubmit="handleDirectUnilateralAttendanceMark(event)">
@@ -731,7 +782,7 @@
 </footer>
 
 <script>
-    const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbzExi72U-4uc94TWin_2AoEESvi59YhTQ_MwpHPGzVWBpCqzPVmK1Ng3KI6w9PYvFUPtA/exec";
+    const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbyIJapw84fymdjXuh2bb4LSnpiAE3R567fbdwU7FhaRF9Nit8re7324AhKIAx-YPWEG8w/exec";
 
     let authorizedStudents = [
         { name: "AARUSH", class: "10", section: "A", position: "PROCTOR - BOYS", pass: "Aarush#Proctor", batchBadge: "Proctor Badge | 🛡️" },
@@ -1011,6 +1062,24 @@
         }
         targetRow.loc = app.loc;
         targetRow.breaksData[`${app.date}_${app.breakSlot}`] = resolution;
+        
+        // Push actual confirmation directly back out through Google's architecture row structure
+        const attPayload = {
+            action: "markAttendance",
+            name: app.name,
+            position: app.pos,
+            location: app.loc,
+            date: app.date,
+            breakSlot: app.breakSlot,
+            status: resolution.toUpperCase()
+        };
+        fetch(WEB_APP_DATABASE_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(attPayload)
+        });
+
         pendingApplicationsDatabase.splice(idx, 1);
         alert(`Synchronized as ${resolution}!`);
         renderAttendanceTable();
@@ -1116,13 +1185,15 @@
     function renderAchieversTable() { const tbody = document.querySelector("#achievers-table tbody"); if(!tbody) return; tbody.innerHTML = ""; const isCouncil = currentSessionUser && ["HOUSE CAPTAIN", "VICE HOUSE CAPTAIN", "HOUSE CULTURAL CAPTAIN", "HOUSE SPORTS CAPTAIN"].includes(currentSessionUser.position); document.querySelectorAll(".council-actions").forEach(th => th.style.display = isCouncil ? "table-cell" : "none"); if(achieversDatabase.length === 0) { tbody.innerHTML = `<tr><td colspan="8" style="padding: 20px; color: #9d174d;">Roll matrix empty.</td></tr>`; return; } achieversDatabase.forEach((ach, idx) => { let row = document.createElement("tr"); let html = `<td>${idx + 1}</td><td><strong>${ach.name}</strong></td><td>${ach.housePos}</td><td>${ach.compType}</td><td><span style="color:#c2185b; font-weight:900;">${ach.wonPos}</span></td><td>${ach.class}</td><td>${ach.sec}</td>`; if(isCouncil) html += `<td><button class="btn-delete" onclick="deleteAchieverRow(${idx})">Delete</button></td>`; row.innerHTML = html; tbody.appendChild(row); }); }
     function deleteActivityRow(idx) { houseActivities.splice(idx, 1); renderActivitiesTable(); }
     function deleteAchieverRow(idx) { achieversDatabase.splice(idx, 1); renderAchieversTable(); }
+    function getStatusClass(st) { if(!st) return "status-empty"; if(st.toUpperCase()==="WON") return "status-won"; if(st.toUpperCase()==="LOST") return "status-lost"; return "status-pending"; }
+
     function allocateHouseMeeting(e) { 
         e.preventDefault(); 
         const meetingDescription = document.getElementById("form-meeting-desc").value.trim(); 
         if (!meetingDescription) return;
 
         const meetingPayload = {
-            action: "postMeeting", 
+            action: "updateBroadcast", 
             message: meetingDescription
         };
 
@@ -1139,6 +1210,7 @@
 
         document.getElementById("form-meeting-desc").value = ""; 
     }
+
    function directAddActivity(e) { 
         e.preventDefault(); 
         
@@ -1166,6 +1238,7 @@
         document.getElementById("form-evt-name").value = "";
         document.getElementById("form-evt-remarks").value = "";
     }
+
    function directAddAchiever(e) { 
         e.preventDefault(); 
         
@@ -1205,7 +1278,43 @@
         populateBlogFilterSelectorsMatrix(); renderBlogsStreamFeed();
     }
 
-   function handleLogin(event) {
+    // ⚡ NEW PIPELINE: TRANSMITS NEW HOUSE MEETING PARAMETERS DIRECTLY INTO BACKEND GOOGLE SHEETS TAB
+    function handleCaptainHouseMeetingSubmit(e) {
+        e.preventDefault();
+        const meetingDate = document.getElementById("meet-form-date").value.trim();
+        const meetingPlace = document.getElementById("meet-form-place").value.trim();
+        const studentsCount = document.getElementById("meet-form-count").value.trim();
+        const attendeesList = document.getElementById("meet-form-attendees").value.trim();
+        const agenda = document.getElementById("meet-form-agenda").value.trim();
+
+        const payload = {
+            action: "addHouseMeetingRecord",
+            meetingDate: meetingDate,
+            meetingPlace: meetingPlace,
+            studentsCount: studentsCount,
+            attendeesList: attendeesList,
+            agenda: agenda
+        };
+
+        fetch(WEB_APP_DATABASE_URL, {
+            method: "POST",
+            mode: "no-cors",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        }).then(() => {
+            alert("House meeting successfully cataloged and synchronized with Google Sheets!");
+            fetchGlobalMasterDatabaseGrid(); // Reload data immediately
+            
+            // Clear inputs cleanly
+            document.getElementById("meet-form-date").value = "";
+            document.getElementById("meet-form-place").value = "";
+            document.getElementById("meet-form-count").value = "";
+            document.getElementById("meet-form-attendees").value = "";
+            document.getElementById("meet-form-agenda").value = "";
+        }).catch(err => alert("Error transmitting payload node: " + err));
+    }
+
+    function handleLogin(event) {
         event.preventDefault();
         const nameInput = document.getElementById('student-name').value.trim().toUpperCase();
         let classInput = document.getElementById('student-class').value.trim().toUpperCase();
@@ -1213,7 +1322,6 @@
         const passInput = document.getElementById('student-password').value.trim();
         const errorBox = document.getElementById('error-box');
 
-        // Grab additional credential metadata variables to map down to your Sheet1 rows
         const admissionNoInput = document.getElementById('student-admission-no').value.trim();
         const emailInput = document.getElementById('student-email-id').value.trim();
         const phoneInput = document.getElementById('student-phone-no').value.trim();
@@ -1245,6 +1353,9 @@
             document.getElementById('captain-vice-direct-attendance-card').style.display = isCaptainOrVice ? "block" : "none";
             document.getElementById('council-applications-stream-card').style.display = isCaptainOrVice ? "block" : "none";
             
+            // 👑 Conditionally switch display of Captain Meeting Controls exclusively for Sanchit Gupta
+            document.getElementById('captain-meetings-management-card').style.display = (isCaptainOnly && verified.name === "SANCHIT GUPTA") ? "block" : "none";
+            
             document.getElementById("form-blog-author").value = `${verified.name} (${verified.position})`;
             if (isCaptainOnly && verified.name === "SANCHIT GUPTA") {
                 document.getElementById("masterAdminBridge").style.display = "block";
@@ -1265,7 +1376,6 @@
                 position: verified.position
             };
 
-            // Fire request directly through Google's macro router gateway
             fetch(WEB_APP_DATABASE_URL, {
                 method: "POST",
                 mode: "no-cors",
@@ -1284,8 +1394,12 @@
 
             document.getElementById('login-box').className = "hidden-box";
             document.getElementById('dashboard-box').className = "visible-box";
+            
+            // Fetch layout profiles metrics immediately
+            fetchGlobalMasterDatabaseGrid();
         } else { errorBox.style.display = 'block'; }
     }
+    
     function fetchLiveDatabaseGrid() {
         const rowsContainer = document.getElementById("adminRegistryRows");
         fetch(`${WEB_APP_DATABASE_URL}?action=getRegistry`)
@@ -1317,105 +1431,99 @@
         document.getElementById('nav-' + p).classList.add('active');
         if (p === 'portal' || p === 'batchholders') renderPublicRegistry();
         if (p === 'blogs') { populateBlogFilterSelectorsMatrix(); renderBlogsStreamFeed(); }
-        if (p === 'achievers') { fetchGlobalMasterDatabaseGrid(); } 
+        if (p === 'achievers' || p === 'home') { fetchGlobalMasterDatabaseGrid(); } 
         if (p === 'teachers') { renderTeachersRegistryTable(); document.getElementById("live-teachers-intro-statement").innerText = teachersIntroStatementMemoryLog; }
     }
 
-    // 🔄 FIXED EXTRACTION PIPELINE MAPPING ROW [1] FOR TARGET MESSAGES
-  async function fetchLatestBroadcast() {
-  const spreadsheetId = '1FWnkxV1zpYWYOQXtZ1O2omTgu5qS9-X0u8pFiZ_7qN0';
-  const sheetName = 'Broadcast_Alerts'; 
-  
-  // Changing the query format so Google skips the custom callback string wrapper
-  const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?sheet=${encodeURIComponent(sheetName)}&range=A:A&tqx=out:json`;
+    // 🔄 BROADCAST ENGINE LAYER
+    async function fetchLatestBroadcast() {
+      const spreadsheetId = '1FWnkxV1zpYWYOQXtZ1O2omTgu5qS9-X0u8pFiZ_7qN0';
+      const sheetName = 'Broadcast_Alerts'; 
+      const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?sheet=${encodeURIComponent(sheetName)}&range=A:A&tqx=out:json`;
 
-  try {
-    const response = await fetch(url);
-    if (!response.ok) throw new Error('Network response was not ok');
-    
-    let text = await response.text();
-    
-    // Highly resilient regex to match everything cleanly between the outer brackets
-    const jsonMatch = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);/);
-    
-    let data;
-    if (jsonMatch && jsonMatch[1]) {
-      data = JSON.parse(jsonMatch[1]);
-    } else {
-      // Fallback: If Google skipped the wrapper, try parsing the raw text directly
-      data = JSON.parse(text);
-    }
-    
-    const rows = data.table?.rows;
+      try {
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Network response was not ok');
+        let text = await response.text();
+        const jsonMatch = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);/);
+        let data = jsonMatch && jsonMatch[1] ? JSON.parse(jsonMatch[1]) : JSON.parse(text);
+        const rows = data.table?.rows;
 
-    if (rows && rows.length > 0) {
-      // Safe check: Search from the bottom up to grab the absolute latest row containing data
-      let latestMessage = 'No new updates.';
-      for (let i = rows.length - 1; i >= 0; i--) {
-        if (rows[i].c && rows[i].c[0] && rows[i].c[0].v !== null && rows[i].c[0].v !== '') {
-          latestMessage = rows[i].c[0].v;
-          break; 
+        if (rows && rows.length > 0) {
+          let latestMessage = 'No new updates.';
+          for (let i = rows.length - 1; i >= 0; i--) {
+            if (rows[i].c && rows[i].c[0] && rows[i].c[0].v !== null && rows[i].c[0].v !== '') {
+              latestMessage = rows[i].c[0].v;
+              break; 
+            }
+          }
+          document.getElementById('broadcastTargetText').innerText = latestMessage;
+          const dynamicMeetingWidget = document.getElementById("live-meeting-text");
+          if (dynamicMeetingWidget) dynamicMeetingWidget.innerText = latestMessage;
+        } else {
+          document.getElementById('broadcastTargetText').innerText = 'No updates found.';
         }
+      } catch (error) {
+        console.error('Error fetching broadcast updates:', error);
       }
-      
-      document.getElementById('broadcastTargetText').innerText = latestMessage;
-      
-      // Update the student dashboard house meeting text as well
-      const dynamicMeetingWidget = document.getElementById("live-meeting-text");
-      if (dynamicMeetingWidget) {
-          dynamicMeetingWidget.innerText = latestMessage;
+    }
+
+    // 🌐 SYNCHRONIZATION DATA PARSING TUNNEL ENGINE
+    async function fetchGlobalMasterDatabaseGrid() {
+        if (WEB_APP_DATABASE_URL === "") return;
+        try {
+            const res = await fetch(`${WEB_APP_DATABASE_URL}?action=getAllData`);
+            const masterData = await res.json();
+            
+            // 1. Read upcoming activities
+            const activityRows = masterData.Upcoming_Activities || [];
+            const actBody = document.querySelector("#activities-table tbody");
+            if(actBody) {
+                actBody.innerHTML = activityRows.length === 0 ? 
+                    `<tr><td colspan="7" style="padding: 20px; color: #0369a1;">No activities initialized.</td></tr>` : 
+                    activityRows.map((row, i) => `<tr><td>${i + 1}</td><td><strong>${row[0] || '—'}</strong></td><td>${row[1] || '—'}</td><td>${row[2] || '—'}</td><td class="${getStatusClass(row[3])}">${row[3] || 'TBD'}</td><td>${row[4] || '—'}</td><td class="council-actions" style="display:none;">—</td></tr>`).join('');
+            }
+
+            // 2. Read achievers rows
+            const winRows = masterData.Achievers_Ledger || [];
+            const aBody = document.querySelector("#achievers-table tbody");
+            if(aBody) {
+                aBody.innerHTML = winRows.length === 0 ? 
+                    `<tr><td colspan="8" style="padding:15px; color:#94a3b8;">Ledger currently empty.</td></tr>` : 
+                    winRows.map((row, idx) => `<tr><td>${idx + 1}</td><td><strong>${row[0] || '—'}</strong></td><td>${row[1] || '—'}</td><td>${row[2] || '—'}</td><td><span style="color:#c2185b; font-weight:900;">${row[3] || '—'}</span></td><td>${row[4] || '—'}</td><td>${row[5] || '—'}</td><td class="council-actions" style="display:none;">—</td></tr>`).join('');
+            }
+
+            // 3. 🚨 RENDER THE DYNAMIC HOUSE MEETINGS DATABASE ROWS MATRIX (VISIBLE TO ALL LOGGED-IN USERS)
+            const meetingRows = masterData.House_Meetings || [];
+            const mBody = document.querySelector("#house-meetings-table tbody");
+            if(mBody) {
+                mBody.innerHTML = meetingRows.length === 0 ?
+                    `<tr><td colspan="6" style="padding: 20px; color: #b45309; font-style: italic;">No structural house meetings logged for this cycle yet.</td></tr>` :
+                    meetingRows.map((row, idx) => `
+                        <tr>
+                            <td>${idx + 1}</td>
+                            <td><strong>${row[0] || '—'}</strong></td>
+                            <td>${row[1] || '—'}</td>
+                            <td><span style="padding:4px 8px; background:#fef3c7; border-radius:6px; font-weight:700; color:#d97706;">${row[2] || '0'} Elements</span></td>
+                            <td class="left-align" style="font-size:0.85rem; color:#475569;">${row[3] || '—'}</td>
+                            <td class="left-align" style="white-space: pre-wrap; font-weight: 500;">${row[4] || '—'}</td>
+                        </tr>`).join('');
+            }
+        } catch (err) {
+            console.error("Pipeline mapping error: ", err);
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        fetchLatestBroadcast();
+        fetchGlobalMasterDatabaseGrid();
+    });
+
+    setInterval(() => {
+      if (!document.hidden) {
+        fetchLatestBroadcast();
       }
-    } else {
-      document.getElementById('broadcastTargetText').innerText = 'No updates found.';
-    }
-    
-  } catch (error) {
-    console.error('Error fetching broadcast updates:', error);
-    document.getElementById('broadcastTargetText').innerText = 'Failed to load updates.';
-  }
-}
-
-// 🌐 NEW FUNCTION: Added missing extraction pipeline engine from blueprint to load permanent activities and achievers lists from your sheet tabs
-async function fetchGlobalMasterDatabaseGrid() {
-    if (WEB_APP_DATABASE_URL === "") return;
-    try {
-        const res = await fetch(`${WEB_APP_DATABASE_URL}?action=getAllData`);
-        const masterData = await res.json();
-        
-        // Read activities from the cloud tab
-        const activityRows = masterData.Upcoming_Activities || [];
-        const actBody = document.querySelector("#activities-table tbody");
-        if(actBody) {
-            actBody.innerHTML = activityRows.length === 0 ? 
-                `<tr><td colspan="7" style="padding: 20px; color: #0369a1;">No activities initialized.</td></tr>` : 
-                activityRows.map((row, i) => `<tr><td>${i + 1}</td><td><strong>${row[0] || '—'}</strong></td><td>${row[1] || '—'}</td><td>${row[2] || '—'}</td><td class="${getStatusClass(row[3])}">${row[3] || 'TBD'}</td><td>${row[4] || '—'}</td><td class="council-actions" style="display:none;">—</td></tr>`).join('');
-        }
-
-        // Read achievers from the cloud tab
-        const winRows = masterData.Achievers_Ledger || [];
-        const aBody = document.querySelector("#achievers-table tbody");
-        if(aBody) {
-            aBody.innerHTML = winRows.length === 0 ? 
-                `<tr><td colspan="8" style="padding:15px; color:#94a3b8;">Ledger currently empty.</td></tr>` : 
-                winRows.map((row, idx) => `<tr><td>${idx + 1}</td><td><strong>${row[0] || '—'}</strong></td><td>${row[1] || '—'}</td><td>${row[2] || '—'}</td><td><span style="color:#c2185b; font-weight:900;">${row[3] || '—'}</span></td><td>${row[4] || '—'}</td><td>${row[5] || '—'}</td><td class="council-actions" style="display:none;">—</td></tr>`).join('');
-        }
-    } catch (err) {
-        console.error("Pipeline mapping error: ", err);
-    }
-}
-
-// Fetch when page loads
-window.addEventListener('DOMContentLoaded', () => {
-    fetchLatestBroadcast();
-    fetchGlobalMasterDatabaseGrid();
-});
-
-// Auto-refresh every 30 seconds
-setInterval(() => {
-  if (!document.hidden) {
-    fetchLatestBroadcast();
-  }
-}, 30000);
+    }, 30000);
 </script>
 </body>
 </html>
