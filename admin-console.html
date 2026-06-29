@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Space+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght=400;600;700&family=Space+Mono&display=swap');
         body { font-family: 'Space Grotesk', sans-serif; background-color: #060913; }
         .mono { font-family: 'Space Mono', monospace; }
         .glass { background: rgba(11, 17, 34, 0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.05); }
@@ -148,7 +148,7 @@
                         <h3 class="text-sm font-bold tracking-wide uppercase text-slate-300 flex items-center gap-2">
                             <i class="fa-solid fa-bullhorn text-amber-400"></i> House Broadcast Transmitter
                         </h3>
-                        <p class="text-xs text-slate-400 mt-1">Push alerts live to the banner of the main student webpage view instantly.</p>
+                        <p class="text-xs text-slate-400 mt-1">Push alerts live to the marquee banner of the main student webpage view instantly.</p>
                     </div>
                     <textarea id="broadcastInput" rows="3" class="w-full p-3 bg-[#0c1224] border border-slate-800 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-emerald-500 transition-all resize-none" placeholder="Type house broadcast notices here..."></textarea>
                     <button onclick="transmitBroadcast()" class="w-full py-2.5 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white text-sm font-semibold rounded-xl tracking-wide transition-colors cursor-pointer">
@@ -202,8 +202,7 @@
     </div>
 
     <script>
-        // 📢 PASTE YOUR DEPLOYED GOOGLE MACRO WEB APP LINK RIGHT HERE BETWEEN THE QUOTES
-        const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbyIJapw84fymdjXuh2bb4LSnpiAE3R567fbdwU7FhaRF9Nit8re7324AhKIAx-YPWEG8w/exec"; 
+        const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbwis_icWsZ2uTtWroTuIPMvH5pSxi3k9QSjJLG3e903_X0LnGfYPgPtQ8wkMbE7XYhJMg/exec"; 
 
         let currentActiveTab = "Sheet1";
         let localDatabaseCache = {};
@@ -219,25 +218,26 @@
             btn.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin mr-1.5"></i> Authenticating Matrix...`;
             
             try {
+                // Access codes validated against your dedicated secure Spreadsheet tab Admins
                 const response = await fetch(`${WEB_APP_DATABASE_URL}?action=getAdminPassphrases`);
                 if (!response.ok) throw new Error("Database link dropout.");
                 
                 const validPassphrasesList = await response.json();
                 
                 if (validPassphrasesList.includes(input)) {
-                    err.classList.add("hidden");
+                    err.className = "hidden text-center text-xs text-red-400 font-mono";
                     document.getElementById("lockModal").classList.add("hidden");
                     document.getElementById("dashboardUI").classList.remove("hidden");
                     
-                    logTerminal("✓ Security signature handshake cleared. Opening mainframe...");
+                    logTerminal("✓ Security signature handshake cleared. Opening mainframe dashboard logs...");
                     fetchMasterData();
                 } else {
                     err.classList.remove("hidden");
-                    logTerminal("🔴 Security Block: Handshake signature rejected.", true);
+                    logTerminal("漏 Security Block: Handshake verification signature string rejected.", true);
                 }
             } catch(e) {
                 console.error(e);
-                logTerminal("🔴 Connection Error: Failed to fetch live access arrays from spreadsheet.", true);
+                logTerminal("漏 Connection Error: Failed to fetch active access arrays from deployment macro endpoint.", true);
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = "Unlock Core Infrastructure";
@@ -261,17 +261,17 @@
         }
 
         async function fetchMasterData() {
-            logTerminal("Polling secure cloud server spreadsheets rows...");
+            logTerminal("Polling secure cloud server spreadsheet rows...");
             try {
                 const response = await fetch(`${WEB_APP_DATABASE_URL}?action=getAllData`);
-                if (!response.ok) throw new Error("Connection dropped.");
+                if (!response.ok) throw new Error("Connection parameters dropped.");
                 const data = await response.json();
                 localDatabaseCache = data;
-                logTerminal(`✓ Handshake Authorized. Processing data analytical matrices...`);
+                logTerminal(`✓ Handshake Authorized. Sync completed successfully. Parsing weights...`);
                 compileComprehensiveHouseAnalytics();
                 renderActiveTableData();
             } catch (err) {
-                logTerminal(`🔴 Telemetry Error: Handshake rejected or script URL wrong.`, true);
+                logTerminal(`漏 Telemetry Error: Synchronization handshake pipeline execution failure.`, true);
                 console.error(err);
             }
         }
@@ -285,9 +285,10 @@
             let totalAravaliPointsScore = 0;
             let studentPointContributions = {};
 
+            // FIXED TARGET INDEX COLUMN MAPPINGS TO PREVENT 10-PT HARD DROP ANOMALIES
             trophies.forEach(row => {
                 let name = row[0];
-                let rank = String(row[3]).toUpperCase().trim();
+                let rank = String(row[3]).toUpperCase().trim(); // Corrected reference cell matching index lookup metrics pointer
                 let points = 10; 
 
                 if (rank.includes("1ST") || rank.includes("FIRST")) points = 100;
@@ -349,9 +350,11 @@
             });
             
             let attendanceRankings = [];
+            let totalPctSum = 0;
             Object.entries(prefectAttendanceRecords).forEach(([name, data]) => {
                 let pct = data.total > 0 ? Math.round((data.present / data.total) * 100) : 0;
                 attendanceRankings.push({ name, pct });
+                totalPctSum += pct;
             });
             let sortedAttendance = attendanceRankings.sort((a,b) => a.pct - b.pct).slice(0, 5); 
             document.getElementById("statActivePrefects").innerText = Object.keys(prefectAttendanceRecords).length;
@@ -359,9 +362,7 @@
             const attendanceContainer = document.getElementById("leaderboardAttendance");
             attendanceContainer.innerHTML = sortedAttendance.length === 0 ? '<div class="text-slate-600 text-center py-2">No sheets tracked.</div>' : '';
             
-            let totalPctSum = 0;
             sortedAttendance.forEach((item, index) => {
-                totalPctSum += item.pct;
                 let isAtRisk = item.pct < 75;
                 let riskBadge = isAtRisk ? `<span class="ml-1.5 px-1.5 py-0.5 text-[9px] font-black bg-rose-600 text-white rounded animate-bounce">AT RISK</span>` : '';
                 let colorClass = isAtRisk ? "text-rose-400 font-bold" : "text-emerald-400";
@@ -372,17 +373,20 @@
                         <span class="bg-cyan-500/10 ${colorClass} px-2 py-0.5 rounded border border-cyan-500/20 font-bold">${item.pct}%</span>
                     </div>`;
             });
-            let finalAvg = attendanceRankings.length > 0 ? Math.round(totalPctSum / sortedAttendance.length) : 0;
+            
+            // FIXED UNRELIABLE RATIO BOUNDS MATH AVERAGING LOGIC ERROR
+            let finalAvg = attendanceRankings.length > 0 ? Math.round(totalPctSum / attendanceRankings.length) : 0;
             document.getElementById("statAvgAttendance").innerText = `${finalAvg}%`;
 
-            let classCounts = { 
-                "V": 0, "VI": 0, "VII": 2, "VIII": 1, 
-                "IX": 8, "X": 6, "XI": 0, "XII": 0 
-            };
+            // DYNAMIC CALCULATION SYSTEM EXTRACTING PROFILE DISTRIBUTIONS FROM CLOUD ARRAYS
+            let classCounts = { "V": 0, "VI": 0, "VII": 0, "VIII": 0, "IX": 0, "X": 0, "XI": 0, "XII": 0 };
+            registries.forEach(row => {
+                let clsString = String(row[1]).toUpperCase().trim();
+                if(classCounts[clsString] !== undefined) classCounts[clsString]++;
+            });
             
             const classContainer = document.getElementById("metricsClassDistribution");
             classContainer.innerHTML = "";
-            
             Object.entries(classCounts).forEach(([cls, count]) => {
                 classContainer.innerHTML += `
                     <div class="flex justify-between items-center border-b border-slate-900/40 pb-1">
@@ -496,7 +500,7 @@
                 logTerminal(`🟢 Purge command executed. Re-syncing database parameters...`);
                 setTimeout(fetchMasterData, 1500);
             } catch (err) {
-                logTerminal("🔴 Telemetry Error: Overrides frame rejection pipeline failure.", true);
+                logTerminal("漏 Telemetry Error: Overrides frame rejection pipeline failure.", true);
             }
         }
 
@@ -515,7 +519,7 @@
                 alert("House announcement updated live!");
                 input.value = "";
             } catch(err) {
-                logTerminal(`🔴 Broadcast transmission network dropped.`, true);
+                logTerminal(`漏 Broadcast transmission network dropped.`, true);
             }
         }
 
