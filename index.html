@@ -865,53 +865,59 @@
     }
 
     // 3. SECURE handshakes DIRECT TO "Admins" SPREADSHEET CHANNEL
-    async function executeSecureDashboardLogin(event) {
-        if (event) event.preventDefault();
-        const nameInput = document.getElementById('student-name').value.trim().toUpperCase();
-        const passInput = document.getElementById('student-password').value.trim();
-        const posInput = document.getElementById('student-position').value.toUpperCase();
-        const errorBox = document.getElementById('error-box');
+   // FIND THIS EXACT BLOCK IN YOUR SCRIPT TAG AND REPLACE IT WITH THE NEW CODE:
+async function executeSecureDashboardLogin(event) {
+    if (event) event.preventDefault();
+    const nameInput = document.getElementById('student-name').value.trim().toUpperCase();
+    const passInput = document.getElementById('student-password').value.trim();
+    const posInput = document.getElementById('student-position').value.toUpperCase();
+    const errorBox = document.getElementById('error-box');
 
-        try {
-            const response = await fetch(`${WEB_APP_DATABASE_URL}?action=getAdminPassphrases`);
-            const allowedPassphrases = await response.json();
+    // 1. First, check if the student exists in your local hardcoded roster
+    const localUser = authorizedStudents.find(s => s.name === nameInput && s.pass === passInput && s.position === posInput);
 
-            if (allowedPassphrases.includes(passInput)) {
-                currentSessionUser = { name: nameInput, position: posInput };
-                
-                document.getElementById('login-box').className = "hidden-box";
-                document.getElementById('dashboard-box').className = "visible-box";
-                document.getElementById('display-name').innerText = nameInput;
-                document.getElementById('display-role').innerText = posInput;
-                
-                if (posInput === "HOUSE CAPTAIN" || posInput === "VICE HOUSE CAPTAIN") {
-                    document.getElementById("masterAdminBridge").style.display = "block";
-                    document.getElementById('council-panel').style.display = "block";
-                    document.getElementById('captain-meetings-management-card').style.display = "block";
-                    document.getElementById('captain-vice-direct-attendance-card').style.display = "block";
-                    document.getElementById('council-applications-stream-card').style.display = "block";
-                    document.getElementById('captain-absolute-override-section').style.display = "block";
-                    document.getElementById('captain-date-delete-panel').style.display = "block";
-                    document.getElementById('captain-exclusive-section').style.display = (posInput === "HOUSE CAPTAIN") ? "block" : "none";
-                }
-                errorBox.style.display = "none";
-                
-                // Prefill author signature value inside the blogging widget automatically
-                const blogAuthorInput = document.getElementById('form-blog-author');
-                if (blogAuthorInput) blogAuthorInput.value = nameInput;
-                
-                fetchGlobalMasterDatabaseGrid();
-            } else {
-                errorBox.innerText = "❌ Access Denied. Check secure Admins grid record.";
-                errorBox.style.display = 'block';
-            }
-        } catch (err) {
-            console.error(err);
-            errorBox.innerText = "❌ Secure infrastructure connection drop.";
-            errorBox.style.display = 'block';
-        }
+    if (localUser) {
+        currentSessionUser = localUser;
+        document.getElementById('login-box').className = "hidden-box";
+        document.getElementById('dashboard-box').className = "visible-box";
+        document.getElementById('display-name').innerText = localUser.name;
+        document.getElementById('display-role').innerText = localUser.position;
+        
+        // Hide admin panel for regular house members/prefects
+        document.getElementById('council-panel').style.display = "none";
+        document.getElementById("masterAdminBridge").style.display = "none";
+        errorBox.style.display = "none";
+        
+        fetchGlobalMasterDatabaseGrid();
+        return;
     }
 
+    // 2. If not found locally, see if they are a Cloud Admin logging in
+    try {
+        const response = await fetch(`${WEB_APP_DATABASE_URL}?action=getAdminPassphrases`);
+        const adminPassphrases = await response.json();
+
+        if (adminPassphrases.includes(passInput) && (posInput === "HOUSE CAPTAIN" || posInput === "VICE HOUSE CAPTAIN")) {
+            currentSessionUser = { name: nameInput, position: posInput };
+            document.getElementById('login-box').className = "hidden-box";
+            document.getElementById('dashboard-box').className = "visible-box";
+            document.getElementById('display-name').innerText = nameInput;
+            document.getElementById('display-role').innerText = posInput;
+
+            document.getElementById("masterAdminBridge").style.display = "block";
+            document.getElementById('council-panel').style.display = "block";
+            errorBox.style.display = "none";
+            fetchGlobalMasterDatabaseGrid();
+        } else {
+            errorBox.innerText = "❌ Access Denied. Signature profile keys rejected.";
+            errorBox.style.display = 'block';
+        }
+    } catch (err) {
+        console.error("Auth Loop dropped: ", err);
+        errorBox.innerText = "❌ Connection Handshake Error.";
+        errorBox.style.display = 'block';
+    }
+}
     // 4. DATA LOG DISPATCH MODULES
     async function executeActivitySubmissionAsync(event) {
         if (event) event.preventDefault();
