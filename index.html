@@ -329,42 +329,50 @@
     <div id="page-portal" class="page-view">
         <div class="card card-portal">
             <div id="login-box" class="visible-box">
-                <h2>Student Portal Secure Access</h2>
-                <form onsubmit="handleLogin(event)">
-                    <label>Full Name</label>
-                    <input type="text" id="student-name" required placeholder="e.g. SANCHIT GUPTA">
-                    <div class="form-row">
-                        <div class="form-group"><label>Class</label><input type="text" id="student-class" required placeholder="e.g. 9"></div>
-                        <div class="form-group"><label>Section</label><input type="text" id="student-section" placeholder="e.g. A"></div>
-                    </div>
-                    <label>School Admission Number</label>
-                    <!-- FIXED: Strict format constraint checking pattern validation node added -->
-                    <input type="text" id="student-admission-no" required pattern="[Mm][Tt]-[A-Za-z0-9]+" title="Strict Format: Must begin with MT- prefix (e.g., MT-12345)" placeholder="e.g., MT-20261">
-                    <label>Official Gmail ID</label>
-                    <input type="email" id="student-email-id" required placeholder="studentname@gmail.com">
-                    <label>Phone Number (WhatsApp)</label>
-                    <input type="tel" id="student-phone-no" required pattern="[0-9]{10}" placeholder="10-Digit Mobile Number">
-                    <label>Your Assigned House Position</label>
-                    <select id="student-position">
-                        <option value="MEMBER">House Member</option>
-                        <option value="PREFECT">Prefect</option>
-                        <option value="PROCTOR - BOYS">Proctor - Boys</option>
-                        <option value="CULTURAL SECRETARY - GIRLS">Cultural Secretary - Girls</option>
-                        <option value="ENVIRONMENT SECRETARY - GIRLS">Environment Secretary - Girls</option>
-                        <option value="HOUSE CAPTAIN">House Captain</option>
-                        <option value="VICE HOUSE CAPTAIN">Vice House Captain</option>
-                        <option value="HOUSE CULTURAL CAPTAIN">House Cultural Captain</option>
-                        <option value="HOUSE SPORTS CAPTAIN">House Sports Captain</option>
-                    </select>
-                    <label>Security Access Password</label>
-                    <input type="password" id="student-password" required placeholder="••••••••">
-                    <div id="error-box" style="display:none; color:red; margin-top:15px; font-weight:700;">❌ Access Denied.</div>
-                    <button type="submit" class="action-button">Verify Identity Node</button>
-                    
-                    <!-- FEATURE ADDED: Self-service structural data credential overwrite trigger button -->
-                    <button type="button" onclick="handleProfileResetNode()" style="background:transparent; color:#4b5563; border:none; font-weight:700; text-decoration:underline; cursor:pointer; font-size:0.85rem; margin-top:20px; display:block; width:100%; text-align:center;">Reset Saved Profile Credentials</button>
-                </form>
+    <h2>Student Portal Secure Access</h2>
+    <form id="studentPortalLoginForm" onsubmit="event.preventDefault();">
+        <label>Full Name</label>
+        <input type="text" id="student-name" required placeholder="e.g. SANCHIT GUPTA">
+        <div class="form-row">
+            <div class="form-group">
+                <label>Class</label>
+                <input type="text" id="student-class" required placeholder="e.g. 9">
             </div>
+            <div class="form-group">
+                <label>Section</label>
+                <input type="text" id="student-section" placeholder="e.g. A">
+            </div>
+        </div>
+        <label>School Admission Number</label>
+        <input type="text" id="student-admission-no" required placeholder="e.g., MT-20261">
+        
+        <label>Official Gmail ID</label>
+        <input type="email" id="student-email-id" required placeholder="studentname@gmail.com">
+        
+        <label>Phone Number (WhatsApp)</label>
+        <input type="tel" id="student-phone-no" required placeholder="10-Digit Mobile Number">
+        
+        <label>Your Assigned House Position</label>
+        <select id="student-position">
+            <option value="MEMBER">House Member</option>
+            <option value="PREFECT">Prefect</option>
+            <option value="PROCTOR - BOYS">Proctor - Boys</option>
+            <option value="CULTURAL SECRETARY - GIRLS">Cultural Secretary - Girls</option>
+            <option value="ENVIRONMENT SECRETARY - GIRLS">Environment Secretary - Girls</option>
+            <option value="HOUSE CAPTAIN">House Captain</option>
+            <option value="VICE HOUSE CAPTAIN">Vice House Captain</option>
+            <option value="HOUSE CULTURAL CAPTAIN">House Cultural Captain</option>
+            <option value="HOUSE SPORTS CAPTAIN">House Sports Captain</option>
+        </select>
+        <label>Security Access Password</label>
+        <input type="password" id="student-password" required placeholder="••••••••">
+        <div id="error-box" style="display:none; color:red; margin-top:15px; font-weight:700;">❌ Access Denied.</div>
+        
+        <button type="button" onclick="executeSecureDashboardLogin(event)" class="action-button">Verify Identity Node</button>
+        
+        <button type="button" onclick="handleProfileResetNode()" style="background:transparent; color:#4b5563; border:none; font-weight:700; text-decoration:underline; cursor:pointer; font-size:0.85rem; margin-top:20px; display:block; width:100%; text-align:center;">Reset Saved Profile Credentials</button>
+    </form>
+</div>
 
             <div id="dashboard-box" class="hidden-box">
                 <div class="welcome-banner" style="background: #f1f5f9; padding: 15px; border-radius: 8px; border-left: 5px solid #8b5cf6; margin-bottom: 20px;">
