@@ -798,6 +798,10 @@
     const WEB_APP_DATABASE_URL = "https://script.google.com/macros/s/AKfycbwqyXBlD_ajI7sBhw76VywM8efOSZ0bz9EpkshPiiUK7PYMKtN3pLgNVAarbF7zwzuGiw/exec"; 
     
     let authorizedStudents = [
+        { name: "SANCHIT GUPTA", class: "9", section: "A", position: "HOUSE CAPTAIN", pass: "Sanchit#Aravali", batchBadge: "Captain Crest | 👑" },
+        { name: "HREHAAN ARORA", class: "9", section: "A", position: "VICE HOUSE CAPTAIN", pass: "Hrehaan#Aravali", batchBadge: "Vice Captain Crest | ⚡" },
+        { name: "PAAVNI BHALLA", class: "9", section: "C", position: "HOUSE CULTURAL CAPTAIN", pass: "Paavni#Aravali", batchBadge: "Cultural Captain Crest | 🎨" },
+        { name: "DIVAS ARORA", class: "10", section: "B", position: "HOUSE SPORTS CAPTAIN", pass: "Divas#Aravali", batchBadge: "Sports Captain Crest | ⚽" },
         { name: "AARUSH", class: "10", section: "A", position: "PROCTOR - BOYS", pass: "Aarush#Proctor", batchBadge: "Proctor Badge | 🛡️" },
         { name: "JAPUNJAN", class: "10", section: "B", position: "CULTURAL SECRETARY - GIRLS", pass: "Japunjan#Cultural", batchBadge: "Secretary Badge | 🎭" },
         { name: "NAVYA CHADDHA", class: "10", section: "B", position: "ENVIRONMENT SECRETARY - GIRLS", pass: "Navya#Environment", batchBadge: "Secretary Badge | 🌱" },
@@ -810,11 +814,7 @@
         { name: "TANISHKA", class: "9", section: "C", position: "PREFECT", pass: "Tanishka@Prefect", batchBadge: "Prefect Badge | ⭐" },
         { name: "BHAVIK", class: "8", section: "B", position: "PREFECT", pass: "Bhavik@Prefect", batchBadge: "Prefect Badge | ⭐" },
         { name: "JASMAIRA", class: "7", section: "B", position: "PREFECT", pass: "Jasmaira@Prefect", batchBadge: "Prefect Badge | ⭐" },
-        { name: "MANRAJ", class: "7", section: "B", position: "PREFECT", pass: "Manraj@Prefect", batchBadge: "Prefect Badge | ⭐" },
-        { name: "SANCHIT GUPTA", class: "9", section: "A", position: "HOUSE CAPTAIN", pass: "Sanchit#Aravali", batchBadge: "Captain Crest | 👑" },
-        { name: "HREHAAN ARORA", class: "9", section: "A", position: "VICE HOUSE CAPTAIN", pass: "Hrehaan#Aravali", batchBadge: "Vice Captain Crest | ⚡" },
-        { name: "PAAVNI BHALLA", class: "9", section: "C", position: "HOUSE CULTURAL CAPTAIN", pass: "Paavni#Aravali", batchBadge: "Cultural Captain Crest | 🎨" },
-        { name: "DIVAS ARORA", class: "10", section: "B", position: "HOUSE SPORTS CAPTAIN", pass: "Divas#Aravali", batchBadge: "Sports Captain Crest | ⚽" }
+        { name: "MANRAJ", class: "7", section: "B", position: "PREFECT", pass: "Manraj@Prefect", batchBadge: "Prefect Badge | ⭐" }
     ];
     
     let localCacheMatrix = {};
@@ -1123,10 +1123,19 @@
                 achBody.innerHTML = data.Competitions_Won.map((r, i) => `<tr><td>${i+1}</td><td>${r[0] || ''}</td><td>${r[1] || ''}</td><td>${r[2] || ''}</td><td>${r[3] || ''}</td><td>${r[4] || ''}</td><td>${r[5] || ''}</td></tr>`).join('');
             }
 
-            // Render C: Member Registries
+            // Render C: Local Static Batchholders Framework Override Allocation Loop
             const batchBody = document.querySelector("#public-members-table tbody");
-            if (batchBody && data.Sheet1) {
-                batchBody.innerHTML = data.Sheet1.map((r, i) => `<tr><td>${i+1}</td><td class="left-align" style="padding-left:20px;"><strong>${r[0] || ''}</strong></td><td>Class ${r[1] || ''}</td><td>${r[2] || ''}</td><td>${r[6] || ''}</td><td>Active Roster Node</td></tr>`).join('');
+            if (batchBody) {
+                batchBody.innerHTML = authorizedStudents.map((student, i) => `
+                    <tr>
+                        <td>${i+1}</td>
+                        <td class="left-align" style="padding-left:20px;"><strong>${student.name}</strong></td>
+                        <td>Class ${student.class}</td>
+                        <td>${student.section}</td>
+                        <td>${student.position}</td>
+                        <td><span style="font-weight: bold; color: #1e3a8a;">${student.batchBadge}</span></td>
+                    </tr>
+                `).join('');
             }
 
             // Render D: Thoughts Stream Blogs Logs
