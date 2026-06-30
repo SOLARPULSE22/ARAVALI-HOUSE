@@ -144,7 +144,6 @@
 
 <div class="container">
     
-    <!-- 🏠 HOME VIEWS CHANNEL -->
     <div id="page-home" class="page-view active-page">
         <div class="card card-goal">
             <h2>Our Main Goal</h2>
@@ -170,7 +169,6 @@
         </div>
     </div>
 
-    <!-- 🏆 ROSTER RECORDS LEDGER CHANNEL -->
     <div id="page-achievers" class="page-view">
         <div class="card card-achievers">
             <h2>🏆 Aravali Competition Winners Ledger (Academic session 2026-2027)</h2>
@@ -235,7 +233,6 @@
         </div>
     </div>
 
-    <!-- 👑 HOUSE SECURITY MANAGEMENT REGISTER -->
     <div id="page-council" class="page-view">
         <div class="card card-council">
             <h2>Official House Council Registry Directory (Academic session 2026-2027)</h2>
@@ -255,7 +252,6 @@
         </div>
     </div>
 
-    <!-- 👨‍🏫 FACULTY DIRECTORY CHANNEL -->
     <div id="page-teachers" class="page-view">
         <div class="card card-teachers">
             <h2>Official Aravali House Faculty Directory (Academic session 2026-2027)</h2>
@@ -278,7 +274,6 @@
         </div>
     </div>
 
-    <!-- 🎖️ LEADERSHIP IDENTIFICATION INDEX -->
     <div id="page-batchholders" class="page-view">
         <div class="card card-batchholders">
             <h2>Official Batchholder Reference Directory (Academic session 2026-2027)</h2>
@@ -301,7 +296,6 @@
         </div>
     </div>
 
-    <!-- ✍️ ARTICLE STREAM CHANNEL -->
     <div id="page-blogs" class="page-view">
         <div class="card card-blogs">
             <h2>Official House Thought Stream Hub (Academic session 2026-2027)</h2>
@@ -321,34 +315,36 @@
         </div>
     </div>
 
-    <!-- 🔐 STUDENT PORTAL INTERACTIVE SEGMENT -->
     <div id="page-portal" class="page-view">
         <div class="card card-portal">
             
-            <!-- 🔑 AUTH INPUT CONSOLE Wrapper -->
             <div id="login-box" class="visible-box">
-                <h2>Student Portal Secure Access</h2>
+                <h2 id="portal-flow-heading">Student Portal Security Access (SIGNUP MODE)</h2>
                 <div id="studentPortalLoginForm"> 
                     <label>Full Name</label>
                     <input type="text" id="student-name" required placeholder="e.g., SANCHIT GUPTA">
-                    <div class="form-row">
+                    
+                    <div class="form-row" id="signup-profile-class-row">
                         <div class="form-group">
                             <label>Class</label>
-                            <input type="text" id="student-class" required placeholder="e.g., 9">
+                            <input type="text" id="student-class" placeholder="e.g., 9">
                         </div>
                         <div class="form-group">
                             <label>Section</label>
                             <input type="text" id="student-section" placeholder="e.g., A">
                         </div>
                     </div>
+                    
                     <label>School Admission Number</label>
                     <input type="text" id="student-admission-no" required placeholder="e.g., MT-20261">
                     
                     <label>Official Gmail ID</label>
                     <input type="email" id="student-email-id" required placeholder="studentname@gmail.com">
                     
-                    <label>Phone Number (WhatsApp)</label>
-                    <input type="tel" id="student-phone-no" required placeholder="10-Digit Mobile Number">
+                    <div id="signup-profile-phone-row">
+                        <label>Phone Number (WhatsApp)</label>
+                        <input type="tel" id="student-phone-no" placeholder="10-Digit Mobile Number">
+                    </div>
                     
                     <label>Your Assigned House Position</label>
                     <select id="student-position">
@@ -362,23 +358,22 @@
                         <option value="HOUSE CULTURAL CAPTAIN">House Cultural Captain</option>
                         <option value="HOUSE SPORTS CAPTAIN">House Sports Captain</option>
                     </select>
+                    
                     <label>Security Access Password</label>
                     <input type="password" id="student-password" required placeholder="••••••••">
                     <div id="error-box" style="display:none; color:red; margin-top:15px; font-weight:700;">❌ Access Denied.</div>
                     
-                    <button type="button" onclick="handleStudentRegistrationSubmit(event); executeSecureDashboardLogin(event);" class="action-button">VERIFY IDENTITY NODE</button>
-                    <button type="button" onclick="handleProfileResetNode()" style="background:transparent; color:#4b5563; border:none; font-weight:700; text-decoration:underline; cursor:pointer; font-size:0.85rem; margin-top:20px; display:block; width:100%; text-align:center;">Reset Saved Profile Credentials</button>
+                    <button type="button" onclick="executeSecureDashboardLogin(event);" class="action-button" id="portal-main-action-btn">VERIFY IDENTITY & REGISTER NODE</button>
+                    <button type="button" onclick="handleProfileResetNode()" style="background:transparent; color:#4b5563; border:none; font-weight:700; text-decoration:underline; cursor:pointer; font-size:0.85rem; margin-top:20px; display:block; width:100%; text-align:center;">Reset Saved Profile Credentials (Switch to Signup)</button>
                 </div> 
             </div>
 
-            <!-- 🏠 REPAIRED CENTRAL OPERATIONS WORKSPACE ACTIVE BLOCK -->
             <div id="dashboard-box" class="hidden-box">
                 <div class="welcome-banner" style="background: #f1f5f9; padding: 15px; border-radius: 8px; border-left: 5px solid #8b5cf6; margin-bottom: 20px;">
                     <span style="font-weight:900; font-size:1.3rem;">OPERATIONAL WORKSPACE ACTIVE</span><br>
                     User: <span id="display-name" style="font-weight: 700;">Student</span> | Role: <span id="display-role" style="font-weight: 700;">Member</span>
                 </div>
 
-                <!-- 🏠 LIVE HISTORY TRACKING CARD -->
                 <div class="card" style="border: 3px solid #f59e0b; background: #fffdf5; margin-bottom: 25px;">
                     <h2>📅 Official House Meetings Tracking Roster</h2>
                     <p style="color: #b45309; font-weight: 500;">Historical register detailing official structural meetings, schedules, and resolution agendas.</p>
@@ -401,7 +396,6 @@
                     </div>
                 </div>
 
-                <!-- ATTENDANCE SUBMISSION CONTAINER (Available to all Prefects) -->
                 <div id="student-apply-attendance-box" class="card" style="border: 2px solid #3b82f6; margin-bottom: 25px; padding: 20px;">
                     <h3 style="margin-top:0; color:#1d4ed8; text-transform:uppercase;">📝 Apply For Attendance Verification</h3>
                     <form onsubmit="handleStudentAttendanceApplicationSubmit(event)">
@@ -427,7 +421,6 @@
                     </form>
                 </div>
 
-                <!-- STREAM LABELS PANEL -->
                 <div id="student-house-meeting-box" class="meeting-widget-card" style="margin-bottom: 25px;">
                     <h3>📢 UPCOMING HOUSE MEETINGS</h3>
                     <div id="live-meeting-text">No house meetings scheduled currently.</div>
@@ -462,7 +455,6 @@
                     </table>
                 </div>
 
-                <!-- 👑 EXCLUSIVE SYSTEM ENGINE SUBSECTION CONTROL -->
                 <div id="council-panel" class="captain-panel" style="display:none;">
                     <h2>House Council Global Data Engine</h2>
                     
@@ -625,7 +617,6 @@
                         </form>
                     </div>
 
-                    <!-- 📝 COMPOSE AND LAUNCH OFFICIAL BLOG POSTS CARD -->
                     <div style="background: #ecfdf5; padding: 15px; border-radius: 8px; border: 2px solid #10b981; margin-bottom: 25px;">
                         <h3 style="color: #059669; margin-top: 0;">✍️ Compose & Launch Official Blog Posts</h3>
                         <form onsubmit="directPublishNewBlog(event)">
@@ -751,7 +742,6 @@
                     </form>
                 </div>
 
-                <!-- Operations Bridge Section -->
                 <div id="masterAdminBridge" class="admin-bridge-overlay" style="display: none; margin-top: 25px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #002d72; padding-bottom: 10px;">
                         <h3 style="color: #002d72; margin: 0; font-weight: 900;">🦅 ARAVALI HUB CENTRAL OPERATIONS BRIDGE</h3>
@@ -855,36 +845,54 @@
     }
 
     // ==========================================================================
-    // 3. GLOBAL RUNTIME ENGINE: ABSOLUTE OVERRIDE FOR STABLE LAYOUT UNROLLS
+    // 3. GLOBAL RUNTIME ENGINE: ENTRY AND SECURE ACCESS PROTOCOLS
     // ==========================================================================
+    
+    // Updates UI elements depending on whether the user has already signed up or not
+    function syncPortalLayoutFlowMode() {
+        const hasRegistered = localStorage.getItem('aravali_user_registered');
+        const flowHeading = document.getElementById('portal-flow-heading');
+        const classRow = document.getElementById('signup-profile-class-row');
+        const phoneRow = document.getElementById('signup-profile-phone-row');
+        const mainActionBtn = document.getElementById('portal-main-action-btn');
+
+        if (hasRegistered === "true") {
+            // RETURNING USER MODE: LOGIN ONLY
+            if (flowHeading) flowHeading.innerText = "Student Portal Security Access (LOGIN MODE)";
+            if (classRow) classRow.style.display = "none";
+            if (phoneRow) phoneRow.style.display = "none";
+            if (mainActionBtn) mainActionBtn.innerText = "VERIFY IDENTITY NODE (LOGIN)";
+        } else {
+            // NEW USER MODE: FULL SIGNUP
+            if (flowHeading) flowHeading.innerText = "Student Portal Security Access (SIGNUP MODE)";
+            if (classRow) classRow.style.display = "flex";
+            if (phoneRow) phoneRow.style.display = "block";
+            if (mainActionBtn) mainActionBtn.innerText = "VERIFY IDENTITY & REGISTER NODE";
+        }
+    }
+
     async function executeSecureDashboardLogin(event) {
         if (event) event.preventDefault();
         console.log("🔒 Init login verification handshake...");
 
-        const nameField = document.getElementById('student-name') || document.getElementById('reg-student-name') || {value:""};
-        const passField = document.getElementById('student-password') || document.getElementById('reg-student-password') || {value:""};
-        const posField = document.getElementById('student-position') || document.getElementById('reg-student-position') || {value:""};
-
-        const nameInput = nameField.value.trim().toUpperCase();
-        const passInput = passField.value.trim();
-        const posInput = posField.value.toUpperCase();
-
+        const nameInput = (document.getElementById('student-name') || {value:""}).value.trim().toUpperCase();
+        const passInput = (document.getElementById('student-password') || {value:""}).value.trim();
+        const posInput = (document.getElementById('student-position') || {value:""}).value.toUpperCase();
         const errorBox = document.getElementById('error-box');
 
+        let entryClearance = false;
+
+        // A. MASTER ADMIN ROUTE OVERRIDE
         if (passInput === "Sanchit#Aravali" || nameInput.includes("SANCHIT") || posInput.includes("CAPTAIN") || posInput.includes("MISTRESS")) {
             console.log("🔓 Administrative clearance granted via Master Override!");
-            
             currentSessionUser = { name: nameInput || "SANCHIT", position: posInput || "HOUSE CAPTAIN" };
-            
+            entryClearance = true;
+
             const boxMappings = [
-                { id: 'login-box', show: false },
-                { id: 'dashboard-box', show: true },
-                { id: 'masterAdminBridge', show: true },
-                { id: 'council-panel', show: true },
-                { id: 'captain-meetings-management-card', show: true },
-                { id: 'captain-vice-direct-attendance-card', show: true },
-                { id: 'council-applications-stream-card', show: true },
-                { id: 'captain-absolute-override-section', show: true },
+                { id: 'login-box', show: false }, { id: 'dashboard-box', show: true },
+                { id: 'masterAdminBridge', show: true }, { id: 'council-panel', show: true },
+                { id: 'captain-meetings-management-card', show: true }, { id: 'captain-vice-direct-attendance-card', show: true },
+                { id: 'council-applications-stream-card', show: true }, { id: 'captain-absolute-override-section', show: true },
                 { id: 'captain-exclusive-section', show: true }
             ];
 
@@ -900,39 +908,45 @@
                     }
                 }
             });
+        } 
+        // B. STANDARD USER ROUTE
+        else {
+            const localUser = authorizedStudents.find(s => s.name === nameInput && s.pass === passInput);
+            if (localUser) {
+                currentSessionUser = localUser;
+                entryClearance = true;
 
+                const loginEl = document.getElementById('login-box');
+                const dashEl = document.getElementById('dashboard-box');
+                if (loginEl) loginEl.style.display = "none";
+                if (dashEl) {
+                    dashEl.style.display = "block";
+                    dashEl.classList.remove('hidden-box');
+                }
+                
+                if (document.getElementById('council-panel')) document.getElementById('council-panel').style.display = "none";
+                if (document.getElementById('masterAdminBridge')) document.getElementById('masterAdminBridge').style.display = "none";
+            }
+        }
+
+        // POST-VERIFICATION ACTIONS: Only if profile match is valid
+        if (entryClearance) {
             if (document.getElementById('display-name')) document.getElementById('display-name').innerText = currentSessionUser.name;
             if (document.getElementById('display-role')) document.getElementById('display-role').innerText = currentSessionUser.position;
             if (document.getElementById('form-blog-author')) document.getElementById('form-blog-author').value = currentSessionUser.name;
             if (errorBox) errorBox.style.display = "none";
 
-            try { fetchGlobalMasterDatabaseGrid(); } catch(e) { console.warn("Grid feed offline", e); }
-            return;
-        }
-
-        const localUser = authorizedStudents.find(s => s.name === nameInput && s.pass === passInput);
-        if (localUser) {
-            currentSessionUser = localUser;
-            
-            const loginEl = document.getElementById('login-box');
-            const dashEl = document.getElementById('dashboard-box');
-            if (loginEl) loginEl.style.display = "none";
-            if (dashEl) {
-                dashEl.style.display = "block";
-                dashEl.classList.remove('hidden-box');
+            // If this is their first time successfully entering (Signup Mode), stream it live to Sheets!
+            if (localStorage.getItem('aravali_user_registered') !== "true") {
+                await handleStudentRegistrationSubmit(); 
+                localStorage.setItem('aravali_user_registered', "true");
+                syncPortalLayoutFlowMode();
             }
-
-            if (document.getElementById('display-name')) document.getElementById('display-name').innerText = localUser.name;
-            if (document.getElementById('display-role')) document.getElementById('display-role').innerText = localUser.position;
-            
-            if (document.getElementById('council-panel')) document.getElementById('council-panel').style.display = "none";
-            if (document.getElementById('masterAdminBridge')) document.getElementById('masterAdminBridge').style.display = "none";
-            if (errorBox) errorBox.style.display = "none";
 
             try { fetchGlobalMasterDatabaseGrid(); } catch(e) { console.warn("Grid feed offline", e); }
         } else {
             if (errorBox) {
-                errorBox.innerText = "❌ Access Denied. Invalid profile keys.";
+                errorBox.innerText = "❌ Access Denied. Invalid configuration parameters.";
                 errorBox.style.display = 'block';
             }
         }
@@ -941,38 +955,20 @@
     // ==========================================================================
     // 4. ACTIVE DATA STREAM DISPATCH PLUGINS (UPDATES GOOGLE SHEETS LIVE)
     // ==========================================================================
-    async function handleStudentRegistrationSubmit(event) {
-        if (event) event.preventDefault();
-        
-        const findInputValue = (selectors) => {
-            for (let selector of selectors) {
-                const el = document.getElementById(selector) || document.querySelector(`input[name="${selector}"]`);
-                if (el && el.value) return el.value.trim();
-            }
-            return "";
-        };
+    async function handleStudentRegistrationSubmit() {
+        console.log("Transmitting valid registration payload parameters to database...");
 
         const payload = {
             action: "registerStudent",
-            name: findInputValue(['reg-student-name', 'student-name', 'name', 'full-name']).toUpperCase(),
-            class: findInputValue(['reg-student-class', 'student-class', 'class', 'grade']),
-            section: findInputValue(['reg-student-section', 'student-section', 'section', 'sec']).toUpperCase(),
-            admissionNo: findInputValue(['reg-student-admission-no', 'student-admission-no', 'admission-no', 'adm-no']).toUpperCase(),
-            email: findInputValue(['reg-student-email-id', 'student-email-id', 'email', 'gmail']),
-            phone: findInputValue(['reg-student-phone-no', 'student-phone-no', 'phone', 'whatsapp']),
-            position: findInputValue(['reg-student-position', 'student-position', 'position', 'role']).toUpperCase() || "MEMBER",
-            password: findInputValue(['reg-student-password', 'student-password', 'password', 'pass'])
+            name: (document.getElementById('student-name') || {value:""}).value.trim().toUpperCase(),
+            class: (document.getElementById('student-class') || {value:"9"}).value.trim(),
+            section: (document.getElementById('student-section') || {value:"A"}).value.trim().toUpperCase(),
+            admissionNo: (document.getElementById('student-admission-no') || {value:""}).value.trim().toUpperCase(),
+            email: (document.getElementById('student-email-id') || {value:""}).value.trim(),
+            phone: (document.getElementById('student-phone-no') || {value:"N/A"}).value.trim(),
+            position: (document.getElementById('student-position') || {value:"MEMBER"}).value.toUpperCase(),
+            password: (document.getElementById('student-password') || {value:""}).value.trim()
         };
-
-        if (!payload.name) {
-            payload.name = (document.getElementById('student-name') || {value:""}).value.trim().toUpperCase();
-            payload.password = (document.getElementById('student-password') || {value:""}).value.trim();
-            payload.position = (document.getElementById('student-position') || {value:"PREFECT"}).value.toUpperCase();
-            payload.class = "7"; 
-            payload.section = "B";
-        }
-
-        console.log("Transmitting secure package payload to cloud matrix:", payload);
 
         try {
             await fetch(WEB_APP_DATABASE_URL, {
@@ -981,13 +977,16 @@
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(payload)
             });
-            
-            alert("🎉 Data transmission engine completed! Check your Google Sheet now.");
-            fetchGlobalMasterDatabaseGrid();
+            console.log("🎉 Target registration node mapped into sheet securely.");
         } catch (err) {
-            console.error("Data pipeline broken: ", err);
-            alert("❌ Transmission failure. Connection dropped.");
+            console.error("Data tracking stack dropped: ", err);
         }
+    }
+
+    function handleProfileResetNode() {
+        localStorage.removeItem('aravali_user_registered');
+        syncPortalLayoutFlowMode();
+        alert("Signature cache tracking successfully scrubbed. Switched to SIGNUP mode.");
     }
 
     async function executeActivitySubmissionAsync(event) {
@@ -1077,7 +1076,6 @@
         } catch (err) { alert("❌ Error: " + err); }
     }
 
-    // Secondary UI action placeholders
     function syncDirectStudentFormDetails() {}
     function handleDirectUnilateralAttendanceMark(e) { if(e) e.preventDefault(); }
     function handleCaptainCellOverrideSubmit(e) { if(e) e.preventDefault(); }
@@ -1091,7 +1089,6 @@
     function allocateCompetitionResponsibility(e) { if(e) e.preventDefault(); }
     function manualAddAttendanceRow(e) { if(e) e.preventDefault(); }
     function directAddAchiever(e) { if(e) e.preventDefault(); }
-    function handleProfileResetNode() { alert("Signature cache references scrubbed."); }
     function fetchLiveDatabaseGrid() { fetchGlobalMasterDatabaseGrid(); }
     function applyBlogFiltersMatrix() {}
     function resetBlogFiltersMatrix() { fetchGlobalMasterDatabaseGrid(); }
@@ -1102,7 +1099,6 @@
     async function fetchGlobalMasterDatabaseGrid() {
         if (!WEB_APP_DATABASE_URL) return;
         try {
-            // Force populate local active batch array row templates on view unrolls instantly
             const batchBody = document.querySelector("#public-members-table tbody");
             if (batchBody) {
                 batchBody.innerHTML = authorizedStudents.map((student, i) => `
@@ -1159,11 +1155,11 @@
         document.getElementById('masterAdminBridge').style.display = "none";
     }
 
-    // Run initialization inputs on layout rendering cycles
+    // Run initialization loops on runtime structural cycles
     window.addEventListener('DOMContentLoaded', () => { 
+        syncPortalLayoutFlowMode();
         fetchGlobalMasterDatabaseGrid(); 
         
-        // Dynamically append target date options to required empty selection boxes
         const dateDropdownIds = ['apply-date-select', 'direct-date-select', 'override-date-select'];
         dateDropdownIds.forEach(elementId => {
             const selectNode = document.getElementById(elementId);
