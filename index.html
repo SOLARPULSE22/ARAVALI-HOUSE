@@ -329,6 +329,7 @@
                     <select id="filter-topic-select" onchange="applyBlogFiltersMatrix()"></select>
                     <label>By Month</label>
                     <select id="filter-month-select" onchange="applyBlogFiltersMatrix()"></select>
+                    <label>By Month</label>
                     <button type="button" class="action-button btn-accent" style="margin-top: 15px; padding: 10px; font-size: 0.85rem;" onclick="resetBlogFiltersMatrix()">Clear Filters</button>
                 </div>
             </div>
@@ -355,9 +356,6 @@
                         <input type="text" id="student-section" placeholder="e.g., A">
                     </div>
                 </div>
-                
-                <label>School Admission Number</label>
-                <input type="text" id="student-admission-no" required placeholder="e.g., MT-20261">
                 
                 <label>Official Gmail ID</label>
                 <input type="email" id="student-email-id" required placeholder="studentname@gmail.com">
@@ -505,7 +503,7 @@
                         <input type="text" id="meet-form-attendees" required placeholder="e.g., Sanchit and Prefects" style="width: 100%; margin-bottom: 10px; padding: 8px;">
                         
                         <label>What was the Agenda / Minutes of the Meeting?</label>
-                        <textarea id="meet-form-agenda" rows="3" required placeholder="Outline key performance benchmarks discussed..." style="width: 100%; margin-bottom: 15px; padding: 8px;"></textarea>
+                        <textarea id="meet-form-agenda" rows="3" required placeholder="Outline key performance benchmarks discussed..." style="width: 100%; margin-bottom: 15px; padding: 8px("></textarea>
                         
                         <button type="submit" class="action-button" style="background: linear-gradient(135deg, #d97706 0%, #b45309 100%);">Publish Meeting Records Node</button>
                     </form>
@@ -783,12 +781,11 @@
                                 <thead>
                                     <tr style="background: #002d72; color: #fff;">
                                         <th style="padding: 10px;">Student Profile Info</th>
-                                        <th>Admission ID</th>
                                         <th>Contact Channels</th>
                                     </tr>
                                 </thead>
                                 <tbody id="adminRegistryRows">
-                                    <tr><td colspan="3" style="padding: 15px; text-align: center; color: #94a3b8;">Awaiting database synchronization pipeline...</td></tr>
+                                    <tr><td colspan="2" style="padding: 15px; text-align: center; color: #94a3b8;">Awaiting database synchronization pipeline...</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -821,7 +818,7 @@
         { name: "DIVAS ARORA", class: "10", section: "B", position: "HOUSE SPORTS CAPTAIN", pass: "Divas#Aravali", batchBadge: "Sports Captain Crest | ⚽" },
         { name: "AARUSH", class: "10", section: "A", position: "PROCTOR - BOYS", pass: "Aarush#Proctor", batchBadge: "Proctor Badge | 🛡️" },
         { name: "JAPUNJAN", class: "10", section: "B", position: "CULTURAL SECRETARY - GIRLS", pass: "Japunjan#Cultural", batchBadge: "Secretary Badge | 🎭" },
-        { name: "NAVYA CHADDHA", class: "10", section: "B", position: "ENVIRONMENT SECRETARY - GIRLS", pass: "Navya#Environment", batchBadge: "Secretary Badge | 🌱" },
+        { name: "NAVYA CHADHA", class: "10", section: "B", position: "ENVIRONMENT SECRETARY - GIRLS", pass: "Navya#Environment", batchBadge: "Secretary Badge | 🌱" },
         { name: "ALIYA", class: "10", section: "C", position: "PREFECT", pass: "Aliya@Prefect", batchBadge: "Prefect Badge | ⭐" },
         { name: "NAVYA KOHLI", class: "10", section: "A", position: "PREFECT", pass: "Navya@Prefect", batchBadge: "Prefect Badge | ⭐" },
         { name: "RAADHIYA", class: "9", section: "A", position: "PREFECT", pass: "Raadhiya@Prefect", batchBadge: "Prefect Badge | ⭐" },
@@ -1019,7 +1016,6 @@
             name: nameVal,
             class: finalClass,
             section: finalSection,
-            admissionNo: (document.getElementById('admission-no') || document.getElementById('student-admission-no') || {value:""}).value.trim().toUpperCase(),
             email: (document.getElementById('student-email-id') || {value:""}).value.trim(),
             phone: finalPhone,
             position: (document.getElementById('student-position') || {value:"MEMBER"}).value.toUpperCase(),
