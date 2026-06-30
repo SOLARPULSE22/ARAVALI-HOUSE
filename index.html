@@ -1102,6 +1102,21 @@
     async function fetchGlobalMasterDatabaseGrid() {
         if (!WEB_APP_DATABASE_URL) return;
         try {
+            // Force populate local active batch array row templates on view unrolls instantly
+            const batchBody = document.querySelector("#public-members-table tbody");
+            if (batchBody) {
+                batchBody.innerHTML = authorizedStudents.map((student, i) => `
+                    <tr>
+                        <td>${i+1}</td>
+                        <td class="left-align" style="padding-left:20px;"><strong>${student.name}</strong></td>
+                        <td>Class ${student.class}</td>
+                        <td>${student.section}</td>
+                        <td>${student.position}</td>
+                        <td><span style="font-weight: bold; color: #1e3a8a;">${student.batchBadge}</span></td>
+                    </tr>
+                `).join('');
+            }
+
             const broadcastRes = await fetch(`${WEB_APP_DATABASE_URL}?action=getLatestBroadcast`);
             const broadcastData = await broadcastRes.json();
             document.getElementById("broadcastTargetText").innerText = broadcastData.message || "System Standing by.";
@@ -1121,21 +1136,6 @@
             const achBody = document.querySelector("#achievers-table tbody");
             if (achBody && data.Competitions_Won) {
                 achBody.innerHTML = data.Competitions_Won.map((r, i) => `<tr><td>${i+1}</td><td>${r[0] || ''}</td><td>${r[1] || ''}</td><td>${r[2] || ''}</td><td>${r[3] || ''}</td><td>${r[4] || ''}</td><td>${r[5] || ''}</td></tr>`).join('');
-            }
-
-            // Render C: Local Static Batchholders Framework Override Allocation Loop
-            const batchBody = document.querySelector("#public-members-table tbody");
-            if (batchBody) {
-                batchBody.innerHTML = authorizedStudents.map((student, i) => `
-                    <tr>
-                        <td>${i+1}</td>
-                        <td class="left-align" style="padding-left:20px;"><strong>${student.name}</strong></td>
-                        <td>Class ${student.class}</td>
-                        <td>${student.section}</td>
-                        <td>${student.position}</td>
-                        <td><span style="font-weight: bold; color: #1e3a8a;">${student.batchBadge}</span></td>
-                    </tr>
-                `).join('');
             }
 
             // Render D: Thoughts Stream Blogs Logs
