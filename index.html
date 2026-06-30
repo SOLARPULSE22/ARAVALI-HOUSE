@@ -130,19 +130,17 @@
     <p>DIGITAL WORKSTATION & OPERATIONS PORTAL</p>
 </header>
 
-<div class="container">
-    <nav>
-        <div class="nav-container">
-            <button id="nav-home" class="active" onclick="switchPage('home')">Our Goal</button>
-            <button id="nav-achievers" onclick="switchPage('achievers')">Our Achievers</button>
-            <button id="nav-council" onclick="switchPage('council')">Our Council</button>
-            <button id="nav-teachers" onclick="switchPage('teachers')">Our Teachers</button>
-            <button id="nav-batchholders" onclick="switchPage('batchholders')">Our Batchholders</button>
-            <button id="nav-blogs" onclick="switchPage('blogs')">Our Blogs</button>
-            <button id="nav-portal" onclick="switchPage('portal')">Student Portal</button>
-        </div>
-    </nav>
-</div>
+<nav>
+    <div class="nav-container">
+        <button id="nav-home" class="active" onclick="switchPage('home')">Our Goal</button>
+        <button id="nav-achievers" onclick="switchPage('achievers')">Our Achievers</button>
+        <button id="nav-council" onclick="switchPage('council')">Our Council</button>
+        <button id="nav-teachers" onclick="switchPage('teachers')">Our Teachers</button>
+        <button id="nav-batchholders" onclick="switchPage('batchholders')">Our Batchholders</button>
+        <button id="nav-blogs" onclick="switchPage('blogs')">Our Blogs</button>
+        <button id="nav-portal" onclick="switchPage('portal')">Student Portal</button>
+    </div>
+</nav>
 
 <div class="container">
     
@@ -919,7 +917,7 @@
         }
 
         if (entryClearance) {
-            // Store the dynamic profile metrics captured during signup workflows
+            // Secure phone dynamic value mapping cache block immediately on success check
             if (isSignupFlowActive) {
                 const phoneInputNode = document.getElementById('student-phone-no');
                 if (phoneInputNode && phoneInputNode.value.trim()) {
@@ -927,7 +925,7 @@
                 }
             }
 
-            // LOG METRICS TO GOOGLE SHEETS BEFORE CLEARING INPUTS
+            // LOG DATA MANUALLY TO CENTRAL GOOGLE SHEETS FOR AUDIT RECORDS
             await handleStudentRegistrationSubmit(); 
             localStorage.setItem('aravali_user_registered', "true");
 
@@ -937,7 +935,7 @@
             if (loginEl) loginEl.style.setProperty('display', 'none', 'important');
             if (dashEl) {
                 dashEl.style.setProperty('display', 'block', 'important');
-                dashEl.classList.remove('hidden-box');
+                dashEl.className = "visible-box";
             }
 
             if (!isMasterCaptainOverride) {
@@ -974,11 +972,14 @@
         const finalClass = (classInputNode && classInputNode.value.trim()) ? classInputNode.value.trim() : profileMatch.class;
         const finalSection = (sectionInputNode && sectionInputNode.value.trim()) ? sectionInputNode.value.trim().toUpperCase() : profileMatch.section;
         
-        // Check for persistent localStorage metrics cache directly to bypass placeholder glitches
-        let finalPhone = localStorage.getItem('aravali_user_phone');
-        if (!finalPhone || finalPhone.trim() === "") {
-            const phoneInputNode = document.getElementById('student-phone-no');
-            finalPhone = (phoneInputNode && phoneInputNode.value.trim()) ? phoneInputNode.value.trim() : "Active Login Connection";
+        // Scan internal cache explicitly to capture real phone metric values
+        let finalPhone = "";
+        const phoneInputNode = document.getElementById('student-phone-no');
+        
+        if (phoneInputNode && phoneInputNode.value.trim() !== "") {
+            finalPhone = phoneInputNode.value.trim();
+        } else {
+            finalPhone = localStorage.getItem('aravali_user_phone') || "N/A";
         }
 
         const payload = {
@@ -1202,10 +1203,12 @@
     });
 </script>
 
-<footer>
-    THE ARAVALI HUB &copy; 2026<br>
-    <span style="font-size: 0.85rem; font-weight: 500; opacity: 0.9;">An initiative of the house council of Aravali house of the academic session 2026 - 2027</span>
-</footer>
+<script>
+    // System cleanup patch for execution guardrails tracking logic profiles
+    if (localStorage.getItem('aravali_user_phone') === "Active Login Connection") {
+        localStorage.removeItem('aravali_user_phone');
+    }
+</script>
 
 </body>
 </html>
