@@ -130,17 +130,19 @@
     <p>DIGITAL WORKSTATION & OPERATIONS PORTAL</p>
 </header>
 
-<nav>
-    <div class="nav-container">
-        <button id="nav-home" class="active" onclick="switchPage('home')">Our Goal</button>
-        <button id="nav-achievers" onclick="switchPage('achievers')">Our Achievers</button>
-        <button id="nav-council" onclick="switchPage('council')">Our Council</button>
-        <button id="nav-teachers" onclick="switchPage('teachers')">Our Teachers</button>
-        <button id="nav-batchholders" onclick="switchPage('batchholders')">Our Batchholders</button>
-        <button id="nav-blogs" onclick="switchPage('blogs')">Our Blogs</button>
-        <button id="nav-portal" onclick="switchPage('portal')">Student Portal</button>
-    </div>
-</nav>
+<div class="container">
+    <nav>
+        <div class="nav-container">
+            <button id="nav-home" class="active" onclick="switchPage('home')">Our Goal</button>
+            <button id="nav-achievers" onclick="switchPage('achievers')">Our Achievers</button>
+            <button id="nav-council" onclick="switchPage('council')">Our Council</button>
+            <button id="nav-teachers" onclick="switchPage('teachers')">Our Teachers</button>
+            <button id="nav-batchholders" onclick="switchPage('batchholders')">Our Batchholders</button>
+            <button id="nav-blogs" onclick="switchPage('blogs')">Our Blogs</button>
+            <button id="nav-portal" onclick="switchPage('portal')">Student Portal</button>
+        </div>
+    </nav>
+</div>
 
 <div class="container">
     
@@ -323,475 +325,473 @@
 
     <!-- 🔐 STUDENT PORTAL INTERACTIVE SEGMENT -->
     <div id="page-portal" class="page-view">
-        <div class="card card-portal">
-            
-            <!-- 🔑 AUTH INPUT CONSOLE Wrapper -->
-            <div id="login-box" class="visible-box">
-                <h2 id="portal-flow-heading">Student Portal Security Access (SIGNUP MODE)</h2>
-                <div id="studentPortalLoginForm"> 
-                    <label>Full Name</label>
-                    <input type="text" id="student-name" required placeholder="e.g., SANCHIT GUPTA">
-                    
-                    <div class="form-row" id="signup-profile-class-row">
-                        <div class="form-group">
-                            <label>Class</label>
-                            <input type="text" id="student-class" placeholder="e.g., 9">
-                        </div>
-                        <div class="form-group">
-                            <label>Section</label>
-                            <input type="text" id="student-section" placeholder="e.g., A">
-                        </div>
+        
+        <!-- 🔑 AUTH INPUT CONSOLE Wrapper (HIDDEN ON LOGGED STATUS) -->
+        <div id="login-box" class="card card-portal visible-box">
+            <h2 id="portal-flow-heading">Student Portal Security Access (SIGNUP MODE)</h2>
+            <div id="studentPortalLoginForm"> 
+                <label>Full Name</label>
+                <input type="text" id="student-name" required placeholder="e.g., SANCHIT GUPTA">
+                
+                <div class="form-row" id="signup-profile-class-row">
+                    <div class="form-group">
+                        <label>Class</label>
+                        <input type="text" id="student-class" placeholder="e.g., 9">
                     </div>
-                    
-                    <label>School Admission Number</label>
-                    <input type="text" id="student-admission-no" required placeholder="e.g., MT-20261">
-                    
-                    <label>Official Gmail ID</label>
-                    <input type="email" id="student-email-id" required placeholder="studentname@gmail.com">
-                    
-                    <div id="signup-profile-phone-row">
-                        <label>Phone Number (WhatsApp)</label>
-                        <input type="tel" id="student-phone-no" placeholder="10-Digit Mobile Number">
+                    <div class="form-group">
+                        <label>Section</label>
+                        <input type="text" id="student-section" placeholder="e.g., A">
                     </div>
-                    
-                    <label>Your Assigned House Position</label>
-                    <select id="student-position">
-                        <option value="MEMBER">House Member</option>
-                        <option value="PREFECT">Prefect</option>
-                        <option value="PROCTOR - BOYS">Proctor - Boys</option>
-                        <option value="CULTURAL SECRETARY - GIRLS">Cultural Secretary - Girls</option>
-                        <option value="ENVIRONMENT SECRETARY - GIRLS">Environment Secretary - Girls</option>
-                        <option value="HOUSE CAPTAIN">House Captain</option>
-                        <option value="VICE HOUSE CAPTAIN">Vice House Captain</option>
-                        <option value="HOUSE CULTURAL CAPTAIN">House Cultural Captain</option>
-                        <option value="HOUSE SPORTS CAPTAIN">House Sports Captain</option>
-                    </select>
-                    
-                    <label>Security Access Password</label>
-                    <input type="password" id="student-password" required placeholder="••••••••">
-                    <div id="error-box" style="display:none; color:red; margin-top:15px; font-weight:700;">❌ Access Denied.</div>
-                    
-                    <button type="button" onclick="executeSecureDashboardLogin(event);" class="action-button" id="portal-main-action-btn">VERIFY IDENTITY & REGISTER NODE</button>
-                    <button type="button" onclick="handleProfileResetNode()" style="background:transparent; color:#4b5563; border:none; font-weight:700; text-decoration:underline; cursor:pointer; font-size:0.85rem; margin-top:20px; display:block; width:100%; text-align:center;">Reset Saved Profile Credentials (Switch to Signup)</button>
-                </div> 
+                </div>
+                
+                <label>School Admission Number</label>
+                <input type="text" id="student-admission-no" required placeholder="e.g., MT-20261">
+                
+                <label>Official Gmail ID</label>
+                <input type="email" id="student-email-id" required placeholder="studentname@gmail.com">
+                
+                <div id="signup-profile-phone-row">
+                    <label>Phone Number (WhatsApp)</label>
+                    <input type="tel" id="student-phone-no" placeholder="10-Digit Mobile Number">
+                </div>
+                
+                <label>Your Assigned House Position</label>
+                <select id="student-position">
+                    <option value="MEMBER">House Member</option>
+                    <option value="PREFECT">Prefect</option>
+                    <option value="PROCTOR - BOYS">Proctor - Boys</option>
+                    <option value="CULTURAL SECRETARY - GIRLS">Cultural Secretary - Girls</option>
+                    <option value="ENVIRONMENT SECRETARY - GIRLS">Environment Secretary - Girls</option>
+                    <option value="HOUSE CAPTAIN">House Captain</option>
+                    <option value="VICE HOUSE CAPTAIN">Vice House Captain</option>
+                    <option value="HOUSE CULTURAL CAPTAIN">House Cultural Captain</option>
+                    <option value="HOUSE SPORTS CAPTAIN">House Sports Captain</option>
+                </select>
+                
+                <label>Security Access Password</label>
+                <input type="password" id="student-password" required placeholder="••••••••">
+                <div id="error-box" style="display:none; color:red; margin-top:15px; font-weight:700;">❌ Access Denied.</div>
+                
+                <button type="button" onclick="executeSecureDashboardLogin(event);" class="action-button" id="portal-main-action-btn">VERIFY IDENTITY & REGISTER NODE</button>
+                <button type="button" onclick="handleProfileResetNode()" style="background:transparent; color:#4b5563; border:none; font-weight:700; text-decoration:underline; cursor:pointer; font-size:0.85rem; margin-top:20px; display:block; width:100%; text-align:center;">Reset Saved Profile Credentials (Switch to Signup)</button>
+            </div> 
+        </div>
+
+        <!-- 🏠 REPAIRED CENTRAL OPERATIONS WORKSPACE ACTIVE BLOCK -->
+        <div id="dashboard-box" class="hidden-box">
+            <div class="welcome-banner" style="background: #f1f5f9; padding: 15px; border-radius: 8px; border-left: 5px solid #8b5cf6; margin-bottom: 20px;">
+                <span style="font-weight:900; font-size:1.3rem;">OPERATIONAL WORKSPACE ACTIVE</span><br>
+                User: <span id="display-name" style="font-weight: 700;">Student</span> | Role: <span id="display-role" style="font-weight: 700;">Member</span>
             </div>
 
-            <!-- 🏠 REPAIRED CENTRAL OPERATIONS WORKSPACE ACTIVE BLOCK -->
-            <div id="dashboard-box" class="hidden-box">
-                <div class="welcome-banner" style="background: #f1f5f9; padding: 15px; border-radius: 8px; border-left: 5px solid #8b5cf6; margin-bottom: 20px;">
-                    <span style="font-weight:900; font-size:1.3rem;">OPERATIONAL WORKSPACE ACTIVE</span><br>
-                    User: <span id="display-name" style="font-weight: 700;">Student</span> | Role: <span id="display-role" style="font-weight: 700;">Member</span>
+            <!-- 🏠 LIVE HISTORY TRACKING CARD -->
+            <div class="card" style="border: 3px solid #f59e0b; background: #fffdf5; margin-bottom: 25px;">
+                <h2>📅 Official House Meetings Tracking Roster</h2>
+                <p style="color: #b45309; font-weight: 500;">Historical register detailing official structural meetings, schedules, and resolution agendas.</p>
+                <div class="table-responsive" style="border-color: #f59e0b;">
+                    <table id="house-meetings-table">
+                        <thead>
+                            <tr id="meetings-header-row">
+                                <th>S.No</th>
+                                <th>Date of Meeting</th>
+                                <th>Place Held</th>
+                                <th>Total Present</th>
+                                <th>Who All Were Present</th>
+                                <th>Agenda / Minutes of Meeting</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td colspan="6" style="padding:20px; color:#6b7280;">Loading central meeting pipelines...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ATTENDANCE SUBMISSION CONTAINER (Available to all Prefects) -->
+            <div id="student-apply-attendance-box" class="card" style="border: 2px solid #3b82f6; margin-bottom: 25px; padding: 20px;">
+                <h3 style="margin-top:0; color:#1d4ed8; text-transform:uppercase;">📝 Apply For Attendance Verification</h3>
+                <form onsubmit="handleStudentAttendanceApplicationSubmit(event)">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Select Target Date</label>
+                            <select id="apply-date-select" required></select>
+                        </div>
+                        <div class="form-group">
+                            <label>Select Target Break Slot</label>
+                            <select id="apply-break-select" required>
+                                <option value="1st">1st Break</option>
+                                <option value="2nd">2nd Break</option>
+                                <option value="Disp">Dispersal</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Where was your duty done?</label>
+                            <input type="text" id="apply-location-text" required placeholder="e.g., Science Block Stairs">
+                        </div>
+                    </div>
+                    <button type="submit" class="action-button btn-accent" style="margin-top: 10px; width: auto; padding: 10px 20px;">Submit Application Parameters</button>
+                </form>
+            </div>
+
+            <!-- STREAM LAB PANEL -->
+            <div id="student-house-meeting-box" class="meeting-widget-card" style="margin-bottom: 25px;">
+                <h3>📢 UPCOMING HOUSE MEETINGS</h3>
+                <div id="live-meeting-text">No house meetings scheduled currently.</div>
+            </div>
+
+            <div id="student-live-duty-box" class="duty-box-widget" style="margin-bottom: 25px;">
+                <h3>📍 ASSIGNED OPERATION POST</h3>
+                <div id="live-duty-text">No operational post pinned currently.</div>
+            </div>
+
+            <div id="student-live-responsibility-box" class="responsibility-matrix-widget" style="margin-bottom: 25px;">
+                <h3>🏆 COMPETITION ALLOCATION & CO-ORDINATION</h3>
+                <div style="font-size: 1rem; font-weight: 600;">
+                    Task: <span id="live-resp-task">None</span> | Teachers: <span id="live-resp-teachers">None</span>
+                </div>
+            </div>
+
+            <h3 style="margin-top:40px; color: #4c1d95;">Duty Attendance Status Grid (Academic session 2026-2027)</h3>
+            <div class="table-responsive" style="border-color: #8b5cf6; margin-bottom: 40px;">
+                <table id="attendance-table">
+                    <thead>
+                        <tr id="main-header-row">
+                            <th rowspan="2">S. No.</th>
+                            <th rowspan="2">Name</th>
+                            <th rowspan="2">Position</th>
+                            <th rowspan="2">Location</th>
+                            <th rowspan="2">Active Timeline</th>
+                        </tr>
+                        <tr id="sub-header-row"></tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+
+            <!-- 👑 EXCLUSIVE SYSTEM ENGINE SUBSECTION CONTROL -->
+            <div id="council-panel" class="captain-panel" style="display:none;">
+                <h2>House Council Global Data Engine</h2>
+                
+                <div id="captain-meetings-management-card" style="background: #fffbeb; padding: 20px; border-radius: 12px; border: 3px solid #d97706; margin-bottom: 25px; display: none;">
+                    <h3 style="color: #b45309; margin-top:0; font-weight:900;">⚡ HOUSE CAPTAIN EXCLUSIVE: LOG NEW HOUSE MEETING DATA</h3>
+                    <form onsubmit="handleCaptainHouseMeetingSubmit(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Date of Meeting</label>
+                                <input type="text" id="meet-form-date" required placeholder="e.g., 29/06/2026">
+                            </div>
+                            <div class="form-group">
+                                <label>Place Meeting Was Held</label>
+                                <input type="text" id="meet-form-place" required placeholder="e.g., House Room">
+                            </div>
+                            <div class="form-group">
+                                <label>No. of Students Present</label>
+                                <input type="number" id="meet-form-count" required placeholder="e.g., 14">
+                            </div>
+                        </div>
+                        <label>Who All Were Present (Names / Positions Summary)</label>
+                        <input type="text" id="meet-form-attendees" required placeholder="e.g., Sanchit and Prefects" style="width: 100%; margin-bottom: 10px; padding: 8px;">
+                        
+                        <label>What was the Agenda / Minutes of the Meeting?</label>
+                        <textarea id="meet-form-agenda" rows="3" required placeholder="Outline key performance benchmarks discussed..." style="width: 100%; margin-bottom: 15px; padding: 8px;"></textarea>
+                        
+                        <button type="submit" class="action-button" style="background: linear-gradient(135deg, #d97706 0%, #b45309 100%);">Publish Meeting Records Node</button>
+                    </form>
                 </div>
 
-                <!-- 🏠 LIVE HISTORY TRACKING CARD -->
-                <div class="card" style="border: 3px solid #f59e0b; background: #fffdf5; margin-bottom: 25px;">
-                    <h2>📅 Official House Meetings Tracking Roster</h2>
-                    <p style="color: #b45309; font-weight: 500;">Historical register detailing official structural meetings, schedules, and resolution agendas.</p>
-                    <div class="table-responsive" style="border-color: #f59e0b;">
-                        <table id="house-meetings-table">
+                <div id="captain-vice-direct-attendance-card" style="background: #e0f2fe; padding: 20px; border-radius: 12px; border: 3px solid #0284c7; margin-bottom: 25px; display: none;">
+                    <h3 style="color: #0369a1; margin-top:0; font-weight:900;">⚡ CAPTAIN & VICE CAPTAIN UNILATERAL ATTENDANCE ENTRY</h3>
+                    <form onsubmit="handleDirectUnilateralAttendanceMark(event)">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Select House Student</label>
+                                <select id="direct-student-select" onchange="syncDirectStudentFormDetails()"></select>
+                            </div>
+                            <div class="form-group"><label>Class Profile</label><input type="text" id="direct-student-class" readonly style="background-color: #e2e8f0;"></div>
+                            <div class="form-group"><label>Section</label><input type="text" id="direct-student-section" readonly style="background-color: #e2e8f0;"></div>
+                            <div class="form-group"><label>Position</label><input type="text" id="direct-student-position" readonly style="background-color: #e2e8f0; "></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Target Working Date</label><select id="direct-date-select"></select></div>
+                            <div class="form-group">
+                                <label>Break Interval Slot</label>
+                                <select id="direct-break-select">
+                                        <option value="1st">1st Break</option>
+                                        <option value="2nd">2nd Break</option>
+                                        <option value="Disp">Dispersal</option>
+                                </select>
+                            </div>
+                            <div class="form-group"><label>Where Was Duty Carried Out?</label><input type="text" id="direct-location-text" required></div>
+                            <div class="form-group">
+                                <label>Status Judgment</label>
+                                <select id="direct-status-select">
+                                    <option value="PRESENT">PRESENT 🟢</option>
+                                    <option value="ABSENT">ABSENT 🔴</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="action-button">Execute Unilateral Status Entry</button>
+                    </form>
+                </div>
+
+                <div id="council-applications-stream-card" style="background: #fffdf5; padding: 15px; border-radius: 8px; border: 2px solid #ca8a04; margin-bottom: 25px; display: none;">
+                    <h3 style="color: #ca8a04; margin-top:0;">📨 Pending Student Attendance Requests Queue</h3>
+                    <div class="table-responsive" style="border-color: #ca8a04;">
+                        <table id="council-applications-table">
                             <thead>
-                                <tr id="meetings-header-row">
-                                    <th>S.No</th>
-                                    <th>Date of Meeting</th>
-                                    <th>Place Held</th>
-                                    <th>Total Present</th>
-                                    <th>Who All Were Present</th>
-                                    <th>Agenda / Minutes of Meeting</th>
+                                <tr>
+                                    <th>Applicant Name</th>
+                                    <th>Target Date</th>
+                                    <th>Target Break</th>
+                                    <th>Duty Location</th>
+                                    <th>Administrative Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr><td colspan="6" style="padding:20px; color:#6b7280;">Loading central meeting pipelines...</td></tr>
-                            </tbody>
+                            <tbody></tbody>
                         </table>
                     </div>
                 </div>
 
-                <!-- ATTENDANCE SUBMISSION CONTAINER (Available to all Prefects) -->
-                <div id="student-apply-attendance-box" class="card" style="border: 2px solid #3b82f6; margin-bottom: 25px; padding: 20px;">
-                    <h3 style="margin-top:0; color:#1d4ed8; text-transform:uppercase;">📝 Apply For Attendance Verification</h3>
-                    <form onsubmit="handleStudentAttendanceApplicationSubmit(event)">
+                <div id="captain-absolute-override-section" style="background: #fff1f2; padding: 15px; border-radius: 8px; border: 2px solid #f43f5e; margin-bottom: 25px; display: none;">
+                    <h3 style="color: #e11d48; margin-top:0;">⚡ Captain Absolute Cell-Override Console</h3>
+                    <form onsubmit="handleCaptainCellOverrideSubmit(event)">
                         <div class="form-row">
+                            <div class="form-group"><label>Target Student Name</label><select id="override-student-select"></select></div>
+                            <div class="form-group"><label>Target Date</label><select id="override-date-select"></select></div>
                             <div class="form-group">
-                                <label>Select Target Date</label>
-                                <select id="apply-date-select" required></select>
-                            </div>
-                            <div class="form-group">
-                                <label>Select Target Break Slot</label>
-                                <select id="apply-break-select" required>
+                                <label>Target Break Slot</label>
+                                <select id="override-break-select">
                                     <option value="1st">1st Break</option>
                                     <option value="2nd">2nd Break</option>
                                     <option value="Disp">Dispersal</option>
                                 </select>
                             </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>Mark Location Where Duty Was Done</label><input type="text" id="override-location-text" required></div>
                             <div class="form-group">
-                                <label>Where was your duty done?</label>
-                                <input type="text" id="apply-location-text" required placeholder="e.g., Science Block Stairs">
+                                <label>Presence Status Decision</label>
+                                <select id="override-status-select">
+                                    <option value="PRESENT">PRESENT 🟢</option>
+                                    <option value="ABSENT">ABSENT 🔴</option>
+                                </select>
                             </div>
                         </div>
-                        <button type="submit" class="action-button btn-accent" style="margin-top: 10px; width: auto; padding: 10px 20px;">Submit Application Parameters</button>
+                        <button type="submit" class="action-button" style="background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);">Commit Absolute Cell Parameters</button>
                     </form>
                 </div>
 
-                <!-- STREAM LAB PANEL -->
-                <div id="student-house-meeting-box" class="meeting-widget-card" style="margin-bottom: 25px;">
-                    <h3>📢 UPCOMING HOUSE MEETINGS</h3>
-                    <div id="live-meeting-text">No house meetings scheduled currently.</div>
+                <div style="background: #fffbeb; padding: 15px; border-radius: 8px; border: 2px solid #f59e0b; margin-bottom: 25px;">
+                    <h3 style="color: #b45309; margin-top: 0;">👩‍🏫 Manage Faculty Directory Data</h3>
+                    <form onsubmit="directUpdateTeachersIntroStatementLog(event)" style="margin-bottom: 15px;">
+                        <label>Modify Public Faculty Intro Summary Text</label>
+                        <textarea id="form-teacher-intro-text" rows="2" required style="width:100%; padding:8px;"></textarea>
+                        <button type="submit" class="action-button" style="background: #f59e0b; padding: 10px; margin-top: 5px;">Update Introduction Summary</button>
+                    </form>
+                    <form onsubmit="directAddTeacherProfile(event)">
+                        <div class="form-row">
+                            <div class="form-group"><label>Teacher Name</label><input type="text" id="form-add-teach-name" required></div>
+                            <div class="form-group"><label>Subject Taught</label><input type="text" id="form-add-teach-sub" required></div>
+                        </div>
+                        <button type="submit" class="action-button btn-accent" style="margin-top: 5px; padding: 10px;">Add Faculty Member Row</button>
+                    </form>
                 </div>
 
-                <div id="student-live-duty-box" class="duty-box-widget" style="margin-bottom: 25px;">
-                    <h3>📍 ASSIGNED OPERATION POST</h3>
-                    <div id="live-duty-text">No operational post pinned currently.</div>
-                </div>
-
-                <div id="student-live-responsibility-box" class="responsibility-matrix-widget" style="margin-bottom: 25px;">
-                    <h3>🏆 COMPETITION ALLOCATION & CO-ORDINATION</h3>
-                    <div style="font-size: 1rem; font-weight: 600;">
-                        Task: <span id="live-resp-task">None</span> | Teachers: <span id="live-resp-teachers">None</span>
-                    </div>
-                </div>
-
-                <h3 style="margin-top:40px; color: #4c1d95;">Duty Attendance Status Grid (Academic session 2026-2027)</h3>
-                <div class="table-responsive" style="border-color: #8b5cf6; margin-bottom: 40px;">
-                    <table id="attendance-table">
-                        <thead>
-                            <tr id="main-header-row">
-                                <th rowspan="2">S. No.</th>
-                                <th rowspan="2">Name</th>
-                                <th rowspan="2">Position</th>
-                                <th rowspan="2">Location</th>
-                                <th rowspan="2">Active Timeline</th>
-                            </tr>
-                            <tr id="sub-header-row"></tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-
-                <!-- 👑 EXCLUSIVE SYSTEM ENGINE SUBSECTION CONTROL -->
-                <div id="council-panel" class="captain-panel" style="display:none;">
-                    <h2>House Council Global Data Engine</h2>
-                    
-                    <div id="captain-meetings-management-card" style="background: #fffbeb; padding: 20px; border-radius: 12px; border: 3px solid #d97706; margin-bottom: 25px; display: none;">
-                        <h3 style="color: #b45309; margin-top:0; font-weight:900;">⚡ HOUSE CAPTAIN EXCLUSIVE: LOG NEW HOUSE MEETING DATA</h3>
-                        <form onsubmit="handleCaptainHouseMeetingSubmit(event)">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Date of Meeting</label>
-                                    <input type="text" id="meet-form-date" required placeholder="e.g., 29/06/2026">
-                                </div>
-                                <div class="form-group">
-                                    <label>Place Meeting Was Held</label>
-                                    <input type="text" id="meet-form-place" required placeholder="e.g., House Room">
-                                </div>
-                                <div class="form-group">
-                                    <label>No. of Students Present</label>
-                                    <input type="number" id="meet-form-count" required placeholder="e.g., 14">
-                                </div>
-                            </div>
-                            <label>Who All Were Present (Names / Positions Summary)</label>
-                            <input type="text" id="meet-form-attendees" required placeholder="e.g., Sanchit and Prefects" style="width: 100%; margin-bottom: 10px; padding: 8px;">
-                            
-                            <label>What was the Agenda / Minutes of the Meeting?</label>
-                            <textarea id="meet-form-agenda" rows="3" required placeholder="Outline key performance benchmarks discussed..." style="width: 100%; margin-bottom: 15px; padding: 8px;"></textarea>
-                            
-                            <button type="submit" class="action-button" style="background: linear-gradient(135deg, #d97706 0%, #b45309 100%);">Publish Meeting Records Node</button>
-                        </form>
-                    </div>
-
-                    <div id="captain-vice-direct-attendance-card" style="background: #e0f2fe; padding: 20px; border-radius: 12px; border: 3px solid #0284c7; margin-bottom: 25px; display: none;">
-                        <h3 style="color: #0369a1; margin-top:0; font-weight:900;">⚡ CAPTAIN & VICE CAPTAIN UNILATERAL ATTENDANCE ENTRY</h3>
-                        <form onsubmit="handleDirectUnilateralAttendanceMark(event)">
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label>Select House Student</label>
-                                    <select id="direct-student-select" onchange="syncDirectStudentFormDetails()"></select>
-                                </div>
-                                <div class="form-group"><label>Class Profile</label><input type="text" id="direct-student-class" readonly style="background-color: #e2e8f0;"></div>
-                                <div class="form-group"><label>Section</label><input type="text" id="direct-student-section" readonly style="background-color: #e2e8f0;"></div>
-                                <div class="form-group"><label>Position</label><input type="text" id="direct-student-position" readonly style="background-color: #e2e8f0; "></div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group"><label>Target Working Date</label><select id="direct-date-select"></select></div>
-                                <div class="form-group">
-                                    <label>Break Interval Slot</label>
-                                    <select id="direct-break-select">
-                                        <option value="1st">1st Break</option>
-                                        <option value="2nd">2nd Break</option>
-                                        <option value="Disp">Dispersal</option>
-                                    </select>
-                                </div>
-                                <div class="form-group"><label>Where Was Duty Carried Out?</label><input type="text" id="direct-location-text" required></div>
-                                <div class="form-group">
-                                    <label>Status Judgment</label>
-                                    <select id="direct-status-select">
-                                        <option value="PRESENT">PRESENT 🟢</option>
-                                        <option value="ABSENT">ABSENT 🔴</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <button type="submit" class="action-button">Execute Unilateral Status Entry</button>
-                        </form>
-                    </div>
-
-                    <div id="council-applications-stream-card" style="background: #fffdf5; padding: 15px; border-radius: 8px; border: 2px solid #ca8a04; margin-bottom: 25px; display: none;">
-                        <h3 style="color: #ca8a04; margin-top:0;">📨 Pending Student Attendance Requests Queue</h3>
-                        <div class="table-responsive" style="border-color: #ca8a04;">
-                            <table id="council-applications-table">
+                <div style="background: #f5f3ff; padding: 15px; border-radius: 8px; border: 2px solid #8b5cf6; margin-bottom: 25px;">
+                    <h3 style="color: #6d28d9; margin-top: 0;">🎖️ Distribute Digital Appreciation Badges</h3>
+                    <form onsubmit="directAwardDigitalBadge(event)">
+                        <div class="table-responsive" style="background: #ffffff; padding: 10px;">
+                            <table style="width: 100%; text-align: left;">
                                 <thead>
                                     <tr>
-                                        <th>Applicant Name</th>
-                                        <th>Target Date</th>
-                                        <th>Target Break</th>
-                                        <th>Duty Location</th>
-                                        <th>Administrative Actions</th>
+                                        <th>Name of Receiver</th>
+                                        <th>Type of Appreciation & Badge Emoji Option</th>
+                                        <th>Action Node</th>
                                     </tr>
                                 </thead>
-                                <tbody></tbody>
+                                <tbody>
+                                    <tr>
+                                        <td><input type="text" id="badge-receiver-name" required style="margin: 0;"></td>
+                                        <td>
+                                            <select id="badge-appreciation-type" required style="margin: 0;">
+                                                <option value="Discipline Guard | 🛡️">🛡️ Discipline Guard</option>
+                                                <option value="Punctuality Master | ⏱️">⏱️ Punctuality Master</option>
+                                                <option value="Academic Titan | 🎓">🎓 Academic Titan</option>
+                                                <option value="Assembly Leader | 📢">📢 Assembly Leader</option>
+                                                <option value="Literary Champion | ✍️">✍️ Literary Champion</option>
+                                                <option value="Sports MVP | ⚽">⚽ Sports MVP</option>
+                                                <option value="Cultural Maestro | 🎨">🎨 Cultural Maestro</option>
+                                            </select>
+                                        </td>
+                                        <td><button type="submit" class="action-button btn-accent" style="margin: 0; padding: 10px; width: 100%;">Send Badge</button></td>
+                                    </tr>
+                                </tbody>
                             </table>
                         </div>
-                    </div>
-
-                    <div id="captain-absolute-override-section" style="background: #fff1f2; padding: 15px; border-radius: 8px; border: 2px solid #f43f5e; margin-bottom: 25px; display: none;">
-                        <h3 style="color: #e11d48; margin-top:0;">⚡ Captain Absolute Cell-Override Console</h3>
-                        <form onsubmit="handleCaptainCellOverrideSubmit(event)">
-                            <div class="form-row">
-                                <div class="form-group"><label>Target Student Name</label><select id="override-student-select"></select></div>
-                                <div class="form-group"><label>Target Date</label><select id="override-date-select"></select></div>
-                                <div class="form-group">
-                                    <label>Target Break Slot</label>
-                                    <select id="override-break-select">
-                                        <option value="1st">1st Break</option>
-                                        <option value="2nd">2nd Break</option>
-                                        <option value="Disp">Dispersal</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group"><label>Mark Location Where Duty Was Done</label><input type="text" id="override-location-text" required></div>
-                                <div class="form-group">
-                                    <label>Presence Status Decision</label>
-                                    <select id="override-status-select">
-                                        <option value="PRESENT">PRESENT 🟢</option>
-                                        <option value="ABSENT">ABSENT 🔴</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <button type="submit" class="action-button" style="background: linear-gradient(135deg, #e11d48 0%, #be123c 100%);">Commit Absolute Cell Parameters</button>
-                        </form>
-                    </div>
-
-                    <div style="background: #fffbeb; padding: 15px; border-radius: 8px; border: 2px solid #f59e0b; margin-bottom: 25px;">
-                        <h3 style="color: #b45309; margin-top: 0;">👩‍🏫 Manage Faculty Directory Data</h3>
-                        <form onsubmit="directUpdateTeachersIntroStatementLog(event)" style="margin-bottom: 15px;">
-                            <label>Modify Public Faculty Intro Summary Text</label>
-                            <textarea id="form-teacher-intro-text" rows="2" required style="width:100%; padding:8px;"></textarea>
-                            <button type="submit" class="action-button" style="background: #f59e0b; padding: 10px; margin-top: 5px;">Update Introduction Summary</button>
-                        </form>
-                        <form onsubmit="directAddTeacherProfile(event)">
-                            <div class="form-row">
-                                <div class="form-group"><label>Teacher Name</label><input type="text" id="form-add-teach-name" required></div>
-                                <div class="form-group"><label>Subject Taught</label><input type="text" id="form-add-teach-sub" required></div>
-                            </div>
-                            <button type="submit" class="action-button btn-accent" style="margin-top: 5px; padding: 10px;">Add Faculty Member Row</button>
-                        </form>
-                    </div>
-
-                    <div style="background: #f5f3ff; padding: 15px; border-radius: 8px; border: 2px solid #8b5cf6; margin-bottom: 25px;">
-                        <h3 style="color: #6d28d9; margin-top: 0;">🎖️ Distribute Digital Appreciation Badges</h3>
-                        <form onsubmit="directAwardDigitalBadge(event)">
-                            <div class="table-responsive" style="background: #ffffff; padding: 10px;">
-                                <table style="width: 100%; text-align: left;">
-                                    <thead>
-                                        <tr>
-                                            <th>Name of Receiver</th>
-                                            <th>Type of Appreciation & Badge Emoji Option</th>
-                                            <th>Action Node</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td><input type="text" id="badge-receiver-name" required style="margin: 0;"></td>
-                                            <td>
-                                                <select id="badge-appreciation-type" required style="margin: 0;">
-                                                    <option value="Discipline Guard | 🛡️">🛡️ Discipline Guard</option>
-                                                    <option value="Punctuality Master | ⏱️">⏱️ Punctuality Master</option>
-                                                    <option value="Academic Titan | 🎓">🎓 Academic Titan</option>
-                                                    <option value="Assembly Leader | 📢">📢 Assembly Leader</option>
-                                                    <option value="Literary Champion | ✍️">✍️ Literary Champion</option>
-                                                    <option value="Sports MVP | ⚽">⚽ Sports MVP</option>
-                                                    <option value="Cultural Maestro | 🎨">🎨 Cultural Maestro</option>
-                                                </select>
-                                            </td>
-                                            <td><button type="submit" class="action-button btn-accent" style="margin: 0; padding: 10px; width: 100%;">Send Badge</button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </form>
-                    </div>
-
-                    <!-- 📝 COMPOSE AND LAUNCH OFFICIAL BLOG POSTS CARD -->
-                    <div style="background: #ecfdf5; padding: 15px; border-radius: 8px; border: 2px solid #10b981; margin-bottom: 25px;">
-                        <h3 style="color: #059669; margin-top: 0;">✍️ Compose & Launch Official Blog Posts</h3>
-                        <form onsubmit="directPublishNewBlog(event)">
-                            <div class="form-row">
-                                <div class="form-group"><label>Blog Title Heading</label><input type="text" id="form-blog-title" required></div>
-                                <div class="form-group"><label>Blog Category Topic Option</label><input type="text" id="form-blog-topic" required></div>
-                                <div class="form-group"><label>Signature Author Label</label><input type="text" id="form-blog-author" required readonly></div>
-                            </div>
-                            <label>Article Body Text Content</label>
-                            <textarea id="form-blog-content" rows="5" required style="width:100%; padding:8px;"></textarea>
-                            <button type="submit" class="action-button" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); margin-top:15px;">Publish Blog Stream Node</button>
-                        </form>
-                    </div>
-
-                    <div class="form-row" style="gap:20px; margin-bottom:25px;">
-                        <div style="flex:1; min-width:280px; background: #f0fdfa; padding: 15px; border-radius: 8px; border: 2px solid #0d9488;">
-                            <h3 style="color: #0d9488; margin-top: 0;">📅 Add New Date Columns</h3>
-                            <form onsubmit="addNewAttendanceDate(event)">
-                                <label>Specify Target Date String</label>
-                                <input type="text" id="form-new-date-string" required>
-                                <button type="submit" class="action-button" style="background: #0d9488; margin-top:10px;">Push Active Date Node</button>
-                            </form>
-                        </div>
-                        <div id="captain-date-delete-panel" style="flex:1; min-width:280px; background: #fef2f2; padding: 15px; border-radius: 8px; border: 2px solid #ef4444; display:none;">
-                            <h3 style="color: #b91c1c; margin-top: 0;">📅 Delete Date Column</h3>
-                            <form onsubmit="deleteAttendanceDateColumn(event)">
-                                <label>Type Exact Date String to Delete</label>
-                                <input type="text" id="form-delete-date-string" required>
-                                <button type="submit" class="action-button" style="background: #dc2626; margin-top:10px;">Purge Date Column Node</button>
-                            </form>
-                        </div>
-                    </div>
-
-                    <div style="background: #f0fdfa; padding: 15px; border-radius: 8px; border: 2px solid #0d9488; margin-bottom: 25px;">
-                        <h3 style="color: #0d9488; margin-top: 0;">📅 House Council Meeting Scheduler Panel</h3>
-                        <form onsubmit="allocateHouseMeeting(event)">
-                            <input type="text" id="form-meeting-desc" required placeholder="e.g., General Assembly briefing tomorrow at 8 AM">
-                            <button type="submit" class="action-button" style="background: #0d9488; margin-top:10px;">Broadcast Scheduled Meeting</button>
-                        </form>
-                    </div>
-
-                    <div id="captain-exclusive-section" style="display: none; background: #fffdf5; padding: 15px; border-radius: 8px; border: 2px solid #ca8a04; margin-bottom: 25px;">
-                        <h3 style="color: #ca8a04; margin-top: 0;">⚡ House Captain Exclusive Deployment Station</h3>
-                        <form onsubmit="allocateCaptainDuty(event)">
-                            <div class="form-row">
-                                <div class="form-group"><label>Target Student</label><select id="captain-target-student"></select></div>
-                                <div class="form-group"><label>Where (Location Post)</label><input type="text" id="cap-duty-loc" required></div>
-                            </div>
-                            <div class="form-row">
-                                <div class="form-group"><label>When (Dates/Week Duration)</label><input type="text" id="cap-duty-when" required></div>
-                                <div class="form-group">
-                                    <label>Which Break</label>
-                                    <select id="cap-duty-break">
-                                        <option value="1st">1st Break</option>
-                                        <option value="2nd">2nd Break</option>
-                                        <option value="Disp">Dismissal</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <button type="submit" class="action-button" style="background: #ca8a04;">Deploy Duty Assignment</button>
-                        </form>
-                    </div>
-
-                    <div style="background: #fdf4ff; padding: 15px; border-radius: 8px; border: 2px solid #d946ef; margin-bottom: 25px;">
-                        <h3 style="color: #c026d3; margin-top: 0;">🎨 Council Competition & Teacher Co-ordination Assigner</h3>
-                        <form onsubmit="allocateCompetitionResponsibility(event)">
-                            <div class="form-row">
-                                <div class="form-group"><label>Target Student</label><select id="council-target-student"></select></div>
-                                <div class="form-group"><label>Competition Task</label><input type="text" id="council-resp-task" required></div>
-                                <div class="form-group"><label>Teachers</label><input type="text" id="council-resp-teachers" required></div>
-                            </div>
-                            <button type="submit" class="action-button" style="background: #c026d3; margin-top:10px;">Commit Responsibility Parameters</button>
-                        </form>
-                    </div>
-
-                    <h3 style="color: #b45309;">Add Row to Attendance Register</h3>
-                    <form onsubmit="manualAddAttendanceRow(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a; margin-bottom:25px;">
-                        <div class="form-row">
-                            <div class="form-group"><label>Name</label><input type="text" id="add-manual-name" required></div>
-                            <div class="form-group"><label>Position</label><input type="text" id="add-manual-pos" required></div>
-                        </div>
-                        <button type="submit" class="action-button" style="background: #ca8a04;">Append Student Row</button>
-                    </form>
-
-                    <h3 style="color: #b45309;">Manage Upcoming Events Data</h3>
-                    <form id="upcomingEventsForm" onsubmit="event.preventDefault();" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a; margin-bottom:25px;">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label>Type of Event</label>
-                                <input type="text" id="form-evt-type" required placeholder="e.g., Inter-House">
-                            </div>
-                            <div class="form-group">
-                                <label>Eligibility</label>
-                                <input type="text" id="form-evt-elig" required placeholder="e.g., Classes IX-XII">
-                            </div>
-                            <div class="form-group">
-                                <label>Name of the Event</label>
-                                <input type="text" id="form-evt-name" required placeholder="e.g., Declamation Contest">
-                            </div>
-                            <div class="form-group">
-                                <label>Date of the Event</label>
-                                <input type="text" id="form-evt-date" required placeholder="e.g., 15/07/2026">
-                            </div>
-                        </div>
-                        <button type="button" onclick="executeActivitySubmissionAsync(event)" class="action-button" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); margin-top:15px;">
-                            Add Event Outcome Entry
-                        </button>
-                    </form>
-
-                    <h3 style="color: #b45309;">Manage Upcoming Achievers Roll Entry Logs</h3>
-                    <form onsubmit="directAddAchiever(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a;">
-                        <div class="form-row">
-                            <div class="form-group"><label>Achiever Name</label><input type="text" id="form-ach-name" required></div>
-                            <div class="form-group"><label>House Position</label><input type="text" id="form-ach-pos" required></div>
-                            <div class="form-group"><label>Competition Type</label><input type="text" id="form-ach-type" required></div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group"><label>Position Won</label><input type="text" id="form-ach-won" required></div>
-                            <div class="form-group"><label>Class</label><input type="text" id="form-ach-class" required></div>
-                            <div class="form-group"><label>Section</label><input type="text" id="form-ach-sec" required></div>
-                        </div>
-                        <button type="submit" class="action-button" style="background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);">Upload Achiever Profile</button>
                     </form>
                 </div>
 
-                <!-- Operations Bridge Section -->
-                <div id="masterAdminBridge" class="admin-bridge-overlay" style="display: none; margin-top: 25px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #002d72; padding-bottom: 10px;">
-                        <h3 style="color: #002d72; margin: 0; font-weight: 900;">🦅 ARAVALI HUB CENTRAL OPERATIONS BRIDGE</h3>
-                        <span style="background: #e0f0ff; color: #002d72; padding: 4px 10px; border-radius: 12px; font-weight: 800; font-size: 11px;">ROLE: HOUSE CAPTAIN ADMINISTRATIVE VIEW</span>
+                <!-- 📝 COMPOSE AND LAUNCH OFFICIAL BLOG POSTS CARD -->
+                <div style="background: #ecfdf5; padding: 15px; border-radius: 8px; border: 2px solid #10b981; margin-bottom: 25px;">
+                    <h3 style="color: #059669; margin-top: 0;">✍️ Compose & Launch Official Blog Posts</h3>
+                    <form onsubmit="directPublishNewBlog(event)">
+                        <div class="form-row">
+                            <div class="form-group"><label>Blog Title Heading</label><input type="text" id="form-blog-title" required></div>
+                            <div class="form-group"><label>Blog Category Topic Option</label><input type="text" id="form-blog-topic" required></div>
+                            <div class="form-group"><label>Signature Author Label</label><input type="text" id="form-blog-author" required readonly></div>
+                        </div>
+                        <label>Article Body Text Content</label>
+                        <textarea id="form-blog-content" rows="5" required style="width:100%; padding:8px;"></textarea>
+                        <button type="submit" class="action-button" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); margin-top:15px;">Publish Blog Stream Node</button>
+                    </form>
+                </div>
+
+                <div class="form-row" style="gap:20px; margin-bottom:25px;">
+                    <div style="flex:1; min-width:280px; background: #f0fdfa; padding: 15px; border-radius: 8px; border: 2px solid #0d9488;">
+                        <h3 style="color: #0d9488; margin-top: 0;">📅 Add New Date Columns</h3>
+                        <form onsubmit="addNewAttendanceDate(event)">
+                            <label>Specify Target Date String</label>
+                            <input type="text" id="form-new-date-string" required>
+                            <button type="submit" class="action-button" style="background: #0d9488; margin-top:10px;">Push Active Date Node</button>
+                        </form>
                     </div>
-                    <div class="admin-flex-grid" style="margin-top:15px;">
-                        <div>
-                            <h4 style="margin: 5px 0 10px 0; color: #475569;">📋 BATCHHOLDER SECURITY REGISTRY REGISTRATION DATA</h4>
-                            <div class="admin-table-scroll">
-                                <table style="width: 100%; text-align: left; font-size: 13px;">
-                                    <thead>
-                                        <tr style="background: #002d72; color: #fff;">
-                                            <th style="padding: 10px;">Student Profile Info</th>
-                                            <th>Admission ID</th>
-                                            <th>Contact Channels</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="adminRegistryRows">
-                                        <tr><td colspan="3" style="padding: 15px; text-align: center; color: #94a3b8;">Awaiting database synchronization pipeline...</td></tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <button onclick="fetchLiveDatabaseGrid()" class="action-button btn-accent" style="margin-top: 10px; padding: 8px 15px; width: auto; font-size: 13px;">🔄 SYNC LIVE TELEMETRY</button>
-                        </div>
-                        <div>
-                            <h4 style="margin: 5px 0 10px 0; color: #475569;">⚡ LIVE TERM LOGS</h4>
-                            <div id="liveStreamLogs" class="terminal-display">
-                                [ONLINE]: Central operational matrix link ready. Standing by for runtime inputs.
-                            </div>
-                        </div>
+                    <div id="captain-date-delete-panel" style="flex:1; min-width:280px; background: #fef2f2; padding: 15px; border-radius: 8px; border: 2px solid #ef4444; display:none;">
+                        <h3 style="color: #b91c1c; margin-top: 0;">📅 Delete Date Column</h3>
+                        <form onsubmit="deleteAttendanceDateColumn(event)">
+                            <label>Type Exact Date String to Delete</label>
+                            <input type="text" id="form-delete-date-string" required>
+                            <button type="submit" class="action-button" style="background: #dc2626; margin-top:10px;">Purge Date Column Node</button>
+                        </form>
                     </div>
                 </div>
 
-                <button type="button" class="action-button" style="background:#475569; margin-top:25px; width: 100%;" onclick="handleLogout()">Exit Portal Node</button>
+                <div style="background: #f0fdfa; padding: 15px; border-radius: 8px; border: 2px solid #0d9488; margin-bottom: 25px;">
+                    <h3 style="color: #0d9488; margin-top: 0;">📅 House Council Meeting Scheduler Panel</h3>
+                    <form onsubmit="allocateHouseMeeting(event)">
+                        <input type="text" id="form-meeting-desc" required placeholder="e.g., General Assembly briefing tomorrow at 8 AM">
+                        <button type="submit" class="action-button" style="background: #0d9488; margin-top:10px;">Broadcast Scheduled Meeting</button>
+                    </form>
+                </div>
+
+                <div id="captain-exclusive-section" style="display: none; background: #fffdf5; padding: 15px; border-radius: 8px; border: 2px solid #ca8a04; margin-bottom: 25px;">
+                    <h3 style="color: #ca8a04; margin-top: 0;">⚡ House Captain Exclusive Deployment Station</h3>
+                    <form onsubmit="allocateCaptainDuty(event)">
+                        <div class="form-row">
+                            <div class="form-group"><label>Target Student</label><select id="captain-target-student"></select></div>
+                            <div class="form-group"><label>Where (Location Post)</label><input type="text" id="cap-duty-loc" required></div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group"><label>When (Dates/Week Duration)</label><input type="text" id="cap-duty-when" required></div>
+                            <div class="form-group">
+                                <label>Which Break</label>
+                                <select id="cap-duty-break">
+                                    <option value="1st">1st Break</option>
+                                    <option value="2nd">2nd Break</option>
+                                    <option value="Disp">Dismissal</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="action-button" style="background: #ca8a04;">Deploy Duty Assignment</button>
+                    </form>
+                </div>
+
+                <div style="background: #fdf4ff; padding: 15px; border-radius: 8px; border: 2px solid #d946ef; margin-bottom: 25px;">
+                    <h3 style="color: #c026d3; margin-top: 0;">🎨 Council Competition & Teacher Co-ordination Assigner</h3>
+                    <form onsubmit="allocateCompetitionResponsibility(event)">
+                        <div class="form-row">
+                            <div class="form-group"><label>Target Student</label><select id="council-target-student"></select></div>
+                            <div class="form-group"><label>Competition Task</label><input type="text" id="council-resp-task" required></div>
+                            <div class="form-group"><label>Teachers</label><input type="text" id="council-resp-teachers" required></div>
+                        </div>
+                        <button type="submit" class="action-button" style="background: #c026d3; margin-top:10px;">Commit Responsibility Parameters</button>
+                    </form>
+                </div>
+
+                <h3 style="color: #b45309;">Add Row to Attendance Register</h3>
+                <form onsubmit="manualAddAttendanceRow(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a; margin-bottom:25px;">
+                    <div class="form-row">
+                        <div class="form-group"><label>Name</label><input type="text" id="add-manual-name" required></div>
+                        <div class="form-group"><label>Position</label><input type="text" id="add-manual-pos" required></div>
+                    </div>
+                    <button type="submit" class="action-button" style="background: #ca8a04;">Append Student Row</button>
+                </form>
+
+                <h3 style="color: #b45309;">Manage Upcoming Events Data</h3>
+                <form id="upcomingEventsForm" onsubmit="event.preventDefault();" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a; margin-bottom:25px;">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Type of Event</label>
+                            <input type="text" id="form-evt-type" required placeholder="e.g., Inter-House">
+                        </div>
+                        <div class="form-group">
+                            <label>Eligibility</label>
+                            <input type="text" id="form-evt-elig" required placeholder="e.g., Classes IX-XII">
+                        </div>
+                        <div class="form-group">
+                            <label>Name of the Event</label>
+                            <input type="text" id="form-evt-name" required placeholder="e.g., Declamation Contest">
+                        </div>
+                        <div class="form-group">
+                            <label>Date of the Event</label>
+                            <input type="text" id="form-evt-date" required placeholder="e.g., 15/07/2026">
+                        </div>
+                    </div>
+                    <button type="button" onclick="executeActivitySubmissionAsync(event)" class="action-button" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%); margin-top:15px;">
+                        Add Event Outcome Entry
+                    </button>
+                </form>
+
+                <h3 style="color: #b45309;">Manage Upcoming Achievers Roll Entry Logs</h3>
+                <form onsubmit="directAddAchiever(event)" style="background:#ffffff; padding:20px; border-radius:10px; border:2px solid #fef08a;">
+                    <div class="form-row">
+                        <div class="form-group"><label>Achiever Name</label><input type="text" id="form-ach-name" required></div>
+                        <div class="form-group"><label>House Position</label><input type="text" id="form-ach-pos" required></div>
+                        <div class="form-group"><label>Competition Type</label><input type="text" id="form-ach-type" required></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group"><label>Position Won</label><input type="text" id="form-ach-won" required></div>
+                        <div class="form-group"><label>Class</label><input type="text" id="form-ach-class" required></div>
+                        <div class="form-group"><label>Section</label><input type="text" id="form-ach-sec" required></div>
+                    </div>
+                    <button type="submit" class="action-button" style="background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);">Upload Achiever Profile</button>
+                </form>
             </div>
+
+            <!-- Operations Bridge Section -->
+            <div id="masterAdminBridge" class="admin-bridge-overlay" style="display: none; margin-top: 25px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #002d72; padding-bottom: 10px;">
+                    <h3 style="color: #002d72; margin: 0; font-weight: 900;">🦅 ARAVALI HUB CENTRAL OPERATIONS BRIDGE</h3>
+                    <span style="background: #e0f0ff; color: #002d72; padding: 4px 10px; border-radius: 12px; font-weight: 800; font-size: 11px;">ROLE: HOUSE CAPTAIN ADMINISTRATIVE VIEW</span>
+                </div>
+                <div class="admin-flex-grid" style="margin-top:15px;">
+                    <div>
+                        <h4 style="margin: 5px 0 10px 0; color: #475569;">📋 BATCHHOLDER SECURITY REGISTRY REGISTRATION DATA</h4>
+                        <div class="admin-table-scroll">
+                            <table style="width: 100%; text-align: left; font-size: 13px;">
+                                <thead>
+                                    <tr style="background: #002d72; color: #fff;">
+                                        <th style="padding: 10px;">Student Profile Info</th>
+                                        <th>Admission ID</th>
+                                        <th>Contact Channels</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="adminRegistryRows">
+                                    <tr><td colspan="3" style="padding: 15px; text-align: center; color: #94a3b8;">Awaiting database synchronization pipeline...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button onclick="fetchLiveDatabaseGrid()" class="action-button btn-accent" style="margin-top: 10px; padding: 8px 15px; width: auto; font-size: 13px;">🔄 SYNC LIVE TELEMETRY</button>
+                    </div>
+                    <div>
+                        <h4 style="margin: 5px 0 10px 0; color: #475569;">⚡ LIVE TERM LOGS</h4>
+                        <div id="liveStreamLogs" class="terminal-display">
+                            [ONLINE]: Central operational matrix link ready. Standing by for runtime inputs.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="action-button" style="background:#475569; margin-top:25px; width: 100%;" onclick="handleLogout()">Exit Portal Node</button>
         </div>
     </div>
 </div>
@@ -825,6 +825,7 @@
     let localCacheMatrix = {};
     let currentSessionUser = null;
     let activeDatesList = ["4/5/2026", "5/5/2026", "6/5/2026", "7/5/2026", "8/5/2026"];
+    let isSignupFlowActive = true;
 
     // ==========================================================================
     // 2. CORE RENDERING ENGINE & NAVIGATION ROUTING
@@ -870,11 +871,13 @@
         const mainActionBtn = document.getElementById('portal-main-action-btn');
 
         if (hasRegistered === "true") {
+            isSignupFlowActive = false;
             if (flowHeading) flowHeading.innerText = "Student Portal Security Access (LOGIN MODE)";
             if (classRow) classRow.style.display = "none";
             if (phoneRow) phoneRow.style.display = "none";
             if (mainActionBtn) mainActionBtn.innerText = "VERIFY IDENTITY NODE (LOGIN)";
         } else {
+            isSignupFlowActive = true;
             if (flowHeading) flowHeading.innerText = "Student Portal Security Access (SIGNUP MODE)";
             if (classRow) classRow.style.display = "flex";
             if (phoneRow) phoneRow.style.display = "block";
@@ -902,7 +905,6 @@
             isMasterCaptainOverride = true;
 
             const boxMappings = [
-                { id: 'login-box', show: false }, { id: 'dashboard-box', show: true },
                 { id: 'masterAdminBridge', show: true }, { id: 'council-panel', show: true },
                 { id: 'captain-meetings-management-card', show: true }, { id: 'captain-vice-direct-attendance-card', show: true },
                 { id: 'council-applications-stream-card', show: true }, { id: 'captain-absolute-override-section', show: true },
@@ -932,11 +934,13 @@
         }
 
         if (entryClearance) {
+            // Unmount and completely clean the authorization container block view cleanly
             const loginEl = document.getElementById('login-box');
             const dashEl = document.getElementById('dashboard-box');
-            if (loginEl) loginEl.style.display = "none";
+            
+            if (loginEl) loginEl.style.setProperty('display', 'none', 'important');
             if (dashEl) {
-                dashEl.style.display = "block";
+                dashEl.style.setProperty('display', 'block', 'important');
                 dashEl.classList.remove('hidden-box');
             }
 
@@ -950,8 +954,12 @@
             if (document.getElementById('form-blog-author')) document.getElementById('form-blog-author').value = currentSessionUser.name;
             if (errorBox) errorBox.style.display = "none";
 
-            // LOG ALL SUCCESSFUL LOGINS/SIGNUPS IMMEDIATELY EVERY TIME
+            // LOG METRICS TO GOOGLE SHEETS
             await handleStudentRegistrationSubmit(); 
+            
+            if (isSignupFlowActive) {
+                localStorage.setItem('aravali_user_phone', (document.getElementById('student-phone-no') || {value:""}).value.trim());
+            }
             localStorage.setItem('aravali_user_registered', "true");
 
             try { fetchGlobalMasterDatabaseGrid(); } catch(e) { console.warn("Grid feed offline", e); }
@@ -969,10 +977,7 @@
     async function handleStudentRegistrationSubmit() {
         console.log("Transmitting valid registration payload parameters to database...");
 
-        // Safety fallback checks if fields are hidden during returning user LOGIN mode
         const nameVal = (document.getElementById('student-name') || {value:""}).value.trim().toUpperCase();
-        
-        // Lookup matching profile metrics within static directory array if fields are hidden
         const profileMatch = authorizedStudents.find(s => s.name === nameVal) || { class: "9", section: "A" };
 
         const classInputNode = document.getElementById('student-class');
@@ -981,7 +986,14 @@
 
         const finalClass = (classInputNode && classInputNode.value.trim()) ? classInputNode.value.trim() : profileMatch.class;
         const finalSection = (sectionInputNode && sectionInputNode.value.trim()) ? sectionInputNode.value.trim().toUpperCase() : profileMatch.section;
-        const finalPhone = (phoneInputNode && phoneInputNode.value.trim()) ? phoneInputNode.value.trim() : "Saved Returning Login";
+        
+        // Dynamic evaluation path checks if a phone string exists or fallbacks on cache records
+        let finalPhone = "N/A";
+        if (isSignupFlowActive && phoneInputNode && phoneInputNode.value.trim()) {
+            finalPhone = phoneInputNode.value.trim();
+        } else {
+            finalPhone = localStorage.getItem('aravali_user_phone') || "Login Verified Node";
+        }
 
         const payload = {
             action: "registerStudent",
@@ -1010,6 +1022,7 @@
 
     function handleProfileResetNode() {
         localStorage.removeItem('aravali_user_registered');
+        localStorage.removeItem('aravali_user_phone');
         syncPortalLayoutFlowMode();
         alert("Signature cache tracking successfully scrubbed. Switched to SIGNUP mode.");
     }
@@ -1101,6 +1114,7 @@
         } catch (err) { alert("❌ Error: " + err); }
     }
 
+    // Auxiliary stubs
     function syncDirectStudentFormDetails() {}
     function handleDirectUnilateralAttendanceMark(e) { if(e) e.preventDefault(); }
     function handleCaptainCellOverrideSubmit(e) { if(e) e.preventDefault(); }
@@ -1115,7 +1129,7 @@
     function manualAddAttendanceRow(e) { if(e) e.preventDefault(); }
     function directAddAchiever(e) { if(e) e.preventDefault(); }
     function fetchLiveDatabaseGrid() { fetchGlobalMasterDatabaseGrid(); }
-    function applyBlogFilters() {}
+    function applyBlogFiltersMatrix() {}
     function resetBlogFiltersMatrix() { fetchGlobalMasterDatabaseGrid(); }
 
     // ==========================================================================
@@ -1175,13 +1189,16 @@
     function handleLogout() {
         currentSessionUser = null;
         
-        document.getElementById('login-box').style.setProperty('display', 'block', 'important');
-        document.getElementById('login-box').className = "visible-box";
+        // Hide dashboard completely and clean view state layers
         document.getElementById('dashboard-box').style.setProperty('display', 'none', 'important');
         document.getElementById('dashboard-box').className = "hidden-box";
         
         document.getElementById('council-panel').style.display = "none";
         document.getElementById('masterAdminBridge').style.display = "none";
+        
+        // Bring login block cleanly into the foreground
+        document.getElementById('login-box').style.setProperty('display', 'block', 'important');
+        document.getElementById('login-box').className = "visible-box card card-portal";
         
         syncPortalLayoutFlowMode();
     }
