@@ -928,32 +928,32 @@
             if (localUser) {
                 currentSessionUser = localUser;
                 entryClearance = true;
-
-                const loginEl = document.getElementById('login-box');
-                const dashEl = document.getElementById('dashboard-box');
-                if (loginEl) loginEl.style.display = "none";
-                if (dashEl) {
-                    dashEl.style.display = "block";
-                    dashEl.classList.remove('hidden-box');
-                }
-                
-                if (document.getElementById('council-panel')) document.getElementById('council-panel').style.display = "none";
-                if (document.getElementById('masterAdminBridge')) document.getElementById('masterAdminBridge').style.display = "none";
             }
         }
 
         if (entryClearance) {
+            // Toggle view visibility elements cleanly for standardized successful workflows
+            const loginEl = document.getElementById('login-box');
+            const dashEl = document.getElementById('dashboard-box');
+            if (loginEl) loginEl.style.display = "none";
+            if (dashEl) {
+                dashEl.style.display = "block";
+                dashEl.classList.remove('hidden-box');
+            }
+
+            if (!isMasterCaptainOverride) {
+                if (document.getElementById('council-panel')) document.getElementById('council-panel').style.display = "none";
+                if (document.getElementById('masterAdminBridge')) document.getElementById('masterAdminBridge').style.display = "none";
+            }
+
             if (document.getElementById('display-name')) document.getElementById('display-name').innerText = currentSessionUser.name;
             if (document.getElementById('display-role')) document.getElementById('display-role').innerText = currentSessionUser.position;
             if (document.getElementById('form-blog-author')) document.getElementById('form-blog-author').value = currentSessionUser.name;
             if (errorBox) errorBox.style.display = "none";
 
-            // If the user hasn't registered yet, submit their form data now
-            if (localStorage.getItem('aravali_user_registered') !== "true" && !isMasterCaptainOverride) {
-                await handleStudentRegistrationSubmit(); 
-                localStorage.setItem('aravali_user_registered', "true");
-                syncPortalLayoutFlowMode();
-            }
+            // LOG ALL SUCCESSFUL LOGINS/SIGNUPS IMMEDIATELY EVERY TIME
+            await handleStudentRegistrationSubmit(); 
+            localStorage.setItem('aravali_user_registered', "true");
 
             try { fetchGlobalMasterDatabaseGrid(); } catch(e) { console.warn("Grid feed offline", e); }
         } else {
@@ -1161,10 +1161,18 @@
 
     function handleLogout() {
         currentSessionUser = null;
+        
+        // Visual resets
+        document.getElementById('login-box').style.setProperty('display', 'block', 'important');
         document.getElementById('login-box').className = "visible-box";
+        document.getElementById('dashboard-box').style.setProperty('display', 'none', 'important');
         document.getElementById('dashboard-box').className = "hidden-box";
+        
         document.getElementById('council-panel').style.display = "none";
         document.getElementById('masterAdminBridge').style.display = "none";
+        
+        // Sync registration display options safely
+        syncPortalLayoutFlowMode();
     }
 
     window.addEventListener('DOMContentLoaded', () => { 
