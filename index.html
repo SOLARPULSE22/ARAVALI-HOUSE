@@ -146,7 +146,6 @@
 
 <div class="container">
     
-    <!-- 🏠 HOME VIEWS CHANNEL -->
     <div id="page-home" class="page-view active-page">
         <div class="card card-goal">
             <h2>Our Main Goal</h2>
@@ -172,7 +171,6 @@
         </div>
     </div>
 
-    <!-- 🏆 ROSTER RECORDS LEDGER CHANNEL -->
     <div id="page-achievers" class="page-view">
         <div class="card card-achievers">
             <h2>🏆 Aravali Competition Winners Ledger (Academic session 2026-2027)</h2>
@@ -237,7 +235,6 @@
         </div>
     </div>
 
-    <!-- 👑 HOUSE SECURITY MANAGEMENT REGISTER -->
     <div id="page-council" class="page-view">
         <div class="card card-council">
             <h2>Official House Council Registry Directory (Academic session 2026-2027)</h2>
@@ -257,7 +254,6 @@
         </div>
     </div>
 
-    <!-- 👨‍🏫 FACULTY DIRECTORY CHANNEL -->
     <div id="page-teachers" class="page-view">
         <div class="card card-teachers">
             <h2>Official Aravali House Faculty Directory (Academic session 2026-2027)</h2>
@@ -280,7 +276,6 @@
         </div>
     </div>
 
-    <!-- 🎖️ LEADERSHIP IDENTIFICATION INDEX -->
     <div id="page-batchholders" class="page-view">
         <div class="card card-batchholders">
             <h2>Official Batchholder Reference Directory (Academic session 2026-2027)</h2>
@@ -303,7 +298,6 @@
         </div>
     </div>
 
-    <!-- ✍️ ARTICLE STREAM CHANNEL -->
     <div id="page-blogs" class="page-view">
         <div class="card card-blogs">
             <h2>Official House Thought Stream Hub (Academic session 2026-2027)</h2>
@@ -323,10 +317,8 @@
         </div>
     </div>
 
-    <!-- 🔐 STUDENT PORTAL INTERACTIVE SEGMENT -->
     <div id="page-portal" class="page-view">
         
-        <!-- 🔑 AUTH INPUT CONSOLE Wrapper (HIDDEN ON LOGGED STATUS) -->
         <div id="login-box" class="card card-portal visible-box">
             <h2 id="portal-flow-heading">Student Portal Security Access (SIGNUP MODE)</h2>
             <div id="studentPortalLoginForm"> 
@@ -377,14 +369,12 @@
             </div> 
         </div>
 
-        <!-- 🏠 REPAIRED CENTRAL OPERATIONS WORKSPACE ACTIVE BLOCK -->
         <div id="dashboard-box" class="hidden-box">
             <div class="welcome-banner" style="background: #f1f5f9; padding: 15px; border-radius: 8px; border-left: 5px solid #8b5cf6; margin-bottom: 20px;">
                 <span style="font-weight:900; font-size:1.3rem;">OPERATIONAL WORKSPACE ACTIVE</span><br>
                 User: <span id="display-name" style="font-weight: 700;">Student</span> | Role: <span id="display-role" style="font-weight: 700;">Member</span>
             </div>
 
-            <!-- 🏠 LIVE HISTORY TRACKING CARD -->
             <div class="card" style="border: 3px solid #f59e0b; background: #fffdf5; margin-bottom: 25px;">
                 <h2>📅 Official House Meetings Tracking Roster</h2>
                 <p style="color: #b45309; font-weight: 500;">Historical register detailing official structural meetings, schedules, and resolution agendas.</p>
@@ -407,7 +397,6 @@
                 </div>
             </div>
 
-            <!-- ATTENDANCE SUBMISSION CONTAINER (Available to all Prefects) -->
             <div id="student-apply-attendance-box" class="card" style="border: 2px solid #3b82f6; margin-bottom: 25px; padding: 20px;">
                 <h3 style="margin-top:0; color:#1d4ed8; text-transform:uppercase;">📝 Apply For Attendance Verification</h3>
                 <form onsubmit="handleStudentAttendanceApplicationSubmit(event)">
@@ -433,7 +422,6 @@
                 </form>
             </div>
 
-            <!-- STREAM LAB PANEL -->
             <div id="student-house-meeting-box" class="meeting-widget-card" style="margin-bottom: 25px;">
                 <h3>📢 UPCOMING HOUSE MEETINGS</h3>
                 <div id="live-meeting-text">No house meetings scheduled currently.</div>
@@ -468,7 +456,6 @@
                 </table>
             </div>
 
-            <!-- 👑 EXCLUSIVE SYSTEM ENGINE SUBSECTION CONTROL -->
             <div id="council-panel" class="captain-panel" style="display:none;">
                 <h2>House Council Global Data Engine</h2>
                 
@@ -631,7 +618,6 @@
                     </form>
                 </div>
 
-                <!-- 📝 COMPOSE AND LAUNCH OFFICIAL BLOG POSTS CARD -->
                 <div style="background: #ecfdf5; padding: 15px; border-radius: 8px; border: 2px solid #10b981; margin-bottom: 25px;">
                     <h3 style="color: #059669; margin-top: 0;">✍️ Compose & Launch Official Blog Posts</h3>
                     <form onsubmit="directPublishNewBlog(event)">
@@ -757,7 +743,6 @@
                 </form>
             </div>
 
-            <!-- Operations Bridge Section -->
             <div id="masterAdminBridge" class="admin-bridge-overlay" style="display: none; margin-top: 25px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid #002d72; padding-bottom: 10px;">
                     <h3 style="color: #002d72; margin: 0; font-weight: 900;">🦅 ARAVALI HUB CENTRAL OPERATIONS BRIDGE</h3>
@@ -873,14 +858,14 @@
         if (hasRegistered === "true") {
             isSignupFlowActive = false;
             if (flowHeading) flowHeading.innerText = "Student Portal Security Access (LOGIN MODE)";
-            if (classRow) classRow.style.display = "none";
-            if (phoneRow) phoneRow.style.display = "none";
+            if (classRow) classRow.style.setProperty('display', 'none', 'important');
+            if (phoneRow) phoneRow.style.setProperty('display', 'none', 'important');
             if (mainActionBtn) mainActionBtn.innerText = "VERIFY IDENTITY NODE (LOGIN)";
         } else {
             isSignupFlowActive = true;
             if (flowHeading) flowHeading.innerText = "Student Portal Security Access (SIGNUP MODE)";
-            if (classRow) classRow.style.display = "flex";
-            if (phoneRow) phoneRow.style.display = "block";
+            if (classRow) classRow.style.setProperty('display', 'flex', 'important');
+            if (phoneRow) phoneRow.style.setProperty('display', 'block', 'important');
             if (mainActionBtn) mainActionBtn.innerText = "VERIFY IDENTITY & REGISTER NODE";
         }
     }
@@ -934,7 +919,18 @@
         }
 
         if (entryClearance) {
-            // Unmount and completely clean the authorization container block view cleanly
+            // Store the dynamic profile metrics captured during signup workflows
+            if (isSignupFlowActive) {
+                const phoneInputNode = document.getElementById('student-phone-no');
+                if (phoneInputNode && phoneInputNode.value.trim()) {
+                    localStorage.setItem('aravali_user_phone', phoneInputNode.value.trim());
+                }
+            }
+
+            // LOG METRICS TO GOOGLE SHEETS BEFORE CLEARING INPUTS
+            await handleStudentRegistrationSubmit(); 
+            localStorage.setItem('aravali_user_registered', "true");
+
             const loginEl = document.getElementById('login-box');
             const dashEl = document.getElementById('dashboard-box');
             
@@ -953,14 +949,6 @@
             if (document.getElementById('display-role')) document.getElementById('display-role').innerText = currentSessionUser.position;
             if (document.getElementById('form-blog-author')) document.getElementById('form-blog-author').value = currentSessionUser.name;
             if (errorBox) errorBox.style.display = "none";
-
-            // LOG METRICS TO GOOGLE SHEETS
-            await handleStudentRegistrationSubmit(); 
-            
-            if (isSignupFlowActive) {
-                localStorage.setItem('aravali_user_phone', (document.getElementById('student-phone-no') || {value:""}).value.trim());
-            }
-            localStorage.setItem('aravali_user_registered', "true");
 
             try { fetchGlobalMasterDatabaseGrid(); } catch(e) { console.warn("Grid feed offline", e); }
         } else {
@@ -982,17 +970,15 @@
 
         const classInputNode = document.getElementById('student-class');
         const sectionInputNode = document.getElementById('student-section');
-        const phoneInputNode = document.getElementById('student-phone-no');
 
         const finalClass = (classInputNode && classInputNode.value.trim()) ? classInputNode.value.trim() : profileMatch.class;
         const finalSection = (sectionInputNode && sectionInputNode.value.trim()) ? sectionInputNode.value.trim().toUpperCase() : profileMatch.section;
         
-        // Dynamic evaluation path checks if a phone string exists or fallbacks on cache records
-        let finalPhone = "N/A";
-        if (isSignupFlowActive && phoneInputNode && phoneInputNode.value.trim()) {
-            finalPhone = phoneInputNode.value.trim();
-        } else {
-            finalPhone = localStorage.getItem('aravali_user_phone') || "Login Verified Node";
+        // Check for persistent localStorage metrics cache directly to bypass placeholder glitches
+        let finalPhone = localStorage.getItem('aravali_user_phone');
+        if (!finalPhone || finalPhone.trim() === "") {
+            const phoneInputNode = document.getElementById('student-phone-no');
+            finalPhone = (phoneInputNode && phoneInputNode.value.trim()) ? phoneInputNode.value.trim() : "Active Login Connection";
         }
 
         const payload = {
@@ -1000,7 +986,7 @@
             name: nameVal,
             class: finalClass,
             section: finalSection,
-            admissionNo: (document.getElementById('student-admission-no') || {value:""}).value.trim().toUpperCase(),
+            admissionNo: (document.getElementById('admission-no') || document.getElementById('student-admission-no') || {value:""}).value.trim().toUpperCase(),
             email: (document.getElementById('student-email-id') || {value:""}).value.trim(),
             phone: finalPhone,
             position: (document.getElementById('student-position') || {value:"MEMBER"}).value.toUpperCase(),
@@ -1114,7 +1100,6 @@
         } catch (err) { alert("❌ Error: " + err); }
     }
 
-    // Auxiliary stubs
     function syncDirectStudentFormDetails() {}
     function handleDirectUnilateralAttendanceMark(e) { if(e) e.preventDefault(); }
     function handleCaptainCellOverrideSubmit(e) { if(e) e.preventDefault(); }
@@ -1198,7 +1183,7 @@
         
         // Bring login block cleanly into the foreground
         document.getElementById('login-box').style.setProperty('display', 'block', 'important');
-        document.getElementById('login-box').className = "visible-box card card-portal";
+        document.getElementById('login-box').className = "card card-portal visible-box";
         
         syncPortalLayoutFlowMode();
     }
