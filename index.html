@@ -932,7 +932,6 @@
         }
 
         if (entryClearance) {
-            // Toggle view visibility elements cleanly for standardized successful workflows
             const loginEl = document.getElementById('login-box');
             const dashEl = document.getElementById('dashboard-box');
             if (loginEl) loginEl.style.display = "none";
@@ -970,14 +969,28 @@
     async function handleStudentRegistrationSubmit() {
         console.log("Transmitting valid registration payload parameters to database...");
 
+        // Safety fallback checks if fields are hidden during returning user LOGIN mode
+        const nameVal = (document.getElementById('student-name') || {value:""}).value.trim().toUpperCase();
+        
+        // Lookup matching profile metrics within static directory array if fields are hidden
+        const profileMatch = authorizedStudents.find(s => s.name === nameVal) || { class: "9", section: "A" };
+
+        const classInputNode = document.getElementById('student-class');
+        const sectionInputNode = document.getElementById('student-section');
+        const phoneInputNode = document.getElementById('student-phone-no');
+
+        const finalClass = (classInputNode && classInputNode.value.trim()) ? classInputNode.value.trim() : profileMatch.class;
+        const finalSection = (sectionInputNode && sectionInputNode.value.trim()) ? sectionInputNode.value.trim().toUpperCase() : profileMatch.section;
+        const finalPhone = (phoneInputNode && phoneInputNode.value.trim()) ? phoneInputNode.value.trim() : "Saved Returning Login";
+
         const payload = {
             action: "registerStudent",
-            name: (document.getElementById('student-name') || {value:""}).value.trim().toUpperCase(),
-            class: (document.getElementById('student-class') || {value:"9"}).value.trim(),
-            section: (document.getElementById('student-section') || {value:"A"}).value.trim().toUpperCase(),
+            name: nameVal,
+            class: finalClass,
+            section: finalSection,
             admissionNo: (document.getElementById('student-admission-no') || {value:""}).value.trim().toUpperCase(),
             email: (document.getElementById('student-email-id') || {value:""}).value.trim(),
-            phone: (document.getElementById('student-phone-no') || {value:"N/A"}).value.trim(),
+            phone: finalPhone,
             position: (document.getElementById('student-position') || {value:"MEMBER"}).value.toUpperCase(),
             password: (document.getElementById('student-password') || {value:""}).value.trim()
         };
@@ -1102,7 +1115,7 @@
     function manualAddAttendanceRow(e) { if(e) e.preventDefault(); }
     function directAddAchiever(e) { if(e) e.preventDefault(); }
     function fetchLiveDatabaseGrid() { fetchGlobalMasterDatabaseGrid(); }
-    function applyBlogFiltersMatrix() {}
+    function applyBlogFilters() {}
     function resetBlogFiltersMatrix() { fetchGlobalMasterDatabaseGrid(); }
 
     // ==========================================================================
@@ -1162,7 +1175,6 @@
     function handleLogout() {
         currentSessionUser = null;
         
-        // Visual resets
         document.getElementById('login-box').style.setProperty('display', 'block', 'important');
         document.getElementById('login-box').className = "visible-box";
         document.getElementById('dashboard-box').style.setProperty('display', 'none', 'important');
@@ -1171,7 +1183,6 @@
         document.getElementById('council-panel').style.display = "none";
         document.getElementById('masterAdminBridge').style.display = "none";
         
-        // Sync registration display options safely
         syncPortalLayoutFlowMode();
     }
 
